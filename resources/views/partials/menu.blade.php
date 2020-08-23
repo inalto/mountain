@@ -128,7 +128,9 @@
                     </li>
                 @endcan
                 @can('inalto_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }}">
+
+                    <li class="nav-item has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }} {{ request()->is("admin/reports-categories*") ? "menu-open" : "" }}">
+
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-walking">
 
@@ -163,6 +165,71 @@
                                     </a>
                                 </li>
                             @endcan
+
+                            @can('reports_category_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.reports-categories.index") }}" class="nav-link {{ request()->is("admin/reports-categories") || request()->is("admin/reports-categories/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-list">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.reportsCategory.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcan
+                @can('news_access')
+                    <li class="nav-item has-treeview {{ request()->is("admin/news-posts*") ? "menu-open" : "" }} {{ request()->is("admin/news-categories*") ? "menu-open" : "" }} {{ request()->is("admin/news-tags*") ? "menu-open" : "" }}">
+                        <a class="nav-link nav-dropdown-toggle" href="#">
+                            <i class="fa-fw nav-icon far fa-newspaper">
+
+                            </i>
+                            <p>
+                                {{ trans('cruds.news.title') }}
+                                <i class="right fa fa-fw fa-angle-left nav-icon"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            @can('news_post_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.news-posts.index") }}" class="nav-link {{ request()->is("admin/news-posts") || request()->is("admin/news-posts/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon far fa-file-alt">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.newsPost.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('news_category_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.news-categories.index") }}" class="nav-link {{ request()->is("admin/news-categories") || request()->is("admin/news-categories/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-list">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.newsCategory.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('news_tag_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.news-tags.index") }}" class="nav-link {{ request()->is("admin/news-tags") || request()->is("admin/news-tags/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-tags">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.newsTag.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+
                         </ul>
                     </li>
                 @endcan

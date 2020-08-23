@@ -5,7 +5,9 @@ namespace App\Http\Requests;
 use App\ReportsTag;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+
+use Illuminate\Http\Response;
+
 
 class StoreReportsTagRequest extends FormRequest
 {
@@ -19,11 +21,15 @@ class StoreReportsTagRequest extends FormRequest
     public function rules()
     {
         return [
-            'reports.*' => [
-                'integer',
+
+            'name' => [
+                'string',
+                'required',
             ],
-            'reports'   => [
-                'array',
+            'slug' => [
+                'string',
+                'nullable',
+
             ],
         ];
     }

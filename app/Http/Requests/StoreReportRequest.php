@@ -19,10 +19,28 @@ class StoreReportRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => [
+
+            'title'        => [
                 'string',
                 'required',
             ],
+            'slug'         => [
+                'string',
+                'nullable',
+            ],
+            'categories.*' => [
+                'integer',
+            ],
+            'categories'   => [
+                'array',
+            ],
+            'tags.*'       => [
+                'integer',
+            ],
+            'tags'         => [
+                'array',
+            ],
+
         ];
     }
 }

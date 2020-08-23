@@ -8,6 +8,10 @@ use App\Http\Requests\MassDestroyReportRequest;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 use App\Report;
+
+use App\ReportsCategory;
+use App\ReportsTag;
+
 use App\User;
 use Gate;
 use Illuminate\Http\Request;
@@ -24,21 +28,37 @@ class ReportsController extends Controller
 
         $reports = Report::all();
 
+
+        $reports_categories = ReportsCategory::get();
+
+        $reports_tags = ReportsTag::get();
+
         $users = User::get();
 
-        return view('admin.reports.index', compact('reports', 'users'));
+        return view('admin.reports.index', compact('reports', 'reports_categories', 'reports_tags', 'users'));
+
     }
 
     public function create()
     {
         abort_if(Gate::denies('report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.reports.create');
+
+        $categories = ReportsCategory::all()->pluck('title', 'id');
+
+        $tags = ReportsTag::all()->pluck('name', 'id');
+
+        return view('admin.reports.create', compact('categories', 'tags'));
+
     }
 
     public function store(StoreReportRequest $request)
     {
         $report = Report::create($request->all());
+
+        $report->categories()->sync($request->input('categories', []));
+        $report->tags()->sync($request->input('tags', []));
+
 
         foreach ($request->input('photos', []) as $file) {
             $report->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('photos');
@@ -59,14 +79,24 @@ class ReportsController extends Controller
     {
         abort_if(Gate::denies('report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $report->load('created_by');
 
-        return view('admin.reports.edit', compact('report'));
+        $categories = ReportsCategory::all()->pluck('title', 'id');
+
+        $tags = ReportsTag::all()->pluck('name', 'id');
+
+        $report->load('categories', 'tags', 'created_by');
+
+        return view('admin.reports.edit', compact('categories', 'tags', 'report'));
+
     }
 
     public function update(UpdateReportRequest $request, Report $report)
     {
         $report->update($request->all());
+
+        $report->categories()->sync($request->input('categories', []));
+        $report->tags()->sync($request->input('tags', []));
+
 
         if (count($report->photos) > 0) {
             foreach ($report->photos as $media) {
@@ -107,7 +137,9 @@ class ReportsController extends Controller
     {
         abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $report->load('created_by');
+
+        $report->load('categories', 'tags', 'created_by');
+
 
         return view('admin.reports.show', compact('report'));
     }

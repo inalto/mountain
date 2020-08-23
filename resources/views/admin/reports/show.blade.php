@@ -33,6 +33,16 @@
                     </tr>
                     <tr>
                         <th>
+
+                            {{ trans('cruds.report.fields.slug') }}
+                        </th>
+                        <td>
+                            {{ $report->slug }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+
                             {{ trans('cruds.report.fields.difficulty') }}
                         </th>
                         <td>
@@ -41,18 +51,22 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.report.fields.description_short') }}
+
+                            {{ trans('cruds.report.fields.excerpt') }}
                         </th>
                         <td>
-                            {{ $report->description_short }}
+                            {{ $report->excerpt }}
+
                         </td>
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.report.fields.description') }}
+
+                            {{ trans('cruds.report.fields.content') }}
                         </th>
                         <td>
-                            {!! $report->description !!}
+                            {!! $report->content !!}
+
                         </td>
                     </tr>
                     <tr>
@@ -79,6 +93,28 @@
                             @endforeach
                         </td>
                     </tr>
+
+                    <tr>
+                        <th>
+                            {{ trans('cruds.report.fields.categories') }}
+                        </th>
+                        <td>
+                            @foreach($report->categories as $key => $categories)
+                                <span class="label label-info">{{ $categories->title }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.report.fields.tags') }}
+                        </th>
+                        <td>
+                            @foreach($report->tags as $key => $tags)
+                                <span class="label label-info">{{ $tags->name }}</span>
+                            @endforeach
+                        </td>
+                    </tr>
+
                 </tbody>
             </table>
             <div class="form-group">

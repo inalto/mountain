@@ -33,12 +33,12 @@
                     </tr>
                     <tr>
                         <th>
-                            {{ trans('cruds.reportsTag.fields.reports') }}
+
+                            {{ trans('cruds.reportsTag.fields.slug') }}
                         </th>
                         <td>
-                            @foreach($reportsTag->reports as $key => $reports)
-                                <span class="label label-info">{{ $reports->title }}</span>
-                            @endforeach
+                            {{ $reportsTag->slug }}
+
                         </td>
                     </tr>
                 </tbody>

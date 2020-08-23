@@ -29,7 +29,9 @@
                             {{ trans('cruds.reportsTag.fields.name') }}
                         </th>
                         <th>
-                            {{ trans('cruds.reportsTag.fields.reports') }}
+
+                            {{ trans('cruds.reportsTag.fields.slug') }}
+
                         </th>
                         <th>
                             &nbsp;
@@ -49,9 +51,9 @@
                                 {{ $reportsTag->name ?? '' }}
                             </td>
                             <td>
-                                @foreach($reportsTag->reports as $key => $item)
-                                    <span class="badge badge-info">{{ $item->title }}</span>
-                                @endforeach
+
+                                {{ $reportsTag->slug ?? '' }}
+
                             </td>
                             <td>
                                 @can('reports_tag_show')
