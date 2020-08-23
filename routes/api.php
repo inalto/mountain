@@ -24,6 +24,7 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::post('reports/media', 'ReportsApiController@storeMedia')->name('reports.storeMedia');
     Route::apiResource('reports', 'ReportsApiController');
 
+
     // News Posts
     Route::post('news-posts/media', 'NewsPostApiController@storeMedia')->name('news-posts.storeMedia');
     Route::apiResource('news-posts', 'NewsPostApiController');
@@ -40,4 +41,5 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Reports Categories
     Route::post('reports-categories/media', 'ReportsCategoryApiController@storeMedia')->name('reports-categories.storeMedia');
     Route::apiResource('reports-categories', 'ReportsCategoryApiController');
+
 });

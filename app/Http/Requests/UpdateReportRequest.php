@@ -19,6 +19,7 @@ class UpdateReportRequest extends FormRequest
     public function rules()
     {
         return [
+
             'title'        => [
                 'string',
                 'required',
@@ -39,6 +40,7 @@ class UpdateReportRequest extends FormRequest
             'tags'         => [
                 'array',
             ],
+
         ];
     }
 }

@@ -33,10 +33,12 @@
                     </tr>
                     <tr>
                         <th>
+
                             {{ trans('cruds.reportsTag.fields.slug') }}
                         </th>
                         <td>
                             {{ $reportsTag->slug }}
+
                         </td>
                     </tr>
                 </tbody>

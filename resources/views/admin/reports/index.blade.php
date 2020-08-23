@@ -29,6 +29,7 @@
                             {{ trans('cruds.report.fields.title') }}
                         </th>
                         <th>
+
                             {{ trans('cruds.report.fields.slug') }}
                         </th>
                         <th>
@@ -36,6 +37,7 @@
                         </th>
                         <th>
                             {{ trans('cruds.report.fields.excerpt') }}
+
                         </th>
                         <th>
                             {{ trans('cruds.report.fields.photos') }}
@@ -47,12 +49,14 @@
                             {{ trans('cruds.report.fields.created_at') }}
                         </th>
                         <th>
+
                             {{ trans('cruds.report.fields.categories') }}
                         </th>
                         <th>
                             {{ trans('cruds.report.fields.tags') }}
                         </th>
                         <th>
+
                             &nbsp;
                         </th>
                     </tr>
@@ -66,9 +70,11 @@
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
+
                             <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                         </td>
                         <td>
+
                             <select class="search" strict="true">
                                 <option value>{{ trans('global.all') }}</option>
                                 @foreach(App\Report::DIFFICULTY_SELECT as $key => $item)
@@ -86,6 +92,7 @@
                         <td>
                         </td>
                         <td>
+
                             <select class="search">
                                 <option value>{{ trans('global.all') }}</option>
                                 @foreach($reports_categories as $key => $item)
@@ -102,6 +109,7 @@
                             </select>
                         </td>
                         <td>
+
                         </td>
                     </tr>
                 </thead>
@@ -118,6 +126,7 @@
                                 {{ $report->title ?? '' }}
                             </td>
                             <td>
+
                                 {{ $report->slug ?? '' }}
                             </td>
                             <td>
@@ -125,6 +134,7 @@
                             </td>
                             <td>
                                 {{ $report->excerpt ?? '' }}
+
                             </td>
                             <td>
                                 @foreach($report->photos as $key => $media)
@@ -144,6 +154,7 @@
                                 {{ $report->created_at ?? '' }}
                             </td>
                             <td>
+
                                 @foreach($report->categories as $key => $item)
                                     <span class="badge badge-info">{{ $item->title }}</span>
                                 @endforeach
@@ -154,6 +165,7 @@
                                 @endforeach
                             </td>
                             <td>
+
                                 @can('report_show')
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.reports.show', $report->id) }}">
                                         {{ trans('global.view') }}

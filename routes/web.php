@@ -47,6 +47,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('reports/ckmedia', 'ReportsController@storeCKEditorImages')->name('reports.storeCKEditorImages');
     Route::resource('reports', 'ReportsController');
 
+
     // News Posts
     Route::delete('news-posts/destroy', 'NewsPostController@massDestroy')->name('news-posts.massDestroy');
     Route::post('news-posts/media', 'NewsPostController@storeMedia')->name('news-posts.storeMedia');
@@ -70,6 +71,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('reports-categories/media', 'ReportsCategoryController@storeMedia')->name('reports-categories.storeMedia');
     Route::post('reports-categories/ckmedia', 'ReportsCategoryController@storeCKEditorImages')->name('reports-categories.storeCKEditorImages');
     Route::resource('reports-categories', 'ReportsCategoryController');
+
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });
