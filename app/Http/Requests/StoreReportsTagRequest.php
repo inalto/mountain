@@ -5,7 +5,9 @@ namespace App\Http\Requests;
 use App\ReportsTag;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
+
 use Illuminate\Http\Response;
+
 
 class StoreReportsTagRequest extends FormRequest
 {
@@ -19,6 +21,7 @@ class StoreReportsTagRequest extends FormRequest
     public function rules()
     {
         return [
+
             'name' => [
                 'string',
                 'required',
@@ -26,6 +29,7 @@ class StoreReportsTagRequest extends FormRequest
             'slug' => [
                 'string',
                 'nullable',
+
             ],
         ];
     }

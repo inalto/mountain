@@ -9,6 +9,7 @@ class PermissionsTableSeeder extends Seeder
     {
         $permissions = [
             [
+
                 'id'    => 1,
                 'title' => 'user_management_access',
             ],
@@ -266,6 +267,7 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 65,
+
                 'title' => 'profile_password_edit',
             ],
         ];

@@ -20,14 +20,18 @@ class ReportsApiController extends Controller
     {
         abort_if(Gate::denies('report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+
         return new ReportResource(Report::with(['categories', 'tags', 'created_by'])->get());
+
     }
 
     public function store(StoreReportRequest $request)
     {
         $report = Report::create($request->all());
+
         $report->categories()->sync($request->input('categories', []));
         $report->tags()->sync($request->input('tags', []));
+
 
         if ($request->input('photos', false)) {
             $report->addMedia(storage_path('tmp/uploads/' . $request->input('photos')))->toMediaCollection('photos');
@@ -46,14 +50,18 @@ class ReportsApiController extends Controller
     {
         abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
+
         return new ReportResource($report->load(['categories', 'tags', 'created_by']));
+
     }
 
     public function update(UpdateReportRequest $request, Report $report)
     {
         $report->update($request->all());
+
         $report->categories()->sync($request->input('categories', []));
         $report->tags()->sync($request->input('tags', []));
+
 
         if ($request->input('photos', false)) {
             if (!$report->photos || $request->input('photos') !== $report->photos->file_name) {

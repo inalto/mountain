@@ -128,7 +128,9 @@
                     </li>
                 @endcan
                 @can('inalto_access')
+
                     <li class="nav-item has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }} {{ request()->is("admin/reports-categories*") ? "menu-open" : "" }}">
+
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-walking">
 
@@ -163,6 +165,7 @@
                                     </a>
                                 </li>
                             @endcan
+
                             @can('reports_category_access')
                                 <li class="nav-item">
                                     <a href="{{ route("admin.reports-categories.index") }}" class="nav-link {{ request()->is("admin/reports-categories") || request()->is("admin/reports-categories/*") ? "active" : "" }}">
@@ -226,6 +229,7 @@
                                     </a>
                                 </li>
                             @endcan
+
                         </ul>
                     </li>
                 @endcan

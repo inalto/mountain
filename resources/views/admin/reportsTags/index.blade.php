@@ -29,7 +29,9 @@
                             {{ trans('cruds.reportsTag.fields.name') }}
                         </th>
                         <th>
+
                             {{ trans('cruds.reportsTag.fields.slug') }}
+
                         </th>
                         <th>
                             &nbsp;
@@ -49,7 +51,9 @@
                                 {{ $reportsTag->name ?? '' }}
                             </td>
                             <td>
+
                                 {{ $reportsTag->slug ?? '' }}
+
                             </td>
                             <td>
                                 @can('reports_tag_show')
