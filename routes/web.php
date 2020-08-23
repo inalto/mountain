@@ -47,9 +47,31 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('reports/ckmedia', 'ReportsController@storeCKEditorImages')->name('reports.storeCKEditorImages');
     Route::resource('reports', 'ReportsController');
 
+
+    // News Posts
+    Route::delete('news-posts/destroy', 'NewsPostController@massDestroy')->name('news-posts.massDestroy');
+    Route::post('news-posts/media', 'NewsPostController@storeMedia')->name('news-posts.storeMedia');
+    Route::post('news-posts/ckmedia', 'NewsPostController@storeCKEditorImages')->name('news-posts.storeCKEditorImages');
+    Route::resource('news-posts', 'NewsPostController');
+
+    // News Categories
+    Route::delete('news-categories/destroy', 'NewsCategoryController@massDestroy')->name('news-categories.massDestroy');
+    Route::resource('news-categories', 'NewsCategoryController');
+
+    // News Tags
+    Route::delete('news-tags/destroy', 'NewsTagController@massDestroy')->name('news-tags.massDestroy');
+    Route::resource('news-tags', 'NewsTagController');
+
     // Reports Tags
-    Route::delete('reports-tags/destroy', 'ReportsTagsController@massDestroy')->name('reports-tags.massDestroy');
-    Route::resource('reports-tags', 'ReportsTagsController');
+    Route::delete('reports-tags/destroy', 'ReportsTagController@massDestroy')->name('reports-tags.massDestroy');
+    Route::resource('reports-tags', 'ReportsTagController');
+
+    // Reports Categories
+    Route::delete('reports-categories/destroy', 'ReportsCategoryController@massDestroy')->name('reports-categories.massDestroy');
+    Route::post('reports-categories/media', 'ReportsCategoryController@storeMedia')->name('reports-categories.storeMedia');
+    Route::post('reports-categories/ckmedia', 'ReportsCategoryController@storeCKEditorImages')->name('reports-categories.storeCKEditorImages');
+    Route::resource('reports-categories', 'ReportsCategoryController');
+
 
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });

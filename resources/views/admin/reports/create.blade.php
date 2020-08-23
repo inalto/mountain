@@ -18,6 +18,16 @@
                 <span class="help-block">{{ trans('cruds.report.fields.title_helper') }}</span>
             </div>
             <div class="form-group">
+
+                <label for="slug">{{ trans('cruds.report.fields.slug') }}</label>
+                <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug" value="{{ old('slug', '') }}">
+                @if($errors->has('slug'))
+                    <span class="text-danger">{{ $errors->first('slug') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.report.fields.slug_helper') }}</span>
+            </div>
+            <div class="form-group">
+
                 <label>{{ trans('cruds.report.fields.difficulty') }}</label>
                 <select class="form-control {{ $errors->has('difficulty') ? 'is-invalid' : '' }}" name="difficulty" id="difficulty">
                     <option value disabled {{ old('difficulty', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
@@ -31,20 +41,22 @@
                 <span class="help-block">{{ trans('cruds.report.fields.difficulty_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="description_short">{{ trans('cruds.report.fields.description_short') }}</label>
-                <textarea class="form-control {{ $errors->has('description_short') ? 'is-invalid' : '' }}" name="description_short" id="description_short">{{ old('description_short') }}</textarea>
-                @if($errors->has('description_short'))
-                    <span class="text-danger">{{ $errors->first('description_short') }}</span>
+
+                <label for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</label>
+                <textarea class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt" id="excerpt">{{ old('excerpt') }}</textarea>
+                @if($errors->has('excerpt'))
+                    <span class="text-danger">{{ $errors->first('excerpt') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.report.fields.description_short_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.report.fields.excerpt_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="description">{{ trans('cruds.report.fields.description') }}</label>
-                <textarea class="form-control ckeditor {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{!! old('description') !!}</textarea>
-                @if($errors->has('description'))
-                    <span class="text-danger">{{ $errors->first('description') }}</span>
+                <label for="content">{{ trans('cruds.report.fields.content') }}</label>
+                <textarea class="form-control ckeditor {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content" id="content">{!! old('content') !!}</textarea>
+                @if($errors->has('content'))
+                    <span class="text-danger">{{ $errors->first('content') }}</span>
                 @endif
-                <span class="help-block">{{ trans('cruds.report.fields.description_helper') }}</span>
+                <span class="help-block">{{ trans('cruds.report.fields.content_helper') }}</span>
+
             </div>
             <div class="form-group">
                 <label for="photos">{{ trans('cruds.report.fields.photos') }}</label>
@@ -65,6 +77,40 @@
                 <span class="help-block">{{ trans('cruds.report.fields.tracks_helper') }}</span>
             </div>
             <div class="form-group">
+
+                <label for="categories">{{ trans('cruds.report.fields.categories') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('categories') ? 'is-invalid' : '' }}" name="categories[]" id="categories" multiple>
+                    @foreach($categories as $id => $categories)
+                        <option value="{{ $id }}" {{ in_array($id, old('categories', [])) ? 'selected' : '' }}>{{ $categories }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('categories'))
+                    <span class="text-danger">{{ $errors->first('categories') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.report.fields.categories_helper') }}</span>
+            </div>
+            <div class="form-group">
+                <label for="tags">{{ trans('cruds.report.fields.tags') }}</label>
+                <div style="padding-bottom: 4px">
+                    <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
+                    <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
+                </div>
+                <select class="form-control select2 {{ $errors->has('tags') ? 'is-invalid' : '' }}" name="tags[]" id="tags" multiple>
+                    @foreach($tags as $id => $tags)
+                        <option value="{{ $id }}" {{ in_array($id, old('tags', [])) ? 'selected' : '' }}>{{ $tags }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('tags'))
+                    <span class="text-danger">{{ $errors->first('tags') }}</span>
+                @endif
+                <span class="help-block">{{ trans('cruds.report.fields.tags_helper') }}</span>
+            </div>
+            <div class="form-group">
+
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

@@ -37,9 +37,12 @@ class Report extends Model implements HasMedia
 
     protected $fillable = [
         'title',
+
+        'slug',
         'difficulty',
-        'description_short',
-        'description',
+        'excerpt',
+        'content',
+
         'created_at',
         'updated_at',
         'deleted_at',
@@ -73,6 +76,18 @@ class Report extends Model implements HasMedia
     {
         return $this->getMedia('tracks');
     }
+
+
+    public function categories()
+    {
+        return $this->belongsToMany(ReportsCategory::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(ReportsTag::class);
+    }
+
 
     public function created_by()
     {

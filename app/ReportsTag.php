@@ -20,6 +20,7 @@ class ReportsTag extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'created_at',
         'updated_at',
         'deleted_at',
@@ -34,4 +35,5 @@ class ReportsTag extends Model
     {
         return $this->belongsToMany(Report::class);
     }
+
 }
