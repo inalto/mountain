@@ -19,7 +19,6 @@ class StoreReportRequest extends FormRequest
     public function rules()
     {
         return [
-
             'title'        => [
                 'string',
                 'required',
@@ -40,7 +39,6 @@ class StoreReportRequest extends FormRequest
             'tags'         => [
                 'array',
             ],
-
         ];
     }
 }
