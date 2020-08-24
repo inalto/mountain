@@ -10,10 +10,8 @@ class CreateReportsTagsTable extends Migration
     {
         Schema::create('reports_tags', function (Blueprint $table) {
             $table->increments('id');
-
             $table->string('name');
             $table->string('slug')->nullable();
-
             $table->timestamps();
             $table->softDeletes();
         });
