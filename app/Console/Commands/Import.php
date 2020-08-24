@@ -56,7 +56,7 @@ class Import extends Command
             $r = new Report;
 
             $r->title = $value->title;
-            $r->description = $value->body;
+            $r->content = $value->body;
             $r->save();
 
             $this->info($value->title);
