@@ -145,7 +145,6 @@ return [
         'title'          => 'Reports',
         'title_singular' => 'Report',
         'fields'         => [
-
             'id'                => 'ID',
             'id_helper'         => '',
             'title'             => 'Title',
@@ -238,7 +237,6 @@ return [
             'deleted_at_helper' => '',
             'slug'              => 'Slug',
             'slug_helper'       => '',
-
         ],
     ],
     'reportsTag'        => [
@@ -249,10 +247,8 @@ return [
             'id_helper'         => '',
             'name'              => 'Name',
             'name_helper'       => '',
-
             'slug'              => 'Slug',
             'slug_helper'       => '',
-
             'created_at'        => 'Created at',
             'created_at_helper' => '',
             'updated_at'        => 'Updated at',
@@ -261,7 +257,6 @@ return [
             'deleted_at_helper' => '',
         ],
     ],
-
     'reportsCategory'   => [
         'title'          => 'Categories',
         'title_singular' => 'Category',
@@ -282,5 +277,4 @@ return [
             'deleted_at_helper'  => '',
         ],
     ],
-
 ];
