@@ -53,6 +53,10 @@ class ContentPageApiController extends Controller
 
         if ($request->input('featured_image', false)) {
             if (!$contentPage->featured_image || $request->input('featured_image') !== $contentPage->featured_image->file_name) {
+                if ($contentPage->featured_image) {
+                    $contentPage->featured_image->delete();
+                }
+
                 $contentPage->addMedia(storage_path('tmp/uploads/' . $request->input('featured_image')))->toMediaCollection('featured_image');
             }
         } elseif ($contentPage->featured_image) {

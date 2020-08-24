@@ -47,7 +47,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('reports/ckmedia', 'ReportsController@storeCKEditorImages')->name('reports.storeCKEditorImages');
     Route::resource('reports', 'ReportsController');
 
-
     // News Posts
     Route::delete('news-posts/destroy', 'NewsPostController@massDestroy')->name('news-posts.massDestroy');
     Route::post('news-posts/media', 'NewsPostController@storeMedia')->name('news-posts.storeMedia');
@@ -72,7 +71,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('reports-categories/ckmedia', 'ReportsCategoryController@storeCKEditorImages')->name('reports-categories.storeCKEditorImages');
     Route::resource('reports-categories', 'ReportsCategoryController');
 
-
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -82,6 +80,3 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('password', 'ChangePasswordController@update')->name('password.update');
     }
 });
-// Social Login Routes..
-Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
-Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');

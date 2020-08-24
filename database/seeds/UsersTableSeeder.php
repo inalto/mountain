@@ -12,10 +12,10 @@ class UsersTableSeeder extends Seeder
                 'id'                 => 1,
                 'name'               => 'Admin',
                 'email'              => 'admin@admin.com',
-                'password'           => '$2y$10$TY9Pm1u7XDzrjW6BPQbUz.3KTdo2tToL0R9mmPFPypaw9tvr0ytt6',
+                'password'           => bcrypt('password'),
                 'remember_token'     => null,
                 'verified'           => 1,
-                'verified_at'        => '2020-06-26 07:29:44',
+                'verified_at'        => '2020-08-24 01:20:39',
                 'verification_token' => '',
             ],
         ];
