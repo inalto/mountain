@@ -80,3 +80,8 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('password', 'ChangePasswordController@update')->name('password.update');
     }
 });
+
+// Social Login Routes..
+Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
+Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');
+
