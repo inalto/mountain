@@ -18,7 +18,6 @@
                 <span class="help-block">{{ trans('cruds.report.fields.title_helper') }}</span>
             </div>
             <div class="form-group">
-
                 <label for="slug">{{ trans('cruds.report.fields.slug') }}</label>
                 <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug" value="{{ old('slug', '') }}">
                 @if($errors->has('slug'))
@@ -27,7 +26,6 @@
                 <span class="help-block">{{ trans('cruds.report.fields.slug_helper') }}</span>
             </div>
             <div class="form-group">
-
                 <label>{{ trans('cruds.report.fields.difficulty') }}</label>
                 <select class="form-control {{ $errors->has('difficulty') ? 'is-invalid' : '' }}" name="difficulty" id="difficulty">
                     <option value disabled {{ old('difficulty', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
@@ -41,7 +39,6 @@
                 <span class="help-block">{{ trans('cruds.report.fields.difficulty_helper') }}</span>
             </div>
             <div class="form-group">
-
                 <label for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</label>
                 <textarea class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt" id="excerpt">{{ old('excerpt') }}</textarea>
                 @if($errors->has('excerpt'))
@@ -56,7 +53,6 @@
                     <span class="text-danger">{{ $errors->first('content') }}</span>
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.content_helper') }}</span>
-
             </div>
             <div class="form-group">
                 <label for="photos">{{ trans('cruds.report.fields.photos') }}</label>
@@ -77,7 +73,6 @@
                 <span class="help-block">{{ trans('cruds.report.fields.tracks_helper') }}</span>
             </div>
             <div class="form-group">
-
                 <label for="categories">{{ trans('cruds.report.fields.categories') }}</label>
                 <div style="padding-bottom: 4px">
                     <span class="btn btn-info btn-xs select-all" style="border-radius: 0">{{ trans('global.select_all') }}</span>
@@ -110,7 +105,6 @@
                 <span class="help-block">{{ trans('cruds.report.fields.tags_helper') }}</span>
             </div>
             <div class="form-group">
-
                 <button class="btn btn-danger" type="submit">
                     {{ trans('global.save') }}
                 </button>

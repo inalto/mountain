@@ -33,7 +33,6 @@
                     </tr>
                     <tr>
                         <th>
-
                             {{ trans('cruds.report.fields.slug') }}
                         </th>
                         <td>
@@ -42,7 +41,6 @@
                     </tr>
                     <tr>
                         <th>
-
                             {{ trans('cruds.report.fields.difficulty') }}
                         </th>
                         <td>
@@ -51,22 +49,18 @@
                     </tr>
                     <tr>
                         <th>
-
                             {{ trans('cruds.report.fields.excerpt') }}
                         </th>
                         <td>
                             {{ $report->excerpt }}
-
                         </td>
                     </tr>
                     <tr>
                         <th>
-
                             {{ trans('cruds.report.fields.content') }}
                         </th>
                         <td>
                             {!! $report->content !!}
-
                         </td>
                     </tr>
                     <tr>
@@ -93,7 +87,6 @@
                             @endforeach
                         </td>
                     </tr>
-
                     <tr>
                         <th>
                             {{ trans('cruds.report.fields.categories') }}
@@ -114,7 +107,6 @@
                             @endforeach
                         </td>
                     </tr>
-
                 </tbody>
             </table>
             <div class="form-group">
