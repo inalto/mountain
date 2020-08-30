@@ -26,13 +26,12 @@
                 @endif
                 <span class="help-block">{{ trans('cruds.report.fields.slug_helper') }}</span>
             </div>
-           
             <div class="form-group">
                 <label>{{ trans('cruds.report.fields.difficulty') }}</label>
                 <select class="form-control {{ $errors->has('difficulty') ? 'is-invalid' : '' }}" name="difficulty" id="difficulty">
                     <option value disabled {{ old('difficulty', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach($report->difficulty_select as $key => $label)
-                        <option {{ $key === '-' ? 'disabled':''}} @if($key!='-')value="{{ $key }}"@endif {{ old('difficulty', $report->difficulty) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
+                    @foreach(App\Report::DIFFICULTY_SELECT as $key => $label)
+                        <option value="{{ $key }}" {{ old('difficulty', $report->difficulty) === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
                 </select>
                 @if($errors->has('difficulty'))

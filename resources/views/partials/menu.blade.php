@@ -128,7 +128,7 @@
                     </li>
                 @endcan
                 @can('inalto_access')
-                    <li class="nav-item has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }} {{ request()->is("admin/reports-categories*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/pois*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }} {{ request()->is("admin/reports-categories*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-walking">
 
@@ -147,6 +147,18 @@
                                         </i>
                                         <p>
                                             {{ trans('cruds.report.title') }}
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('poi_access')
+                                <li class="nav-item">
+                                    <a href="{{ route("admin.pois.index") }}" class="nav-link {{ request()->is("admin/pois") || request()->is("admin/pois/*") ? "active" : "" }}">
+                                        <i class="fa-fw nav-icon fas fa-cogs">
+
+                                        </i>
+                                        <p>
+                                            {{ trans('cruds.poi.title') }}
                                         </p>
                                     </a>
                                 </li>

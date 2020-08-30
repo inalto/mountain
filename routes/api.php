@@ -40,4 +40,8 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     // Reports Categories
     Route::post('reports-categories/media', 'ReportsCategoryApiController@storeMedia')->name('reports-categories.storeMedia');
     Route::apiResource('reports-categories', 'ReportsCategoryApiController');
+
+    // Pois
+    Route::post('pois/media', 'PoiApiController@storeMedia')->name('pois.storeMedia');
+    Route::apiResource('pois', 'PoiApiController');
 });
