@@ -1,2 +1,5 @@
 <?php
-return ["site_title" => "inalto"];
+
+return [
+    'site_title' => 'inalto',
+];
