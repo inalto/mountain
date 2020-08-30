@@ -1,2 +1,6 @@
 <?php
-return ["next" => "Successiva »", "previous" => "« Precedente"];
+
+return [
+    'previous' => '« Precedente',
+    'next'     => 'Successiva »',
+];

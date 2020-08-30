@@ -24,7 +24,7 @@ class HomeController
             'fields'                => [
                 'title'      => '',
                 'created_at' => '',
-//                'created_by' => 'name',
+                'created_by' => 'name',
             ],
         ];
 
