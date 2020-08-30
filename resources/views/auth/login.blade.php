@@ -59,6 +59,16 @@
                     </div>
                     <!-- /.col -->
                 </div>
+                <div class="row">
+                <div class="col-xs-12">
+                    <a href="{{ route('auth.login.social', 'google') }}" class="btn btn-default">
+                        <i class="fa fa-google"></i> Login with Google
+                    </a>
+                    <a href="{{ route('auth.login.social', 'facebook') }}" class="btn btn-default">
+                        <i class="fa fa-facebook"></i> Login with Facebook
+                    </a>
+                </div>
+            </div>
             </form>
 
 
