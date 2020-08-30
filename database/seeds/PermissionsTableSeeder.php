@@ -266,6 +266,26 @@ class PermissionsTableSeeder extends Seeder
             ],
             [
                 'id'    => 65,
+                'title' => 'poi_create',
+            ],
+            [
+                'id'    => 66,
+                'title' => 'poi_edit',
+            ],
+            [
+                'id'    => 67,
+                'title' => 'poi_show',
+            ],
+            [
+                'id'    => 68,
+                'title' => 'poi_delete',
+            ],
+            [
+                'id'    => 69,
+                'title' => 'poi_access',
+            ],
+            [
+                'id'    => 70,
                 'title' => 'profile_password_edit',
             ],
         ];

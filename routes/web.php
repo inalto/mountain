@@ -1,5 +1,6 @@
 <?php
- Route::get('/', 'HomeController@index')->name('welcome');
+
+Route::get('/', 'HomeController@index')->name('welcome');
 //Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {
@@ -71,6 +72,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::post('reports-categories/ckmedia', 'ReportsCategoryController@storeCKEditorImages')->name('reports-categories.storeCKEditorImages');
     Route::resource('reports-categories', 'ReportsCategoryController');
 
+    // Pois
+    Route::delete('pois/destroy', 'PoiController@massDestroy')->name('pois.massDestroy');
+    Route::post('pois/media', 'PoiController@storeMedia')->name('pois.storeMedia');
+    Route::post('pois/ckmedia', 'PoiController@storeCKEditorImages')->name('pois.storeCKEditorImages');
+    Route::resource('pois', 'PoiController');
+
     Route::get('global-search', 'GlobalSearchController@search')->name('globalSearch');
 });
 Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 'middleware' => ['auth']], function () {
@@ -80,8 +87,6 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('password', 'ChangePasswordController@update')->name('password.update');
     }
 });
-
 // Social Login Routes..
 Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
 Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');
-
