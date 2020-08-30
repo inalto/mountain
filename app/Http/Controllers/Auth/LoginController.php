@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Http\Controllers\Auth;
+
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
@@ -35,6 +38,7 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    /*
     public function redirectToSocial($driver)
     {
         return Socialite::driver($driver)->redirect();
@@ -56,4 +60,5 @@ class LoginController extends Controller
             return redirect('auth/google');
         }
     }
+    */
 }
