@@ -1,6 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.login')
 @section('content')
-<div class="login-box">
+<div class="d-flex flex-column flex-sm-wrap flex-md-row flex-lg-row vh-100">
+<div class="col-12 col-md-6 col-lg-6 d-none d-md-flex" style="background:url('/storage/theme/login_back.jpg'); background-size:cover; background-position:center;">&nbsp;</div>
+
+<div class="col-12 col-md-6 col-lg-6  d-flex flex-column justify-content-center p-1 p-md-2 p-lg-3">
+
+<livewire:login />
+
+<?php
+/*
     <div class="login-logo">
         <div class="login-logo">
             <a href="{{ route('admin.home') }}">
@@ -8,8 +16,7 @@
             </a>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body login-card-body">
+
             <p class="login-box-msg">
                 {{ trans('global.login') }}
             </p>
@@ -84,8 +91,8 @@
                     {{ trans('global.register') }}
                 </a>
             </p>
-        </div>
-        <!-- /.login-card-body -->
-    </div>
+*/
+?>
+</div>
 </div>
 @endsection
