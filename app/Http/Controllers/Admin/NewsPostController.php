@@ -25,7 +25,7 @@ class NewsPostController extends Controller
         abort_if(Gate::denies('news_post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
-            $query = NewsPost::with(['tags', 'categories'])->select(sprintf('%s.*', (new NewsPost)->table));
+            $query = NewsPost::with(['tags', 'categories', 'created_by'])->select(sprintf('%s.*', (new NewsPost)->table));
             $table = Datatables::of($query);
 
             $table->addColumn('placeholder', '&nbsp;');
@@ -128,7 +128,7 @@ class NewsPostController extends Controller
 
         $categories = NewsCategory::all()->pluck('title', 'id');
 
-        $newsPost->load('tags', 'categories');
+        $newsPost->load('tags', 'categories', 'created_by');
 
         return view('admin.newsPosts.edit', compact('tags', 'categories', 'newsPost'));
     }
@@ -162,7 +162,7 @@ class NewsPostController extends Controller
     {
         abort_if(Gate::denies('news_post_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $newsPost->load('tags', 'categories');
+        $newsPost->load('tags', 'categories', 'created_by');
 
         return view('admin.newsPosts.show', compact('newsPost'));
     }

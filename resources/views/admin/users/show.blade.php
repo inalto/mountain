@@ -33,6 +33,62 @@
                     </tr>
                     <tr>
                         <th>
+                            {{ trans('cruds.user.fields.last_name') }}
+                        </th>
+                        <td>
+                            {{ $user->last_name }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.tagline') }}
+                        </th>
+                        <td>
+                            {{ $user->tagline }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.birth_date') }}
+                        </th>
+                        <td>
+                            {{ $user->birth_date }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.address') }}
+                        </th>
+                        <td>
+                            {{ $user->address }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.city') }}
+                        </th>
+                        <td>
+                            {{ $user->city }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.country') }}
+                        </th>
+                        <td>
+                            {{ $user->country }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            {{ trans('cruds.user.fields.abstract') }}
+                        </th>
+                        <td>
+                            {!! $user->abstract !!}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
                             {{ trans('cruds.user.fields.email') }}
                         </th>
                         <td>
