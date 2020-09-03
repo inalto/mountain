@@ -16,7 +16,7 @@
 
                     </select>
                 </li>
-                <li class="nav-item list-unstyled">
+                <li class="nav-item">
                     <a class="nav-link" href="{{ route("admin.home") }}">
                         <i class="fas fa-fw fa-tachometer-alt nav-icon">
                         </i>
@@ -26,7 +26,7 @@
                     </a>
                 </li>
                 @can('user_management_access')
-                    <li class="nav-item list-unstyled has-treeview {{ request()->is("admin/permissions*") ? "menu-open" : "" }} {{ request()->is("admin/roles*") ? "menu-open" : "" }} {{ request()->is("admin/users*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/permissions*") ? "menu-open" : "" }} {{ request()->is("admin/roles*") ? "menu-open" : "" }} {{ request()->is("admin/users*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-users">
 
@@ -38,7 +38,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @can('permission_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.permissions.index") }}" class="nav-link {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-unlock-alt">
 
@@ -50,7 +50,7 @@
                                 </li>
                             @endcan
                             @can('role_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.roles.index") }}" class="nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-briefcase">
 
@@ -62,7 +62,7 @@
                                 </li>
                             @endcan
                             @can('user_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.users.index") }}" class="nav-link {{ request()->is("admin/users") || request()->is("admin/users/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-user">
 
@@ -77,7 +77,7 @@
                     </li>
                 @endcan
                 @can('content_management_access')
-                    <li class="nav-item list-unstyled has-treeview {{ request()->is("admin/content-categories*") ? "menu-open" : "" }} {{ request()->is("admin/content-tags*") ? "menu-open" : "" }} {{ request()->is("admin/content-pages*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/content-categories*") ? "menu-open" : "" }} {{ request()->is("admin/content-tags*") ? "menu-open" : "" }} {{ request()->is("admin/content-pages*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-book">
 
@@ -89,7 +89,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @can('content_category_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.content-categories.index") }}" class="nav-link {{ request()->is("admin/content-categories") || request()->is("admin/content-categories/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-folder">
 
@@ -101,7 +101,7 @@
                                 </li>
                             @endcan
                             @can('content_tag_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.content-tags.index") }}" class="nav-link {{ request()->is("admin/content-tags") || request()->is("admin/content-tags/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-tags">
 
@@ -113,7 +113,7 @@
                                 </li>
                             @endcan
                             @can('content_page_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.content-pages.index") }}" class="nav-link {{ request()->is("admin/content-pages") || request()->is("admin/content-pages/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-file">
 
@@ -128,7 +128,7 @@
                     </li>
                 @endcan
                 @can('inalto_access')
-                    <li class="nav-item list-unstyled has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/pois*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }} {{ request()->is("admin/reports-categories*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/reports*") ? "menu-open" : "" }} {{ request()->is("admin/pois*") ? "menu-open" : "" }} {{ request()->is("admin/reports-tags*") ? "menu-open" : "" }} {{ request()->is("admin/reports-categories*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon fas fa-walking">
 
@@ -140,7 +140,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @can('report_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.reports.index") }}" class="nav-link {{ request()->is("admin/reports") || request()->is("admin/reports/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-street-view">
 
@@ -152,7 +152,7 @@
                                 </li>
                             @endcan
                             @can('poi_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.pois.index") }}" class="nav-link {{ request()->is("admin/pois") || request()->is("admin/pois/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-cogs">
 
@@ -164,7 +164,7 @@
                                 </li>
                             @endcan
                             @can('reports_tag_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.reports-tags.index") }}" class="nav-link {{ request()->is("admin/reports-tags") || request()->is("admin/reports-tags/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-tags">
 
@@ -176,7 +176,7 @@
                                 </li>
                             @endcan
                             @can('reports_category_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.reports-categories.index") }}" class="nav-link {{ request()->is("admin/reports-categories") || request()->is("admin/reports-categories/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-list">
 
@@ -191,7 +191,7 @@
                     </li>
                 @endcan
                 @can('news_access')
-                    <li class="nav-item list-unstyled has-treeview {{ request()->is("admin/news-posts*") ? "menu-open" : "" }} {{ request()->is("admin/news-categories*") ? "menu-open" : "" }} {{ request()->is("admin/news-tags*") ? "menu-open" : "" }}">
+                    <li class="nav-item has-treeview {{ request()->is("admin/news-posts*") ? "menu-open" : "" }} {{ request()->is("admin/news-categories*") ? "menu-open" : "" }} {{ request()->is("admin/news-tags*") ? "menu-open" : "" }}">
                         <a class="nav-link nav-dropdown-toggle" href="#">
                             <i class="fa-fw nav-icon far fa-newspaper">
 
@@ -203,7 +203,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @can('news_post_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.news-posts.index") }}" class="nav-link {{ request()->is("admin/news-posts") || request()->is("admin/news-posts/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon far fa-file-alt">
 
@@ -215,7 +215,7 @@
                                 </li>
                             @endcan
                             @can('news_category_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.news-categories.index") }}" class="nav-link {{ request()->is("admin/news-categories") || request()->is("admin/news-categories/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-list">
 
@@ -227,7 +227,7 @@
                                 </li>
                             @endcan
                             @can('news_tag_access')
-                                <li class="nav-item list-unstyled">
+                                <li class="nav-item">
                                     <a href="{{ route("admin.news-tags.index") }}" class="nav-link {{ request()->is("admin/news-tags") || request()->is("admin/news-tags/*") ? "active" : "" }}">
                                         <i class="fa-fw nav-icon fas fa-tags">
 
@@ -243,7 +243,7 @@
                 @endcan
                 @if(file_exists(app_path('Http/Controllers/Auth/ChangePasswordController.php')))
                     @can('profile_password_edit')
-                        <li class="nav-item list-unstyled">
+                        <li class="nav-item">
                             <a class="nav-link {{ request()->is('profile/password') || request()->is('profile/password/*') ? 'active' : '' }}" href="{{ route('profile.password.edit') }}">
                                 <i class="fa-fw fas fa-key nav-icon">
                                 </i>
@@ -254,7 +254,7 @@
                         </li>
                     @endcan
                 @endif
-                <li class="nav-item list-unstyled">
+                <li class="nav-item">
                     <a href="#" class="nav-link" onclick="event.preventDefault(); document.getElementById('logoutform').submit();">
                         <p>
                             <i class="fas fa-fw fa-sign-out-alt nav-icon">

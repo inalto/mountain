@@ -1,7 +1,6 @@
 <?php
 
-Route::get('/', 'HomeController@index')->name('welcome');
-//Route::redirect('/', '/login');
+Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -11,7 +10,6 @@ Route::get('/home', function () {
 });
 
 Auth::routes();
-
 Route::get('userVerification/{token}', 'UserVerificationController@approve')->name('userVerification');
 // Admin
 
@@ -27,6 +25,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
 
     // Users
     Route::delete('users/destroy', 'UsersController@massDestroy')->name('users.massDestroy');
+    Route::post('users/media', 'UsersController@storeMedia')->name('users.storeMedia');
+    Route::post('users/ckmedia', 'UsersController@storeCKEditorImages')->name('users.storeCKEditorImages');
     Route::resource('users', 'UsersController');
 
     // Content Categories
@@ -88,6 +88,3 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('password', 'ChangePasswordController@update')->name('password.update');
     }
 });
-// Social Login Routes..
-Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
-Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');
