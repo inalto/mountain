@@ -41,7 +41,7 @@
                                                             <span class="label label-info">{{ $subEentry->{$value} }}</span>
                                                         @endforeach
                                                     @else
-                                                        {# $entry->{$key}->{$value} #}
+                                                        {{ $entry->{$key}->{$value} }}
                                                     @endif
                                                 </td>
                                             @endforeach

@@ -18,6 +18,13 @@ class CreateUsersTable extends Migration
             $table->boolean('verified')->default(0)->nullable();
             $table->datetime('verified_at')->nullable();
             $table->string('verification_token')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('tagline')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->longText('address')->nullable();
+            $table->longText('abstract')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

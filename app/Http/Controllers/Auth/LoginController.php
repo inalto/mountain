@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Socialite;
-//use Laravel\Socialite\Facades\Socialite;
-use Auth;
-use App\User;
 
 class LoginController extends Controller
 {
@@ -23,13 +18,16 @@ class LoginController extends Controller
     | to conveniently provide its functionality to your applications.
     |
     */
+
     use AuthenticatesUsers;
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
     /**
      * Create a new controller instance.
      *
@@ -39,27 +37,4 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    
-    public function redirectToSocial($driver)
-    {
-        return Socialite::driver($driver)->redirect();
-    }
-
-    public function handleSocialCallback($driver)
-    {
-        try
-        {
-            $social_user = Socialite::driver($driver)->user();
-            $user = User::where('email', '=', $social_user->getEmail())->first();
-            if (!is_null($user)) {
-                Auth::login($user);
-                return redirect($this->redirectPath());
-            } else {
-                return redirect()->back()->withErrors(trans('auth.failed'));
-            }
-        } catch (Exception $e) {
-            return redirect('auth/google');
-        }
-    }
-    
 }
