@@ -12,11 +12,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
 use \DateTimeInterface;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use SoftDeletes, Notifiable, HasApiTokens;
+    use SoftDeletes, Notifiable, HasApiTokens, HasMediaTrait;
 
     public $table = 'users';
 
@@ -26,6 +29,7 @@ class User extends Authenticatable
     ];
 
     protected $dates = [
+        'birth_date',
         'email_verified_at',
         'verified_at',
         'created_at',
@@ -35,6 +39,13 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'last_name',
+        'tagline',
+        'birth_date',
+        'address',
+        'city',
+        'country',
+        'abstract',
         'email',
         'email_verified_at',
         'password',
@@ -86,6 +97,22 @@ class User extends Authenticatable
                 $user->notify(new VerifyUserNotification($user));
             }
         });
+    }
+
+    public function registerMediaConversions(Media $media = null)
+    {
+        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
+        $this->addMediaConversion('preview')->fit('crop', 120, 120);
+    }
+
+    public function getBirthDateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
+    }
+
+    public function setBirthDateAttribute($value)
+    {
+        $this->attributes['birth_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
     }
 
     public function getEmailVerifiedAtAttribute($value)
