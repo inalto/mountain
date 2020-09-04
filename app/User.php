@@ -151,4 +151,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->belongsToMany(Role::class);
     }
+    public function hasRole($role)
+    {
+        return $this->roles()->where('title',$role)->get();
+    }
+
 }

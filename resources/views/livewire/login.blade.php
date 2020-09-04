@@ -67,6 +67,7 @@
             <a href="{{ route('auth.login.social', 'facebook') }}" class="btn btn-secondary">
                 <i class="fa fa-facebook"></i> Login with Facebook
             </a>
+
         </div>
     </div>
 </form>

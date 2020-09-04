@@ -61,10 +61,11 @@
 /*------- header top style end -------*/
 
 /*------ main menu start ------*/
-.brand-logo {
-    max-width: 110px;
+.brand-logo,
+.brand-logo img {
+    max-width: 45px;
 }
-
+/*
 .main-menu-wrapper {
     padding: 20px 0;
 
@@ -72,12 +73,13 @@
         padding: 43px 0;
     }
 }
-
+*/
 .main-menu {
     ul {
         display: flex;
         flex-wrap: wrap;
         justify-content: flex-end;
+        margin:0;
 
         li {
             list-style: none;
@@ -275,7 +277,7 @@
             padding: 10px 0;
 
             .brand-logo {
-                max-width: 100px;
+                max-width: 80px;
             }
         }
     }

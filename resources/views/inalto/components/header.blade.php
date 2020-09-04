@@ -1,13 +1,13 @@
 
 <!-- main menu start -->
-<div class="main-menu-wrapper sticky header-transparent">
+<div class="main-menu-wrapper sticky shadow">
     <div class="container-fluid">
         <div class="row align-items-center">
             <div class="col-lg-3">
                 <!-- logo area start -->
                 <div class="brand-logo">
-                    <a href="/">
-                        <img src="assets/logo.png" alt="inalto.org">
+                    <a href="{{ url('/') }}">
+                        <img src="/images/logo.png" alt="inalto.org">
                     </a>
                 </div>
                 <!-- logo area end -->
@@ -17,13 +17,7 @@
                     <!-- main menu navbar start -->
                     <nav class="main-menu">
                         <ul>
-                        
-                            <li class="active"><a href="index.html">Home</a>
-                                <ul class="dropdown">
-                                    <li><a href="index.html">Home Version 01</a></li>
-                                    <li><a href="index-2.html">Home Version 02</a></li>
-                                </ul>
-                            </li>
+                        <li class="active"><a href="{{ url('/') }}">Home</a></li>
                             <!--
                             <li><a href="about.html">About us</a></li>
                             <li><a href="service.html">Services</a>
@@ -58,7 +52,9 @@
                             -->
                             @if (Route::has('login'))
                                 @auth
-                                        <li><a href="{{ url('/') }}">Home</a></li>
+                                        @if (Auth::user()->hasRole("Admin"))
+                                        <li><a href="{{ url('/admin') }}">Admin</a></li>
+                                        @endif 
                                         <li><livewire:logout /></li>
                                    @else
                                         <li><a href="{{ route('login') }}">Login</a></li>
