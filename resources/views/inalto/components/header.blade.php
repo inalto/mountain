@@ -6,8 +6,8 @@
             <div class="col-lg-3">
                 <!-- logo area start -->
                 <div class="brand-logo">
-                    <a href="index.html">
-                        <img src="assets/img/logo/logo.png" alt="brand logo">
+                    <a href="/">
+                        <img src="assets/logo.png" alt="inalto.org">
                     </a>
                 </div>
                 <!-- logo area end -->

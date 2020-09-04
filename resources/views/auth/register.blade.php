@@ -1,5 +1,18 @@
-@extends('layouts.app')
+@extends('layouts.login')
 @section('content')
+<div class="d-flex flex-column flex-sm-wrap flex-md-row flex-lg-row vh-100">
+    <div class="col-12 col-md-6 col-lg-6 d-none d-md-flex" style="background:url('/storage/assets/login_back.jpg'); background-size:cover; background-position:center;">&nbsp;</div>
+    
+    <div class="col-12 col-md-6 col-lg-6  d-flex flex-column justify-content-center p-1 p-md-2 p-lg-3">
+    
+    <livewire:register />
+
+    </div>
+</div>
+
+
+<?php 
+/*
 <div class="login-box">
     <div class="login-logo">
         <div class="login-logo">
@@ -56,3 +69,5 @@
     </div>
 </div>
 @endsection
+*/
+?>
