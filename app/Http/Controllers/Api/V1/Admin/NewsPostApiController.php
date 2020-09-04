@@ -20,7 +20,7 @@ class NewsPostApiController extends Controller
     {
         abort_if(Gate::denies('news_post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new NewsPostResource(NewsPost::with(['tags', 'categories'])->get());
+        return new NewsPostResource(NewsPost::with(['tags', 'categories', 'created_by'])->get());
     }
 
     public function store(StoreNewsPostRequest $request)
@@ -42,7 +42,7 @@ class NewsPostApiController extends Controller
     {
         abort_if(Gate::denies('news_post_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return new NewsPostResource($newsPost->load(['tags', 'categories']));
+        return new NewsPostResource($newsPost->load(['tags', 'categories', 'created_by']));
     }
 
     public function update(UpdateNewsPostRequest $request, NewsPost $newsPost)

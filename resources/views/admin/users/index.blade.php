@@ -25,11 +25,30 @@
                         {{ trans('cruds.user.fields.id') }}
                     </th>
                     <th>
+                        {{ trans('cruds.user.fields.email') }}
+                    </th>
+                    <th>
                         {{ trans('cruds.user.fields.name') }}
                     </th>
                     <th>
-                        {{ trans('cruds.user.fields.email') }}
+                        {{ trans('cruds.user.fields.last_name') }}
                     </th>
+                    <th>
+                        {{ trans('cruds.user.fields.tagline') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.birth_date') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.address') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.city') }}
+                    </th>
+                    <th>
+                        {{ trans('cruds.user.fields.country') }}
+                    </th>
+
                     <th>
                         {{ trans('cruds.user.fields.email_verified_at') }}
                     </th>
@@ -96,8 +115,15 @@
     columns: [
       { data: 'placeholder', name: 'placeholder' },
 { data: 'id', name: 'id' },
-{ data: 'name', name: 'name' },
 { data: 'email', name: 'email' },
+{ data: 'name', name: 'name' },
+{ data: 'last_name', name: 'last_name' },
+{ data: 'tagline', name: 'tagline' },
+{ data: 'birth_date', name: 'birth_date' },
+{ data: 'address', name: 'address' },
+{ data: 'city', name: 'city' },
+{ data: 'country', name: 'country' },
+
 { data: 'email_verified_at', name: 'email_verified_at' },
 { data: 'verified', name: 'verified' },
 { data: 'roles', name: 'roles.title' },
