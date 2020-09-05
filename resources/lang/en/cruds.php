@@ -175,7 +175,7 @@ return [
         "fields" => [
             "categories" => "Categories",
             "categories_helper" => "",
-            "content" => "Content",
+            "content" => "Report",
             "content_helper" => "",
             "created_at" => "Created at",
             "created_at_helper" => "",

@@ -1,4 +1,4 @@
-<babeledit_project be_version="2.7.1" version="1.2">
+<babeledit_project version="1.2" be_version="2.7.1">
     <!--
 
     BabelEdit project file
@@ -2756,7 +2756,7 @@
                                             </translation>
                                             <translation>
                                                 <language>it-IT</language>
-                                                <approved>true</approved>
+                                                <approved>false</approved>
                                             </translation>
                                         </translations>
                                     </concept_node>
