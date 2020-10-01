@@ -10,9 +10,9 @@ class CreateReportReportsTagPivotTable extends Migration
     {
         Schema::create('report_reports_tag', function (Blueprint $table) {
             $table->unsignedInteger('report_id');
-            $table->foreign('report_id', 'report_id_fk_2051224')->references('id')->on('reports')->onDelete('cascade');
+            $table->foreign('report_id', 'report_id_fk_2308926')->references('id')->on('reports')->onDelete('cascade');
             $table->unsignedInteger('reports_tag_id');
-            $table->foreign('reports_tag_id', 'reports_tag_id_fk_2051224')->references('id')->on('reports_tags')->onDelete('cascade');
+            $table->foreign('reports_tag_id', 'reports_tag_id_fk_2308926')->references('id')->on('reports_tags')->onDelete('cascade');
         });
     }
 }

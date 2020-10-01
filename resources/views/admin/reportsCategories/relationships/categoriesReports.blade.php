@@ -72,7 +72,7 @@
                                     {{ $report->slug ?? '' }}
                                 </td>
                                 <td>
-                                    {{ App\Report::DIFFICULTY_SELECT[$report->difficulty] ?? '' }}
+                                    {{ App\Models\Report::DIFFICULTY_SELECT[$report->difficulty] ?? '' }}
                                 </td>
                                 <td>
                                     {{ $report->excerpt ?? '' }}

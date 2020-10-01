@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\ContentTag;
+use App\Models\ContentTag;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\NewsCategory;
+use App\Models\NewsCategory;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;

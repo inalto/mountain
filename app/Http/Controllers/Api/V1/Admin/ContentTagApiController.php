@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
-use App\ContentTag;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContentTagRequest;
 use App\Http\Requests\UpdateContentTagRequest;
 use App\Http\Resources\Admin\ContentTagResource;
+use App\Models\ContentTag;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

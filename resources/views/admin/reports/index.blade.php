@@ -70,8 +70,8 @@
                     <td>
                         <select class="search" strict="true">
                             <option value>{{ trans('global.all') }}</option>
-                            @foreach(App\Report::DIFFICULTY_SELECT as $key => $item)
-                                <option value="{{ $item }}">{{ $item }}</option>
+                            @foreach(App\Models\Report::DIFFICULTY_SELECT as $key => $item)
+                                <option value="{{ $key }}">{{ $item }}</option>
                             @endforeach
                         </select>
                     </td>
@@ -83,6 +83,7 @@
                     <td>
                     </td>
                     <td>
+                        <input class="search" type="text" placeholder="{{ trans('global.search') }}">
                     </td>
                     <td>
                         <select class="search">

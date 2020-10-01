@@ -7,10 +7,10 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyPoiRequest;
 use App\Http\Requests\StorePoiRequest;
 use App\Http\Requests\UpdatePoiRequest;
-use App\Poi;
+use App\Models\Poi;
 use Gate;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 
 class PoiController extends Controller

@@ -10,9 +10,9 @@ class CreateContentCategoryContentPagePivotTable extends Migration
     {
         Schema::create('content_category_content_page', function (Blueprint $table) {
             $table->unsignedInteger('content_page_id');
-            $table->foreign('content_page_id', 'content_page_id_fk_1720916')->references('id')->on('content_pages')->onDelete('cascade');
+            $table->foreign('content_page_id', 'content_page_id_fk_2308885')->references('id')->on('content_pages')->onDelete('cascade');
             $table->unsignedInteger('content_category_id');
-            $table->foreign('content_category_id', 'content_category_id_fk_1720916')->references('id')->on('content_categories')->onDelete('cascade');
+            $table->foreign('content_category_id', 'content_category_id_fk_2308885')->references('id')->on('content_categories')->onDelete('cascade');
         });
     }
 }

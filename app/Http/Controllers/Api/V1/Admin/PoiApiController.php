@@ -7,7 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StorePoiRequest;
 use App\Http\Requests\UpdatePoiRequest;
 use App\Http\Resources\Admin\PoiResource;
-use App\Poi;
+use App\Models\Poi;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
