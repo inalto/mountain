@@ -7,12 +7,12 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyNewsPostRequest;
 use App\Http\Requests\StoreNewsPostRequest;
 use App\Http\Requests\UpdateNewsPostRequest;
-use App\NewsCategory;
-use App\NewsPost;
-use App\NewsTag;
+use App\Models\NewsCategory;
+use App\Models\NewsPost;
+use App\Models\NewsTag;
 use Gate;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 

@@ -10,9 +10,9 @@ class CreateContentPageContentTagPivotTable extends Migration
     {
         Schema::create('content_page_content_tag', function (Blueprint $table) {
             $table->unsignedInteger('content_page_id');
-            $table->foreign('content_page_id', 'content_page_id_fk_1720917')->references('id')->on('content_pages')->onDelete('cascade');
+            $table->foreign('content_page_id', 'content_page_id_fk_2308886')->references('id')->on('content_pages')->onDelete('cascade');
             $table->unsignedInteger('content_tag_id');
-            $table->foreign('content_tag_id', 'content_tag_id_fk_1720917')->references('id')->on('content_tags')->onDelete('cascade');
+            $table->foreign('content_tag_id', 'content_tag_id_fk_2308886')->references('id')->on('content_tags')->onDelete('cascade');
         });
     }
 }

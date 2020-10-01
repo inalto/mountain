@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyNewsTagRequest;
 use App\Http\Requests\StoreNewsTagRequest;
 use App\Http\Requests\UpdateNewsTagRequest;
-use App\NewsTag;
+use App\Models\NewsTag;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

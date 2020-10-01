@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\NewsPost;
+use App\Models\NewsPost;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;

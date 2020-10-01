@@ -10,9 +10,9 @@ class CreateReportReportsCategoryPivotTable extends Migration
     {
         Schema::create('report_reports_category', function (Blueprint $table) {
             $table->unsignedInteger('report_id');
-            $table->foreign('report_id', 'report_id_fk_2048617')->references('id')->on('reports')->onDelete('cascade');
+            $table->foreign('report_id', 'report_id_fk_2308925')->references('id')->on('reports')->onDelete('cascade');
             $table->unsignedInteger('reports_category_id');
-            $table->foreign('reports_category_id', 'reports_category_id_fk_2048617')->references('id')->on('reports_categories')->onDelete('cascade');
+            $table->foreign('reports_category_id', 'reports_category_id_fk_2308925')->references('id')->on('reports_categories')->onDelete('cascade');
         });
     }
 }

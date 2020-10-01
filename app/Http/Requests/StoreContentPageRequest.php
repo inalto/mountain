@@ -2,24 +2,23 @@
 
 namespace App\Http\Requests;
 
-use App\ContentPage;
+use App\Models\ContentPage;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class StoreContentPageRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('content_page_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('content_page_create');
     }
 
     public function rules()
     {
         return [
             'title'        => [
+                'string',
                 'required',
             ],
             'categories.*' => [

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\NewsCategory;
+use App\Models\NewsCategory;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
@@ -11,9 +11,7 @@ class StoreNewsCategoryRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('news_category_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('news_category_create');
     }
 
     public function rules()

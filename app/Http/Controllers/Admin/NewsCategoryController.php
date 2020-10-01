@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyNewsCategoryRequest;
 use App\Http\Requests\StoreNewsCategoryRequest;
 use App\Http\Requests\UpdateNewsCategoryRequest;
-use App\NewsCategory;
+use App\Models\NewsCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

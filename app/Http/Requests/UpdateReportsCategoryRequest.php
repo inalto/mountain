@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\ReportsCategory;
+use App\Models\ReportsCategory;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
@@ -11,9 +11,7 @@ class UpdateReportsCategoryRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('reports_category_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('reports_category_edit');
     }
 
     public function rules()

@@ -1,5 +1,5 @@
 <?php
 
 return [
-    'site_title' => 'inalto',
+    'site_title' => 'clone of inalto',
 ];

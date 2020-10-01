@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Poi;
+use App\Models\Poi;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Response;
@@ -11,9 +11,7 @@ class UpdatePoiRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('poi_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('poi_edit');
     }
 
     public function rules()
