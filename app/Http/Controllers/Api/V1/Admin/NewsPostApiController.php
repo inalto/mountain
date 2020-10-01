@@ -7,7 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreNewsPostRequest;
 use App\Http\Requests\UpdateNewsPostRequest;
 use App\Http\Resources\Admin\NewsPostResource;
-use App\NewsPost;
+use App\Models\NewsPost;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

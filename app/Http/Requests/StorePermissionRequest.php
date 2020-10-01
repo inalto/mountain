@@ -2,24 +2,23 @@
 
 namespace App\Http\Requests;
 
-use App\Permission;
+use App\Models\Permission;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class StorePermissionRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('permission_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('permission_create');
     }
 
     public function rules()
     {
         return [
             'title' => [
+                'string',
                 'required',
             ],
         ];

@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\NewsTag;
+use App\Models\NewsTag;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 use Symfony\Component\HttpFoundation\Response;

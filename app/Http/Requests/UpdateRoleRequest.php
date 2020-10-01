@@ -2,24 +2,23 @@
 
 namespace App\Http\Requests;
 
-use App\Role;
+use App\Models\Role;
 use Gate;
 use Illuminate\Foundation\Http\FormRequest;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
 
 class UpdateRoleRequest extends FormRequest
 {
     public function authorize()
     {
-        abort_if(Gate::denies('role_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-
-        return true;
+        return Gate::allows('role_edit');
     }
 
     public function rules()
     {
         return [
             'title'         => [
+                'string',
                 'required',
             ],
             'permissions.*' => [

@@ -7,13 +7,13 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyReportRequest;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
-use App\Report;
-use App\ReportsCategory;
-use App\ReportsTag;
-use App\User;
+use App\Models\Report;
+use App\Models\ReportsCategory;
+use App\Models\ReportsTag;
+use App\Models\User;
 use Gate;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 

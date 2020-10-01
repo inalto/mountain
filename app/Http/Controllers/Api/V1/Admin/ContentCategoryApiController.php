@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Admin;
 
-use App\ContentCategory;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreContentCategoryRequest;
 use App\Http\Requests\UpdateContentCategoryRequest;
 use App\Http\Resources\Admin\ContentCategoryResource;
+use App\Models\ContentCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

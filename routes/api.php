@@ -21,26 +21,26 @@ Route::group(['prefix' => 'v1', 'as' => 'api.', 'namespace' => 'Api\V1\Admin', '
     Route::post('content-pages/media', 'ContentPageApiController@storeMedia')->name('content-pages.storeMedia');
     Route::apiResource('content-pages', 'ContentPageApiController');
 
-    // Reports
-    Route::post('reports/media', 'ReportsApiController@storeMedia')->name('reports.storeMedia');
-    Route::apiResource('reports', 'ReportsApiController');
-
-    // News Posts
-    Route::post('news-posts/media', 'NewsPostApiController@storeMedia')->name('news-posts.storeMedia');
-    Route::apiResource('news-posts', 'NewsPostApiController');
-
-    // News Categories
-    Route::apiResource('news-categories', 'NewsCategoryApiController');
-
-    // News Tags
-    Route::apiResource('news-tags', 'NewsTagApiController');
+    // Reports Categories
+    Route::post('reports-categories/media', 'ReportsCategoryApiController@storeMedia')->name('reports-categories.storeMedia');
+    Route::apiResource('reports-categories', 'ReportsCategoryApiController');
 
     // Reports Tags
     Route::apiResource('reports-tags', 'ReportsTagApiController');
 
-    // Reports Categories
-    Route::post('reports-categories/media', 'ReportsCategoryApiController@storeMedia')->name('reports-categories.storeMedia');
-    Route::apiResource('reports-categories', 'ReportsCategoryApiController');
+    // Reports
+    Route::post('reports/media', 'ReportsApiController@storeMedia')->name('reports.storeMedia');
+    Route::apiResource('reports', 'ReportsApiController');
+
+    // News Tags
+    Route::apiResource('news-tags', 'NewsTagApiController');
+
+    // News Categories
+    Route::apiResource('news-categories', 'NewsCategoryApiController');
+
+    // News Posts
+    Route::post('news-posts/media', 'NewsPostApiController@storeMedia')->name('news-posts.storeMedia');
+    Route::apiResource('news-posts', 'NewsPostApiController');
 
     // Pois
     Route::post('pois/media', 'PoiApiController@storeMedia')->name('pois.storeMedia');

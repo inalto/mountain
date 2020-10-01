@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\ContentCategory;
-use App\ContentPage;
-use App\ContentTag;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\MassDestroyContentPageRequest;
 use App\Http\Requests\StoreContentPageRequest;
 use App\Http\Requests\UpdateContentPageRequest;
+use App\Models\ContentCategory;
+use App\Models\ContentPage;
+use App\Models\ContentTag;
 use Gate;
 use Illuminate\Http\Request;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
 
