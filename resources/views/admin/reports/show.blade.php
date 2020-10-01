@@ -44,7 +44,7 @@
                             {{ trans('cruds.report.fields.difficulty') }}
                         </th>
                         <td>
-                            {{ App\Report::DIFFICULTY_SELECT[$report->difficulty] ?? '' }}
+                            {{ App\Models\Report::DIFFICULTY_SELECT[$report->difficulty] ?? '' }}
                         </td>
                     </tr>
                     <tr>

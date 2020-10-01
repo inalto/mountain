@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MassDestroyReportsTagRequest;
 use App\Http\Requests\StoreReportsTagRequest;
 use App\Http\Requests\UpdateReportsTagRequest;
-use App\ReportsTag;
+use App\Models\ReportsTag;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

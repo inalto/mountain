@@ -7,7 +7,7 @@ use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Http\Requests\StoreReportsCategoryRequest;
 use App\Http\Requests\UpdateReportsCategoryRequest;
 use App\Http\Resources\Admin\ReportsCategoryResource;
-use App\ReportsCategory;
+use App\Models\ReportsCategory;
 use Gate;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;

@@ -29,7 +29,7 @@
                 <label>{{ trans('cruds.report.fields.difficulty') }}</label>
                 <select class="form-control {{ $errors->has('difficulty') ? 'is-invalid' : '' }}" name="difficulty" id="difficulty">
                     <option value disabled {{ old('difficulty', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}</option>
-                    @foreach(App\Report::DIFFICULTY_SELECT as $key => $label)
+                    @foreach(App\Models\Report::DIFFICULTY_SELECT as $key => $label)
                         <option value="{{ $key }}" {{ old('difficulty', '') === (string) $key ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
                 </select>
