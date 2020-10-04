@@ -1,5 +1,2 @@
 <?php
-
-return [
-    'site_title' => 'clone of inalto',
-];
+return ["site_title" => "inalto.org"];

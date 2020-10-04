@@ -1,6 +1,10 @@
 <?php
 
-Route::redirect('/', '/login');
+
+Route::get('/', 'PagesController@home');
+
+
+//Route::redirect('/', '/login');
 Route::get('/home', function () {
     if (session('status')) {
         return redirect()->route('admin.home')->with('status', session('status'));
@@ -90,3 +94,9 @@ Route::group(['prefix' => 'profile', 'as' => 'profile.', 'namespace' => 'Auth', 
         Route::post('profile/destroy', 'ChangePasswordController@destroy')->name('password.destroyProfile');
     }
 });
+
+
+
+// Social Login Routes..
+Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
+Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');
