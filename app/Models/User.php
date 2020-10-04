@@ -2,154 +2,59 @@
 
 namespace App\Models;
 
-use App\Notifications\VerifyUserNotification;
-use Carbon\Carbon;
-use Hash;
-use Illuminate\Auth\Notifications\ResetPassword;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
-use Laravel\Passport\HasApiTokens;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use \DateTimeInterface;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Jetstream\HasTeams;
+use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable
 {
-    use SoftDeletes, Notifiable, HasApiTokens, InteractsWithMedia, HasFactory;
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
+    use HasTeams;
+    use Notifiable;
+    use TwoFactorAuthenticatable;
 
-    public $table = 'users';
-
-    protected $hidden = [
-        'remember_token',
-        'password',
-    ];
-
-    protected $dates = [
-        'birth_date',
-        'email_verified_at',
-        'verified_at',
-        'created_at',
-        'updated_at',
-        'deleted_at',
-    ];
-
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name',
-        'last_name',
-        'tagline',
-        'birth_date',
-        'address',
-        'city',
-        'country',
-        'abstract',
-        'email',
-        'email_verified_at',
-        'password',
-        'verified',
-        'verified_at',
-        'verification_token',
-        'remember_token',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+        'name', 'email', 'password',
     ];
 
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format('Y-m-d H:i:s');
-    }
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
+    ];
 
-    public function getIsAdminAttribute()
-    {
-        return $this->roles()->where('id', 1)->exists();
-    }
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
-    public function __construct(array $attributes = [])
-    {
-        parent::__construct($attributes);
-        self::created(function (User $user) {
-            if (auth()->check()) {
-                $user->verified    = 1;
-                $user->verified_at = Carbon::now()->format(config('panel.date_format') . ' ' . config('panel.time_format'));
-                $user->save();
-            } elseif (!$user->verification_token) {
-                $token     = Str::random(64);
-                $usedToken = User::where('verification_token', $token)->first();
-
-                while ($usedToken) {
-                    $token     = Str::random(64);
-                    $usedToken = User::where('verification_token', $token)->first();
-                }
-
-                $user->verification_token = $token;
-                $user->save();
-
-                $registrationRole = config('panel.registration_default_role');
-
-                if (!$user->roles()->get()->contains($registrationRole)) {
-                    $user->roles()->attach($registrationRole);
-                }
-
-                $user->notify(new VerifyUserNotification($user));
-            }
-        });
-    }
-
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 120, 120);
-    }
-
-    public function getBirthDateAttribute($value)
-    {
-        return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;
-    }
-
-    public function setBirthDateAttribute($value)
-    {
-        $this->attributes['birth_date'] = $value ? Carbon::createFromFormat(config('panel.date_format'), $value)->format('Y-m-d') : null;
-    }
-
-    public function getEmailVerifiedAtAttribute($value)
-    {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
-    }
-
-    public function setEmailVerifiedAtAttribute($value)
-    {
-        $this->attributes['email_verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
-    }
-
-    public function setPasswordAttribute($input)
-    {
-        if ($input) {
-            $this->attributes['password'] = app('hash')->needsRehash($input) ? Hash::make($input) : $input;
-        }
-    }
-
-    public function sendPasswordResetNotification($token)
-    {
-        $this->notify(new ResetPassword($token));
-    }
-
-    public function getVerifiedAtAttribute($value)
-    {
-        return $value ? Carbon::createFromFormat('Y-m-d H:i:s', $value)->format(config('panel.date_format') . ' ' . config('panel.time_format')) : null;
-    }
-
-    public function setVerifiedAtAttribute($value)
-    {
-        $this->attributes['verified_at'] = $value ? Carbon::createFromFormat(config('panel.date_format') . ' ' . config('panel.time_format'), $value)->format('Y-m-d H:i:s') : null;
-    }
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_photo_url',
+    ];
 }
