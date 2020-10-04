@@ -16,12 +16,14 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/dusk": "^6.6",
         "laravel/framework": "^8.0",
+        "laravel/passport": "^10.0",
+        "laravel/socialite": "^5.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
-        "yajra/laravel-datatables-oracle": "^9.11",
         "laraveldaily/laravel-charts": "^0.1.24",
+        "livewire/livewire": "^2.2",
         "spatie/laravel-medialibrary": "^8.7",
-        "laravel/passport": "^10.0"
+        "yajra/laravel-datatables-oracle": "^9.11"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
