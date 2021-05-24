@@ -1,0 +1,1 @@
+<img src="/theme/logo.png" {{ $attributes->merge(['class' => '']) }} alt="inalto.org" title="inalto.org">

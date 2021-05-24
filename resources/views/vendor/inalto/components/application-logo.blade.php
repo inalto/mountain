@@ -1,0 +1,1 @@
+<img class="w-16 p-1" src="/theme/logo.png" alt="inalto.org" title="inalto.org">

@@ -10,6 +10,12 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
+/*
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use \DateTimeInterface;
+*/
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -18,6 +24,7 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+   // use HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +33,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password',
+
+        'last_name',
+        'tagline',
+        'birth_date',
+        'address',
+        'city',
+        'country',
+        'abstract',
     ];
 
     /**
@@ -39,6 +54,7 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
+
 
     /**
      * The attributes that should be cast to native types.
@@ -57,4 +73,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+    public function hasRole($role)
+    {
+        return $this->roles()->where('title',$role)->get();
+    }
+
 }

@@ -8,17 +8,26 @@
         <title>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700" rel="stylesheet">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <!-- Scripts -->
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
+        <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
-    <body>
-        <div class="font-sans text-gray-900 antialiased">
+    <body class="dark">
+        <div class="font-sans antialiased leading-tight text-gray-900">
+
+            <div class="flex flex-wrap h-full">
+                <div class="w-full h-64 dark:bg-gray-900 md:w-1/2 md:h-screen" style="background-image: url('/theme/login_back.jpg');background-size:cover;background-position:center;">
+            
+                </div>
+                <div class="flex items-center w-full bg-gray-100 dark:bg-gray-900 md:w-1/2 justify-content">
+
             {{ $slot }}
+                </div>
+            </div>
         </div>
     </body>
 </html>
