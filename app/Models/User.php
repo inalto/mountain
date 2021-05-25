@@ -13,28 +13,36 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/*
+use Spatie\MediaLibrary\HasMedia\HasMedia;
+use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use Spatie\MediaLibrary\Models\Media;
+use \DateTimeInterface;
+*/
 class User extends Authenticatable
 {
     use HasFactory;
     use HasAdvancedFilter;
-    use SoftDeletes;
+   // use SoftDeletes;
     use Notifiable;
 
-    public $table = 'users';
+   // use HasMediaTrait;
 
-    public $orderable = [
-        'id',
-        'name',
-        'email',
-        'email_verified_at',
-    ];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'email', 'password',
 
-    public $filterable = [
-        'id',
-        'name',
-        'email',
-        'email_verified_at',
-        'roles.title',
+        'last_name',
+        'tagline',
+        'birth_date',
+        'address',
+        'city',
+        'country',
+        'abstract',
     ];
 
     protected $hidden = [
@@ -42,10 +50,13 @@ class User extends Authenticatable
         'password',
     ];
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
     ];
 
     protected $dates = [
@@ -86,4 +97,9 @@ class User extends Authenticatable
     {
         return $date->format('Y-m-d H:i:s');
     }
+    public function hasRole($role)
+    {
+        return $this->roles()->where('title',$role)->get();
+    }
+
 }

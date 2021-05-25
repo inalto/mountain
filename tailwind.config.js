@@ -3,7 +3,9 @@ const colors = require('tailwindcss/colors')
 module.exports = {
   purge: {
     enabled: true,
-    content: ['./resources/views/**/*.blade.php'],
+    content: [  './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+    './storage/framework/views/*.php',
+    './resources/views/**/*.blade.php'],
     options: {
       whitelist: []
     }
@@ -18,6 +20,9 @@ module.exports = {
       },
       minHeight: {
         'screen-75': '75vh'
+      },
+      fontFamily: {
+        sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         '55': '55rem'
@@ -88,5 +93,5 @@ module.exports = {
     'visited',
     'disabled'
   ],
-  plugins: [require('@tailwindcss/forms')]
+  plugins: [require('@tailwindcss/forms',require('@tailwindcss/typography'))]
 }

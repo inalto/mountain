@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -38,3 +39,9 @@ window.initialSubNavLoad = function () {
 
 initialSubNavLoad()
 /* Opens sidebar navigation that contains sub-items */
+=======
+require('./bootstrap');
+
+require('alpinejs');
+
+>>>>>>> master

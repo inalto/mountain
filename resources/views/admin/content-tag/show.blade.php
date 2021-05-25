@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 @extends('layouts.admin')
 @section('content')
 
+=======
+<x-admin-layout>
+>>>>>>> master
 <div class="card bg-blueGray-100">
     <div class="card-header">
         <div class="card-header-container">
@@ -51,4 +55,8 @@
         </div>
     </div>
 </div>
+<<<<<<< HEAD
 @endsection
+=======
+</x-admin-layout>
+>>>>>>> master

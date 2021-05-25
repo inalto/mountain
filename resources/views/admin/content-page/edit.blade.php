@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 @extends('layouts.admin')
 @section('content')
+=======
+<x-admin-layout>
+>>>>>>> master
 
 <div class="card bg-blueGray-100">
     <div class="card-header">
@@ -14,7 +18,14 @@
     </div>
 
     <div class="card-body">
+<<<<<<< HEAD
         @livewire('content-page.edit', [$contentPage])
     </div>
 </div>
 @endsection
+=======
+        <livewire:content-page.edit  :contentPage=$contentPage></livewire:content-page.edit>
+    </div>
+</div>
+</x-admin-layout>
+>>>>>>> master

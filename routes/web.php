@@ -18,9 +18,13 @@ use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+
 Route::redirect('/', '/login');
 
 Auth::routes(['register' => false]);
+
+
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -70,3 +74,4 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     // News Category
     Route::resource('news-categories', NewsCategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 });
+
