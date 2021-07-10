@@ -5,9 +5,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center flex-shrink-0">
+                    {{--
                     <a href="{{ route('home') }}">
                         <x-application-logo class="block w-14 h-14" />
                     </a>
+                    --}}
                 </div>
 
                 <!-- Navigation Links -->
@@ -111,8 +113,10 @@
                     </x-jet-dropdown>
                 </div>
             @else
+            
                 <x-nav-link href="{{ route('login') }}">{{ __('Login') }}</x-nav-link>
                 <x-nav-link href="{{ route('register') }}">{{ __('Register') }}</x-nav-link>
+            
             @endauth
             <!-- Hamburger -->
             <div class="flex items-center -mr-2 sm:hidden">

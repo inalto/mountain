@@ -2,6 +2,22 @@
 
 All notable changes to `ray` will be documented in this file
 
+## 1.26.0 - 2021-06-10
+
+- add rate limiter
+
+## 1.25.0 - 2021-06-07
+
+- add `if` method
+
+## 1.24.0 - 2021-06-04
+
+- add limit method (#464)
+
+## 1.23.0 - 2021-05-29
+
+- add `text` method (#460)
+
 ## 1.22.1 - 2021-04-28
 
 - allow Throwables to be logged

@@ -9,7 +9,7 @@ weight: 1
     }
 </style>
 
-We asume you have completed the [installation](/docs/ray/v1/installation-in-your-project/introduction) of the Ray package or library in your project.
+We assume you have completed the [installation](/docs/ray/v1/installation-in-your-project/introduction) of the Ray package or library in your project.
 
 To display something in Ray use the `ray()` function. It accepts everything: strings, arrays, objects, ... you name it.
 
@@ -51,9 +51,11 @@ To display something in Ray use the `ray()` function. It accepts everything: str
 | `ray(…)->hide()` | Display something in Ray and make it collapse immediately |
 | `ray()->hideApp()` | Hide the app |
 | `ray()->html($html)` | Render a piece of HTML  |
-| `ray()->image($path)` | Display an image form a path or URL  |
+| `ray()->image($path)` | Display an image from a path or URL  |
+| `ray()->if(true, callback)` | Conditionally show things based on a truthy value or callable |
 | `ray()->json($json, $another, …)` | Send one or more valid JSON strings to Ray |
 | `ray(…)->large()` | Output text bigger |
+| `ray()->limit(N)->…` | Limit the number of payloads that can be sent to Ray to N; used for debugging within loops |
 | `ray()->measure()` | Display runtime and memory usage. When measure is called again, the time between this and previous call is also displayed |
 | `ray()->newScreen()` | Start a new screen |
 | `ray()->newScreen('title')` | Start a new named screen |
@@ -64,12 +66,15 @@ To display something in Ray use the `ray()` function. It accepts everything: str
 | `ray()->phpinfo()` | Display PHP info |
 | `ray()->phpinfo($key, $another, …)` | Display specific parts of PHP info |
 | `ray(…)->purple()` | Output in purple |
+| `ray()->rateLimiter()->max(int $maxCalls)` | Limits the amount of calls sent to Ray |
+| `ray()->rateLimiter()->perSecond($maxCalls)` | Limits the amount of calls sent to Ray in a second |
+| `ray()->rateLimiter()->clear()` | Clears the rate limits |
 | `ray()->raw($value)` | Send raw output of a value to Ray without fancy formatting |
 | `ray(…)->red()` | Output in red |
 | `ray()->showApp()` | Bring the app to the foreground |
-| `ray(…)->showIf(true)` | Conditionally show things based on a truthy value or callable  |
 | `ray(…)->small()` | Output text smaller |
 | `ray()->table($array. $label)` | Format an associative array with optional label  |
+| `ray()->text($string)` | Display the raw text for a string while preserving whitespace formatting  |
 | `ray()->toJson($variable, $another, … )` | Display the JSON representation of 1 or more values that can be converted |
 | `ray()->trace()` | Check entire backtrace |
 | `ray()->xml($xmlString)` | Display formatted XML in Ray |
@@ -223,7 +228,6 @@ Read more on [Craft](/docs/ray/v1/usage/craft)
 | `ray.removeWhen(true)` | Conditionally remove an item based on a truthy value or callable   |
 | `ray().showApp()` | Programmatically show the Ray app window |
 | `ray(…).showIf(true)` | Conditionally show things based on a truthy value or callable  |
-| `ray(…).showWhen(true)` | Conditionally show things based on a truthy value or callable  |
 | `ray(…).small()` | Output text smaller or bigger. Use `large` or `small`|
 | `ray().stopTime(name)` | Removes a named stopwatch if specified, otherwise removes all stopwatches |
 | `ray().table(…)` | Display an array of items or an object formatted as a table; Objects and arrays are pretty-printed |

@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\inalto\HomeController as Home;
 use App\Http\Controllers\Admin\AuditLogController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContentCategoryController;
@@ -20,11 +20,13 @@ use Illuminate\Support\Facades\Route;
 
 
 
+//use App\Http\Controllers\inalto\HomeController;
+
+Route::get('/test',[HomeController::class, 'index']);
+
 Route::redirect('/', '/login');
 
 Auth::routes(['register' => false]);
-
-
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -75,3 +77,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('news-categories', NewsCategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 });
 
+// Social Login Routes..
+Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
+Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');

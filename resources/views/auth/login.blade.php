@@ -55,7 +55,7 @@
 
         <p class="mb-4 text-center dark:text-white">OR</p>
         <hr class="block w-full mb-4 border-0 border-t border-gray-300" />
-  
+ 
 
             <a href="{{ route('social.login', 'facebook') }}"
               class="block w-full px-4 py-2 my-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition duration-150 ease-in-out bg-blue-800 rounded hover:bg-blue-900"

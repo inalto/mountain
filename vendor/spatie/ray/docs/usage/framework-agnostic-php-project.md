@@ -167,6 +167,41 @@ This is how that looks like in Ray.
 
 ![screenshot](/docs/ray/v1/images/named-count.png)
 
+### Limiting the number of sent payloads
+
+To limit the number of payloads sent by a particular `ray()` call, use the `limit` function.  It works well for debugging loops.
+
+```php
+foreach (range(1, 10) as $i) {
+    ray()->limit(3)->text("A #{$i}"); // counts to 3
+    ray()->limit(6)->text("B #{$i}"); // counts to 6
+    ray()->text("C #{$i}"); // counts to 10
+}
+```
+
+If the argument passed to `limit()` is a negative number or zero, limiting is disabled.
+
+
+### Using a rate limiter
+
+A rate limiter can help to reduce the amount of sent messages. This would avoid spamming the desktop app, which can be helpful when using Ray in loops.
+
+```php
+Ray::rateLimiter()->max(10); // only 10 messages will be sent
+```
+
+```php
+Ray::rateLimiter()->perSecond(10); // only 10 messages per second will be sent
+```
+
+To remove the rate limits again
+```php
+Ray::rateLimiter()->clear();
+```
+
+A message to the desktop app will be sent once to notify the user the rate limit has been reached.
+
+
 ### Display the class name of an object
 
 To quickly send the class name of an object to ray, use the `className` function.
@@ -320,6 +355,15 @@ To render a piece of HTML directly in Ray, you can use the `html` method.
 ray()->html('<b>Bold string<b>');
 ```
 
+### Displaying text content
+
+To display raw text while preserving whitespace formatting, use the `text` method.  If the text contains HTML, it will be displayed as-is and is not rendered.
+
+```php
+ray()->text('<em>this string is html encoded</em>');
+ray()->text('  whitespace formatting' . PHP_EOL . '   is preserved as well.');
+```
+
 ### Updating displayed items
 
 You can update values that are already displayed in Ray. To do this, you must hold on the instance returned by the `ray`
@@ -358,6 +402,74 @@ ray('will not be shown')->showIf(false);
 
 You can also pass a callable to `showIf`. If the callable returns a truthy value, it will be shown. Otherwise, it will
 not.
+
+### Conditionally sending items to Ray
+
+If for any reason you do not want to send payloads to Ray _unless_ a condition is met, use the `if()` method.
+
+You can call `if()` in two ways: only with a conditional, or with a conditional and a callback.  A conditional can be either a truthy
+value or a callable that returns a truthy value.
+
+
+Note that when `if()` is called with only a conditional, **all** following chained methods will only execute if the conditional 
+is true.  When using a callback with `when()`, all additional chained methods will be called.
+
+```php
+for($i = 0; $i < 100; $i++) {
+    ray()->if($i < 10)->text("value is less than ten: $i")->blue();
+    
+    ray()->if(function() use ($i) {
+        return $i == 25;
+    })->text("value is twenty-five!")->green();
+    
+    // display "value: #" for every item, and display 
+    // even numbered values as red
+    ray()->text("value: $i")
+        ->if($i % 2 === 0)
+        ->red();
+}
+```
+
+You can even chain multiple `if()` calls without callbacks:
+
+```php
+for($i = 0; $i < 100; $i++) {
+    // display "value: #" for every item, and display even values as red
+    // and odd values as blue, except for 10 -- which is shown with large 
+    // text and in green.
+    ray()
+        ->text("value: $i")
+        ->if($i % 2 === 0)
+            ->red()
+        ->if($i % 2 !== 0)
+            ->blue()
+        ->if($i === 10)
+            ->large()
+            ->green();
+}
+```
+
+Or chain multiple calls to `when()` with callbacks that don't affect the chained methods following them:
+
+```php
+for($i = 0; $i < 100; $i++) {
+    // display "value: #" for all items and make each item green.
+    // items less than 20 will have their text changed.
+    // when the value is an even number, the item will be displayed with large text.
+    ray()->text("value: $i")
+        ->if($i < 10, function($ray) use ($i) {
+            $ray->text("value is less than ten: $i");
+        })
+        ->if($i >= 10 && $i < 20, function($ray) use ($i) {
+            $ray->text("value is less than 20: $i");
+        })
+        ->if($i % 2 === 0, function($ray) {
+            $ray->large();
+        })
+        ->green();
+}
+```
+
 
 ### Removing items
 

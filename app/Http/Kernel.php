@@ -34,14 +34,16 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
+            
+       //     \CodeZero\LocalizedRoutes\Middleware\SetLocale::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            \CodeZero\LocalizedRoutes\Middleware\SetLocale::class,
+            
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
-            //\App\Http\Middleware\SetPreferredLocale::class,
+            \App\Http\Middleware\SetPreferredLocale::class,
 
         ],
 

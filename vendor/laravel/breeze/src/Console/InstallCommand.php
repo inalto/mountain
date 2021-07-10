@@ -110,8 +110,8 @@ class InstallCommand extends Command
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
             return [
-                '@inertiajs/inertia' => '^0.8.4',
-                '@inertiajs/inertia-vue3' => '^0.3.5',
+                '@inertiajs/inertia' => '^0.9.0',
+                '@inertiajs/inertia-vue3' => '^0.4.0',
                 '@inertiajs/progress' => '^0.2.4',
                 '@tailwindcss/forms' => '^0.2.1',
                 '@vue/compiler-sfc' => '^3.0.5',
@@ -187,8 +187,8 @@ class InstallCommand extends Command
         $this->updateNodePackages(function ($packages) {
             return [
                 '@headlessui/react' => '^1.2.0',
-                '@inertiajs/inertia' => '^0.8.4',
-                '@inertiajs/inertia-react' => '^0.5.12',
+                '@inertiajs/inertia' => '^0.9.0',
+                '@inertiajs/inertia-react' => '^0.6.0',
                 '@inertiajs/progress' => '^0.2.4',
                 '@tailwindcss/forms' => '^0.3.2',
                 'autoprefixer' => '^10.2.4',
@@ -247,6 +247,7 @@ class InstallCommand extends Command
         copy(__DIR__.'/../../stubs/inertia-react/resources/js/app.js', resource_path('js/app.js'));
 
         $this->replaceInFile('.vue()', '.react()', base_path('webpack.mix.js'));
+        $this->replaceInFile('.vue', '.js', base_path('tailwind.config.js'));
 
         $this->info('Breeze scaffolding installed successfully.');
         $this->comment('Please execute the "npm install && npm run dev" command to build your assets.');

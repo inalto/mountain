@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithCalculatedFormulas;
 use Maatwebsite\Excel\Concerns\WithColumnLimit;
+use Maatwebsite\Excel\Concerns\WithFormatData;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithProgressBar;
 use Maatwebsite\Excel\Concerns\WithValidation;
@@ -48,6 +49,7 @@ class ModelImporter
         $progessBar       = $import instanceof WithProgressBar;
         $withMapping      = $import instanceof WithMapping;
         $withCalcFormulas = $import instanceof WithCalculatedFormulas;
+        $formatData       = $import instanceof WithFormatData;
         $withValidation   = $import instanceof WithValidation && method_exists($import, 'prepareForValidation');
         $endColumn        = $import instanceof WithColumnLimit ? $import->endColumn() : null;
 
@@ -58,8 +60,8 @@ class ModelImporter
             $i++;
 
             $row = new Row($spreadSheetRow, $headingRow);
-            if (!$import instanceof SkipsEmptyRows || ($import instanceof SkipsEmptyRows && !$row->isEmpty())) {
-                $rowArray = $row->toArray(null, $withCalcFormulas, true, $endColumn);
+            if (!$import instanceof SkipsEmptyRows || ($import instanceof SkipsEmptyRows && !$row->isEmpty($withCalcFormulas))) {
+                $rowArray = $row->toArray(null, $withCalcFormulas, $formatData, $endColumn);
 
                 if ($withValidation) {
                     $rowArray = $import->prepareForValidation($rowArray, $row->getIndex());
