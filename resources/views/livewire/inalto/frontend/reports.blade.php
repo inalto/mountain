@@ -1,12 +1,13 @@
 <div class="flex flex-wrap">
     
     @forelse ($reports as $report)
+    
         <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
             <div class="h-full overflow-hidden rounded-lg shadow-lg">
-                <a href="/relazione/{{ $report->slug }}"><img class="object-cover object-center w-full h-48" @if ($report->cover) src="{{ $report->cover->getUrl('preview') }}" alt="{{ $report->cover->getCustomProperty('alt') }}" @endif /></a>
+                <a href="/relazione/{{ $report->slug }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('photos') }}" alt="" @endif /></a>
                 <div class="p-3 bg-white dark:bg-gray-800">
                     <h3 class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font ">
-                        {{ $report->owner}}</h3>
+                        {{ $report->owner->name}}</h3>
                     <h2 class="mb-3 text-lg font-medium text-gray-900 dark:text-gray-100 title-font">
                         {{ $report->title }}
                     </h2>

@@ -10,6 +10,9 @@
 		<meta name="author" content="Martini Multimedia s.a.s.">
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+		
         @include('inalto.components.icons')
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
@@ -25,9 +28,9 @@
 
       
             <!-- Page Content -->
-            <main>
-               
-            </main>
+			<main>
+				{{ $slot ?? '' }}
+			</main>
         </div>
 
         @stack('modals')

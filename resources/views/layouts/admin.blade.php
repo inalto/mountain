@@ -9,7 +9,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Martini Multimedia s.a.s.">
 
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+
     <title>{{ trans('panel.site_title') }}</title>
+
     {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -33,10 +36,10 @@
 
 <body class="h-full font-sans antialiased leading-tight tracking-normal dark">
     <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
-        {{-- @include('inalto.components.navigation') --}}
+      
         <x-navigation-dropdown></x-navigation-dropdown>
 
-        {{-- <nav class="flex flex-col w-1/5 bg-white main-header navbar navbar-expand navbar-light border-bottom">
+         <nav class="flex flex-col w-1/5 bg-white main-header navbar navbar-expand navbar-light border-bottom">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
             <li class="nav-item">
@@ -60,15 +63,15 @@
             </ul>
         @endif
 
-    </nav> --}}
+    </nav> 
 
         <!-- Page Heading -->
-        {{-- <header class="z-10 bg-white shadow">
+<header class="z-10 bg-white shadow">
                 <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     {{ $header ?? '' }}
                 </div>
-            </header> --}}
-        <main class="flex flex-col flex-grow">
+            </header>
+                    <main class="flex flex-col flex-grow">
             <div class="flex flex-grow">
 
                 <aside class="flex-none min-h-full bg-white shadow dark:bg-gray-800">
@@ -77,7 +80,7 @@
                 <div class="flex-grow w-full p-5">
                     <!-- Main content -->
                     <main class="mt-2">
-                        {{-- @if (session('message'))
+                        @if (session('message'))
                     <div class="mb-2 row">
                         <div class="col-lg-12">
                             <div class="alert alert-success" role="alert">{{ session('message') }}</div>
@@ -92,7 +95,7 @@
                             @endforeach
                         </ul>
                     </div>
-                @endif --}}
+                @endif 
                         {{ $slot ?? '' }}
                     </main>
                     <!-- /.content -->

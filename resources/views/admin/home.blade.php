@@ -1,6 +1,11 @@
-@extends('layouts.admin')
-@section('content')
-<div class="flex flex-wrap">
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Dashboard') }}
+        </h2>
+    </x-slot>
+
+        <div class="flex flex-wrap">
     {{-- Latest Entries --}}
     <div class="{{ $settings1['column_class'] }} px-4">
         <div class="relative flex flex-col min-w-0 mb-6 break-words bg-white rounded shadow-lg">
@@ -58,7 +63,10 @@
     </div>
 
 </div>
-@endsection
+
+</x-app-layout>
+
+
 @push('scripts')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
 @endpush

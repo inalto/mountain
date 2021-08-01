@@ -23,21 +23,6 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_team_id')->nullable();
             $table->text('profile_photo_path')->nullable();
             $table->timestamps();
-
-		    /*
-            * inalto
-            */
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('tagline')->nullable();
-            $table->date('birth_date')->nullable();
-            $table->longText('address')->nullable();
-            $table->longText('abstract')->nullable();
-            $table->string('city')->nullable();
-            $table->string('country')->nullable();
-
-
-
         });
     }
 

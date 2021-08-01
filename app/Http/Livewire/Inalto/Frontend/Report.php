@@ -4,11 +4,10 @@ namespace App\Http\Livewire\Inalto\Frontend;
 
 use Livewire\Component;
 use App\Models\Report as R;
-use Livewire\WithPagination;
+
 class Report extends Component
 {
 
-	use WithPagination;
 
 	public $slug;
 
@@ -16,7 +15,7 @@ class Report extends Component
 
    	public function mount($slug)
 	{
-	$this->report=R::where('slug','=',$slug)->with('created_by')->with('media')->first();
+	$this->report=R::where('slug','=',$slug)->with('owner')->with('media')->first();
 	}
 
 

@@ -6,6 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+use Illuminate\Http\Request;
+use Socialite;
+
+use App\Models\User;
+use App\Models\Team;
+
+
 class LoginController extends Controller
 {
     /*
@@ -129,12 +136,14 @@ class LoginController extends Controller
             ];
             // markEmailAsVerified() contains save() behavior
             $user->markEmailAsVerified();
+            /*
             $team = Team::forceCreate([
                 'user_id' => $user->id,
                 'name' => $user->name."'s Team",
                 'personal_team' => true,
             ]);
             $user->current_team_id = $team->id;
+            */
             $user->save();
 
             return $this->socialLogin($user);

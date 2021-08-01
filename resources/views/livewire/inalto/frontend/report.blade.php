@@ -6,7 +6,7 @@
 
 
     <div class="w-full hero">
-        <img class="w-full" @if ($report->cover) src="{{ $report->cover->getUrl() }}" alt="{{ $report->cover->getCustomProperty('alt') }}" @endif />
+        <img class="w-full" @if ($report->getFirstMediaUrl('photos')) src="{{ $report->getFirstMediaUrl('photos') }}" alt="" @endif />
     </div>
 
     <div class="flex flex-wrap w-full">

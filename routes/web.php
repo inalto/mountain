@@ -1,28 +1,38 @@
 <?php
 use App\Http\Controllers\inalto\HomeController as Home;
-use App\Http\Controllers\Admin\AuditLogController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ContentCategoryController;
-use App\Http\Controllers\Admin\ContentPageController;
-use App\Http\Controllers\Admin\ContentTagController;
+
+use App\Http\Controllers\Auth\LoginController;
+
+use Admin\AuditLogController;
+use Admin\CategoryController;
+use Admin\ContentCategoryController;
+use Admin\ContentPageController;
+use Admin\ContentTagController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\NewsCategoryController;
-use App\Http\Controllers\Admin\NewsTagController;
-use App\Http\Controllers\Admin\PermissionController;
-use App\Http\Controllers\Admin\PoiController;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\Admin\TagController;
-use App\Http\Controllers\Admin\UserController;
+use Admin\NewsCategoryController;
+use Admin\NewsTagController;
+use Admin\PermissionController;
+use Admin\PoiController;
+use Admin\PostController;
+use Admin\ReportController;
+use Admin\RoleController;
+use Admin\TagController;
+use Admin\UserController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+/*
+* Frontend
+*/
 
+use App\Http\Controllers\Frontend\ReportsController as Report;
 
-//use App\Http\Controllers\inalto\HomeController;
+//use inalto\HomeController;
+
 
 Route::get('/',[Home::class, 'index'])->name('home');
+Route::get('/relazione/{slug}',[Report::class, 'show'])->name('report');
 
 //Route::redirect('/', '/login');
 
@@ -48,14 +58,18 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('content-tags', ContentTagController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Content Page
+    /*
     Route::post('content-pages/media', [ContentPageController::class, 'storeMedia'])->name('content-pages.storeMedia');
+*/
     Route::resource('content-pages', ContentPageController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Audit Logs
     Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
 
     // Report
+    /*
     Route::post('reports/media', [ReportController::class, 'storeMedia'])->name('reports.storeMedia');
+*/
     Route::resource('reports', ReportController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Tag
@@ -68,7 +82,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Post
+/*
     Route::post('posts/media', [PostController::class, 'storeMedia'])->name('posts.storeMedia');
+*/
     Route::resource('posts', PostController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // News Tag
@@ -79,8 +95,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 });
 
 // Social Login Routes..
-Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
-Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');
+
+
+Route::get('/login/{provider}', [LoginController::class, 'redirectToProvider'])
+    ->name('social.login');
+Route::get('/login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])
+    ->name('social.callback');
 
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
