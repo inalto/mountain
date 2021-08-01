@@ -2,19 +2,45 @@
 
 namespace App\Models;
 
+use \DateTimeInterface;
+use App\Support\HasAdvancedFilter;
+use App\Traits\Auditable;
+use App\Traits\Tenantable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use \DateTimeInterface;
 
-class Poi extends Model implements HasMedia
+class Poi extends Model
 {
-    use SoftDeletes, InteractsWithMedia, HasFactory;
+    use HasFactory;
+    use HasAdvancedFilter;
+    use SoftDeletes;
+    use Tenantable;
+    use Auditable;
 
     public $table = 'pois';
+
+    public $orderable = [
+        'id',
+        'name',
+        'lat',
+        'lon',
+        'height',
+        'access',
+        'description',
+        'biography',
+    ];
+
+    public $filterable = [
+        'id',
+        'name',
+        'lat',
+        'lon',
+        'height',
+        'access',
+        'description',
+        'biography',
+    ];
 
     protected $dates = [
         'created_at',
@@ -29,20 +55,16 @@ class Poi extends Model implements HasMedia
         'height',
         'access',
         'description',
-        'bibliography',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+        'biography',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-    }
-
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 120, 120);
     }
 }

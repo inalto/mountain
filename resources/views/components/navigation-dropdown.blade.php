@@ -5,9 +5,11 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex items-center flex-shrink-0">
+                    
                     <a href="{{ route('home') }}">
                         <x-application-logo class="block w-14 h-14" />
                     </a>
+                    
                 </div>
 
                 <!-- Navigation Links -->
@@ -16,9 +18,12 @@
                     <x-jet-nav-link class="dark:text-gray-200 dark:hover:text-white" href="{{ route('admin.home') }}" :active="request()->routeIs('admin')">
                         {{ __('Admin') }}
                     </x-jet-nav-link>
+
                 </div>
             </div>
             @auth
+
+            
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-jet-dropdown align="right" width="48">
@@ -67,7 +72,7 @@
                             @endif
 
                             <div class="border-t border-gray-100"></div>
-
+{{--
                             <!-- Team Management -->
                             @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                                 <div class="block px-4 py-2 text-xs text-gray-400">
@@ -98,6 +103,7 @@
 
                                 <div class="border-t border-gray-100"></div>
                             @endif
+                            --}}
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
@@ -110,9 +116,13 @@
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+
+                
             @else
+            
                 <x-nav-link href="{{ route('login') }}">{{ __('Login') }}</x-nav-link>
                 <x-nav-link href="{{ route('register') }}">{{ __('Register') }}</x-nav-link>
+            
             @endauth
             <!-- Hamburger -->
             <div class="flex items-center -mr-2 sm:hidden">
@@ -139,6 +149,8 @@
 
         </div>
         @auth
+
+        {{-- 
             <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="flex items-center px-4">
@@ -211,6 +223,8 @@
                     @endif
                 </div>
             </div>
+
+            --}}
         @endauth
 
     </div>

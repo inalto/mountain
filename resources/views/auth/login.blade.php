@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-login-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -56,14 +56,40 @@
         <p class="mb-4 text-center dark:text-white">OR</p>
         <hr class="block w-full mb-4 border-0 border-t border-gray-300" />
   
+        <div>
+    @php
+      $providers = [
+        'google' => [
+          'bgColor' => '#ec462f',
+          'icon' => 'fab fa-google',
+        ],
+        'facebook' => [
+          'bgColor' => '#1877f2',
+          'icon' => 'fab fa-facebook-f',
+        ],
+        'linkedin' => [
+          'bgColor' => '#2969b1',
+          'icon' => 'fab fa-linkedin-in',
+        ],
+        'twitter' => [
+          'bgColor' => '#41aaf1',
+          'icon' => 'fab fa-twitter',
+        ],
+      ];
+    @endphp
 
-            <a href="{{ route('social.login', 'facebook') }}"
-              class="block w-full px-4 py-2 my-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition duration-150 ease-in-out bg-blue-800 rounded hover:bg-blue-900"
-            ><i class="fab fa-facebook"></i> Login with Facebook</a>
-            <a href="{{ route('social.login', 'google') }}"
-              class="block w-full px-4 py-2 my-2 text-xs font-semibold tracking-widest text-center text-white uppercase transition duration-150 ease-in-out bg-red-800 rounded hover:bg-red-900"
-            ><i class="fab fa-google"></i> Login with Google</a>
+    @foreach($providers as $provider => $params)
+      <a 
+        class="block px-4 py-2 my-2 rounded text-xs text-white font-semibold tracking-widest text-center uppercase transition duration-150 ease-in-out hover:no-underline hover:opacity-75" 
+        href="{{ route('social.login', ['provider' => $provider]) }}"
+        style="background-color: {{ $params['bgColor'] }};"
+      >
+        <i class="float-left inline-block h-5 {{ $params['icon'] }}"></i>
+        Login with {{ ucwords($provider) }}
+      </a>
+    @endforeach
+</div>
 
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-login-layout>

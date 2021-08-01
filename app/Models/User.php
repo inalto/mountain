@@ -2,29 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
 use Laravel\Sanctum\HasApiTokens;
 
-/*
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
-use \DateTimeInterface;
-*/
 class User extends Authenticatable
 {
     use HasApiTokens;
     use HasFactory;
     use HasProfilePhoto;
-    use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
-   // use HasMediaTrait;
 
     /**
      * The attributes that are mass assignable.
@@ -32,15 +24,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-
-        'last_name',
-        'tagline',
-        'birth_date',
-        'address',
-        'city',
-        'country',
-        'abstract',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -54,7 +40,6 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
-
 
     /**
      * The attributes that should be cast to native types.
@@ -73,14 +58,4 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
-
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class);
-    }
-    public function hasRole($role)
-    {
-        return $this->roles()->where('title',$role)->get();
-    }
-
 }

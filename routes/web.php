@@ -1,128 +1,108 @@
 <?php
-
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\inalto\HomeController as Home;
 
 use App\Http\Controllers\Auth\LoginController;
+
+use Admin\AuditLogController;
+use Admin\CategoryController;
+use Admin\ContentCategoryController;
+use Admin\ContentPageController;
+use Admin\ContentTagController;
 use App\Http\Controllers\Admin\HomeController;
-use App\Http\Controllers\Admin\PermissionsController;
-use App\Http\Controllers\Admin\RolesController;
-use App\Http\Controllers\Admin\UsersController;
-use App\Http\Controllers\Admin\ReportsController;
-use App\Http\Controllers\Admin\ReportsTagController;
-use App\Http\Controllers\Admin\ReportsCategoryController;
-use App\Http\Controllers\Admin\ContentTagController;
-use App\Http\Controllers\Admin\ContentPageController;
-use App\Http\Controllers\Admin\NewsTagController;
-use App\Http\Controllers\Admin\NewsCategoryController;
-use App\Http\Controllers\Admin\PoiController;
-use App\Http\Controllers\Admin\GlobalSearchController;
+use Admin\NewsCategoryController;
+use Admin\NewsTagController;
+use Admin\PermissionController;
+use Admin\PoiController;
+use Admin\PostController;
+use Admin\ReportController;
+use Admin\RoleController;
+use Admin\TagController;
+use Admin\UserController;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
-use App\Http\Livewire\Inalto\Frontend\Report;
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
+* Frontend
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+use App\Http\Controllers\Frontend\ReportsController as Report;
 
-//livewire.inalto.frontend.report
-//Route::livewire('/relazione/{slug}','livewire.inalto.frontend.report')->name('reports.show');
-//Route::get('/relazione/{slug}',Report::class)->name('reports.show');
-
-Route::get('/relazione/{slug}', function ($slug) {
-    return view('report',['slug'=>$slug]);
-})->name('reports.show');
-
-//->middleware(['auth'])
-//->middleware(['guest','auth'])
-/*
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-*/
-
-// Social Login Routes..
-Route::get('/login/{provider}', [LoginController::class, 'redirectToProvider'])->name('social.login');
-Route::get('/login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])->name('social.callback');
-
-//require __DIR__.'/auth.php';
+//use inalto\HomeController;
 
 
+Route::get('/',[Home::class, 'index'])->name('home');
+Route::get('/relazione/{slug}',[Report::class, 'show'])->name('report');
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => ['auth']], function () {
-    Route::get('/', [HomeController::class,'index'])->name('home');
+//Route::redirect('/', '/login');
+
+Auth::routes(['register' => false]);
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
+    
+    Route::get('/',[HomeController::class, 'index'])->name('home');
 
     // Permissions
-    Route::delete('permissions/destroy', [PermissionsController::class , 'massDestroy'])->name('permissions.massDestroy');
-    Route::resource('permissions', 'PermissionsController');
+    Route::resource('permissions', PermissionController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Roles
-    Route::delete('roles/destroy', [RolesController::class , 'massDestroy'])->name('roles.massDestroy');
-    Route::resource('roles', 'RolesController');
+    Route::resource('roles', RoleController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Users
-    Route::delete('users/destroy', [UsersController::class,'massDestroy'])->name('users.massDestroy');
-    Route::post('users/media', [UsersController::class,'storeMedia'])->name('users.storeMedia');
-    Route::post('users/ckmedia', [UsersController::class, 'storeCKEditorImages'])->name('users.storeCKEditorImages');
-    Route::resource('users', 'UsersController');
-
-
+    Route::resource('users', UserController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Content Category
-    Route::resource('content-categories', 'ContentCategoryController', ['except' => ['store', 'update', 'destroy']]);
+    Route::resource('content-categories', ContentCategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Content Tag
-    Route::resource('content-tags', 'ContentTagController', ['except' => ['store', 'update', 'destroy']]);
+    Route::resource('content-tags', ContentTagController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Content Page
+    /*
     Route::post('content-pages/media', [ContentPageController::class, 'storeMedia'])->name('content-pages.storeMedia');
-    //Route::resource('content-pages', ContentPageController::class, ['except' => ['store', 'update', 'destroy']]);
-    Route::resource('content-pages', 'ContentPageController', ['except' => ['store', 'update', 'destroy']]);
+*/
+    Route::resource('content-pages', ContentPageController::class, ['except' => ['store', 'update', 'destroy']]);
 
- // Reports Categories
- Route::delete('reports-categories/destroy', [ReportsCategoryController::class,'massDestroy'])->name('reports-categories.massDestroy');
- Route::post('reports-categories/media', [ReportsCategoryController::class,'storeMedia'])->name('reports-categories.storeMedia');
- Route::post('reports-categories/ckmedia', [ReportsCategoryController::class,'storeCKEditorImages'])->name('reports-categories.storeCKEditorImages');
- Route::resource('reports-categories', 'ReportsCategoryController');
+    // Audit Logs
+    Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
 
- // Reports Tags
- Route::delete('reports-tags/destroy', [ReportsTagController::class,'massDestroy'])->name('reports-tags.massDestroy');
- Route::resource('reports-tags', 'ReportsTagController');
+    // Report
+    /*
+    Route::post('reports/media', [ReportController::class, 'storeMedia'])->name('reports.storeMedia');
+*/
+    Route::resource('reports', ReportController::class, ['except' => ['store', 'update', 'destroy']]);
 
-       // Reports
-       Route::delete('reports/destroy', [ReportsController::class, 'massDestroy'])->name('reports.massDestroy');
-       Route::post('reports/media', [ReportsController::class, 'storeMedia'])->name('reports.storeMedia');
-       Route::post('reports/ckmedia', [ReportsController::class, 'storeCKEditorImages'])->name('reports.storeCKEditorImages');
-       Route::resource('reports', 'ReportsController');
- // News Tags
- Route::delete('news-tags/destroy', [NewsTagController::class,'massDestroy'])->name('news-tags.massDestroy');
- Route::resource('news-tags', 'NewsTagController');
+    // Tag
+    Route::resource('tags', TagController::class, ['except' => ['store', 'update', 'destroy']]);
 
- // News Categories
- Route::delete('news-categories/destroy', [NewsCategoryController::class,'massDestroy'])->name('news-categories.massDestroy');
- Route::resource('news-categories', 'NewsCategoryController');
+    // Poi
+    Route::resource('pois', PoiController::class, ['except' => ['store', 'update', 'destroy']]);
 
- // News Posts
- Route::delete('news-posts/destroy', [NewsPostController::class,'massDestroy'])->name('news-posts.massDestroy');
- Route::post('news-posts/media', [NewsPostController::class,'storeMedia'])->name('news-posts.storeMedia');
- Route::post('news-posts/ckmedia', [NewsPostController::class,'storeCKEditorImages'])->name('news-posts.storeCKEditorImages');
- Route::resource('news-posts', 'NewsPostController');
+    // Category
+    Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
- // Pois
- Route::delete('pois/destroy', [PoiController::class,'massDestroy'])->name('pois.massDestroy');
- Route::post('pois/media', [PoiController::class,'storeMedia'])->name('pois.storeMedia');
- Route::post('pois/ckmedia', [PoiController::class,'storeCKEditorImages'])->name('pois.storeCKEditorImages');
- Route::resource('pois', 'PoiController');
+    // Post
+/*
+    Route::post('posts/media', [PostController::class, 'storeMedia'])->name('posts.storeMedia');
+*/
+    Route::resource('posts', PostController::class, ['except' => ['store', 'update', 'destroy']]);
 
- Route::get('global-search', [GlobalSearchController::class,'search'])->name('globalSearch');
+    // News Tag
+    Route::resource('news-tags', NewsTagController::class, ['except' => ['store', 'update', 'destroy']]);
 
+    // News Category
+    Route::resource('news-categories', NewsCategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 });
+
+// Social Login Routes..
+
+
+Route::get('/login/{provider}', [LoginController::class, 'redirectToProvider'])
+    ->name('social.login');
+Route::get('/login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])
+    ->name('social.callback');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia\Inertia::render('Dashboard');
+})->name('dashboard');

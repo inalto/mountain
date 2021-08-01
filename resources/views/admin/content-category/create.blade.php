@@ -1,4 +1,6 @@
-<x-admin-layout>
+@extends('layouts.admin')
+@section('content')
+
 <div class="card bg-blueGray-100">
     <div class="card-header">
         <div class="card-header-container">
@@ -10,7 +12,7 @@
     </div>
 
     <div class="card-body">
-        <livewire:content-category.create></livewire:content-category.create>
+        @livewire('content-category.create')
     </div>
 </div>
-</x-admin-layout>
+@endsection

@@ -16,6 +16,10 @@ return [
             'title'      => 'English',
             'short_code' => 'en',
         ],
+        [
+            'title'      => 'French',
+            'short_code' => 'fr',
+        ],
     ],
     'pagination' => [
         'options' => [

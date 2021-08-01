@@ -2,26 +2,41 @@
 
 namespace App\Models;
 
+use \DateTimeInterface;
+use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use \DateTimeInterface;
 
 class NewsCategory extends Model
 {
-    use SoftDeletes, HasFactory;
+    use HasFactory;
+    use HasAdvancedFilter;
+    use SoftDeletes;
 
     public $table = 'news_categories';
 
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
+    public $orderable = [
+        'id',
+        'name',
+        'slug',
+        'description',
+    ];
+
+    public $filterable = [
+        'id',
+        'name',
+        'slug',
+        'description',
     ];
 
     protected $fillable = [
-        'title',
+        'name',
         'slug',
+        'description',
+    ];
+
+    protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',

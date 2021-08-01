@@ -83,7 +83,7 @@ ray ($value->title);
                 $r->slug = Str::slug($value->title);
                 $r->content = $value->body_value;
                 $r->excerpt = $value->body_summary;
-                $r->created_by_id = $value->uid;
+                $r->owner_id = $value->uid;
                 //$r->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('photos');
 
                 $r->created_at = $value->created;

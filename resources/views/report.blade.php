@@ -7,7 +7,9 @@
 
     {{-- <x-jet-welcome /> --}}
     <section class="body-font">
-    <livewire:inalto.frontend.report :slug="$slug"></livewire:inalto.frontend.report>
+
+        {{ $report }}
+    {{-- <livewire:inalto.frontend.report :slug="{{ $report->slug }}"></livewire:inalto.frontend.report> --}}
     </section>
         
 

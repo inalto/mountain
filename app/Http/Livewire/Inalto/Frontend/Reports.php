@@ -13,7 +13,8 @@ class Reports extends Component
 
 	//public $reports=[];
 
-  /* public function mount()
+  /*
+   public function mount()
 	{
 	$this->reports=Report::all();
 	dd($this->reports);
@@ -22,6 +23,7 @@ class Reports extends Component
 
 	public function render()
     {
-        return view('livewire.inalto.frontend.reports',['reports'=>Report::with('created_by')->with('media')->orderBy('created_at','desc')->paginate(12)]);
+		
+        return view('livewire.inalto.frontend.reports',['reports'=>Report::with('owner')->with('media')->orderBy('created_at','desc')->paginate(12)]);
     }
 }
