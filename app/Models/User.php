@@ -6,27 +6,24 @@ use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
 use Carbon\Carbon;
 use Hash;
+
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
+use Laravel\Jetstream\HasProfilePhoto;
+use Laravel\Sanctum\HasApiTokens;
 
-/*
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use Spatie\MediaLibrary\Models\Media;
-use \DateTimeInterface;
-*/
 class User extends Authenticatable
 {
-    use HasFactory;
     use HasAdvancedFilter;
-   // use SoftDeletes;
+    
+    use HasApiTokens;
+    use HasFactory;
+    use HasProfilePhoto;
     use Notifiable;
-
-   // use HasMediaTrait;
+    use TwoFactorAuthenticatable;
 
     /**
      * The attributes that are mass assignable.
@@ -34,20 +31,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
-
-        'last_name',
-        'tagline',
-        'birth_date',
-        'address',
-        'city',
-        'country',
-        'abstract',
+        'name',
+        'email',
+        'password',
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
-        'remember_token',
         'password',
+        'remember_token',
+        'two_factor_recovery_codes',
+        'two_factor_secret',
     ];
 
     /**
@@ -57,6 +55,15 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'profile_photo_url',
     ];
 
     protected $dates = [
@@ -96,10 +103,6 @@ class User extends Authenticatable
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
-    }
-    public function hasRole($role)
-    {
-        return $this->roles()->where('title',$role)->get();
     }
 
 }

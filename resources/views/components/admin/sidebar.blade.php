@@ -156,6 +156,7 @@
                                     </a>
                                 </li>
                             @endcan
+                            {{--
                             @can('reports_tag_access')
                                 <li class="nav-item">
                                     <a href="{{ route("admin.reports-tags.index") }}" class="nav-link {{ request()->is("admin/reports-tags") || request()->is("admin/reports-tags/*") ? "active" : "" }}">
@@ -176,6 +177,7 @@
                                     </a>
                                 </li>
                             @endcan
+                            --}}
                         </ul>
                     </li>
                 @endcan
@@ -195,6 +197,7 @@
                         class="relative overflow-hidden transition-all duration-700 max-h-0"
                         x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``"
                          >
+                         {{--
                             @can('news_post_access')
                                 <li class="nav-item">
                                     <a href="{{ route("admin.news-posts.index") }}" class="nav-link {{ request()->is("admin/news-posts") || request()->is("admin/news-posts/*") ? "active" : "" }}">
@@ -225,6 +228,7 @@
                                     </a>
                                 </li>
                             @endcan
+                            --}}
                         </ul>
                     </li>
                 @endcan

@@ -119,6 +119,7 @@
                     </li>
                 @endcan
                 @can('inalto_access')
+                {{-- 
                     <li class="items-center">
                         <a class="has-sub {{ request()->is("admin/reports*")||request()->is("admin/tags*")||request()->is("admin/pois*")||request()->is("admin/categories*") ? "sidebar-nav-active" : "sidebar-nav" }}" href="#" onclick="window.openSubNav(this)">
                             <i class="fa-fw fas fa-users c-sidebar-nav-icon">
@@ -164,6 +165,7 @@
                             @endcan
                         </ul>
                     </li>
+                    --}}
                 @endcan
                 @can('news_access')
                     <li class="items-center">

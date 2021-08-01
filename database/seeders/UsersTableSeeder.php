@@ -11,13 +11,6 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-<<<<<<< HEAD
-                'id'             => 1,
-                'name'           => 'Admin',
-                'email'          => 'admin@admin.com',
-                'password'       => bcrypt('password'),
-                'remember_token' => null,
-=======
                 'id'                 => 1,
                 'name'               => 'Admin',
                 'email'              => 'admin@admin.com',
@@ -32,7 +25,6 @@ class UsersTableSeeder extends Seeder
                 'tagline'            => '',
                 'city'               => '',
                 'country'            => '',
->>>>>>> master
             ],
         ];
 

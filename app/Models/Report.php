@@ -50,12 +50,9 @@ class Report extends Model implements HasMedia
     ];
 
     protected $appends = [
-        'cover',
         'photo',
         'tracks',
     ];
-
-    
 
     protected $dates = [
         'created_at',
@@ -73,47 +70,27 @@ class Report extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $this->addMediaConversion('thumb')->fit('crop', 50, 50);
-        $this->addMediaConversion('preview')->fit('crop', 388, 192);
-    }
+        $thumbnailWidth  = 50;
+        $thumbnailHeight = 50;
 
+        $thumbnailPreviewWidth  = 120;
+        $thumbnailPreviewHeight = 120;
+
+        $this->addMediaConversion('thumbnail')
+            ->width($thumbnailWidth)
+            ->height($thumbnailHeight)
+            ->fit('crop', $thumbnailWidth, $thumbnailHeight);
+        $this->addMediaConversion('preview_thumbnail')
+            ->width($thumbnailPreviewWidth)
+            ->height($thumbnailPreviewHeight)
+            ->fit('crop', $thumbnailPreviewWidth, $thumbnailPreviewHeight);
+    }
 
     public function getDifficultyLabelAttribute($value)
     {
         return static::DIFFICULTY_SELECT[$this->difficulty] ?? null;
     }
 
-    protected function serializeDate(DateTimeInterface $date)
-    {
-        return $date->format('Y-m-d H:i:s');
-    }
-
-
-    public function getCoverAttribute()
-    {
-        $file = $this->getMedia('photos')->first();
-        
-        if ($file) {
-            $file->url       = $file->getUrl();
-            $file->thumbnail = $file->getUrl('thumb');
-            $file->preview   = $file->getUrl('preview');
-        }
-        
-        return $file;
-    }
-/*
-    public function getPhotosAttribute()
-    {
-        $files = $this->getMedia('photos');
-        $files->each(function ($item) {
-            $item->url       = $item->getUrl();
-            $item->thumbnail = $item->getUrl('thumb');
-            $item->preview   = $item->getUrl('preview');
-        });
-
-        return $files;
-    }
-*/
     public function getPhotoAttribute()
     {
         return $this->getMedia('report_photo')->map(function ($item) {
@@ -126,33 +103,33 @@ class Report extends Model implements HasMedia
         });
     }
 
-
     public function getTracksAttribute()
     {
-        return $this->getMedia('tracks');
-    }
+        return $this->getMedia('report_tracks')->map(function ($item) {
+            $media = $item->toArray();
+            $media['url'] = $item->getUrl();
 
-    public function categories()
-    {
-        return $this->belongsToMany(ReportsCategory::class);
+            return $media;
+        });
     }
 
     public function tags()
     {
-        return $this->belongsToMany(ReportsTag::class);
+        return $this->belongsToMany(Tag::class);
     }
 
-    public function created_by()
+    public function categories()
     {
-        return $this->belongsTo(User::class, 'created_by_id');
+        return $this->belongsToMany(Category::class);
     }
 
-    public function sluggable()
+    public function owner()
     {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
+        return $this->belongsTo(User::class);
+    }
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
     }
 }

@@ -22,14 +22,15 @@ use Illuminate\Support\Facades\Route;
 
 //use App\Http\Controllers\inalto\HomeController;
 
-Route::get('/test',[HomeController::class, 'index']);
+Route::get('/',[Home::class, 'index'])->name('home');
 
-Route::redirect('/', '/login');
+//Route::redirect('/', '/login');
 
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    
+    Route::get('/',[HomeController::class, 'index'])->name('home');
 
     // Permissions
     Route::resource('permissions', PermissionController::class, ['except' => ['store', 'update', 'destroy']]);
@@ -80,3 +81,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 // Social Login Routes..
 Route::get('login/{driver}', 'Auth\LoginController@redirectToSocial')->name('auth.login.social');
 Route::get('{driver}/callback', 'Auth\LoginController@handleSocialCallback')->name('auth.login.social_callback');
+
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return Inertia\Inertia::render('Dashboard');
+})->name('dashboard');

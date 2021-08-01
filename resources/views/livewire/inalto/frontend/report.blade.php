@@ -12,7 +12,7 @@
     <div class="flex flex-wrap w-full">
     <div class="mx-auto prose prose-md">
         <h3 class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font ">
-            {{ $report->created_by->name }}</h3>
+            {{ $report->owner->name }}</h3>
 
             {!!$report->content!!}
 

@@ -21,7 +21,7 @@
 	</head>
 	<body class="flex flex-col h-full font-sans leading-tight tracking-normal bg-grey-200">
 		<div class="min-h-screen bg-gray-100">
-            @livewire('navigation-dropdown')
+            @livewire('navigation-dropdown') 
 
       
             <!-- Page Content -->
