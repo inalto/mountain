@@ -19,14 +19,14 @@
             <div>
                 <x-label class="dark:text-gray-200" for="email" :value="__('auth.email')" />
 
-                <x-input id="email" class="block w-full mt-1 dark:border-gray-600 dark:bg-gray-800 dark:text-white" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="block w-full mt-1 px-2 py-1 focus:outline-none focus:ring ring-blue-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label class="dark:text-gray-200" for="password" :value="__('auth.password')" />
 
-                <x-input id="password" class="block w-full mt-1 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                <x-input id="password" class="block w-full mt-1 px-2 py-1 focus:outline-none focus:ring ring-blue-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" />

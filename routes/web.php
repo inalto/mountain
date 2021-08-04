@@ -32,7 +32,7 @@ use App\Http\Controllers\Frontend\ReportsController as Report;
 
 
 Route::get('/',[Home::class, 'index'])->name('home');
-Route::get('/relazione/{slug}',[Report::class, 'show'])->name('report');
+Route::get('/relazione/{slug}',[Report::class, 'show'])->name('report.show');
 
 //Route::redirect('/', '/login');
 

@@ -97,6 +97,8 @@
                     </div>
                 @endif 
                         {{ $slot ?? '' }}
+
+                        @yield('content')
                     </main>
                     <!-- /.content -->
                 </div>

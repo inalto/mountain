@@ -22,9 +22,11 @@ class ReportsController extends Controller
     use MediaUploadingTrait;
 
 
-    public function show(Report $report)
+    public function show($slug)
     {
-        abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        
+        //abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        $report=Report::where('slug','=',$slug)->get()->first();
         $report->load('categories', 'tags', 'owner');
         return view('report', compact('report'));
     }
