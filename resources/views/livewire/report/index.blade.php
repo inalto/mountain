@@ -8,13 +8,7 @@
                 @endforeach
             </select>
 
-            @can('report_delete')
-                <button class="btn btn-rose ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
-                    {{ __('Delete Selected') }}
-                </button>
-            @endcan
-
-
+           
 
         </div>
         <div class="w-full sm:w-1/2 sm:text-right">
@@ -49,35 +43,20 @@
                             {{ trans('cruds.report.fields.difficulty') }}
                             @include('components.table.sort', ['field' => 'difficulty'])
                         </th>
-                        <th>
-                            {{ trans('cruds.report.fields.excerpt') }}
-                            @include('components.table.sort', ['field' => 'excerpt'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.report.fields.content') }}
-                            @include('components.table.sort', ['field' => 'content'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.report.fields.photo') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.report.fields.tracks') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.report.fields.tags') }}
-                        </th>
-                        <th>
-                            {{ trans('cruds.report.fields.categories') }}
-                        </th>
+
                         <th>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse($reports as $report)
-                        <tr>
+                        @if ($loop->even)
+                        <tr class="table-row p-1 divide-x divide-gray-100 dark:divide-gray-900 bg-gray-100 dark:bg-gray-700">
+                        @else
+                        <tr class="table-row p-1 divide-x divide-gray-100 dark:divide-gray-900 bg-gray-50 dark:bg-gray-700">
+                        @endif
                             <td>
-                                <input type="checkbox" value="{{ $report->id }}" wire:model="selected">
+                                <input type="checkbox" value="{{ $report->id }}" wire:model="selected" class="m-2">
                             </td>
                             <td>
                                 {{ $report->id }}
@@ -91,6 +70,7 @@
                             <td>
                                 {{ $report->difficulty_label }}
                             </td>
+                            {{--
                             <td>
                                 {{ $report->excerpt }}
                             </td>
@@ -123,21 +103,29 @@
                                     <span class="badge badge-relationship">{{ $entry->name }}</span>
                                 @endforeach
                             </td>
+                            --}}
                             <td>
                                 <div class="flex justify-end">
                                     @can('report_show')
-                                        <a class="btn btn-sm btn-info mr-2" href="{{ route('admin.reports.show', $report) }}">
-                                            {{ trans('global.view') }}
+                                        <a class="show mr-2" href="{{ route('admin.reports.show', $report) }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+</svg>
                                         </a>
                                     @endcan
                                     @can('report_edit')
-                                        <a class="btn btn-sm btn-success mr-2" href="{{ route('admin.reports.edit', $report) }}">
-                                            {{ trans('global.edit') }}
+                                        <a class="edit mr-2" href="{{ route('admin.reports.edit', $report) }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+</svg>
                                         </a>
                                     @endcan
                                     @can('report_delete')
-                                        <button class="btn btn-sm btn-rose mr-2" type="button" wire:click="confirm('delete', {{ $report->id }})" wire:loading.attr="disabled">
-                                            {{ trans('global.delete') }}
+                                        <button class="delete mr-2" type="button" wire:click="confirm('delete', {{ $report->id }})" wire:loading.attr="disabled">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+</svg>
                                         </button>
                                     @endcan
                                 </div>
@@ -154,13 +142,21 @@
     </div>
 
     <div class="card-body">
-        <div class="pt-3">
+        <div class="p-3">
             @if($this->selectedCount)
                 <p class="text-sm leading-5">
                     <span class="font-medium">
                         {{ $this->selectedCount }}
                     </span>
                     {{ __('Entries selected') }}
+                    @can('report_delete')
+                    <button class="delete ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
+                        <i class="fa fa-trash"></i>
+                    </button>
+    
+                @endcan
+    
+    
                 </p>
             @endif
             {{ $reports->links() }}

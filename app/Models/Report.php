@@ -12,15 +12,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+//use Cviebrock\EloquentSluggable\Sluggable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
-class Report extends Model implements HasMedia
+class Report extends Model implements HasMedia, TranslatableContract
 {
     use HasFactory;
     use HasAdvancedFilter;
     use SoftDeletes;
     use Tenantable;
     use InteractsWithMedia;
-    use Auditable;
+  //  use Auditable;
+//    use Sluggable;
+    use Translatable;
+
 
     public const DIFFICULTY_SELECT = [
         'dif'  => 'dif',
@@ -28,6 +34,8 @@ class Report extends Model implements HasMedia
     ];
 
     public $table = 'reports';
+
+    public $translatedAttributes = ['title', 'slug','content','excerpt'];
 
     public $orderable = [
         'id',
@@ -61,11 +69,11 @@ class Report extends Model implements HasMedia
     ];
 
     protected $fillable = [
-        'title',
-        'slug',
+//        'title',
+//        'slug',
         'difficulty',
-        'excerpt',
-        'content',
+//        'excerpt',
+//        'content',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -132,4 +140,14 @@ class Report extends Model implements HasMedia
     {
         return $date->format('Y-m-d H:i:s');
     }
+/*
+    public function sluggable()
+    {
+        return [
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
+    }
+    */
 }

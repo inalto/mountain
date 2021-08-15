@@ -1,5 +1,49 @@
 <?php
 return [
+    "auditLog" => [
+        "fields" => [
+            "created_at" => "",
+            "created_at_helper" => "",
+            "description" => "",
+            "description_helper" => "",
+            "host" => "",
+            "host_helper" => "",
+            "id" => "",
+            "id_helper" => "",
+            "properties" => "",
+            "properties_helper" => "",
+            "subject_id" => "",
+            "subject_id_helper" => "",
+            "subject_type" => "",
+            "subject_type_helper" => "",
+            "updated_at" => "",
+            "updated_at_helper" => "",
+            "user_id" => "",
+            "user_id_helper" => ""
+        ],
+        "title" => "",
+        "title_singular" => ""
+    ],
+    "category" => [
+        "fields" => [
+            "created_at" => "",
+            "created_at_helper" => "",
+            "deleted_at" => "",
+            "deleted_at_helper" => "",
+            "description" => "",
+            "description_helper" => "",
+            "id" => "",
+            "id_helper" => "",
+            "name" => "",
+            "name_helper" => "",
+            "slug" => "",
+            "slug_helper" => "",
+            "updated_at" => "",
+            "updated_at_helper" => ""
+        ],
+        "title" => "",
+        "title_singular" => ""
+    ],
     "contentCategory" => [
         "fields" => [
             "created_at" => "Creato il",
@@ -71,8 +115,12 @@ return [
             "created_at_helper" => "",
             "deleted_at" => "Deleted at",
             "deleted_at_helper" => "",
+            "description" => "",
+            "description_helper" => "",
             "id" => "ID",
             "id_helper" => "",
+            "name" => "",
+            "name_helper" => "",
             "slug" => "Slug",
             "slug_helper" => "",
             "title" => "Title",
@@ -149,6 +197,8 @@ return [
             "access_helper" => "",
             "bibliography" => "Bibliography",
             "bibliography_helper" => "",
+            "biography" => "",
+            "biography_helper" => "",
             "created_at" => "Created at",
             "created_at_helper" => "",
             "deleted_at" => "Deleted at",
@@ -165,11 +215,39 @@ return [
             "lon_helper" => "",
             "name" => "",
             "name_helper" => "",
+            "owner" => "",
+            "owner_helper" => "",
             "updated_at" => "Updated at",
             "updated_at_helper" => ""
         ],
         "title" => "POI",
         "title_singular" => "POI"
+    ],
+    "post" => [
+        "fields" => [
+            "content" => "",
+            "content_helper" => "",
+            "created_at" => "",
+            "created_at_helper" => "",
+            "deleted_at" => "",
+            "deleted_at_helper" => "",
+            "excerpt" => "",
+            "excerpt_helper" => "",
+            "id" => "",
+            "id_helper" => "",
+            "owner" => "",
+            "owner_helper" => "",
+            "photo" => "",
+            "photo_helper" => "",
+            "slug" => "",
+            "slug_helper" => "",
+            "title" => "",
+            "title_helper" => "",
+            "updated_at" => "",
+            "updated_at_helper" => ""
+        ],
+        "title" => "",
+        "title_singular" => ""
     ],
     "report" => [
         "fields" => [
@@ -189,11 +267,22 @@ return [
             "description" => "Descrizione",
             "details" => "Scheda",
             "difficulty" => "Difficoltà",
+            "difficulty_class" => [
+                "hiking" => "Escursionismo",
+                "mountaineering" => "Alpinismo",
+                "skimountaineering" => "Scialpinismo",
+                "snowshoeing" => "Racchette da neve",
+                "type" => "Tipologia"
+            ],
             "difficulty_helper" => "",
             "excerpt" => "Introduzione",
             "excerpt_helper" => "",
             "id" => "ID",
             "id_helper" => "",
+            "owner" => "",
+            "owner_helper" => "",
+            "photo" => "",
+            "photo_helper" => "",
             "photos" => "Fotografie",
             "photos_helper" => "",
             "slug" => "Slug",
@@ -208,8 +297,8 @@ return [
             "updated_at_helper" => "",
             "url" => "Url"
         ],
-        "title" => "Reports",
-        "title_singular" => "Report"
+        "title" => "Relazioni",
+        "title_singular" => "Relazione"
     ],
     "reportsCategory" => [
         "fields" => [
@@ -267,10 +356,29 @@ return [
         "title" => "Ruoli",
         "title_singular" => "Ruolo"
     ],
+    "tag" => [
+        "fields" => [
+            "created_at" => "",
+            "created_at_helper" => "",
+            "deleted_at" => "",
+            "deleted_at_helper" => "",
+            "id" => "",
+            "id_helper" => "",
+            "name" => "",
+            "name_helper" => "",
+            "slug" => "",
+            "slug_helper" => "",
+            "updated_at" => "",
+            "updated_at_helper" => ""
+        ],
+        "title" => "",
+        "title_singular" => ""
+    ],
     "user" => [
         "fields" => [
             "abstract" => "Astratto",
             "abstract_helper" => "",
+            "actions" => "Azioni",
             "address" => "Indirizzo",
             "address_helper" => "",
             "birth_date" => "Data di nascita",
@@ -287,6 +395,7 @@ return [
             "email_helper" => "",
             "email_verified_at" => "Email verified at",
             "email_verified_at_helper" => "",
+            "fullname" => "Nome e Cognome",
             "id" => "ID",
             "id_helper" => "",
             "last_name" => "Cognome",
@@ -303,6 +412,7 @@ return [
             "tagline_helper" => "",
             "updated_at" => "Updated at",
             "updated_at_helper" => "",
+            "username" => "Nome utente",
             "verification_token" => "Verification token",
             "verification_token_helper" => "",
             "verified" => "Verificato",

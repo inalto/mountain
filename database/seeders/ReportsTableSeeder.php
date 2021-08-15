@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Report;
 use Log;
@@ -51,12 +51,18 @@ class ReportsTableSeeder extends Seeder
             })->get();
 */
 
-$reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')->where('status',1)->leftJoin('field_data_body', function($q){
+$reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')->where('status',1)
+->leftJoin('field_data_body', function($q){
     $q->on('field_data_body.entity_id','=','node.nid');
-     $q->where('field_data_body.language','=','it');
-})->leftJoin('field_data_field_difficolt_', function($q){
-    $q->on('field_data_field_difficolt_.entity_id','=','node.nid');
-})->get();
+ //   $q->where('field_data_body.language','=','it');
+})
+->leftJoin('field_data_field_difficolt_', function($q){$q->on('field_data_field_difficolt_.entity_id','=','node.nid');})
+->leftJoin('field_data_field_tempo_di_salita', function($q){$q->on('field_data_field_tempo_di_salita.entity_id','=','node.nid');})
+->leftJoin('field_data_field_tempo_di_discesa', function($q){$q->on('field_data_field_tempo_di_discesa.entity_id','=','node.nid');})
+->leftJoin('field_data_field_lunghezza', function($q){$q->on('field_data_field_lunghezza.entity_id','=','node.nid');})
+->leftJoin('field_data_field_quota_di_partenza', function($q){$q->on('field_data_field_quota_di_partenza.entity_id','=','node.nid');})
+->leftJoin('field_data_field_dislivello', function($q){$q->on('field_data_field_dislivello.entity_id','=','node.nid');})
+->get();
 
             //        $reports = DB::connection('mysqlold')->table('node')->where('type','=','relazioni')->join('node_revisions', function($q){
             //        $q->on('node_revisions.nid','=','node.nid')->whereRaw('node_revisions.timestamp IN (select MAX(revs.timestamp) from node_revisions as revs where revs.nid = node.nid) '/* where (revs.nid=node.nid) )'*/);
@@ -79,14 +85,27 @@ ray ($value->title);
                 $r = new Report;
                 //$r = Report::firstOrNew(['id' =>  request('email')]);
 
-                $r->title = $value->title;
-                $r->slug = Str::slug($value->title);
-                $r->content = $value->body_value;
-                $r->excerpt = $value->body_summary;
+                $r->translateOrNew('it')->title = $value->title;
+                $r->translateOrNew('it')->slug = Str::slug($value->title);
+                $r->translateOrNew('it')->content = $value->body_value;
+                $r->translateOrNew('it')->excerpt = $value->body_summary;
                 $r->owner_id = $value->uid;
                 //$r->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('photos');
 
-                $r->created_at = $value->created;
+                if(!empty($value->field_tempo_di_salita_value)) {
+                $r->time_a = Carbon::createFromFormat('H*i*',$value->field_tempo_di_salita_value)->toDateTimeString();
+                }
+                if(!empty($value->field_tempo_di_discesa_value)) {
+                $r->time_r  = Carbon::createFromFormat('H*i*',$value->field_tempo_di_discesa_value)->toDateTimeString();
+                }
+                
+                $r->difficulty   = intval($value->field_difficolt__value);
+                $r->length   = intval($value->field_lunghezza_value);
+                $r->altitude = intval($value->field_quota_di_partenza_value);
+                $r->drop     =intval($value->field_dislivello_value);
+
+                $r->created_at = date('Y-m-d H:i:s',$value->created);
+                $r->updated_at = date('Y-m-d H:i:s',$value->changed);
                 $r->save();
                 /*
                 Immagini

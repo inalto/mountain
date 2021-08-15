@@ -123,7 +123,7 @@
 </x-jet-form-section>
 {{-- 
             <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.user.fields.name') }}</label>
+                <x-jet-label class="required" for="name">{{ trans('cruds.user.fields.name') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $user->name) }}" required>
                 @if($errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -131,7 +131,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="last_name">{{ trans('cruds.user.fields.last_name') }}</label>
+                <x-jet-label class="required" for="last_name">{{ trans('cruds.user.fields.last_name') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('last_name') ? 'is-invalid' : '' }}" type="text" name="last_name" id="last_name" value="{{ old('last_name', $user->last_name) }}" required>
                 @if($errors->has('last_name'))
                     <span class="text-danger">{{ $errors->first('last_name') }}</span>
@@ -139,7 +139,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.last_name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="tagline">{{ trans('cruds.user.fields.tagline') }}</label>
+                <x-jet-label for="tagline">{{ trans('cruds.user.fields.tagline') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('tagline') ? 'is-invalid' : '' }}" type="text" name="tagline" id="tagline" value="{{ old('tagline', $user->tagline) }}">
                 @if($errors->has('tagline'))
                     <span class="text-danger">{{ $errors->first('tagline') }}</span>
@@ -147,7 +147,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.tagline_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="birth_date">{{ trans('cruds.user.fields.birth_date') }}</label>
+                <x-jet-label for="birth_date">{{ trans('cruds.user.fields.birth_date') }}</x-jet-label>
                 <input class="form-control date {{ $errors->has('birth_date') ? 'is-invalid' : '' }}" type="text" name="birth_date" id="birth_date" value="{{ old('birth_date', $user->birth_date) }}">
                 @if($errors->has('birth_date'))
                     <span class="text-danger">{{ $errors->first('birth_date') }}</span>
@@ -155,7 +155,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.birth_date_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="address">{{ trans('cruds.user.fields.address') }}</label>
+                <x-jet-label for="address">{{ trans('cruds.user.fields.address') }}</x-jet-label>
                 <textarea class="form-control {{ $errors->has('address') ? 'is-invalid' : '' }}" name="address" id="address">{{ old('address', $user->address) }}</textarea>
                 @if($errors->has('address'))
                     <span class="text-danger">{{ $errors->first('address') }}</span>
@@ -163,7 +163,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.address_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="city">{{ trans('cruds.user.fields.city') }}</label>
+                <x-jet-label for="city">{{ trans('cruds.user.fields.city') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('city') ? 'is-invalid' : '' }}" type="text" name="city" id="city" value="{{ old('city', $user->city) }}">
                 @if($errors->has('city'))
                     <span class="text-danger">{{ $errors->first('city') }}</span>
@@ -171,7 +171,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.city_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="country">{{ trans('cruds.user.fields.country') }}</label>
+                <x-jet-label for="country">{{ trans('cruds.user.fields.country') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('country') ? 'is-invalid' : '' }}" type="text" name="country" id="country" value="{{ old('country', $user->country) }}">
                 @if($errors->has('country'))
                     <span class="text-danger">{{ $errors->first('country') }}</span>
@@ -179,7 +179,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.country_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="abstract">{{ trans('cruds.user.fields.abstract') }}</label>
+                <x-jet-label for="abstract">{{ trans('cruds.user.fields.abstract') }}</x-jet-label>
                 <textarea class="form-control ckeditor {{ $errors->has('abstract') ? 'is-invalid' : '' }}" name="abstract" id="abstract">{!! old('abstract', $user->abstract) !!}</textarea>
                 @if($errors->has('abstract'))
                     <span class="text-danger">{{ $errors->first('abstract') }}</span>
@@ -187,7 +187,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.abstract_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="email">{{ trans('cruds.user.fields.email') }}</label>
+                <x-jet-label class="required" for="email">{{ trans('cruds.user.fields.email') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" type="email" name="email" id="email" value="{{ old('email', $user->email) }}" required>
                 @if($errors->has('email'))
                     <span class="text-danger">{{ $errors->first('email') }}</span>
@@ -195,7 +195,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.email_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="password">{{ trans('cruds.user.fields.password') }}</label>
+                <x-jet-label class="required" for="password">{{ trans('cruds.user.fields.password') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}" type="password" name="password" id="password">
                 @if($errors->has('password'))
                     <span class="text-danger">{{ $errors->first('password') }}</span>
@@ -203,7 +203,7 @@
                 <span class="help-block">{{ trans('cruds.user.fields.password_helper') }}</span>
             </div>
             <div class="form-group">
-                <label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</label>
+                <x-jet-label class="required" for="roles">{{ trans('cruds.user.fields.roles') }}</x-jet-label>
                 <div style="padding-bottom: 4px">
                     <span class="select-all btn btn-info btn-xs" style="border-radius: 0">{{ trans('global.select_all') }}</span>
                     <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>

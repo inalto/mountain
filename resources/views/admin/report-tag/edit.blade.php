@@ -11,7 +11,7 @@
             @method('PUT')
             @csrf
             <div class="form-group">
-                <label class="required" for="name">{{ trans('cruds.reportsTag.fields.name') }}</label>
+                <x-jet-label class="required" for="name">{{ trans('cruds.reportsTag.fields.name') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', $reportsTag->name) }}" required>
                 @if($errors->has('name'))
                     <span class="text-danger">{{ $errors->first('name') }}</span>
@@ -19,7 +19,7 @@
                 <span class="help-block">{{ trans('cruds.reportsTag.fields.name_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="slug">{{ trans('cruds.reportsTag.fields.slug') }}</label>
+                <x-jet-label for="slug">{{ trans('cruds.reportsTag.fields.slug') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug" value="{{ old('slug', $reportsTag->slug) }}">
                 @if($errors->has('slug'))
                     <span class="text-danger">{{ $errors->first('slug') }}</span>

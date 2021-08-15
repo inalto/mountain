@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3299d8f0ec9e0ff851ec36ab410d6487",
+    "content-hash": "7dd4ebdd5079077857ca1ee0e4d72d19",
     "packages": [
         {
             "name": "0.0.0/composer-include-files",
@@ -4113,24 +4113,87 @@
             "time": "2021-05-25T15:42:17+00:00"
         },
         {
-            "name": "mediconesystems/livewire-datatables",
-            "version": "v0.4.3",
+            "name": "maxeckel/livewire-editorjs",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/MedicOneSystems/livewire-datatables.git",
-                "reference": "b0f3b3b9ee801d6870de898436090b27b2bc19c0"
+                "url": "https://github.com/maxeckel/livewire-editorjs.git",
+                "reference": "a451eca6c094b7d0cefedc02eaae2c1ffb9d2470"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/MedicOneSystems/livewire-datatables/zipball/b0f3b3b9ee801d6870de898436090b27b2bc19c0",
-                "reference": "b0f3b3b9ee801d6870de898436090b27b2bc19c0",
+                "url": "https://api.github.com/repos/maxeckel/livewire-editorjs/zipball/a451eca6c094b7d0cefedc02eaae2c1ffb9d2470",
+                "reference": "a451eca6c094b7d0cefedc02eaae2c1ffb9d2470",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/support": "^7.0|^8.0",
+                "livewire/livewire": "^2.3",
+                "php": "^7.3|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^6.0",
+                "phpunit/phpunit": "^9.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Maxeckel\\LivewireEditorjs\\LivewireEditorjsServiceProvider"
+                    ],
+                    "aliases": {
+                        "LivewireEditorjs": "Maxeckel\\LivewireEditorjs\\LivewireEditorjsFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maxeckel\\LivewireEditorjs\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Max Eckel",
+                    "email": "contact@max-eckel.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "This Package aims for an easy integration of Editor.JS with Laravel Livewire",
+            "homepage": "https://github.com/maxeckel/livewire-editorjs",
+            "keywords": [
+                "livewire-editorjs",
+                "maxeckel"
+            ],
+            "support": {
+                "issues": "https://github.com/maxeckel/livewire-editorjs/issues",
+                "source": "https://github.com/maxeckel/livewire-editorjs/tree/v1.1.0"
+            },
+            "time": "2021-01-12T21:31:54+00:00"
+        },
+        {
+            "name": "mediconesystems/livewire-datatables",
+            "version": "v0.5.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/MedicOneSystems/livewire-datatables.git",
+                "reference": "c221bd64d9e3d7af539a66e071b1a043f158de43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/MedicOneSystems/livewire-datatables/zipball/c221bd64d9e3d7af539a66e071b1a043f158de43",
+                "reference": "c221bd64d9e3d7af539a66e071b1a043f158de43",
                 "shasum": ""
             },
             "require": {
                 "illuminate/support": "^7.0|^8.0",
                 "livewire/livewire": "^1.2|^2.0",
                 "maatwebsite/excel": "^3.1",
-                "php": "^7.2.5"
+                "php": "^7.2.5|^8.0"
             },
             "require-dev": {
                 "laravel/legacy-factories": "^1.0.4",
@@ -4171,9 +4234,9 @@
             ],
             "support": {
                 "issues": "https://github.com/MedicOneSystems/livewire-datatables/issues",
-                "source": "https://github.com/MedicOneSystems/livewire-datatables/tree/v0.4.3"
+                "source": "https://github.com/MedicOneSystems/livewire-datatables/tree/v0.5.2"
             },
-            "time": "2020-11-16T12:02:40+00:00"
+            "time": "2021-07-25T10:23:53+00:00"
         },
         {
             "name": "mobiledetect/mobiledetectlib",

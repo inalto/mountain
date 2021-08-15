@@ -79,7 +79,7 @@ enctype="multipart/form-data">
 @method('PUT')
 @csrf
 <div class="form-group">
-  <label class="required" for="title">{{ trans('cruds.report.fields.title') }}</label>
+  <x-jet-label class="required" for="title">{{ trans('cruds.report.fields.title') }}</x-jet-label>
   <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title"
     value="{{ old('title', $report->title) }}" required>
   @if($errors->has('title'))
@@ -88,7 +88,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.title_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="slug">{{ trans('cruds.report.fields.slug') }}</label>
+  <x-jet-label for="slug">{{ trans('cruds.report.fields.slug') }}</x-jet-label>
   <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug"
     value="{{ old('slug', $report->slug) }}">
   @if($errors->has('slug'))
@@ -97,7 +97,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.slug_helper') }}</span>
 </div>
 <div class="form-group">
-  <label>{{ trans('cruds.report.fields.difficulty') }}</label>
+  <x-jet-label>{{ trans('cruds.report.fields.difficulty') }}</x-jet-label>
   <select class="form-control {{ $errors->has('difficulty') ? 'is-invalid' : '' }}" name="difficulty" id="difficulty">
     <option value disabled {{ old('difficulty', null) === null ? 'selected' : '' }}>{{ trans('global.pleaseSelect') }}
     </option>
@@ -112,7 +112,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.difficulty_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</label>
+  <x-jet-label for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-jet-label>
   <textarea class="form-control {{ $errors->has('excerpt') ? 'is-invalid' : '' }}" name="excerpt"
     id="excerpt">{{ old('excerpt', $report->excerpt) }}</textarea>
   @if($errors->has('excerpt'))
@@ -121,7 +121,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.excerpt_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="content">{{ trans('cruds.report.fields.content') }}</label>
+  <x-jet-label for="content">{{ trans('cruds.report.fields.content') }}</x-jet-label>
   <textarea class="form-control ckeditor {{ $errors->has('content') ? 'is-invalid' : '' }}" name="content"
     id="content">{!! old('content', $report->content) !!}</textarea>
   @if($errors->has('content'))
@@ -130,7 +130,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.content_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="photos">{{ trans('cruds.report.fields.photos') }}</label>
+  <x-jet-label for="photos">{{ trans('cruds.report.fields.photos') }}</x-jet-label>
   <div class="needsclick dropzone {{ $errors->has('photos') ? 'is-invalid' : '' }}" id="photos-dropzone">
   </div>
   @if($errors->has('photos'))
@@ -139,7 +139,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.photos_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="tracks">{{ trans('cruds.report.fields.tracks') }}</label>
+  <x-jet-label for="tracks">{{ trans('cruds.report.fields.tracks') }}</x-jet-label>
   <div class="needsclick dropzone {{ $errors->has('tracks') ? 'is-invalid' : '' }}" id="tracks-dropzone">
   </div>
   @if($errors->has('tracks'))
@@ -148,7 +148,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.tracks_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="categories">{{ trans('cruds.report.fields.categories') }}</label>
+  <x-jet-label for="categories">{{ trans('cruds.report.fields.categories') }}</x-jet-label>
   <div style="padding-bottom: 4px">
     <span class="select-all btn btn-info btn-xs" style="border-radius: 0">{{ trans('global.select_all') }}</span>
     <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>
@@ -167,7 +167,7 @@ enctype="multipart/form-data">
   <span class="help-block">{{ trans('cruds.report.fields.categories_helper') }}</span>
 </div>
 <div class="form-group">
-  <label for="tags">{{ trans('cruds.report.fields.tags') }}</label>
+  <x-jet-label for="tags">{{ trans('cruds.report.fields.tags') }}</x-jet-label>
   <div style="padding-bottom: 4px">
     <span class="select-all btn btn-info btn-xs" style="border-radius: 0">{{ trans('global.select_all') }}</span>
     <span class="btn btn-info btn-xs deselect-all" style="border-radius: 0">{{ trans('global.deselect_all') }}</span>

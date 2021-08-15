@@ -16,7 +16,7 @@
         <div class="flex-grow hidden w-full pt-0 lg:flex lg:items-center lg:w-auto lg:block lg:pt-0" id="nav-content">
                
 {{--
-        <label for="inaltomenu" class="visible cursor-pointer sm:visible md:visible lg:hidden"><i class="my-auto text-3xl text-gray-100 icon-menu hover:text-qyorange-normal"></i></label>
+        <x-jet-label for="inaltomenu" class="visible cursor-pointer sm:visible md:visible lg:hidden"><i class="my-auto text-3xl text-gray-100 icon-menu hover:text-qyorange-normal"></i></x-jet-label>
         </div>
     
         <input id="inaltomenu" type="checkbox" name="inaltomenu" class="hidden">

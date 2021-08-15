@@ -7,5 +7,33 @@
 @import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
+[x-cloak] {
+    display: none;
+}
 
 @import 'admin.sidebar';
+
+
+
+.btn {
+
+    @apply inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900  disabled:opacity-25 transition ease-in-out duration-150
+}
+
+.btn.btn-secondary {
+    @apply inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 disabled:opacity-25 transition ease-in-out duration-150
+}
+
+.btn-edit {
+    @apply rounded bg-blue-700 text-white font-bold px-3 py-2
+}
+.btn-show {
+    @apply rounded bg-green-700 text-white font-bold px-3 py-2
+}
+.btn-del {
+    @apply rounded bg-red-700 text-white font-bold px-3 py-2
+}
+
+.dz-button {
+@apply w-full flex justify-center p-6 bg-gray-200 hover:bg-gray-100 border-4 border-gray-300 border-dotted
+}

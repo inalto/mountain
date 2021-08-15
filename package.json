@@ -25,6 +25,11 @@
     "dependencies": {
         "@tailwindcss/forms": "^0.3.3",
         "@tailwindcss/typography": "^0.4.1",
+        "clockpicker": "0.0.7",
+        "dropzone": "^5.9.2",
+        "flatpickr": "^4.6.9",
+        "jquery": "^3.6.0",
+        "select2": "^4.1.0-rc.0",
         "tailwindcss": "^2.2.7"
     }
 }

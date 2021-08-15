@@ -13,7 +13,7 @@ use Admin\NewsCategoryController;
 use Admin\NewsTagController;
 use Admin\PermissionController;
 use Admin\PoiController;
-use Admin\PostController;
+use Admin\NewsPostController;
 use Admin\ReportController;
 use Admin\RoleController;
 use Admin\TagController;
@@ -58,18 +58,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('content-tags', ContentTagController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Content Page
-    /*
     Route::post('content-pages/media', [ContentPageController::class, 'storeMedia'])->name('content-pages.storeMedia');
-*/
+
     Route::resource('content-pages', ContentPageController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Audit Logs
     Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
 
     // Report
-    /*
     Route::post('reports/media', [ReportController::class, 'storeMedia'])->name('reports.storeMedia');
-*/
+
     Route::resource('reports', ReportController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Tag
@@ -85,7 +83,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 /*
     Route::post('posts/media', [PostController::class, 'storeMedia'])->name('posts.storeMedia');
 */
-    Route::resource('posts', PostController::class, ['except' => ['store', 'update', 'destroy']]);
+    Route::resource('news-posts', NewsPostController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // News Tag
     Route::resource('news-tags', NewsTagController::class, ['except' => ['store', 'update', 'destroy']]);

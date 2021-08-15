@@ -24,9 +24,9 @@ class ReportsController extends Controller
 
     public function show($slug)
     {
-        
+        \App::setLocale('it');
         //abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        $report=Report::where('slug','=',$slug)->get()->first();
+        $report=Report::whereTranslation('slug',$slug)->get()->first();
         $report->load('categories', 'tags', 'owner');
         return view('report', compact('report'));
     }

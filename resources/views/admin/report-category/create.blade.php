@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route("admin.reports-categories.store") }}" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
-                <label for="title">{{ trans('cruds.reportsCategory.fields.title') }}</label>
+                <x-jet-label for="title">{{ trans('cruds.reportsCategory.fields.title') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text" name="title" id="title" value="{{ old('title', '') }}">
                 @if($errors->has('title'))
                     <span class="text-danger">{{ $errors->first('title') }}</span>
@@ -16,7 +16,7 @@
                 <span class="help-block">{{ trans('cruds.reportsCategory.fields.title_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="slug">{{ trans('cruds.reportsCategory.fields.slug') }}</label>
+                <x-jet-label for="slug">{{ trans('cruds.reportsCategory.fields.slug') }}</x-jet-label>
                 <input class="form-control {{ $errors->has('slug') ? 'is-invalid' : '' }}" type="text" name="slug" id="slug" value="{{ old('slug', '') }}">
                 @if($errors->has('slug'))
                     <span class="text-danger">{{ $errors->first('slug') }}</span>
@@ -24,7 +24,7 @@
                 <span class="help-block">{{ trans('cruds.reportsCategory.fields.slug_helper') }}</span>
             </div>
             <div class="form-group">
-                <label for="description">{{ trans('cruds.reportsCategory.fields.description') }}</label>
+                <x-jet-label for="description">{{ trans('cruds.reportsCategory.fields.description') }}</x-jet-label>
                 <textarea class="form-control ckeditor {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{!! old('description') !!}</textarea>
                 @if($errors->has('description'))
                     <span class="text-danger">{{ $errors->first('description') }}</span>

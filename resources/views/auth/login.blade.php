@@ -19,14 +19,14 @@
             <div>
                 <x-label class="dark:text-gray-200" for="email" :value="__('auth.email')" />
 
-                <x-input id="email" class="block w-full mt-1 px-2 py-1 focus:outline-none focus:ring ring-blue-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white" type="email" name="email" :value="old('email')" required autofocus />
+                <x-jet-input id="email" class="w-full h-10" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label class="dark:text-gray-200" for="password" :value="__('auth.password')" />
 
-                <x-input id="password" class="block w-full mt-1 px-2 py-1 focus:outline-none focus:ring ring-blue-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                <x-jet-input id="password" class="w-full h-10"
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" />
@@ -34,10 +34,10 @@
 
             <!-- Remember Me -->
             <div class="block mt-4">
-                <label for="remember_me" class="inline-flex items-center">
+                <x-jet-label for="remember_me" class="inline-flex items-center">
                     <input id="remember_me" type="checkbox" class="text-indigo-600 border-gray-300 rounded shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:hover:bg-gray-800 dark:bg-gray-800 dark:text-white" name="remember">
                     <span class="ml-2 text-sm text-gray-600 dark:text-gray-200">{{ __('auth.remember_me') }}</span>
-                </label>
+                </x-jet-label>
             </div>
 
             @if (Route::has('password.request'))

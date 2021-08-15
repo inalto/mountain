@@ -20,11 +20,12 @@ class UsersTableSeeder extends Seeder
 //                'verified'           => 1,
                 
 //                'verification_token' => '',
-                'first_name'          => '',
+/*                'first_name'          => '',
                 'last_name'          => '',
                 'tagline'            => '',
                 'city'               => '',
                 'country'            => '',
+                */
             ],
         ];
 

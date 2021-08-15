@@ -7,6 +7,7 @@ use App\Models\Report;
 use App\Models\Tag;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class Edit extends Component
 {
@@ -22,9 +23,18 @@ class Edit extends Component
 
     public array $mediaCollections = [];
 
+    public array $difficulty_class = [];
+
+    public $title = null;
+    public $slug = null;
+
     public function mount(Report $report)
     {
         $this->report     = $report;
+        
+
+
+
         $this->tags       = $this->report->tags()->pluck('id')->toArray();
         $this->categories = $this->report->categories()->pluck('id')->toArray();
         $this->initListsForFields();
@@ -37,6 +47,12 @@ class Edit extends Component
     public function render()
     {
         return view('livewire.report.edit');
+    }
+    
+    public function updatedReportTitle()
+    {
+        ray($this->report->title);
+        $this->report->slug = SlugService::createSlug(Report::class, 'slug', $this->report->title);
     }
 
     public function submit()
@@ -128,6 +144,12 @@ class Edit extends Component
 
     protected function initListsForFields(): void
     {
+        $this->listsForFields['difficulty_class'] = [
+            'hiking' => trans('cruds.report.fields.difficulty_class.hiking'),
+            'snowshoeing' => trans('cruds.report.fields.difficulty_class.snowshoeing'),
+            'mountaineering' => trans('cruds.report.fields.difficulty_class.mountaineering'),
+            'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering')
+        ];
         $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
         $this->listsForFields['tags']       = Tag::pluck('name', 'id')->toArray();
         $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();

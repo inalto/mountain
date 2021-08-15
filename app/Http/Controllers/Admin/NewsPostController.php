@@ -3,32 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Post;
+use App\Models\NewsPost;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
-class PostController extends Controller
+class NewsPostController extends Controller
 {
     public function index()
     {
         abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.post.index');
+        return view('admin.news-post.index');
     }
 
     public function create()
     {
         abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.post.create');
+        return view('admin.news-post.create');
     }
 
     public function edit(Post $post)
     {
         abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return view('admin.post.edit', compact('post'));
+        return view('admin.news-post.edit', compact('post'));
     }
 
     public function show(Post $post)
@@ -37,7 +37,7 @@ class PostController extends Controller
 
         $post->load('owner');
 
-        return view('admin.post.show', compact('post'));
+        return view('admin.news-post.show', compact('post'));
     }
 
     public function storeMedia(Request $request)

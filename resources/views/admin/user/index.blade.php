@@ -1,21 +1,23 @@
-@extends('layouts.admin')
-@section('content')
-<div class="card bg-white">
-    <div class="card-header border-b border-blueGray-200">
+<x-admin-layout>
+
+<div class="card">
+    <div class="card-header">
         <div class="card-header-container">
             <h6 class="card-title">
-                {{ trans('cruds.user.title_singular') }}
-                {{ trans('global.list') }}
+                {{ trans('cruds.user.title') }}
             </h6>
 
             @can('user_create')
-                <a class="btn btn-indigo" href="{{ route('admin.users.create') }}">
-                    {{ trans('global.add') }} {{ trans('cruds.user.title_singular') }}
+                <a class="add" href="{{ route('admin.users.create') }}">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                      </svg>
                 </a>
             @endcan
         </div>
     </div>
-    @livewire('user.index')
+
+    <livewire:user.index></livewire:user.index>
 
 </div>
-@endsection
+</x-admin-layout>

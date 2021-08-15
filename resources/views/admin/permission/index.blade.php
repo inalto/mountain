@@ -4,8 +4,8 @@
     <div class="card-header border-b border-blueGray-200">
         <div class="card-header-container">
             <h6 class="card-title">
-                {{ trans('cruds.permission.title_singular') }}
-                {{ trans('global.list') }}
+                {{ trans('cruds.permission.title') }}
+                
             </h6>
 
             @can('permission_create')

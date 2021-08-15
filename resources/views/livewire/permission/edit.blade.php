@@ -1,8 +1,9 @@
-<form wire:submit.prevent="submit" class="pt-3">
+<form wire:submit.prevent="submit" class="p-3">
 
     <div class="form-group {{ $errors->has('permission.title') ? 'invalid' : '' }}">
-        <label class="form-label required" for="title">{{ trans('cruds.permission.fields.title') }}</label>
-        <input class="form-control" type="text" name="title" id="title" required wire:model.defer="permission.title">
+        <x-jet-label class="form-label required" for="title" >{{ trans('cruds.permission.fields.title') }}</x-jet-label>
+
+        <x-jet-input class="form-control" type="text" name="title" id="title" required wire:model.defer="permission.title"></x-jet-input>
         <div class="validation-message">
             {{ $errors->first('permission.title') }}
         </div>
@@ -12,9 +13,9 @@
     </div>
 
     <div class="form-group">
-        <button class="btn btn-indigo mr-2" type="submit">
+        <x-jet-button class="mr-2" type="submit">
             {{ trans('global.save') }}
-        </button>
+        </x-jet-button>
         <a href="{{ route('admin.permissions.index') }}" class="btn btn-secondary">
             {{ trans('global.cancel') }}
         </a>

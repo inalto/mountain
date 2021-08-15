@@ -17,6 +17,10 @@ module.exports = {
 
     variants: {
         opacity: ['responsive', 'hover', 'focus', 'disabled'],
+        extend: {
+            backgroundColor: ['active'],
+            outline: ['hover', 'active'],
+        }
     },
 
     plugins: [

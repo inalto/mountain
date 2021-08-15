@@ -11,7 +11,7 @@
                     <h2 class="mb-3 text-lg font-medium text-gray-900 dark:text-gray-100 title-font">
                         {{ $report->title }}
                     </h2>
-                    <p class="mb-3 leading-relaxed">{{ $report->excerpt }}</p>
+                    <p class="mb-3 leading-relaxed">{!! Str::of($report->excerpt)->words(20,'...') !!}</p>
                     <div class="flex justify-between">
                         <div>
                             <span

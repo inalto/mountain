@@ -39,6 +39,7 @@
       
         <x-navigation-dropdown></x-navigation-dropdown>
 
+        {{--
          <nav class="flex flex-col w-1/5 bg-white main-header navbar navbar-expand navbar-light border-bottom">
         <!-- Left navbar links -->
         <ul class="navbar-nav">
@@ -64,22 +65,26 @@
         @endif
 
     </nav> 
+    --}}
 
-        <!-- Page Heading -->
-<header class="z-10 bg-white shadow">
+            <!-- Page Heading -->
+
+            @if ($header ?? '')
+            <header class="z-10 bg-white shadow">
                 <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
                     {{ $header ?? '' }}
                 </div>
             </header>
-                    <main class="flex flex-col flex-grow">
-            <div class="flex flex-grow">
+            @endif
 
-                <aside class="flex-none min-h-full bg-white shadow dark:bg-gray-800">
-                    <x-admin.sidebar></x-admin.sidebar>
-                </aside>
-                <div class="flex-grow w-full p-5">
+            <main class="flex flex-col flex-grow">
+                <div class="flex flex-grow relative">
+                    <aside class="flex-none min-h-full bg-white shadow dark:bg-gray-800"  x-data="{open: false}">
+                        <x-admin.sidebar></x-admin.sidebar>
+                    </aside>
+                
                     <!-- Main content -->
-                    <main class="mt-2">
+                    <main class="mt-2 flex-grow w-full p-5">
                         @if (session('message'))
                     <div class="mb-2 row">
                         <div class="col-lg-12">
@@ -102,9 +107,6 @@
                     </main>
                     <!-- /.content -->
                 </div>
-
-
-            </div>
         </main>
         <footer class="w-full p-2 bg-gray-200 main-footer">
 
@@ -116,7 +118,7 @@
     @livewireScripts
     <script type="text/javascript" src="/js/app.js"></script>
     @stack('scripts')
-
+    @livewireEditorjsScripts
 </body>
 
 </html>
