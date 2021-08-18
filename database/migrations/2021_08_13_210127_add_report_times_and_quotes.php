@@ -18,7 +18,8 @@ class AddReportTimesAndQuotes extends Migration
             $table->timestamp('time_a')->nullable();
             $table->timestamp('time_r')->nullable();
             $table->integer('length')->nullable();
-            $table->integer('altitude')->nullable();
+            $table->integer('altitude_s')->nullable();
+            $table->integer('altitude_e')->nullable();
             $table->integer('drop')->nullable();
             $table->text('coords')->nullable();
             
@@ -36,7 +37,8 @@ class AddReportTimesAndQuotes extends Migration
             $table->dropColumn('time_a');
             $table->dropColumn('time_r');
             $table->dropColumn('length');
-            $table->dropColumn('altitude');
+            $table->dropColumn('altitude_s');
+            $table->dropColumn('altitude_e');
             $table->dropColumn('drop');
             $table->dropColumn('coords');
         });

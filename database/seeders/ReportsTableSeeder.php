@@ -54,13 +54,14 @@ class ReportsTableSeeder extends Seeder
 $reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')->where('status',1)
 ->leftJoin('field_data_body', function($q){
     $q->on('field_data_body.entity_id','=','node.nid');
- //   $q->where('field_data_body.language','=','it');
+    $q->where('field_data_body.language','=','it');
 })
 ->leftJoin('field_data_field_difficolt_', function($q){$q->on('field_data_field_difficolt_.entity_id','=','node.nid');})
 ->leftJoin('field_data_field_tempo_di_salita', function($q){$q->on('field_data_field_tempo_di_salita.entity_id','=','node.nid');})
 ->leftJoin('field_data_field_tempo_di_discesa', function($q){$q->on('field_data_field_tempo_di_discesa.entity_id','=','node.nid');})
 ->leftJoin('field_data_field_lunghezza', function($q){$q->on('field_data_field_lunghezza.entity_id','=','node.nid');})
 ->leftJoin('field_data_field_quota_di_partenza', function($q){$q->on('field_data_field_quota_di_partenza.entity_id','=','node.nid');})
+->leftJoin('field_data_field_altitudine', function($q){$q->on('field_data_field_altitudine.entity_id','=','node.nid');})
 ->leftJoin('field_data_field_dislivello', function($q){$q->on('field_data_field_dislivello.entity_id','=','node.nid');})
 ->get();
 
@@ -99,9 +100,10 @@ ray ($value->title);
                 $r->time_r  = Carbon::createFromFormat('H*i*',$value->field_tempo_di_discesa_value)->toDateTimeString();
                 }
                 
-                $r->difficulty   = intval($value->field_difficolt__value);
+                $r->difficulty   = $this->resolveDifficulty(intval($value->field_difficolt__value));
                 $r->length   = intval($value->field_lunghezza_value);
-                $r->altitude = intval($value->field_quota_di_partenza_value);
+                $r->altitude_s = intval($value->field_quota_di_partenza_value);
+                $r->altitude_e = intval($value->field_altitudine_value);
                 $r->drop     =intval($value->field_dislivello_value);
 
                 $r->created_at = date('Y-m-d H:i:s',$value->created);
@@ -141,7 +143,7 @@ $covers = DB::connection('mysqlold')->table('field_data_field_copertina')->where
                         'alt' => $img->field_copertina_alt,
                         'title' => $img->field_copertina_title
                         ])
-                    ->toMediaCollection('photos');
+                    ->toMediaCollection('report_photos');
                 }
 /*
                 $images = DB::connection('mysqlold')->table('field_data_field_galleria_fotografica')->where('entity_id','=',$value->nid)->where('deleted','=',0)->join('files', function($q){
@@ -184,11 +186,59 @@ $filename = pathinfo($path,8).".".$this->mime2ext($path);
                         'alt' => $img->field_galleria_fotografica_alt,
                         'title' => $img->field_galleria_fotografica_title
                         ])
-                    ->toMediaCollection('photos');
+                    ->toMediaCollection('report_photos');
                 }
                 
             }
         }
+
+
+public function resolveDifficulty($id) {
+
+    $difficulty = [
+'1'=>'T1',
+'2'=>'T2',
+'3'=>'T3',
+'4'=>'T4',
+'5'=>'T5',
+'7'=>'F-',
+'8'=>'F',
+'9'=>'F+',
+'10'=>'PD-',
+'11'=>'PD',
+'12'=>'PD+',
+'13'=>'AD-',
+'14'=>'AD',
+'15'=>'AD+',
+'16'=>'D-',
+'17'=>'D',
+'18'=>'D+',
+'19'=>'TD-',
+'20'=>'TD',
+'21'=>'TD+',
+'22'=>'ED-',
+'23'=>'ED',
+'24'=>'ED+',
+'26'=>'WT1',
+'27'=>'WT2',
+'28'=>'WT3',
+'29'=>'WT4',
+'30'=>'WT5',
+'32'=>'MS',
+'33'=>'MSA',
+'34'=>'BS',
+'35'=>'BSA',
+'36'=>'OS',
+'37'=>'OSA',
+    ];
+
+    if (array_key_exists($id,$difficulty )) {
+    return $difficulty[$id];
+    } 
+    
+    return;
+    
+}
 
 
         private function mime2ext($file) {

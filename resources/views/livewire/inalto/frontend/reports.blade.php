@@ -4,7 +4,7 @@
     
         <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
             <div class="h-full overflow-hidden rounded-lg shadow-lg">
-                <a href="{{ route('report.show', $report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('photos') }}" alt="" @endif /></a>
+                <a href="{{ route('report.show', $report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
                 <div class="p-3 bg-white dark:bg-gray-800">
                     <h3 class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font ">
                         {{ $report->owner->name}}</h3>

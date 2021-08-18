@@ -27,7 +27,7 @@ class Report extends Model implements HasMedia, TranslatableContract
 //    use Sluggable;
     use Translatable;
 
-
+    
     public const DIFFICULTY_SELECT = [
         'dif'  => 'dif',
         'dif2' => 'dif2',
@@ -58,7 +58,7 @@ class Report extends Model implements HasMedia, TranslatableContract
     ];
 
     protected $appends = [
-        'photo',
+        'photos',
         'tracks',
     ];
 
@@ -75,6 +75,11 @@ class Report extends Model implements HasMedia, TranslatableContract
 //        'excerpt',
 //        'content',
     ];
+
+    protected $casts = [
+        'type'=>'string'
+    ];
+
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -94,14 +99,65 @@ class Report extends Model implements HasMedia, TranslatableContract
             ->fit('crop', $thumbnailPreviewWidth, $thumbnailPreviewHeight);
     }
 
+    public function getTypeAttribute()
+    {
+        $type=[
+            
+                'T1'=>'hiking',
+                'T2'=>'hiking',
+                'T3'=>'hiking',
+                'T4'=>'hiking',
+                'T5'=>'hiking',
+
+                'F-'=>'mountaineering',
+                'F'=>'mountaineering',
+                'F+'=>'mountaineering',
+                'PD-'=>'mountaineering',
+                'PD'=>'mountaineering',
+                'PD+'=>'mountaineering',
+                'AD-'=>'mountaineering',
+                'AD'=>'mountaineering',
+                'AD+'=>'mountaineering',
+                'D-'=>'mountaineering',
+                'D'=>'mountaineering',
+                'D+'=>'mountaineering',
+                'TD-'=>'mountaineering',
+                'TD'=>'mountaineering',
+                'TD+'=>'mountaineering',
+                'ED-'=>'mountaineering',
+                'ED'=>'mountaineering',
+                'ED+'=>'mountaineering',
+                'WT1'=>'snowshoeing',
+                'WT2'=>'snowshoeing',
+                'WT3'=>'snowshoeing',
+                'WT4'=>'snowshoeing',
+                'WT5'=>'snowshoeing',
+                'MS'=>'skimountaineering',
+                'MSA'=>'skimountaineering',
+                'BS'=>'skimountaineering',
+                'BSA'=>'skimountaineering',
+                'OS'=>'skimountaineering',
+                'OSA'=>'skimountaineering',
+                    ];
+                
+                    if (array_key_exists($this->difficulty,$type )) {
+                        ray($type[$this->difficulty]);
+                    return $type[$this->difficulty];
+                    } 
+                    
+                    return;
+
+
+    }
+
     public function getDifficultyLabelAttribute($value)
     {
         return static::DIFFICULTY_SELECT[$this->difficulty] ?? null;
     }
 
-    public function getPhotoAttribute()
+    public function getPhotosAttribute()
     {
-        return $this->getMedia('report_photo')->map(function ($item) {
+        return $this->getMedia('report_photos')->map(function ($item) {
             $media = $item->toArray();
             $media['url'] = $item->getUrl();
             $media['thumbnail'] = $item->getUrl('thumbnail');

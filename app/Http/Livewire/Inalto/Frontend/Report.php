@@ -9,13 +9,13 @@ class Report extends Component
 {
 
 
-	public $slug;
+	//public $slug;
 
-	//public $reports=[];
+	public $report;
 
-   	public function mount($slug)
+   	public function mount()
 	{
-	$this->report=R::where('slug','=',$slug)->with('owner')->with('media')->first();
+	//$this->report=R::where('slug','=',$slug)->with('owner')->with('media')->first();
 	}
 
 

@@ -2,7 +2,7 @@
 
     <div class="form-group {{ $errors->has('contentPage.title') ? 'invalid' : '' }}">
         <x-jet-label class="form-label required" for="title">{{ trans('cruds.contentPage.fields.title') }}</x-jet-label>
-         type="text" name="title" id="title" required wire:model.defer="contentPage.title">
+         <x-jet-input type="text" name="title" id="title" required wire:model.defer="contentPage.title"/>
         <div class="validation-message">
             {{ $errors->first('contentPage.title') }}
         </div>

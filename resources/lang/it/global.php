@@ -109,7 +109,7 @@ return [
     "discount_percent" => "Percentuale sconto",
     "downloadFile" => "Scarica file",
     "due_date" => "Data consegna",
-    "edit" => "Modifca",
+    "edit" => "Modifica",
     "edit_calendar_source" => "Modifica fonte calendario",
     "emailVerificationSuccess" => "Indirizzo email verificato con successo",
     "email_greet" => "Salve",
