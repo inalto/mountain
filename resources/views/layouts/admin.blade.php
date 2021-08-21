@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Martini Multimedia s.a.s.">
 
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    
 
     <title>{{ trans('panel.site_title') }}</title>
 
@@ -26,7 +26,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" /> --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     @include('inalto.components.icons')
-
+    <script type="text/javascript" src="/js/app.js"></script>
     @stack('styles')
     
     @livewireStyles
@@ -116,9 +116,9 @@
 </div>
     
     @livewireScripts
-    <script type="text/javascript" src="/js/app.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
     @stack('scripts')
-    @livewireEditorjsScripts
+    
 </body>
 
 </html>

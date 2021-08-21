@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class summernote extends Component
+class Summernote extends Component
 {
     /**
      * Create a new component instance.

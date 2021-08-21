@@ -80,14 +80,12 @@
     </div>
     <div class="form-group {{ $errors->has('report.excerpt') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-jet-label>
-        <div wire:ignore>
-            <textarea x-data="ckeditor()"
-                      x-init="init($dispatch)"
-                      wire:key="ckEditor"
-                      x-ref="ckEditor"
-                      name="excerpt"
-                      wire:model.debounce.9999999ms="report.excerpt"></textarea>
-        </div>
+        <x-summernote wire:model="report.excerpt" name="excerpt">
+            {{ old('excerpt', $report->excerpt) }}
+
+        </x-summernote>
+
+
         <div class="validation-message">
             {{ $errors->first('report.excerpt') }}
         </div>
@@ -97,14 +95,11 @@
     </div>
     <div class="form-group {{ $errors->has('report.content') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="content">{{ trans('cruds.report.fields.content') }}</x-jet-label>
-        <div wire:ignore>
-            <textarea x-data="ckeditor()"
-                      x-init="init($dispatch)"
-                      wire:key="ckEditor"
-                      x-ref="ckEditor"
-                      name="content"
-                      wire:model.debounce.9999999ms="report.content"></textarea>
-        </div>
+        
+            <x-summernote wire:model="report.content" name="content">
+                {{ old('content', $report->content) }}
+            </x-summernote>
+        
         <div class="validation-message">
             {{ $errors->first('report.content') }}
         </div>
@@ -123,7 +118,7 @@
             {{ trans('cruds.report.fields.photos_helper') }}
         </div>
     </div>
-    
+    {{--
     <div class="form-group {{ $errors->has('mediaCollections.report_tracks') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="tracks">{{ trans('cruds.report.fields.tracks') }}</x-jet-label>
         <x-dropzone id="tracks" name="tracks" action="{{ route('admin.reports.storeMedia') }}" collection-name="report_tracks" max-file-size="2" />
@@ -147,10 +142,10 @@
     </div>
     <div wire:ignore class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="categories">{{ trans('cruds.report.fields.categories') }}</x-jet-label>
-        {{--<x-select-list class="form-control" id="categories" name="categories" wire:model="categories" :options="$this->listsForFields['categories']" multiple />
+        <x-select-list class="form-control" id="categories" name="categories" wire:model="categories" :options="$this->listsForFields['categories']" multiple />
         <div class="validation-message">
             {{ $errors->first('categories') }}
-        </div> --}}
+        </div>
         <div wire:ignore>
             <select id="categories"
                     class="mt-2 text-sm sm:text-base pl-2 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 select2"
@@ -165,6 +160,7 @@
             {{ trans('cruds.report.fields.categories_helper') }}
         </div>
     </div>
+    --}}
 
     <div class="form-group">
         <x-jet-button class="mr-2" type="submit">
@@ -181,7 +177,7 @@
 
 @push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+
 
     <script>
         document.addEventListener("livewire:load", () => {
@@ -208,49 +204,4 @@
           }
         })
     </script>
-
-<script>
-    /**
-     * An alpinejs app that handles CKEditor's lifecycle
-     */
-    function ckeditor() {
-        return {
-            /**
-             * The function creates the editor and returns its instance
-             * @param $dispatch Alpine's magic property
-             */
-            create: async function($dispatch) {
-                // Create the editor with the x-ref
-                const editor = await ClassicEditor.create(this.$refs.ckEditor);
-                // Handle data updates
-                editor.model.document.on('change:data', function() {
-                    $dispatch('input', editor.getData())
-                });
-                // return the editor
-                return editor;
-            },
-            /**
-             * Initilizes the editor and creates a listener to recreate it after a rerender
-             * @param $dispatch Alpine's magic property
-             */
-            init: async function($dispatch) {
-                // Get an editor instance
-                const editor = await this.create($dispatch);
-                // Set the initial data
-                {{--editor.setData('{{ old('description') }}')--}}
-                // Pass Alpine context to Livewire's
-                const $this = this;
-                // On reinit, destroy the old instance and create a new one
-                Livewire.on('reinit', async function(e) {
-                    editor.setData('');
-                    editor.destroy()
-                        .catch( error => {
-                            console.log( error );
-                        } );
-                    await $this.create($dispatch);
-                });
-            }
-        }
-    }
-</script>
 @endpush
