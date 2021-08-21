@@ -15,6 +15,7 @@ class AddReportTimesAndQuotes extends Migration
     {
         
         Schema::table('reports', function (Blueprint $table) {
+            $table->bigInteger('nid')->nullable();
             $table->timestamp('time_a')->nullable();
             $table->timestamp('time_r')->nullable();
             $table->integer('length')->nullable();
@@ -34,6 +35,7 @@ class AddReportTimesAndQuotes extends Migration
     public function down()
     {
         Schema::table('reports', function (Blueprint $table) {
+            $table->dropColumn('nid');
             $table->dropColumn('time_a');
             $table->dropColumn('time_r');
             $table->dropColumn('length');

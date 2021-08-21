@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Http\Livewire\Post;
+namespace App\Http\Livewire\NewsPost;
 
-use App\Models\Post;
+use App\Models\NewsPost;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Create extends Component
 {
-    public Post $post;
+    public NewsPost $post;
 
     public array $mediaToRemove = [];
 
     public array $mediaCollections = [];
 
-    public function mount(Post $post)
+    public function mount(NewsPost $post)
     {
-        $this->post = $post;
+        $this->Newspost = $post;
     }
 
     public function render()
     {
-        return view('livewire.post.create');
+        return view('livewire.news-post.create');
     }
 
     public function submit()
@@ -31,7 +31,7 @@ class Create extends Component
         $this->post->save();
         $this->syncMedia();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.news-posts.index');
     }
 
     public function addMedia($media): void
@@ -82,7 +82,7 @@ class Create extends Component
     {
         collect($this->mediaCollections)->flatten(1)
             ->each(fn ($item) => Media::where('uuid', $item['uuid'])
-            ->update(['model_id' => $this->post->id]));
+            ->update(['model_id' => $this->Newspost->id]));
 
         Media::whereIn('uuid', $this->mediaToRemove)->delete();
     }

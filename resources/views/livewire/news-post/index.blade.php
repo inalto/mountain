@@ -8,7 +8,7 @@
                 @endforeach
             </select>
 
-            @can('post_delete')
+            @can('news_post_delete')
                 <button class="btn btn-rose ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
                     {{ __('Delete Selected') }}
                 </button>
@@ -61,7 +61,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($posts as $post)
+                    @forelse($newsPosts as $post)
                         <tr>
                             <td>
                                 <input type="checkbox" value="{{ $post->id }}" wire:model="selected">
@@ -91,7 +91,7 @@
                             <td>
                                 <div class="flex justify-end">
                                     @can('post_show')
-                                        <a class="show mr-2" href="{{ route('admin.posts.show', $post) }}">
+                                        <a class="show mr-2" href="{{ route('admin.news-posts.show', $post) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -99,7 +99,7 @@
                                         </a>
                                     @endcan
                                     @can('post_edit')
-                                        <a class="edit mr-2" href="{{ route('admin.posts.edit', $post) }}">
+                                        <a class="edit mr-2" href="{{ route('admin.news-posts.edit', $post) }}">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
 </svg>
@@ -135,7 +135,7 @@
                     {{ __('Entries selected') }}
                 </p>
             @endif
-            {{ $posts->links() }}
+            {{ $newsPosts->links() }}
         </div>
     </div>
 </div>

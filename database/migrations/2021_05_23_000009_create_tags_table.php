@@ -10,8 +10,10 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('tid');
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

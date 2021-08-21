@@ -72,6 +72,7 @@ class Report extends Model implements HasMedia, TranslatableContract
 //        'title',
 //        'slug',
         'difficulty',
+        'nid',
 //        'excerpt',
 //        'content',
     ];

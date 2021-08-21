@@ -2,7 +2,7 @@
 
     <div class="form-group {{ $errors->has('post.title') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="title">{{ trans('cruds.post.fields.title') }}</x-jet-label>
-        <x-jet-input class="form-control" type="text" name="title" id="title" wire:model.defer="post.title">
+        <x-jet-input class="form-control" type="text" name="title" id="title" wire:model.defer="post.title" />
         <div class="validation-message">
             {{ $errors->first('post.title') }}
         </div>
@@ -12,7 +12,7 @@
     </div>
     <div class="form-group {{ $errors->has('post.slug') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="slug">{{ trans('cruds.post.fields.slug') }}</x-jet-label>
-        <x-jet-input class="form-control" type="text" name="slug" id="slug" wire:model.defer="post.slug">
+        <x-jet-input class="form-control" type="text" name="slug" id="slug" wire:model.defer="post.slug" />
         <div class="validation-message">
             {{ $errors->first('post.slug') }}
         </div>
@@ -55,7 +55,7 @@
         <x-jet-button class="mr-2" type="submit">
             {{ trans('global.save') }}
         </x-jet-button>
-        <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary">
+        <a href="{{ route('admin.news-posts.index') }}" class="btn btn-secondary">
             {{ trans('global.cancel') }}
         </a>
     </div>

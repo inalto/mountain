@@ -1,6 +1,4 @@
-@extends('layouts.admin')
-@section('content')
-
+<x-admin-layout>
 <div class="card bg-blueGray-100">
     <div class="card-header">
         <div class="card-header-container">
@@ -12,7 +10,10 @@
     </div>
 
     <div class="card-body">
-        @livewire('post.create')
+        <livewire:news-post.create></livewire:news-post.create>
     </div>
+    
+    
 </div>
-@endsection
+
+</x-admin-layout>

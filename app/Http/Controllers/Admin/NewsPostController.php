@@ -12,21 +12,21 @@ class NewsPostController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('news_post_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.news-post.index');
     }
 
     public function create()
     {
-        abort_if(Gate::denies('post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('news_post_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.news-post.create');
     }
 
     public function edit(Post $post)
     {
-        abort_if(Gate::denies('post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('news_post_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.news-post.edit', compact('post'));
     }
@@ -42,7 +42,7 @@ class NewsPostController extends Controller
 
     public function storeMedia(Request $request)
     {
-        abort_if(Gate::none(['post_create', 'post_edit']), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::none(['news_post_create', 'news_post_edit']), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->has('size')) {
             $this->validate($request, [

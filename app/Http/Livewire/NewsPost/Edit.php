@@ -1,40 +1,40 @@
 <?php
 
-namespace App\Http\Livewire\Post;
+namespace App\Http\Livewire\NewsPost;
 
-use App\Models\Post;
+use App\Models\NewsPost;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Edit extends Component
 {
-    public Post $post;
+    public NewsPost $Newspost;
 
     public array $mediaToRemove = [];
 
     public array $mediaCollections = [];
 
-    public function mount(Post $post)
+    public function mount(NewsPost $Newspost)
     {
-        $this->post             = $post;
+        $this->Newspost             = $Newspost;
         $this->mediaCollections = [
-            'post_photo' => $post->photo,
+            'Newspost_photo' => $Newspost->photo,
         ];
     }
 
     public function render()
     {
-        return view('livewire.post.edit');
+        return view('livewire.Newspost.edit');
     }
 
     public function submit()
     {
         $this->validate();
 
-        $this->post->save();
+        $this->Newspost->save();
         $this->syncMedia();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.Newsposts.index');
     }
 
     public function addMedia($media): void
@@ -59,27 +59,27 @@ class Edit extends Component
     protected function rules(): array
     {
         return [
-            'post.title' => [
+            'Newspost.title' => [
                 'string',
                 'nullable',
             ],
-            'post.slug' => [
+            'Newspost.slug' => [
                 'string',
                 'nullable',
             ],
-            'post.excerpt' => [
+            'Newspost.excerpt' => [
                 'string',
                 'nullable',
             ],
-            'post.content' => [
+            'Newspost.content' => [
                 'string',
                 'nullable',
             ],
-            'mediaCollections.post_photo' => [
+            'mediaCollections.Newspost_photo' => [
                 'array',
                 'nullable',
             ],
-            'mediaCollections.post_photo.*.id' => [
+            'mediaCollections.Newspost_photo.*.id' => [
                 'integer',
                 'exists:media,id',
             ],
@@ -90,7 +90,7 @@ class Edit extends Component
     {
         collect($this->mediaCollections)->flatten(1)
             ->each(fn ($item) => Media::where('uuid', $item['uuid'])
-            ->update(['model_id' => $this->post->id]));
+            ->update(['model_id' => $this->Newspost->id]));
 
         Media::whereIn('uuid', $this->mediaToRemove)->delete();
     }

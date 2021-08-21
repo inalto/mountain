@@ -148,10 +148,10 @@
                             </a>
                         </li>
                     @endcan
-                    {{--
+                    
                     @can('reports_tag_access')
                         <li class="nav-item">
-                            <a href="{{ route("admin.reports-tags.index") }}" class="nav-link {{ request()->is("admin/reports-tags") || request()->is("admin/reports-tags/*") ? "active" : "" }}">
+                            <a href="{{ route("admin.tags.index") }}" class="nav-link {{ request()->is("admin/tags") || request()->is("admin/reports-tags/*") ? "active" : "" }}">
                                 <i class="nav-icon fas fa-tags"></i>
                                 <p>
                                     {{ trans('cruds.reportsTag.title') }}
@@ -159,9 +159,10 @@
                             </a>
                         </li>
                     @endcan
+
                     @can('reports_category_access')
                         <li class="nav-item">
-                            <a href="{{ route("admin.reports-categories.index") }}" class="nav-link {{ request()->is("admin/reports-categories") || request()->is("admin/reports-categories/*") ? "active" : "" }}">
+                            <a href="{{ route("admin.categories.index") }}" class="nav-link {{ request()->is("admin/categories") || request()->is("admin/reports-categories/*") ? "active" : "" }}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     {{ trans('cruds.reportsCategory.title') }}
@@ -169,7 +170,7 @@
                             </a>
                         </li>
                     @endcan
-                    --}}
+                    
                 </ul>
             </li>
         @endcan

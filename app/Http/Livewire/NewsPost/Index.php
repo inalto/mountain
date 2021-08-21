@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Post;
+namespace App\Http\Livewire\NewsPost;
 
 use App\Http\Livewire\WithConfirmation;
 use App\Http\Livewire\WithSorting;
-use App\Models\Post;
+use App\Models\NewsPost;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
@@ -64,35 +64,35 @@ class Index extends Component
         $this->sortDirection     = 'desc';
         $this->perPage           = 100;
         $this->paginationOptions = config('project.pagination.options');
-        $this->orderable         = (new Post())->orderable;
+        $this->orderable         = (new NewsPost())->orderable;
     }
 
     public function render()
     {
-        $query = Post::with(['owner'])->advancedFilter([
+        $query = NewsPost::with(['owner'])->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
-        $posts = $query->paginate($this->perPage);
+        $newsPosts = $query->paginate($this->perPage);
 
-        return view('livewire.post.index', compact('query', 'posts', 'posts'));
+        return view('livewire.news-post.index', compact('query', 'newsPosts', 'newsPosts'));
     }
 
     public function deleteSelected()
     {
-        abort_if(Gate::denies('post_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('news_post_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        Post::whereIn('id', $this->selected)->delete();
+        NewsPost::whereIn('id', $this->selected)->delete();
 
         $this->resetSelected();
     }
 
-    public function delete(Post $post)
+    public function delete(NewsPost $Newspost)
     {
-        abort_if(Gate::denies('post_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('news_post_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $post->delete();
+        $Newspost->delete();
     }
 }

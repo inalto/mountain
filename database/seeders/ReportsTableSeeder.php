@@ -19,8 +19,8 @@ class ReportsTableSeeder extends Seeder
      */
     public function run()
     {
-        Log::info('Seeding Reports');
-        ray ('Seeding Reports');
+      //  Log::info('Seeding Reports');
+     //   ray ('Seeding Reports');
         /*
             Query lista relazioni drupal
 
@@ -82,7 +82,7 @@ $reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')-
 
             foreach ($reports as $key => $value) {
                 if (!User::where('id',$value->uid)->first()) continue;
-ray ($value->title);
+//ray ($value->title);
                 $r = new Report;
                 //$r = Report::firstOrNew(['id' =>  request('email')]);
 
@@ -90,6 +90,8 @@ ray ($value->title);
                 $r->translateOrNew('it')->slug = Str::slug($value->title);
                 $r->translateOrNew('it')->content = $value->body_value;
                 $r->translateOrNew('it')->excerpt = $value->body_summary;
+
+                $r->nid = $value->nid;
                 $r->owner_id = $value->uid;
                 //$r->addMedia(storage_path('tmp/uploads/' . $file))->toMediaCollection('photos');
 

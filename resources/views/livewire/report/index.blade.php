@@ -68,7 +68,7 @@
                                 {{ $report->slug }}
                             </td>
                             <td>
-                                {{ $report->difficulty_label }}
+                                {{ $report->difficulty }}
                             </td>
                             {{--
                             <td>

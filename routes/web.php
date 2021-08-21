@@ -80,9 +80,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Post
-/*
+
     Route::post('posts/media', [PostController::class, 'storeMedia'])->name('posts.storeMedia');
-*/
+
     Route::resource('news-posts', NewsPostController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // News Tag
