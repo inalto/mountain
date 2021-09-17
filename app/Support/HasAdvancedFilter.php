@@ -62,6 +62,8 @@ trait HasAdvancedFilter
             return $data;
         }
 
+
+
         $data['filter_match'] = 'or';
 
         $data['f'] = array_map(function ($column) use ($data) {
@@ -71,7 +73,7 @@ trait HasAdvancedFilter
                 'query_1'  => $data['s'],
             ];
         }, $this->filterable);
-
+        
         return $data;
     }
 }

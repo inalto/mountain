@@ -21,9 +21,12 @@ class AddReportTimesAndQuotes extends Migration
             $table->integer('length')->nullable();
             $table->integer('altitude_s')->nullable();
             $table->integer('altitude_e')->nullable();
-            $table->integer('drop')->nullable();
+            $table->integer('drop_p')->nullable();
+            $table->integer('drop_n')->nullable();
             $table->text('coords')->nullable();
-            
+            $table->boolean('published')->nullable();
+            $table->boolean('approved')->nullable();
+            $table->index('nid');
         });
     }
 
@@ -41,8 +44,11 @@ class AddReportTimesAndQuotes extends Migration
             $table->dropColumn('length');
             $table->dropColumn('altitude_s');
             $table->dropColumn('altitude_e');
-            $table->dropColumn('drop');
+            $table->dropColumn('drop_p');
+            $table->dropColumn('drop_n');
             $table->dropColumn('coords');
+            $table->dropColumn('published');
+            $table->dropColumn('approved');
         });
     }
 }

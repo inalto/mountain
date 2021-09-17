@@ -33,9 +33,11 @@
                                 <button
                                     class="flex text-sm transition duration-150 ease-in-out border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300">
 
-                                    <img class="object-cover w-8 h-8 rounded-full"
-                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
-
+                                    @if (Auth::user()->profile_photo_url)
+                                    <img class="object-cover w-8 h-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    @else
+                                    <img class="object-cover w-8 h-8 rounded-full" src="https://eu.ui-avatars.com/api/?name={{ Auth::user()->name }}" alt="{{ Auth::user()->name }}" />
+                                    @endif
                                 </button>
                             @else
                                 <button

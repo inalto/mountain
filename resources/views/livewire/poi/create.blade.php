@@ -1,8 +1,63 @@
 <form wire:submit.prevent="submit" class="p-3">
 
+    <div class="flex gap-10">
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.name') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="name">{{ trans('cruds.poi.fields.name') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="name" id="name" required wire:model="poi.name"/>
+            <div class="validation-message">
+                {{ $errors->first('poi.name') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.poi.fields.name_helper') }}
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.slug') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="slug">{{ trans('cruds.poi.fields.slug') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="slug" id="slug" wire:model.defer="poi.slug"/>
+            <div class="validation-message">
+                {{ $errors->first('poi.slug') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.poi.fields.slug_helper') }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group {{ $errors->has('poi.excerpt') ? 'invalid' : '' }}">
+        <x-label class="form-label" for="excerpt">{{ trans('cruds.poi.fields.excerpt') }}</x-label>
+        <x-summernote wire:model="poi.excerpt" name="excerpt">
+            {{ old('excerpt', $poi->excerpt) }}
+
+        </x-summernote>
+
+
+        <div class="validation-message">
+            {{ $errors->first('poi.excerpt') }}
+        </div>
+        <div class="help-block">
+            {{ trans('cruds.poi.fields.excerpt_helper') }}
+        </div>
+    </div>
+    <div class="form-group {{ $errors->has('poi.content') ? 'invalid' : '' }}">
+        <x-label class="form-label" for="content">{{ trans('cruds.poi.fields.content') }}</x-label>
+        
+            <x-summernote wire:model="poi.content" name="content">
+                {{ old('content', $poi->content) }}
+            </x-summernote>
+        
+        <div class="validation-message">
+            {{ $errors->first('poi.content') }}
+        </div>
+        <div class="help-block">
+            {{ trans('cruds.poi.fields.content_helper') }}
+        </div>
+    </div>
+ 
+
+{{--
     <div class="form-group {{ $errors->has('poi.name') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="name">{{ trans('cruds.poi.fields.name') }}</x-jet-label>
-        <x-jet-input class="form-control" type="text" name="name" id="name" wire:model.defer="poi.name">
+        <x-input class="form-control" type="text" name="name" id="name" wire:model.defer="poi.name">
         <div class="validation-message">
             {{ $errors->first('poi.name') }}
         </div>
@@ -10,9 +65,12 @@
             {{ trans('cruds.poi.fields.name_helper') }}
         </div>
     </div>
+    
+    
+    
     <div class="form-group {{ $errors->has('poi.lat') ? 'invalid' : '' }}">
         <x-jet-label class="form-label" for="lat">{{ trans('cruds.poi.fields.lat') }}</x-jet-label>
-        <x-jet-input class="form-control" type="number" name="lat" id="lat" wire:model.defer="poi.lat" step="1">
+        <x-input class="form-control" type="number" name="lat" id="lat" wire:model.defer="poi.lat" step="1">
         <div class="validation-message">
             {{ $errors->first('poi.lat') }}
         </div>
@@ -70,7 +128,7 @@
             {{ trans('cruds.poi.fields.biography_helper') }}
         </div>
     </div>
-
+--}}
     <div class="form-group">
         <x-jet-button class="mr-2" type="submit">
             {{ trans('global.save') }}

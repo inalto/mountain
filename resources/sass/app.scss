@@ -1,5 +1,8 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
+
+@import 'select2';
+
 @import 'tailwindcss/utilities';
 
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
@@ -12,7 +15,7 @@
 }
 
 @import 'admin.sidebar';
-@import 'ckeditor';
+@import 'dropzone';
 
 
 .btn {
@@ -34,9 +37,6 @@
     @apply rounded bg-red-700 text-white font-bold px-3 py-2
 }
 
-.dz-button {
-@apply w-full flex justify-center p-6 bg-gray-200 hover:bg-gray-100 border-4 border-gray-300 border-dotted
-}
 
 .help-block {
 @apply text-xs text-gray-300 py-2

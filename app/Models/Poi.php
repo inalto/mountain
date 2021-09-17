@@ -9,37 +9,41 @@ use App\Traits\Tenantable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
 
-class Poi extends Model
+class Poi extends Model implements HasMedia, TranslatableContract
 {
     use HasFactory;
     use HasAdvancedFilter;
     use SoftDeletes;
     use Tenantable;
-    use Auditable;
+    use InteractsWithMedia;
+ //   use Auditable;
+    use Translatable;
+
 
     public $table = 'pois';
+
+    public $translatedAttributes = ['name', 'slug','content','excerpt'];
+
 
     public $orderable = [
         'id',
         'name',
-        'lat',
-        'lon',
+        'slug',
         'height',
-        'access',
-        'description',
-        'biography',
     ];
 
     public $filterable = [
         'id',
         'name',
-        'lat',
-        'lon',
         'height',
-        'access',
-        'description',
-        'biography',
+        'approved',
+        'published',
     ];
 
     protected $dates = [
@@ -50,12 +54,12 @@ class Poi extends Model
 
     protected $fillable = [
         'name',
-        'lat',
-        'lon',
         'height',
-        'access',
-        'description',
-        'biography',
+        'excerpt',
+        'content',
+        'bibliography',
+        'approved',
+        'published',
     ];
 
     public function owner()

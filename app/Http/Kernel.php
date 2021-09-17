@@ -49,7 +49,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:api',
-            'bindigs',
+    //        'bindigs',
             \App\Http\Middleware\AuthGates::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,

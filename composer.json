@@ -20,7 +20,7 @@
         "inertiajs/inertia-laravel": "^0.2.4",
         "laravel/dusk": "^6.11",
         "laravel/framework": "^8.12",
-        "laravel/jetstream": "^1.3",
+        "laravel/jetstream": "^2.0",
         "laravel/sanctum": "^2.6",
         "laravel/socialite": "^5.2",
         "laravel/tinker": "^2.5",

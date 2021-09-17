@@ -1,5 +1,5 @@
 <div wire:ignore>
-    <textarea class="summernote" {{$attributes->wire('model')}} name="{{$attributes['name']}}" autocomplete="off" >
+    <textarea class="summernote" {{$attributes->wire('model')}} id="{{$attributes['name']}}" name="{{$attributes['name']}}" autocomplete="off" >
         {{ $slot }}
     </textarea>
 </div>
@@ -11,7 +11,7 @@
 @endonce
 @push('scripts')
 <script type="text/javascript" >
-      $('.summernote').summernote({
+      $("#{{$attributes['name']}}").summernote({
           height: 400,
           toolbar: [
       ['style', ['style']],

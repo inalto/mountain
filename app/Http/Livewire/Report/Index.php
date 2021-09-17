@@ -28,7 +28,7 @@ class Index extends Component
 
     protected $queryString = [
         'search' => [
-            'except' => '',
+            'except' => ['content','excerpt'],
         ],
         'sortBy' => [
             'except' => 'id',

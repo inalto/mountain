@@ -3,7 +3,13 @@
 namespace App\Http\Livewire\Poi;
 
 use App\Models\Poi;
+use App\Models\PoiTranslation;
+use App\Models\Category;
+use App\Models\Tag;
+
 use Livewire\Component;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class Create extends Component
 {
@@ -11,8 +17,17 @@ class Create extends Component
 
     public function mount(Poi $poi)
     {
+        /*if (!isset($poi)) { $this->poi = new Poi();} 
+        else {*/
         $this->poi = $poi;
+        //}
     }
+
+    public function updatedPoiName()
+    {
+        $this->poi->translate('it')->slug = SlugService::createSlug(PoiTranslation::class, 'slug', $this->poi->name);
+    }
+
 
     public function render()
     {
@@ -35,31 +50,32 @@ class Create extends Component
                 'string',
                 'nullable',
             ],
-            'poi.lat' => [
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+            'poi.slug' => [
+                'string',
                 'nullable',
             ],
-            'poi.lon' => [
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-                'nullable',
-            ],
+
             'poi.height' => [
+                'digits_between:0,4',
+                'nullable',
+            ],
+            'poi.approved' => [
+                'boolean',
+                'nullable',
+            ],
+            'poi.published' => [
+                'boolean',
+                'nullable',
+            ],
+            'poi.excerpt' => [
                 'string',
                 'nullable',
             ],
-            'poi.access' => [
+            'poi.content' => [
                 'string',
                 'nullable',
             ],
-            'poi.description' => [
-                'string',
-                'nullable',
-            ],
-            'poi.biography' => [
+            'poi.bibliography' => [
                 'string',
                 'nullable',
             ],

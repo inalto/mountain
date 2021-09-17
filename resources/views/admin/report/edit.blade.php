@@ -7,6 +7,7 @@
                 {{ trans('cruds.report.title_singular') }}:
                 {{ $report->title }}
                 ({{ $report->id }})
+                ({{ $report->nid }})
             </h6>
         </div>
     </div>

@@ -37,4 +37,12 @@ class TagController extends Controller
 
         return view('admin.tag.show', compact('tag'));
     }
+
+    public function search($tagname)
+    {
+        //abort_if(Gate::denies('reports_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        return response()->json(Tag::where('name','like','ita%')->select('id','name')->get()->toArray());
+        
+    }
+
 }

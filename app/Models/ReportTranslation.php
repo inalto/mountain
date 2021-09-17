@@ -10,6 +10,9 @@ class ReportTranslation extends Model
 {
     use HasFactory;
     use Sluggable;
+
+    public $table = 'reports_translations';
+
     protected $fillable = ['title', 'slug','content','excerpt'];
     public $timestamps = false;
 

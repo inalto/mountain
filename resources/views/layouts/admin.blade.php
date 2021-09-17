@@ -117,6 +117,7 @@
     
     @livewireScripts
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    <script src="https://unpkg.com/material-components-web@12.0.0/dist/material-components-web.min.js" defer></script>
     @stack('scripts')
     
 </body>

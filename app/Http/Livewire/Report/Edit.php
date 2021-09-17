@@ -52,7 +52,7 @@ class Edit extends Component
 
     public function render()
     {
-        ray($this);
+        //ray($this);
         //$this->initListsForFields();
         return view('livewire.report.edit');
     }
@@ -117,18 +117,46 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
-            'report.difficulty_class' => [
+
+            'report.drop_p' => [
+                'digits_between:0,4',
                 'nullable',
-                'in: hiking,snowshoeing,mountaineering,skimountaineering'
             ],
-            'difficulty' => [
+            'report.drop_n' => [
+                'digits_between:0,4',
                 'nullable',
+            ],
+            'report.altitude_s' => [
+                'digits_between:0,4',
+                'nullable',
+            ],
+            'report.altitude_e' => [
+                'digits_between:0,4',
+                'nullable',
+            ],
+            'report.length' => [
+                'digits_between:0,4',
+                'nullable',
+            ],
+            'report.difficulty' => [
+                'nullable',
+                /*'string',*/
+                
                 'in:' . implode(',', array_keys(array_merge(
                     $this->listsForFields['hiking'],
                     $this->listsForFields['snowshoeing'],
                     $this->listsForFields['mountaineering'],
                     $this->listsForFields['skimountaineering']
                 ))),
+                
+            ],
+            'report.approved' => [
+                'boolean',
+                'nullable',
+            ],
+            'report.published' => [
+                'boolean',
+                'nullable',
             ],
             'report.excerpt' => [
                 'string',

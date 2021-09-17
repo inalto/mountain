@@ -15,8 +15,15 @@ class FilterQueryBuilder
         $this->model = $query->getModel();
         $this->table = $this->model->getTable();
 
+        
         if (isset($data['f'])) {
-            foreach ($data['f'] as $filter) {
+            foreach ($data['f'] as &$filter) {
+                
+                if(property_exists($this->model,'translatedAttributes')) {
+                    if (in_array($filter['column'],$this->model->translatedAttributes)) {
+                        $filter['operator'] = 'containsTranslation';                       
+                    }
+                }
                 $filter['match'] = $data['filter_match'] ?? 'and';
                 $this->makeFilter($query, $filter);
             }
@@ -30,6 +37,15 @@ class FilterQueryBuilder
     public function contains($filter, $query)
     {
         return $query->where($filter['column'], 'like', '%' . $filter['query_1'] . '%', $filter['match']);
+    }
+
+    public function containsTranslation($filter, $query)
+    {
+
+        if ($filter['match']=='or') {
+            return $query->orWhereTranslationLike($filter['column'], '%' . $filter['query_1'] . '%');
+        } 
+        return $query->whereTranslationLike($filter['column'], '%' . $filter['query_1'] . '%');
     }
 
     protected function makeOrder($query, $data)
@@ -76,7 +92,9 @@ class FilterQueryBuilder
                 );
             });
         } else {
+            if(!property_exists($this->model,'translatedAttributes')) {
             $filter['column'] = "{$this->table}.{$filter['column']}";
+            }
             $this->{Str::camel($filter['operator'])}(
                 $filter,
                 $query

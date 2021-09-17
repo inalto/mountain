@@ -41,9 +41,7 @@ class Report extends Model implements HasMedia, TranslatableContract
         'id',
         'title',
         'slug',
-        'difficulty',
-        'excerpt',
-        'content',
+        'difficulty'
     ];
 
     public $filterable = [
@@ -51,8 +49,9 @@ class Report extends Model implements HasMedia, TranslatableContract
         'title',
         'slug',
         'difficulty',
-        'excerpt',
+/*        'excerpt',
         'content',
+        */
         'tags.name',
         'categories.name',
     ];
@@ -73,6 +72,8 @@ class Report extends Model implements HasMedia, TranslatableContract
 //        'slug',
         'difficulty',
         'nid',
+        'height',
+        'length',
 //        'excerpt',
 //        'content',
     ];
@@ -87,8 +88,8 @@ class Report extends Model implements HasMedia, TranslatableContract
         $thumbnailWidth  = 50;
         $thumbnailHeight = 50;
 
-        $thumbnailPreviewWidth  = 120;
-        $thumbnailPreviewHeight = 120;
+        $thumbnailPreviewWidth  = 196;
+        $thumbnailPreviewHeight = 196;
 
         $this->addMediaConversion('thumbnail')
             ->width($thumbnailWidth)

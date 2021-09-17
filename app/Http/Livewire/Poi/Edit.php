@@ -3,7 +3,10 @@
 namespace App\Http\Livewire\Poi;
 
 use App\Models\Poi;
+use App\Models\PoiTranslation;
 use Livewire\Component;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+
 
 class Edit extends Component
 {
@@ -28,6 +31,14 @@ class Edit extends Component
         return redirect()->route('admin.pois.index');
     }
 
+
+
+    public function updatedPoiName()
+    {
+        $this->poi->translate('it')->slug = SlugService::createSlug(PoiTranslation::class, 'slug', $this->poi->name);
+    }
+
+
     protected function rules(): array
     {
         return [
@@ -35,31 +46,32 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
-            'poi.lat' => [
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
+            'poi.slug' => [
+                'string',
                 'nullable',
             ],
-            'poi.lon' => [
-                'integer',
-                'min:-2147483648',
-                'max:2147483647',
-                'nullable',
-            ],
+
             'poi.height' => [
+                'digits_between:0,4',
+                'nullable',
+            ],
+            'poi.approved' => [
+                'boolean',
+                'nullable',
+            ],
+            'poi.published' => [
+                'boolean',
+                'nullable',
+            ],
+            'poi.excerpt' => [
                 'string',
                 'nullable',
             ],
-            'poi.access' => [
+            'poi.content' => [
                 'string',
                 'nullable',
             ],
-            'poi.description' => [
-                'string',
-                'nullable',
-            ],
-            'poi.biography' => [
+            'poi.bibliography' => [
                 'string',
                 'nullable',
             ],

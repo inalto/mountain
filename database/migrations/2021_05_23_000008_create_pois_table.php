@@ -11,12 +11,9 @@ class CreatePoisTable extends Migration
         Schema::create('pois', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->nullable();
-            $table->integer('lat')->nullable();
-            $table->integer('lon')->nullable();
-            $table->string('height')->nullable();
-            $table->longText('access')->nullable();
-            $table->string('description')->nullable();
-            $table->string('biography')->nullable();
+            $table->longText('geojson')->nullable();
+            $table->integer('height')->nullable();
+            $table->longText('bibliography')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

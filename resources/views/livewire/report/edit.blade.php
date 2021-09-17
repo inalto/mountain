@@ -2,8 +2,8 @@
 
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.title') ? 'invalid' : '' }}">
-            <x-jet-label class="form-label required" for="title">{{ trans('cruds.report.fields.title') }}</x-jet-label>
-            <x-jet-input class="w-full form-control" type="text" name="title" id="title" required wire:model="report.title"/>
+            <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.title') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="title" id="title" required wire:model="report.title"/>
             <div class="validation-message">
                 {{ $errors->first('report.title') }}
             </div>
@@ -12,8 +12,8 @@
             </div>
         </div>
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.slug') ? 'invalid' : '' }}">
-            <x-jet-label class="form-label" for="slug">{{ trans('cruds.report.fields.slug') }}</x-jet-label>
-            <x-jet-input class="w-full form-control" type="text" name="slug" id="slug" wire:model="report.slug"/>
+            <x-label class="form-label" for="slug">{{ trans('cruds.report.fields.slug') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="slug" id="slug" wire:model="report.slug"/>
             <div class="validation-message">
                 {{ $errors->first('report.slug') }}
             </div>
@@ -23,10 +23,64 @@
         </div>
     </div>
 
+    <div class="flex gap-10">
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.altitude_s') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="altitude_s">{{ trans('cruds.report.fields.altitude_s') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="altitude_s" id="altitude_s" required wire:model="report.altitude_s" right="m"/>
+            <div class="validation-message">
+                {{ $errors->first('report.altitude_s') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.altitude_s_helper') }}
+            </div>
+        </div>
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.altitude_e') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="altitude_e">{{ trans('cruds.report.fields.altitude_e') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="altitude_e" id="altitude_e" wire:model="report.altitude_e" right="m"/>
+            <div class="validation-message">
+                {{ $errors->first('report.altitude_e') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.altitude_e_helper') }}
+            </div>
+        </div>
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.drop_p') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="drop_p">{{ trans('cruds.report.fields.drop_p') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="drop_p" id="drop_p" required wire:model="report.drop_p" right="m"/>
+            <div class="validation-message">
+                {{ $errors->first('report.drop_p') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.drop_p_helper') }}
+            </div>
+        </div>
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.drop_n') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="drop_n">{{ trans('cruds.report.fields.drop_n') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="drop_n" id="drop_n" wire:model="report.drop_n" right="m"/>
+            <div class="validation-message">
+                {{ $errors->first('report.drop_n') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.drop_n_helper') }}
+            </div>
+        </div>
+    </div>
+
 
     <div class="flex gap-10">
-        <div class="w-full md:w-1/2 mb-2 form-group">
-            <x-jet-label class="form-label" for="type">{{ trans('cruds.report.fields.difficulty_class.type') }}</x-jet-label>
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.length') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="length">{{ trans('cruds.report.fields.length') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="length" id="length" wire:model="report.length" right="Km"/>
+            <div class="validation-message">
+                {{ $errors->first('report.length') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.length_helper') }}
+            </div>
+        </div>
+
+        <div class="w-full md:w-1/4 mb-2 form-group">
+            <x-label class="form-label" for="type">{{ trans('cruds.report.fields.difficulty_class.type') }}</x-label>
             <select class="form-control" wire:model="type" name="type">
                 <option value="null">{{ trans('global.pleaseSelect') }}...</option>
                 @foreach($this->listsForFields['type'] as $key => $value)
@@ -40,9 +94,9 @@
 
         </div>
     
-        <div class="w-full md:w-1/2 mb-2 form-group">
-            <x-jet-label class="form-label">{{ trans('cruds.report.fields.difficulty') }}</x-jet-label>
-            <select class="form-control" wire:model="difficulty" name="difficulty">
+        <div class="w-full md:w-1/4 mb-2 form-group">
+            <x-label class="form-label">{{ trans('cruds.report.fields.difficulty') }}</x-label>
+            <select class="form-control" wire:model="report.difficulty" name="difficulty">
                 <option value="null" >{{ trans('global.pleaseSelect') }}...</option>
 
             @if ($type=="hiking")
@@ -77,9 +131,28 @@
 
         </div>
 
+        <div class="w-full md:w-1/8 mb-2 form-group">
+        <x-label class="form-label" for="type">{{ trans('cruds.report.fields.approved') }}</x-label>
+        <x-jet-checkbox wire:model="report.approved"></x-jet-checkbox>
+    <div class="help-block">
+        {{ trans('cruds.report.fields.approved_helper') }}
     </div>
+
+    </div>
+    <div class="w-full md:w-1/8 mb-2 form-group">
+        <x-label class="form-label" for="type">{{ trans('cruds.report.fields.published') }}</x-label>
+        <x-jet-checkbox wire:model="report.published"></x-jet-checkbox>
+    <div class="help-block">
+        {{ trans('cruds.report.fields.published_helper') }}
+    </div>
+
+    </div>
+
+    </div>
+    
+    
     <div class="form-group {{ $errors->has('report.excerpt') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-jet-label>
+        <x-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-label>
         <x-summernote wire:model="report.excerpt" name="excerpt">
             {{ old('excerpt', $report->excerpt) }}
 
@@ -94,7 +167,7 @@
         </div>
     </div>
     <div class="form-group {{ $errors->has('report.content') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="content">{{ trans('cruds.report.fields.content') }}</x-jet-label>
+        <x-label class="form-label" for="content">{{ trans('cruds.report.fields.content') }}</x-label>
         
             <x-summernote wire:model="report.content" name="content">
                 {{ old('content', $report->content) }}
@@ -109,7 +182,7 @@
     </div>
     
     <div class="form-group {{ $errors->has('mediaCollections.report_photos') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="photos">{{ trans('cruds.report.fields.photos') }}</x-jet-label>
+        <x-label class="form-label" for="photos">{{ trans('cruds.report.fields.photos') }}</x-label>
         <x-dropzone id="photos" name="photos" action="{{ route('admin.reports.storeMedia') }}" collection-name="report_photos" max-file-size="2" max-width="4096" max-height="4096" />
         <div class="validation-message">
             {{ $errors->first('mediaCollections.report_photos') }}
@@ -118,9 +191,9 @@
             {{ trans('cruds.report.fields.photos_helper') }}
         </div>
     </div>
-    {{--
+    
     <div class="form-group {{ $errors->has('mediaCollections.report_tracks') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="tracks">{{ trans('cruds.report.fields.tracks') }}</x-jet-label>
+        <x-label class="form-label" for="tracks">{{ trans('cruds.report.fields.tracks') }}</x-label>
         <x-dropzone id="tracks" name="tracks" action="{{ route('admin.reports.storeMedia') }}" collection-name="report_tracks" max-file-size="2" />
         <div class="validation-message">
             {{ $errors->first('mediaCollections.report_tracks') }}
@@ -129,9 +202,11 @@
             {{ trans('cruds.report.fields.tracks_helper') }}
         </div>
     </div>
+
+    
     
     <div class="form-group {{ $errors->has('tags') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="tags">{{ trans('cruds.report.fields.tags') }}</x-jet-label>
+        <x-label class="form-label" for="tags">{{ trans('cruds.report.fields.tags') }}</x-label>
         <x-select-list class="form-control" id="tags" name="tags" wire:model="tags" :options="$this->listsForFields['tags']" multiple />
         <div class="validation-message">
             {{ $errors->first('tags') }}
@@ -140,27 +215,19 @@
             {{ trans('cruds.report.fields.tags_helper') }}
         </div>
     </div>
-    <div wire:ignore class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="categories">{{ trans('cruds.report.fields.categories') }}</x-jet-label>
+
+    <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
+        <x-label class="form-label" for="categories">{{ trans('cruds.report.fields.categories') }}</x-label>
         <x-select-list class="form-control" id="categories" name="categories" wire:model="categories" :options="$this->listsForFields['categories']" multiple />
         <div class="validation-message">
             {{ $errors->first('categories') }}
         </div>
-        <div wire:ignore>
-            <select id="categories"
-                    class="mt-2 text-sm sm:text-base pl-2 pr-4 rounded-lg border border-gray-400 w-full py-2 focus:outline-none focus:border-blue-400 select2"
-                    multiple>
-                @foreach($report->categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div>
-
         <div class="help-block">
             {{ trans('cruds.report.fields.categories_helper') }}
         </div>
     </div>
-    --}}
+
+    
 
     <div class="form-group">
         <x-jet-button class="mr-2" type="submit">

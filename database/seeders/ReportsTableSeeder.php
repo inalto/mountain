@@ -54,7 +54,7 @@ class ReportsTableSeeder extends Seeder
 $reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')->where('status',1)
 ->leftJoin('field_data_body', function($q){
     $q->on('field_data_body.entity_id','=','node.nid');
-    $q->where('field_data_body.language','=','it');
+//    $q->where('field_data_body.language','=','it');
 })
 ->leftJoin('field_data_field_difficolt_', function($q){$q->on('field_data_field_difficolt_.entity_id','=','node.nid');})
 ->leftJoin('field_data_field_tempo_di_salita', function($q){$q->on('field_data_field_tempo_di_salita.entity_id','=','node.nid');})
@@ -83,13 +83,13 @@ $reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')-
             foreach ($reports as $key => $value) {
                 if (!User::where('id',$value->uid)->first()) continue;
 //ray ($value->title);
-                $r = new Report;
-                //$r = Report::firstOrNew(['id' =>  request('email')]);
+                //$r = new Report;
+                $r = Report::firstOrNew(['nid' =>  $value->nid]);
 
                 $r->translateOrNew('it')->title = $value->title;
                 $r->translateOrNew('it')->slug = Str::slug($value->title);
-                $r->translateOrNew('it')->content = $value->body_value;
-                $r->translateOrNew('it')->excerpt = $value->body_summary;
+                $r->translateOrNew('it')->content = $r->translateOrNew('it')->content ."<!--".$r->language."-->". $value->body_value;
+                $r->translateOrNew('it')->excerpt = $r->translateOrNew('it')->excerpt ."<!--".$r->language."-->". $value->body_summary;
 
                 $r->nid = $value->nid;
                 $r->owner_id = $value->uid;
@@ -106,7 +106,7 @@ $reports = DB::connection('mysqlold')->table('node')->where('type','relazioni')-
                 $r->length   = intval($value->field_lunghezza_value);
                 $r->altitude_s = intval($value->field_quota_di_partenza_value);
                 $r->altitude_e = intval($value->field_altitudine_value);
-                $r->drop     =intval($value->field_dislivello_value);
+                $r->drop_p     =intval($value->field_dislivello_value);
 
                 $r->created_at = date('Y-m-d H:i:s',$value->created);
                 $r->updated_at = date('Y-m-d H:i:s',$value->changed);
@@ -137,6 +137,9 @@ $covers = DB::connection('mysqlold')->table('field_data_field_copertina')->where
                 foreach($covers as $img ) {
                     $path='/home/inalto/public_html_old/sites/default/files/'.substr($img->uri,9);
                     if (!file_exists ( $path )) { Log::info('missing image->'.$path); continue; }
+                    if ($this->photo_exists($r->photos,$path)) {
+                        continue;
+                    }
                     //Log::info('cover image->'.$path);                
                 $r->addMedia($path)
                     ->preservingOriginal()
@@ -167,7 +170,10 @@ DB::connection('mysqlold')->table('field_data_field_galleria_fotografica')->wher
                 foreach($images as $img ) {
                     $path='/home/inalto/public_html_old/sites/default/files/'.substr($img->uri,9);
                     if (!file_exists ( $path )) { Log::info('missing image->'.$path); continue; }
-  /*              
+                if ($this->photo_exists($r->photos,$path)) {
+                        continue;
+                    }
+                    /*
                     Log::info('image->/home/inalto/public_html_old/'.$img->filepath);
                     Log::info('name->'.$img->filename);
                     
@@ -195,6 +201,18 @@ $filename = pathinfo($path,8).".".$this->mime2ext($path);
         }
 
 
+        public function photo_exists($photos,$filename) {
+
+            foreach($photos as $photo) {
+               if ($photo['name'] == pathinfo($filename, PATHINFO_FILENAME))
+                {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    
 public function resolveDifficulty($id) {
 
     $difficulty = [

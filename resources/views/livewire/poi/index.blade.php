@@ -42,29 +42,14 @@
                             @include('components.table.sort', ['field' => 'name'])
                         </th>
                         <th>
-                            {{ trans('cruds.poi.fields.lat') }}
-                            @include('components.table.sort', ['field' => 'lat'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.poi.fields.lon') }}
-                            @include('components.table.sort', ['field' => 'lon'])
+                            {{ trans('cruds.poi.fields.slug') }}
+                            @include('components.table.sort', ['field' => 'slug'])
                         </th>
                         <th>
                             {{ trans('cruds.poi.fields.height') }}
                             @include('components.table.sort', ['field' => 'height'])
                         </th>
-                        <th>
-                            {{ trans('cruds.poi.fields.access') }}
-                            @include('components.table.sort', ['field' => 'access'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.poi.fields.description') }}
-                            @include('components.table.sort', ['field' => 'description'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.poi.fields.biography') }}
-                            @include('components.table.sort', ['field' => 'biography'])
-                        </th>
+                        
                         <th>
                         </th>
                     </tr>
@@ -82,23 +67,14 @@
                                 {{ $poi->name }}
                             </td>
                             <td>
-                                {{ $poi->lat }}
+                                {{ $poi->slug }}
                             </td>
-                            <td>
-                                {{ $poi->lon }}
-                            </td>
+                            
                             <td>
                                 {{ $poi->height }}
                             </td>
-                            <td>
-                                {{ $poi->access }}
-                            </td>
-                            <td>
-                                {{ $poi->description }}
-                            </td>
-                            <td>
-                                {{ $poi->biography }}
-                            </td>
+                            
+                            
                             <td>
                                 <div class="flex justify-end">
                                     @can('poi_show')

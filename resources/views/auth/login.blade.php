@@ -19,14 +19,14 @@
             <div>
                 <x-label class="dark:text-gray-200" for="email" :value="__('auth.email')" />
 
-                <x-jet-input id="email" class="w-full h-10" type="email" name="email" :value="old('email')" required autofocus />
+                <x-input id="email" class="w-full h-10" type="email" name="email" :value="old('email')" required autofocus />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-label class="dark:text-gray-200" for="password" :value="__('auth.password')" />
 
-                <x-jet-input id="password" class="w-full h-10"
+                <x-input id="password" class="w-full h-10"
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" />

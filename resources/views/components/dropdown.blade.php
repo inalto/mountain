@@ -41,3 +41,9 @@ switch ($width) {
         </div>
     </div>
 </div>
+
+@once 
+@push('styles')
+
+@endpush
+@endonce

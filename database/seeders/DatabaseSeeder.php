@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             
             TagsTableSeeder::class,
 
-            ReportsTableSeeder::class,
+            //ReportsTableSeeder::class,
         ]);
     }
 }
