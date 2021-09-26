@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "akaunting/laravel-module": "^2.0",
         "astrotomic/laravel-translatable": "^11.9",
         "bugsnag/bugsnag-laravel": "^2.21",
         "codezero/laravel-localized-routes": "^2.4",
@@ -35,6 +36,7 @@
         "yajra/laravel-datatables-oracle": "^9.11"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.5",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/sail": "^1.0.1",
