@@ -18,12 +18,6 @@ class FilterQueryBuilder
         
         if (isset($data['f'])) {
             foreach ($data['f'] as &$filter) {
-                
-                if(property_exists($this->model,'translatedAttributes')) {
-                    if (in_array($filter['column'],$this->model->translatedAttributes)) {
-                        $filter['operator'] = 'containsTranslation';                       
-                    }
-                }
                 $filter['match'] = $data['filter_match'] ?? 'and';
                 $this->makeFilter($query, $filter);
             }
@@ -50,12 +44,15 @@ class FilterQueryBuilder
 
     protected function makeOrder($query, $data)
     {
+        
         if ($this->isNestedColumn($data['order_column'])) {
             [$relationship, $column] = explode('.', $data['order_column']);
             $callable                = Str::camel($relationship);
             $belongs                 = $this->model->{$callable}(
             );
+            
             $relatedModel = $belongs->getModel();
+            
             $relatedTable = $relatedModel->getTable();
             $as           = "prefix_{$relatedTable}";
 
@@ -73,9 +70,12 @@ class FilterQueryBuilder
             $data['order_column'] = "{$as}.{$column}";
         }
 
-        $query
-            ->orderBy($data['order_column'], $data['order_direction'])
-            ->select("{$this->table}.*");
+        if ($this->isTranslatedColumn($data['order_column'])) {
+            $query->orderByTranslation($data['order_column'], $data['order_direction']);
+        } else {
+            $query->orderBy($data['order_column'], $data['order_direction']);
+        }
+        $query->select("{$this->table}.*");
     }
 
     protected function makeFilter($query, $filter)
@@ -91,15 +91,22 @@ class FilterQueryBuilder
                     $q
                 );
             });
-        } else {
-            if(!property_exists($this->model,'translatedAttributes')) {
-            $filter['column'] = "{$this->table}.{$filter['column']}";
-            }
-            $this->{Str::camel($filter['operator'])}(
-                $filter,
-                $query
-            );
+        } 
+        if ($this->isTranslatedColumn($filter['column'])) {
+            $query->whereTranslationLike($filter['column'], $filter['query_1']);
+            
         }
+    }
+
+    protected function isTranslatedColumn($column)
+    {
+        if (property_exists($this->model,'translatedAttributes'))
+        {
+            if (in_array($column, $this->model->translatedAttributes)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected function isNestedColumn($column)
