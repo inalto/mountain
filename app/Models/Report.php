@@ -12,10 +12,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-//use Cviebrock\EloquentSluggable\Sluggable;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
-
+use Astrotomic\Translatable\Locales;
 class Report extends Model implements HasMedia, TranslatableContract
 {
     use HasFactory;
@@ -24,7 +23,6 @@ class Report extends Model implements HasMedia, TranslatableContract
     use Tenantable;
     use InteractsWithMedia;
   //  use Auditable;
-//    use Sluggable;
     use Translatable;
 
     
@@ -184,6 +182,12 @@ class Report extends Model implements HasMedia, TranslatableContract
         return $this->belongsToMany(Tag::class);
     }
 
+    /*
+    public function reportsTranslations()
+    {
+        return $this->belongsTo(ReportTranslation::class);
+    }
+*/
     public function categories()
     {
         return $this->belongsToMany(Category::class);
@@ -198,14 +202,6 @@ class Report extends Model implements HasMedia, TranslatableContract
     {
         return $date->format('Y-m-d H:i:s');
     }
-/*
-    public function sluggable()
-    {
-        return [
-            'slug' => [
-                'source' => 'title'
-            ]
-        ];
-    }
-    */
+
+   
 }

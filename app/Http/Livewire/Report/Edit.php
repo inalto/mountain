@@ -4,6 +4,7 @@ namespace App\Http\Livewire\Report;
 
 use App\Models\Category;
 use App\Models\Report;
+use App\Models\ReportTranslation;
 use App\Models\Tag;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -25,17 +26,12 @@ class Edit extends Component
 
     public $type ="";
     public $difficulty ="";
-    
-
-
-
 
     public $title = null;
     public $slug = null;
 
     public function mount(Report $report)
     {
-
  
         $this->report     = $report;
         $this->difficulty     = $report->difficulty;
@@ -59,9 +55,8 @@ class Edit extends Component
     
     public function updatedReportTitle()
     {
-        $this->report->slug = SlugService::createSlug(Report::class, 'slug', $this->report->title);
+        $this->report->slug = SlugService::createSlug(ReportTranslation::class, 'slug', $this->report->title);
     }
-    
     public function updatedType($type)
     {
         $this->type=$type;

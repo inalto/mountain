@@ -11,17 +11,11 @@
 
 
 <div class="body-font max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-    <div class="relative inline-block">
-      <img class="inline-block object-cover w-12 h-12 rounded-full" src="https://images.pexels.com/photos/2955305/pexels-photo-2955305.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="Profile image"/>
-      <span class="absolute bottom-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white rounded-full"></span>
-    </div>
-
-    <div class="inline-block">
-    <h2 class="text-sm font-medium text-gray-500 dark:text-gray-300 title-font ">{{ $report->owner->name }}</h2>
-    <p>{{ $report->owner->first_name }} {{ $report->owner->last_name }}</p>
-    </div>  
+   
+    <x-avatar :user="$report->owner"></x-avatar>
   </div>
-    
+
+
     <div class="flex flex-wrap w-full">
         
     <div class="body-font prose max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">

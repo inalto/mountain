@@ -8,24 +8,14 @@
                     <a class="block border-b-4 transition duration-500 border-white focus:outline-none focus:border-blue-600" href="{{ route('report.show', $report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
                 </div>
                 <div class="flex flex-col flex-grow p-3 bg-white dark:bg-gray-800">
-                    <div class="flex-grow-0 mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font ">
-                        <div class="relative inline-block">
-                            @if ($report->owner->profile_photo_url)
-                            <img class="inline-block object-cover w-12 h-12 rounded-full" src="{{$report->owner->profile_photo_url}}" alt="Profile image"/>
-                            @else
-                            <img class="object-cover w-8 h-8 rounded-full" src="https://eu.ui-avatars.com/api/?name={{ $report->owner->name }}" alt="{{ $report->owner->name }}" />
-                            @endif
-                            @auth($report->owner->name)
-                            <span class="absolute bottom-0 right-0 inline-block w-3 h-3 bg-green-600 border-2 border-white rounded-full"></span>
-                            @endauth
-                        </div>
                     
-                        {{ $report->owner->name}}
-                    </div>
-                    <h2 class="flex-grow-0  mb-3 text-lg font-medium text-gray-900 dark:text-gray-100 title-font">
-                        {{ $report->title }} - {{$report->nid}}
+                        <x-avatar :user="$report->owner"></x-avatar>
+
+                  
+                    <h2 class="flex-grow-0  mb-3 text-lg font-medium text-gray-900 dark:text-gray-100 title-font font-bold" title="{{$report->nid}}">
+                        {{ $report->title }}
                     </h2>
-                    <div class="flex-grow leading-relaxed">
+                    <div class="flex-grow leading-relaxed mb-4 text-sm">
                     {!! Str::of($report->excerpt)->words(20,'...') !!}
                     </div>
 

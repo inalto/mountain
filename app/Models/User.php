@@ -4,6 +4,7 @@ namespace App\Models;
 
 use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
+use Cache;
 use Carbon\Carbon;
 use Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -85,5 +86,11 @@ class User extends Authenticatable
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function isOnline()
+    {
+        
+        return Cache::has('inalto-u-' . $this->id);
     }
 }
