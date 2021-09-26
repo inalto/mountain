@@ -1,6 +1,6 @@
 <x-slot name="header">
-    <h1 class="text-xl font-semibold leading-tight">
-        {{ $report->title }} - {{ $report->nid }}
+    <h1 class="text-xl font-semibold leading-tight" alt=" {{ $report->nid }}">
+        {{ $report->title }}
     </h1>
 </x-slot>
 
