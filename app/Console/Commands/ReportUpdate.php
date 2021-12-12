@@ -3,14 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Report;
-use Log;
-use Swift_Plugins_Loggers_EchoLogger;
-use App\Support\Inalto\ReportImport;
+
+use App\Support\Inalto\Import\Report as ReportImport;
 
 
 class ReportUpdate extends Command
@@ -20,7 +14,7 @@ class ReportUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'inalto:report_update {--truncate : Clear Table } {--skip : skip already imported node id } {--start-from=0 : start import from node id }';
+    protected $signature = 'inalto:report_update {--nid= : Node id } {--truncate : Clear Table } {--skip : skip already imported node id } {--start-from=0 : start import from node id } {--dry-run : dry run }';
 
     /**
      * The console command description.
@@ -48,8 +42,17 @@ class ReportUpdate extends Command
      */
     public function handle()
     {
+        $options = [
+            'truncate' => $this->option('truncate'),
+            'skip' => $this->option('skip'),
+            'start-from' => $this->option('start-from'),
+            'nid' => $this->option('nid'),
+            'dry_run' => $this->option('dry-run'),
+        ];
 
-        return ReportImport::import($this->option('truncate'),$this->option('skip'),$this->option('start-from'));
+      //  $this->output->writeln('--'.$this->option('nid'));
+
+        return ReportImport::import($this->output,$options);
     }
 
 }
