@@ -235,7 +235,11 @@
       @foreach($report->photos as $photo) 
       
       <div class="photo shadow-lg  rounded bg-white overflow-hidden">
-        <img src="{{$photo['preview_thumbnail']}}" class=" w-full h-auto border-none"/>
+        <a
+  href="{{$photo['url']}}"
+  data-fancybox="gallery"
+  data-caption="{{$photo['name']}}"
+><img src="{{$photo['preview_thumbnail']}}" class=" w-full h-auto border-none"/></a>
         <div class="text-xs text-gray-700 text-center p-2">{{$photo['name']}}</div>
       </div>
       

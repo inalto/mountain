@@ -7,7 +7,7 @@
     <section class="report">
      <livewire:inalto.frontend.report :report="$report"></livewire:inalto.frontend.report>
     </section>
-        
+        {{--
     {{ $report->getFirstMediaUrl('report_photos') }}
-
+--}}
 </x-app-layout>

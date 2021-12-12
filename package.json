@@ -22,6 +22,7 @@
         "webpack-cli": "^4.9.1"
     },
     "dependencies": {
+        "@fancyapps/ui": "^4.0.11",
         "@tailwindcss/forms": "^0.3.3",
         "@tailwindcss/typography": "^0.4.1",
         "clockpicker": "0.0.7",
