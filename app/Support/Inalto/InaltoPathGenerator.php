@@ -38,21 +38,25 @@ class InaltoPathGenerator implements PathGenerator
     protected function getBasePath(Media $media): string
     {
         $prepend = '';
-        
+     
         switch($media->model_type){
             case 'App\Models\Report':
                 $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    
-                $prepend .='/reports/';
+                $prepend .='/reports/'.$media->model_id;
                 break;
             case 'App\Models\Poi':
                 $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    
-                $prepend .='/pois/';
+                $prepend .='/pois/'.$media->model_id;
+                break;
+            case 'App\Models\User':
+                $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    
+                $prepend .='/'.$media->model_id;
                 break;
 
         }
         
 
-        return $prepend.$media->model_id;
+        return $prepend;
     }
 
     
