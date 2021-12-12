@@ -329,6 +329,7 @@ return [
             "excerpt_helper" => "",
             "id" => "ID",
             "id_helper" => "",
+            "intro" => "Introduzione",
             "length" => "Lunghezza",
             "length_helper" => "Lunghezza complessiva in Km",
             "owner" => "",

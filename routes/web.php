@@ -15,6 +15,7 @@ use Admin\PermissionController;
 use Admin\PoiController;
 use Admin\NewsPostController;
 use Admin\ReportController;
+use Admin\ReportsCategoryController;
 use Admin\RoleController;
 use Admin\TagController;
 use Admin\UserController;
@@ -29,10 +30,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Frontend\ReportsController as Report;
 
 //use inalto\HomeController;
-
+Route::mediaLibrary();
 
 Route::get('/',[Home::class, 'index'])->name('home');
-Route::get('/relazione/{slug}',[Report::class, 'show'])->name('report.show');
+Route::get('/relazione/{category?}/{slug?}',[Report::class, 'show'])->name('report.show');
 
 //Route::redirect('/', '/login');
 
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('content-tags', ContentTagController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Content Page
-    Route::post('content-pages/media', [ContentPageController::class, 'storeMedia'])->name('content-pages.storeMedia');
+    Route::post('content-pages/media', '\App\Http\Controllers\Admin\ContentPageController@storeMedia')->name('content-pages.storeMedia');
 
     Route::resource('content-pages', ContentPageController::class, ['except' => ['store', 'update', 'destroy']]);
 
@@ -66,7 +67,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
 
     // Report
-    Route::post('reports/media', [ReportController::class, 'storeMedia'])->name('reports.storeMedia');
+    Route::post('reports/media', [\App\Http\Controllers\Admin\ReportController::class, 'storeMedia'])->name('reports.storeMedia');
 
     Route::resource('reports', ReportController::class, ['except' => ['store', 'update', 'destroy']]);
 
@@ -77,11 +78,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('pois', PoiController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Category
-    Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy']]);
+    Route::resource('categories', ReportsCategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Post
 
-    Route::post('posts/media', [PostController::class, 'storeMedia'])->name('posts.storeMedia');
+    Route::post('posts/media', [\App\Http\Controllers\Admin\NewsPostController::class, 'storeMedia'])->name('posts.storeMedia');
 
     Route::resource('news-posts', NewsPostController::class, ['except' => ['store', 'update', 'destroy']]);
 

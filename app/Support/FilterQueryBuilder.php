@@ -30,16 +30,16 @@ class FilterQueryBuilder
 
     public function contains($filter, $query)
     {
-        return $query->where($filter['column'], 'like', '%' . $filter['query_1'] . '%', $filter['match']);
+        return $query->where($filter['column'], 'like', '%' . $filter['query_1'] . '%');
     }
 
     public function containsTranslation($filter, $query)
     {
 
         if ($filter['match']=='or') {
-            return $query->orWhereTranslationLike($filter['column'], '%' . $filter['query_1'] . '%');
+            return $query->orWhereTranslation($filter['column'],'like', '%' . $filter['query_1'] . '%');
         } 
-        return $query->whereTranslationLike($filter['column'], '%' . $filter['query_1'] . '%');
+        return $query->whereTranslationLike($filter['column'],'like', '%' . $filter['query_1'] . '%');
     }
 
     protected function makeOrder($query, $data)
@@ -93,7 +93,7 @@ class FilterQueryBuilder
             });
         } 
         if ($this->isTranslatedColumn($filter['column'])) {
-            $query->whereTranslationLike($filter['column'], $filter['query_1']);
+            $query->whereTranslationLike($filter['column'], '%'.$filter['query_1'].'%');
             
         }
     }

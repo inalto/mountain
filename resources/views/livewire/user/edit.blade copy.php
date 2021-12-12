@@ -3,9 +3,9 @@
 
     
     <div class="form-group {{ $errors->has('user.name') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label required" for="name">{{ trans('cruds.user.fields.name') }}</x-jet-label>
-        <x-jet-input class="form-control" type="text" name="name" id="name" required wire:model.defer="user.name"/>
-        </x-jet-input>
+        <x-label class="form-label required" for="name">{{ trans('cruds.user.fields.name') }}</x-label>
+        <x-input class="form-control" type="text" name="name" id="name" required wire:model.defer="user.name"/>
+        </x-input>
         <div class="validation-message">
             {{ $errors->first('user.name') }}
         </div>
@@ -14,9 +14,9 @@
         </div>
     </div>
     <div class="form-group {{ $errors->has('user.email') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label required" for="email">{{ trans('cruds.user.fields.email') }}</x-jet-label>
-        <x-jet-input class="form-control" type="email" name="email" id="email" required wire:model.defer="user.email"/>
-        </x-jet-input>
+        <x-label class="form-label required" for="email">{{ trans('cruds.user.fields.email') }}</x-label>
+        <x-input class="form-control" type="email" name="email" id="email" required wire:model.defer="user.email"/>
+        </x-input>
         <div class="validation-message">
             {{ $errors->first('user.email') }}
         </div>
@@ -25,8 +25,8 @@
         </div>
     </div>
     <div class="form-group {{ $errors->has('user.password') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="password">{{ trans('cruds.user.fields.password') }}</x-jet-label>
-        <x-jet-input class="form-control" type="password" name="password" id="password" wire:model.defer="password"/>
+        <x-label class="form-label" for="password">{{ trans('cruds.user.fields.password') }}</x-label>
+        <x-input class="form-control" type="password" name="password" id="password" wire:model.defer="password"/>
         <div class="validation-message">
             {{ $errors->first('user.password') }}
         </div>
@@ -35,7 +35,7 @@
         </div>
     </div>
     <div class="form-group {{ $errors->has('roles') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label required" for="roles">{{ trans('cruds.user.fields.roles') }}</x-jet-label>
+        <x-label class="form-label required" for="roles">{{ trans('cruds.user.fields.roles') }}</x-label>
         <x-select-list class="form-control" required id="roles" name="roles" wire:model="roles" :options="$this->listsForFields['roles']" multiple />
         <div class="validation-message">
             {{ $errors->first('roles') }}

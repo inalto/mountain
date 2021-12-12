@@ -4,7 +4,7 @@ namespace App\Http\Livewire\Inalto\Frontend;
 
 use Livewire\Component;
 use App\Models\Report as R;
-
+use App\Support\Inalto\ParseReport;
 class Report extends Component
 {
 
@@ -21,6 +21,8 @@ class Report extends Component
 
 	public function render()
     {
+		$this->report->content=ParseReport::beautify($this->report->content);
+
         return view('livewire.inalto.frontend.report',['report'=> $this->report]);
     }
 }

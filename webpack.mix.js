@@ -11,11 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-.sass('resources/sass/app.scss', 'public/css')
+mix.js('resources/js/app.js', 'public/js').js('resources/js/bottom.js', 'public/js')
+.css('resources/css/app.css', 'public/css')
 .options({
     postCss: [
         require('postcss-import'),
+        require('postcss-nested'),
         require('tailwindcss'),
     ]
 })

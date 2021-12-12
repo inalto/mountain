@@ -6,9 +6,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
-		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
 		
-        @include('inalto.components.icons')
+        <x-inalto.icons></x-inalto.icons>
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
@@ -42,5 +41,6 @@
         @stack('modals')
 
         @livewireScripts
+
     </body>
 </html>

@@ -26,7 +26,9 @@ class CreateMediaTable extends Migration
             $table->json('responsive_images');
             $table->unsignedInteger('order_column')->nullable();
 
-            $table->nullableTimestamps();
+            $table->dateTime('created_at')->nullable();
+            $table->dateTime('updaated_at')->nullable();
+
         });
     }
 }

@@ -15,8 +15,10 @@ class Kernel extends HttpKernel
      */
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
+
+\Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\TrustProxies::class,
-        \Fruitcake\Cors\HandleCors::class,
+       // \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -51,7 +53,7 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
     //        'bindigs',
-            \App\Http\Middleware\AuthGates::class,
+    //        \App\Http\Middleware\AuthGates::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
         ],
@@ -73,5 +75,6 @@ class Kernel extends HttpKernel
         'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+    //    'cors'            => \App\Http\Middleware\CorsMiddleware::class
     ];
 }

@@ -8,10 +8,13 @@ use App\Models\ReportTranslation;
 use App\Models\Tag;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class Edit extends Component
 {
+    use WithMedia;
+
     public Report $report;
 
     public array $tags = [];
@@ -22,7 +25,13 @@ class Edit extends Component
 
     public array $listsForFields = [];
 
-    public array $mediaCollections = [];
+ //   public array $mediaCollections = [];
+
+    public $mediaComponentNames = ['photos'];
+
+    public $photos;
+
+    public array $bibliographies = [];
 
     public $type ="";
     public $difficulty ="";
@@ -30,9 +39,13 @@ class Edit extends Component
     public $title = null;
     public $slug = null;
 
+
+
+
     public function mount(Report $report)
     {
  
+        
         $this->report     = $report;
         $this->difficulty     = $report->difficulty;
         $this->initListsForFields();
@@ -40,10 +53,20 @@ class Edit extends Component
         $this->tags       = $this->report->tags()->pluck('id')->toArray();
         $this->categories = $this->report->categories()->pluck('id')->toArray();
         
+    //    dd($report->getMedia('report_photos'));
+       // $this->photos =$report->getMedia('photos');
+   //  dd($this);
+        //$this->report->bibliographies ?? [];
+        //$this->bibliographies = $this->report->bibliographies?$this->report->bibliographies:[];
+        $this->bibliographies ?? [];
+        //$this->report_photos = $report->photos;
+ /*
         $this->mediaCollections = [
             'report_photos'  => $report->photos,
             'report_tracks' => $report->tracks,
         ];
+
+        */
     }
 
     public function render()
@@ -67,15 +90,19 @@ class Edit extends Component
     public function submit()
     {
         $this->validate();
-
+        $this->report->bibliographies=$this->bibliographies?$this->bibliographies:[];
         $this->report->save();
+        $this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
         $this->report->tags()->sync($this->tags);
         $this->report->categories()->sync($this->categories);
-        $this->syncMedia();
+        
+   //     $this->syncMedia();
+
+        ray(json_encode($this->bibliographies));
 
         return redirect()->route('admin.reports.index');
     }
-
+/*
     public function addMedia($media): void
     {
         $this->mediaCollections[$media['collection_name']][] = $media;
@@ -95,11 +122,19 @@ class Edit extends Component
         return $this->mediaCollections[$name];
     }
 
-
+*/
 
     protected function rules(): array
     {
         return [
+            'photos.*.name' => [
+                'string',
+                'required'
+            ],
+
+            'report'=>[
+                'array',
+            ],
             'type' => [
                 'string',
                 'nullable',
@@ -133,6 +168,9 @@ class Edit extends Component
                 'digits_between:0,4',
                 'nullable',
             ],
+     
+
+            
             'report.difficulty' => [
                 'nullable',
                 /*'string',*/
@@ -161,22 +199,7 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
-            'mediaCollections.report_photo' => [
-                'array',
-                'nullable',
-            ],
-            'mediaCollections.report_photo.*.id' => [
-                'integer',
-                'exists:media,id',
-            ],
-            'mediaCollections.report_tracks' => [
-                'array',
-                'nullable',
-            ],
-            'mediaCollections.report_tracks.*.id' => [
-                'integer',
-                'exists:media,id',
-            ],
+
             'tags' => [
                 'array',
             ],
@@ -191,6 +214,11 @@ class Edit extends Component
                 'integer',
                 'exists:categories,id',
             ],
+            'bibliographies' => [
+                'array',
+            ],
+
+          
         ];
     }
 
@@ -253,7 +281,7 @@ class Edit extends Component
 
     protected function syncMedia(): void
     {
-        collect($this->mediaCollections)->flatten(1)
+        collect($this->photos)->flatten(1)
             ->each(fn ($item) => Media::where('uuid', $item['uuid'])
             ->update(['model_id' => $this->report->id]));
 

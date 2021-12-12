@@ -24,6 +24,6 @@ class Reports extends Component
 	public function render()
     {
 		
-        return view('livewire.inalto.frontend.reports',['reports'=>Report::with('owner')->with('media')->orderBy('created_at','desc')->paginate(12)]);
+        return view('livewire.inalto.frontend.reports',['reports'=>Report::with('owner')->with('categories')->with('media')->orderBy('created_at','desc')->paginate(12)]);
     }
 }

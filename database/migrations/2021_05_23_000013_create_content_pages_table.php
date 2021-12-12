@@ -13,8 +13,11 @@ class CreateContentPagesTable extends Migration
             $table->string('title');
             $table->longText('page_text')->nullable();
             $table->longText('excerpt')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at');
+            $table->dateTime('updaated_at');
+
+            $table->dateTime('deleted_at');
+
         });
     }
 }

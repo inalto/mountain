@@ -14,8 +14,11 @@ class CreatePoisTable extends Migration
             $table->longText('geojson')->nullable();
             $table->integer('height')->nullable();
             $table->longText('bibliography')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at');
+            $table->dateTime('updaated_at');
+
+            $table->dateTime('deleted_at');
+
         });
     }
 }

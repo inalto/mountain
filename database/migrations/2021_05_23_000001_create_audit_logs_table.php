@@ -16,7 +16,9 @@ class CreateAuditLogsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->text('properties')->nullable();
             $table->string('host', 46)->nullable();
-            $table->timestamps();
+            $table->dateTime('created_at');
+            $table->dateTime('updaated_at');
+
         });
     }
 }

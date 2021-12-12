@@ -14,11 +14,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+//use Spatie\MediaLibrary\MediaCollections\Models\Media;
+
+class User extends Authenticatable  implements HasMedia
 {
     use HasFactory;
     use HasAdvancedFilter;
     use SoftDeletes;
+    use InteractsWithMedia;
     use Notifiable;
 
     public $table = 'users';
@@ -37,7 +42,9 @@ class User extends Authenticatable
         'email_verified_at',
         'roles.title',
     ];
-
+    protected $appends = [
+        'avatar'
+    ];
     protected $hidden = [
         'remember_token',
         'password',
@@ -87,6 +94,19 @@ class User extends Authenticatable
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+
+    public function getAvatarAttribute()
+    {
+        return $this->getMedia('avatar')->map(function ($item) {
+            $media = $item->toArray();
+            $media['url'] = $item->getUrl();
+            
+            
+            return $media;
+        });
+    }
+
 
     public function isOnline()
     {

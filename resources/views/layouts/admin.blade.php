@@ -2,16 +2,16 @@
 <html>
 
 <head>
+    <title>{{ trans('panel.site_title') }}</title>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="author" content="Martini Multimedia s.a.s.">
 
-    
+    <x-inalto.icons></x-inalto.icons>
 
-    <title>{{ trans('panel.site_title') }}</title>
+    
 
     {{-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" rel="stylesheet" />
@@ -25,7 +25,7 @@
     <link href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.5.1/min/dropzone.min.css" rel="stylesheet" /> --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
-    @include('inalto.components.icons')
+    
     <script type="text/javascript" src="/js/app.js"></script>
     @stack('styles')
     
@@ -116,7 +116,7 @@
 </div>
     
     @livewireScripts
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
+    <script type="text/javascript" src="/js/bottom.js"></script>
     <script src="https://unpkg.com/material-components-web@12.0.0/dist/material-components-web.min.js" defer></script>
     @stack('scripts')
     

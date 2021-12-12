@@ -26,7 +26,8 @@ class CreatePoisTranslationsTable extends Migration
             $table->string('slug')->nullable();
             $table->longText('excerpt')->nullable();
             $table->longText('content')->nullable();
-            $table->timestamps();
+
+
         });
  
         Schema::table('pois', function (Blueprint $table) {

@@ -5,7 +5,7 @@
         <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
             <div class="flex flex-col h-full overflow-hidden rounded-lg shadow-lg">
                 <div class="flex-grow-0">
-                    <a class="block border-b-4 transition duration-500 border-white focus:outline-none focus:border-blue-600" href="{{ route('report.show', $report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
+                    <a class="block border-b-4 transition duration-500 border-white focus:outline-none focus:border-blue-600" href="{{ route('report.show', $report->categories->first()?$report->categories->first()->slug:'none'.'/'.$report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
                 </div>
                 <div class="flex flex-col flex-grow p-3 bg-white dark:bg-gray-800">
                     

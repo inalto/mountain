@@ -12,8 +12,11 @@ class CreateNewsTagsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at');
+            $table->dateTime('updaated_at');
+
+            $table->dateTime('deleted_at');
+
         });
     }
 }

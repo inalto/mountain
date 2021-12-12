@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Report;
 use Gate;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class ReportController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    //    abort_if(Gate::denies('report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.report.index');
     }
@@ -31,7 +32,7 @@ class ReportController extends Controller
         return view('admin.report.edit', compact('report'));
     }
 
-    public function show(Report $report)
+    public function show($category, $slug)
     {
         abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

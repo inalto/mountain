@@ -1,5 +1,4 @@
-@extends('layouts.admin')
-@section('content')
+<x-admin-layout>
 
 <div class="card">
     <div class="card-header">
@@ -17,4 +16,4 @@
         @livewire('user.edit', [$user])
     </div>
 </div>
-@endsection
+</x-admin-layout>

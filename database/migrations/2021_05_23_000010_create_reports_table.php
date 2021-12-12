@@ -15,8 +15,11 @@ class CreateReportsTable extends Migration
             $table->string('difficulty')->nullable();
             $table->longText('excerpt')->nullable();
             $table->longText('content')->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at');
+            $table->dateTime('updaated_at');
+
+            $table->dateTime('deleted_at');
+
         });
     }
 }

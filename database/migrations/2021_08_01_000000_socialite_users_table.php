@@ -12,7 +12,8 @@ public function up()
         $table->dropUnique(['email']);
         $table->string('password')->nullable()->change();
         $table->json('social')->nullable();
-        $table->softDeletes();
+        $table->dateTime('deleted_at');
+
         $table->unique(['email', 'deleted_at']);
     });
 }

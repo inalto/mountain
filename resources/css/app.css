@@ -5,18 +5,18 @@
 
 @import 'tailwindcss/utilities';
 
-@import "~@fortawesome/fontawesome-free/scss/fontawesome";
-@import "~@fortawesome/fontawesome-free/scss/regular";
-@import "~@fortawesome/fontawesome-free/scss/solid";
-@import "~@fortawesome/fontawesome-free/scss/brands";
+@import "@fortawesome/fontawesome-free/css/fontawesome";
+@import "@fortawesome/fontawesome-free/css/regular";
+@import "@fortawesome/fontawesome-free/css/solid";
+@import "@fortawesome/fontawesome-free/css/brands";
 
+
+@import 'medialibrary';
+@import 'admin.sidebar';
+@import 'dropzone';
 [x-cloak] {
     display: none;
 }
-
-@import 'admin.sidebar';
-@import 'dropzone';
-
 
 .btn {
 
@@ -41,3 +41,15 @@
 .help-block {
 @apply text-xs text-gray-300 py-2
 }
+
+
+/* Time colors */
+
+.t1 { @apply bg-green-700  }
+.t2 { @apply bg-yellow-500 }
+.t3 { @apply bg-yellow-700 }
+.t3 { @apply bg-red-700 }
+.t3 { @apply bg-yellow-900 }
+
+.wt1 { @apply bg-blue-200  }
+.wt2 { @apply bg-blue-400 }

@@ -43,7 +43,7 @@ class CreateReportsTranslationsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('reports_translations');
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::table('reports', function (Blueprint $table) {
             $table->string('title');
             $table->string('slug')->nullable();
             $table->longText('excerpt')->nullable();

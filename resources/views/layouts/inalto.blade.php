@@ -11,10 +11,10 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.2/dist/alpine.min.js" defer></script>
 		
-        @include('inalto.components.icons')
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
+        <x-inalto.icons></x-inalto.icons>
+			
+			<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
 
     <!-- ANIMATE -->	
 {{--		<link rel='stylesheet' href="{{ mix('css/animate.min.css') }}"> --}}
@@ -36,7 +36,6 @@
         @stack('modals')
 
         @livewireScripts
-		<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.js" defer></script>
 
 	</body>
 </html>		

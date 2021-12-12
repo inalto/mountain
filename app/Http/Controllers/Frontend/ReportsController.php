@@ -8,7 +8,7 @@ use App\Http\Requests\MassDestroyReportRequest;
 use App\Http\Requests\StoreReportRequest;
 use App\Http\Requests\UpdateReportRequest;
 use App\Models\Report;
-use App\Models\ReportsCategory;
+use App\Models\ReportsCategory as Category;
 use App\Models\ReportsTag;
 use App\Models\User;
 use Gate;
@@ -22,7 +22,7 @@ class ReportsController extends Controller
     use MediaUploadingTrait;
 
 
-    public function show($slug)
+    public function show($category,$slug)
     {
         \App::setLocale('it');
         //abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');

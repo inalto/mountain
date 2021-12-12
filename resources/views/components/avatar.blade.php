@@ -3,8 +3,8 @@
 @if ($user)
 <div class="flex-grow-0 mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font ">
 <div class="relative inline-block">
-    @if ($user->profile_photo_url)
-    <img class="inline-block object-cover w-12 h-12 rounded-full" src="{{$user->profile_photo_url}}" alt="Profile image"/>
+    @if ($user->getFirstMedia('avatar'))
+    <img class="inline-block object-cover w-12 h-12 rounded-full" src="{{$user->getFirstMedia('avatar')->geturl()}}" alt="Profile image"/>
     @else
     <img class="object-cover w-8 h-8 rounded-full" src="https://eu.ui-avatars.com/api/?name={{ $user->name }}" alt="{{ $user->name }}" />
     @endif
