@@ -53,8 +53,7 @@ window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 
 try {
   window.$ = window.jQuery = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js");
-
-  __webpack_require__(Object(function webpackMissingModule() { var e = new Error("Cannot find module 'clockpicker'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+  /*    require('clockpicker')*/
 
   __webpack_require__(/*! select2 */ "./node_modules/select2/dist/js/select2.js");
 

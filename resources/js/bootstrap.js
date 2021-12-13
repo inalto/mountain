@@ -8,7 +8,7 @@ window._ = require('lodash');
 
 try {
     window.$ = window.jQuery = require('jquery');
-    require('clockpicker')
+/*    require('clockpicker')*/
     require('select2')
     window.Dropzone = require('dropzone').default
     require('flatpickr')
