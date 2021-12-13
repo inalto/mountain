@@ -18,6 +18,7 @@ class Report
         
         extract($options);
 
+        $o->writeln("start");
         $qry = DB::connection('mysqlold')->table('node')->where('type', 'relazioni')->where('status', 1);
 
         $qry->leftJoin('field_data_body', function ($q) {
@@ -46,19 +47,25 @@ class Report
                 $q->on('field_data_field_dislivello.entity_id', '=', 'node.nid');
             });
 
-        if (isset($start_from)) {
+
+        if ($new) {
+            $start  = R::query()->orderBy('nid','desc')->first()->nid;
+            $qry->where('node.nid','>',$start);
+            }
+    
+        if ($start_from) {
             $qry->where('node.nid','>=',$start_from);
             };
 
-        if (isset($nid)) {
+        if ($nid) {
             $qry->where('node.nid','=',$nid);
             };
         
         $qry->orderBy('node.nid');
 
         $reports = $qry->get();
-        
-
+//  var_dump($reports);      
+//echo $qry->toSql();
             $bar= $o->createProgressBar(count($reports));
 
             if (!$dry_run){
@@ -73,6 +80,8 @@ class Report
             }
 
         foreach ($reports as $key => $value) {
+
+  //          $o->writeln("key->".$key);
             if (!User::where('id', $value->uid)->first()) continue;
 
             /*
@@ -99,6 +108,7 @@ class Report
             
 
             $r->translateOrNew('it')->title = $value->title;
+            
             $r->translateOrNew('it')->slug = Str::slug($value->title);
             $r->translateOrNew('it')->content = $r->translateOrNew('it')->content . "<!--" . $r->language . "-->" . $value->body_value;
             $r->translateOrNew('it')->excerpt = $r->translateOrNew('it')->excerpt . "<!--" . $r->language . "-->" . $value->body_summary;
@@ -183,7 +193,7 @@ class Report
             foreach ($images as $img) {
                 $path = '/home/inalto/public_html_old/sites/default/files/' . substr($img->uri, 9);
                 if (!file_exists($path)) {
-    
+                    echo "missing ".$path."\n";
                     continue;
                 }
                 

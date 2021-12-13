@@ -8,10 +8,11 @@ use Livewire\Component;
 class Create extends Component
 {
     public Category $category;
-
+    public $categories;
     public function mount(Category $category)
     {
         $this->category = $category;
+        $this->categories = Category::all();
     }
 
     public function render()
@@ -22,7 +23,7 @@ class Create extends Component
     public function submit()
     {
         $this->validate();
-
+        
         $this->category->save();
 
         return redirect()->route('admin.categories.index');
