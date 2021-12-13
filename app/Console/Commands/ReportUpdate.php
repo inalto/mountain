@@ -14,7 +14,7 @@ class ReportUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'inalto:report_update {--nid= : Node id } {--truncate : Clear Table } {--skip : skip already imported node id } {--start-from=0 : start import from node id } {--dry-run : dry run }';
+    protected $signature = 'inalto:report_update {--nid= : Node id } {--truncate : Clear Table } {--skip : skip already imported node id } {--start-from=0 : start import from node id } {--new : import new relations } {--dry-run : dry run }';
 
     /**
      * The console command description.
@@ -45,8 +45,9 @@ class ReportUpdate extends Command
         $options = [
             'truncate' => $this->option('truncate'),
             'skip' => $this->option('skip'),
-            'start-from' => $this->option('start-from'),
+            'start_from' => $this->option('start-from'),
             'nid' => $this->option('nid'),
+            'new' => $this->option('new'),
             'dry_run' => $this->option('dry-run'),
         ];
 
