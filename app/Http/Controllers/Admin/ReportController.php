@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+
 use App\Models\Report;
 use Gate;
 use Illuminate\Http\Request;
@@ -13,37 +13,45 @@ class ReportController extends Controller
 {
     public function index()
     {
-    //    abort_if(Gate::denies('report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_report_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.report.index');
     }
 
     public function create()
     {
-        abort_if(Gate::denies('report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_report_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.report.create');
     }
 
     public function edit(Report $report)
     {
-        abort_if(Gate::denies('report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.report.edit', compact('report'));
     }
 
     public function show($category, $slug)
     {
-        abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $report->load('tags', 'categories', 'owner');
 
         return view('admin.report.show', compact('report'));
     }
 
+    public function store(Request $request)
+    {
+        ray("store");
+        ray($request);
+    }
+
     public function storeMedia(Request $request)
     {
-        abort_if(Gate::none(['report_create', 'report_edit']), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        ray("storeMedia");
+
+        abort_if(Gate::none(['inalto_report_create', 'inalto_report_edit']), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->has('size')) {
             $this->validate($request, [

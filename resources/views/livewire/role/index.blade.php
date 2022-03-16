@@ -35,15 +35,12 @@
                     @include('components.table.sort', ['field' => 'title'])
                 </th>
                 <th>
-                    {{ trans('cruds.role.fields.permissions') }}
-                </th>
-                <th>
                 </th>
             </tr>
         </thead>
         <tbody>
             @forelse($roles as $role)
-                <tr>
+                <tr class="table-row">
                     <td>
                         <input type="checkbox" value="{{ $role->id }}" wire:model="selected">
                     </td>
@@ -53,11 +50,7 @@
                     <td>
                         {{ $role->title }}
                     </td>
-                    <td>
-                        @foreach($role->permissions as $key => $entry)
-                            <span class="badge badge-relationship">{{ $entry->title }}</span>
-                        @endforeach
-                    </td>
+                   
                     <td>
                         <div class="flex justify-end">
                             @can('role_show')

@@ -5,13 +5,13 @@
 }
 
 .nav-link {
-    @apply flex p-2  hover:bg-gray-200 
+    @apply flex p-2  hover:bg-gray-200 dark:hover:bg-gray-700;
 }
 .nav-link span {
-    @apply flex
+    @apply flex;
 }
 .nav-link.nav-dropdown-toggle {
-    @apply justify-between
+    @apply justify-between;
 }
 
 

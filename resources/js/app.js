@@ -1,9 +1,17 @@
-import { Fancybox, Carousel, Panzoom } from "@fancyapps/ui";
 
+import $ from 'jquery';
+window.$ = window.jQuery = $;
 
-require('./bootstrap')
+import "./bootstrap"
+import "./alpine";
 
+import "@left4code/tw-starter/dist/js/svg-loader";
+import "@left4code/tw-starter/dist/js/accordion";
+import "@left4code/tw-starter/dist/js/alert";
+import "@left4code/tw-starter/dist/js/dropdown";
+import "@left4code/tw-starter/dist/js/modal";
+import "@left4code/tw-starter/dist/js/tab";
 
-Fancybox.bind("[data-fancybox]", {
-    // Your options go here
-  });
+import "./fancybox";
+import "./toastr";
+

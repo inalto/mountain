@@ -80,6 +80,7 @@ class FilterQueryBuilder
 
     protected function makeFilter($query, $filter)
     {
+        ray($filter);
         if ($this->isNestedColumn($filter['column'])) {
             [$relation, $filter['column']] = explode('.', $filter['column']);
             $callable                      = Str::camel($relation);
@@ -91,7 +92,13 @@ class FilterQueryBuilder
                     $q
                 );
             });
-        } 
+        } else {
+
+            if ($filter['match']=='or') {
+                $query->orWhere($filter['column'],'like','%'.$filter['query_1'].'%');            
+            }
+
+        }
         if ($this->isTranslatedColumn($filter['column'])) {
             $query->whereTranslationLike($filter['column'], '%'.$filter['query_1'].'%');
             

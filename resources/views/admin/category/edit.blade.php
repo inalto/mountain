@@ -1,20 +1,11 @@
-@extends('layouts.admin')
-@section('content')
+<x-admin-layout>
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.edit') }} {{ trans('cruds.category.title_singular') }}
+        </div>
 
-<div class="card bg-blueGray-100">
-    <div class="card-header">
-        <div class="card-header-container">
-            <h6 class="card-title">
-                {{ trans('global.edit') }}
-                {{ trans('cruds.category.title_singular') }}:
-                {{ trans('cruds.category.fields.id') }}
-                {{ $category->id }}
-            </h6>
+        <div class="card-body">
+            <livewire:category.edit :category=$category />
         </div>
     </div>
-
-    <div class="card-body">
-        @livewire('category.edit', [$category])
-    </div>
-</div>
-@endsection
+</x-admin-layout>

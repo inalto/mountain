@@ -5,7 +5,7 @@
         <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
             <div class="flex flex-col h-full overflow-hidden rounded-lg shadow-lg">
                 <div class="flex-grow-0">
-                    <a class="block border-b-4 transition duration-500 border-white focus:outline-none focus:border-blue-600" href="{{ route('report.show', $report->categories->first()?$report->categories->first()->slug:'none'.'/'.$report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
+                    <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none focus:border-blue-600" href="{{ route('report.show', $report->categories->first()?$report->categories->first()->slug:'none'.'/'.$report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
                 </div>
                 <div class="flex flex-col flex-grow p-3 bg-white dark:bg-gray-800">
                     
@@ -15,8 +15,8 @@
                     <h2 class="flex-grow-0  mb-3 text-lg font-medium text-gray-900 dark:text-gray-100 title-font font-bold" title="{{$report->nid}}">
                         {{ $report->title }}
                     </h2>
-                    <div class="flex-grow leading-relaxed mb-4 text-sm">
-                    {!! Str::of($report->excerpt)->words(20,'...') !!}
+                    <div class="flex-grow leading-relaxed mb-4 text-sm text-gray-800 dark:text-gray-300">
+                    {{Str::of(strip_tags($report->excerpt))->words(20,'...') }}
                     </div>
 
 
@@ -24,7 +24,7 @@
                     <div class="flex justify-between flex-grow-0">
                         <div>
                             <span
-                                class="inline-flex items-center py-1 pr-3 ml-auto mr-3 text-sm leading-none text-gray-600 border-r-2 border-gray-300 lg:ml-auto md:ml-0">
+                                class="inline-flex items-center py-1 pr-3 ml-auto mr-3 text-sm leading-none text-gray-600 dark:text-gray-300 border-r-2 border-gray-300  dark:border-gray-300 lg:ml-auto md:ml-0">
                                 <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                                     <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -33,8 +33,8 @@
                             </span>
 
 
-                            <span class="inline-flex items-center py-1 pr-3 ml-auto mr-3 text-sm leading-none text-gray-600 border-r-2 border-gray-300 lg:ml-auto md:ml-0">
-                                <svg  class="w-4 h-4 mr-1 fill-current text-gray-600" stroke="currentColor" viewBox="0 0 24 24" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                            <span class="inline-flex items-center py-1 pr-3 ml-auto mr-3 text-sm leading-none text-gray-600 dark:text-gray-300 border-r-2 border-gray-300 dark:border-gray-200 lg:ml-auto md:ml-0">
+                                <svg  class="w-4 h-4 mr-1 fill-current text-gray-600 dark:text-gray-300" stroke="currentColor" viewBox="0 0 24 24" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
                                         <g transform="matrix(0.069632,0,0,0.0688971,0.750933,0.978575)">
                                            
                                             <g transform="matrix(1.56886,0,0,1.58559,-78.4078,-78.1253)">
@@ -55,9 +55,9 @@
                                 </svg>
                                 6 --}}
                             </span>
-                            <span class="inline-flex items-center text-sm leading-none text-gray-600">
+                            <span class="inline-flex items-center text-sm leading-none text-gray-600 dark:text-gray-300">
 
-                            <svg class="w-4 h-4 mr-1 fill-current text-gray-600" stroke="currentColor"  viewBox="0 0 300 300" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                            <svg class="w-4 h-4 mr-1 fill-current text-gray-600 dark:text-gray-300" stroke="currentColor"  viewBox="0 0 300 300" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
                                 <g transform="matrix(1,0,0,1,0,-7)">
                                     <g id="drop_p" transform="matrix(0.992891,0,0,1.00723,1.81485,5.69787)">
                                         <g transform="matrix(1.16249e-16,-1.87145,6.67579,4.02953e-16,-116.745,305.872)">
@@ -78,7 +78,7 @@
                             {{ $report->drop_p  }} m
                         </div>
                         <div>
-                            <a href="{{ route('report.show', $report->slug) }}" tabindex="-1" class="inline-flex items-center text-blue-500 md:mb-2 lg:mb-0">Leggi
+                            <a href="{{ route('report.show', $report->categories->first()?$report->categories->first()->slug:'none'.'/'.$report->slug) }}" tabindex="-1" class="inline-flex items-center text-blue-500 md:mb-2 lg:mb-0">Leggi
                                 <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M5 12h14"></path>

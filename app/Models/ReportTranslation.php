@@ -16,7 +16,7 @@ class ReportTranslation extends Model
     protected $fillable = ['title', 'slug','content','excerpt'];
     public $timestamps = false;
 
-    public function sluggable()
+    public function sluggable(): array
     {
         return [
             'slug' => [

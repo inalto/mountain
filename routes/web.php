@@ -3,8 +3,16 @@ use App\Http\Controllers\inalto\HomeController as Home;
 
 use App\Http\Controllers\Auth\LoginController;
 
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
+/*
+* Admin
+*/
+
+
 use Admin\AuditLogController;
-use Admin\CategoryController;
 use Admin\ContentCategoryController;
 use Admin\ContentPageController;
 use Admin\ContentTagController;
@@ -15,13 +23,10 @@ use Admin\PermissionController;
 use Admin\PoiController;
 use Admin\NewsPostController;
 use Admin\ReportController;
-use Admin\ReportsCategoryController;
+use Admin\CategoryController;
 use Admin\RoleController;
 use Admin\TagController;
 use Admin\UserController;
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
 /*
 * Frontend
@@ -33,6 +38,7 @@ use App\Http\Controllers\Frontend\ReportsController as Report;
 Route::mediaLibrary();
 
 Route::get('/',[Home::class, 'index'])->name('home');
+Route::view('/info','info');
 Route::get('/relazione/{category?}/{slug?}',[Report::class, 'show'])->name('report.show');
 
 //Route::redirect('/', '/login');
@@ -78,7 +84,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('pois', PoiController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Category
-    Route::resource('categories', ReportsCategoryController::class, ['except' => ['store', 'update', 'destroy']]);
+    Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Post
 

@@ -40,7 +40,7 @@
         </thead>
         <tbody>
             @forelse($crmStatuses as $crmStatus)
-                <tr>
+                <tr class="table-row">
                     <td>
                         <input type="checkbox" value="{{ $crmStatus->id }}" wire:model="selected">
                     </td>

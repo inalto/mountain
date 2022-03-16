@@ -15,7 +15,7 @@
           height: 400,
           toolbar: [
       ['style', ['style']],
-      ['font', ['bold', 'underline', 'clear']],
+      ['font', ['bold', 'italic','underline', 'clear']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['table', ['table']],

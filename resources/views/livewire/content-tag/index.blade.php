@@ -44,7 +44,7 @@
         </thead>
         <tbody>
             @forelse($contentTags as $contentTag)
-                <tr>
+                <tr class="table-row">
                     <td>
                         <input type="checkbox" value="{{ $contentTag->id }}" wire:model="selected">
                     </td>

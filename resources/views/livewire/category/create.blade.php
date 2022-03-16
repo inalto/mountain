@@ -1,4 +1,4 @@
-<form wire:submit.prevent="submit" class="flex flex-wrap p-3">
+<form wire:submit.prevent="submit" class="card p-3">
 
     <div class="w-1/2 form-group {{ $errors->has('category.name') ? 'invalid' : '' }}">
         <x-label class="form-label" for="name">{{ trans('cruds.category.fields.name') }}</x-label>

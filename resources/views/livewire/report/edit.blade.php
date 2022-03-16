@@ -1,4 +1,20 @@
+
 <form wire:submit.prevent="submit" class="p-3">
+
+
+    <div class="flex gap-10">
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.owner_id') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.owner_id') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="owner_id" id="owner_id" required
+                wire:model="report.owner_id" />
+            <div class="validation-message">
+                {{ $errors->first('report.owner_id') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.owner_id_helper') }}
+            </div>
+        </div>
+    </div>
 
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.title') ? 'invalid' : '' }}">
@@ -72,7 +88,29 @@
         </div>
     </div>
 
+    <div class="flex gap-10">
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
+   {{--         <x-time type="time" class="w-full form-control"  name="time_a" id="time_a" wire:model="report.time_a"/> --}}
+            <div class="validation-message">
+                {{ $errors->first('report.time_a') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.time_a_helper') }}
+            </div>
+        </div>
 
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="time_r">{{ trans('cruds.report.fields.time_r') }}</x-label>
+     {{--       <x-time type="time" class="w-full form-control"  name="time_r" id="time_r" wire:model="report.time_r"/> --}}
+            <div class="validation-message">
+                {{ $errors->first('report.time_r') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.time_r_helper') }}
+            </div>
+        </div>
+    </div>
     <div class="flex gap-10">
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.length') ? 'invalid' : '' }}">
             <x-label class="form-label" for="length">{{ trans('cruds.report.fields.length') }}</x-label>
@@ -163,10 +201,10 @@
 
     <div class="form-group {{ $errors->has('report.excerpt') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-label>
-        <x-summernote wire:model="report.excerpt" name="excerpt">
+        <x-ckedit wire:model="report.excerpt" name="excerpt">
             {{ old('excerpt', $report->excerpt) }}
 
-        </x-summernote>
+        </x-ckedit>
 
 
         <div class="validation-message">
@@ -179,9 +217,9 @@
     <div class="form-group {{ $errors->has('report.content') ? 'invalid' : '' }}">
         <x-label class="form-label" for="content">{{ trans('cruds.report.fields.content') }}</x-label>
 
-        <x-summernote wire:model="report.content" name="content">
+        <x-ckedit wire:model="report.content" name="content">
             {{ old('content', $report->content) }}
-        </x-summernote>
+        </x-ckedit>
 
         <div class="validation-message">
             {{ $errors->first('report.content') }}
@@ -192,7 +230,9 @@
     </div>
 
     <h2>Bibliografia</h2>
-    <x-inalto.bibliographies name="bibliographies"></x-inalto.bibliographies>
+    
+    <x-inalto.bibliographies  :bibliographies="$bibliographies" name="bibliographies"></x-inalto.bibliographies>
+    
 {{--
     
     <div x-data="bibliographies()">
@@ -245,6 +285,8 @@
         </div>
     </div>
     --}}
+    <h2>Tracciati GPS</h2>
+    <x-media-library-collection name="tracks" :model="$report" collection="report_tracks"/>
 
 
     <div class="form-group {{ $errors->has('tags') ? 'invalid' : '' }}">
@@ -258,8 +300,7 @@
             {{ trans('cruds.report.fields.tags_helper') }}
         </div>
     </div>
-
-    <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
+{{--    <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
         <x-label class="form-label" for="categories">{{ trans('cruds.report.fields.categories') }}</x-label>
         <x-select-list class="form-control" id="categories" name="categories" wire:model="categories"
             :options="$this->listsForFields['categories']" multiple />
@@ -270,7 +311,7 @@
             {{ trans('cruds.report.fields.categories_helper') }}
         </div>
     </div>
-
+--}}
 
 
     <div class="form-group">

@@ -5,7 +5,7 @@ use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Str;
 use App\Models\Report;
-
+use Log;
 class InaltoPathGenerator implements PathGenerator
 {
   /*
@@ -38,11 +38,18 @@ class InaltoPathGenerator implements PathGenerator
     protected function getBasePath(Media $media): string
     {
         $prepend = '';
-     
+        
         switch($media->model_type){
             case 'App\Models\Report':
-                $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    
-                $prepend .='/reports/'.$media->model_id;
+                
+                //if (!Report::find($media->model_id)) {Log::error('missing media model_id'.$media->model_id); break;}
+                $prepend = Str::slug(Report::withTrashed()->find($media->model_id)->owner()->pluck('name')->first());    
+                
+                if ($media->collection_name== 'report_tracks') {
+                    $prepend .='/reports/'.$media->model_id.'/tracks';
+                } else {
+                    $prepend .='/reports/'.$media->model_id;
+                }
                 break;
             case 'App\Models\Poi':
                 $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    

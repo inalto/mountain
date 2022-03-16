@@ -12,7 +12,7 @@ class UserUpdate extends Command
      *
      * @var string
      */
-    protected $signature = 'inalto:user_update {--uid=0 : userid to import } { --truncate : clear previously imported avatars } {--dry-run: run without import }';
+    protected $signature = 'inalto:user_update {--uid=0 : userid to import } { --truncate : clear previously imported avatars } {--dryrun : run without import }';
 
     /**
      * The console command description.
@@ -38,8 +38,9 @@ class UserUpdate extends Command
      */
     public function handle()
     {
+        //ray($this->option('dryrun'));
         $this->output->writeln('Updating inalto users...');
-        return UserImport::import($this->output,$this->option('uid'),$this->option('truncate'),$this->option('dry-run'));
+        return UserImport::import($this->output,$this->option('uid'),$this->option('truncate'),$this->option('dryrun'));
         $this->output->writeln('Done.');
 
     }

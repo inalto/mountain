@@ -1,5 +1,5 @@
 @props(['value'])
 
-<x-jet-label {{ $attributes->merge(['class' => 'block font-bold text-xs text-gray-700']) }}>
+<x-jet-label {{ $attributes->merge(['class' => 'block']) }}>
     {{ $value ?? $slot }}
 </x-jet-label>

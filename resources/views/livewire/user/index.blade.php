@@ -1,21 +1,21 @@
 <div>
-    <div class="card-controls justify-between sm:flex">
-        <div class="">
-            
+<div class="card-controls sm:flex">
+        <div class="w-full sm:w-1/2">
+            Per page:
             <select wire:model="perPage" class="form-select w-full sm:w-1/6">
                 @foreach($paginationOptions as $value)
                     <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
 
-
+           
 
         </div>
         <div class="h-6">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
-            <x-jet-input type="text" wire:model.debounce.300ms="search"></x-jet-input>
+            <x-input type="text" wire:model.debounce.300ms="search"></x-input>
             
         </div>
     </div>
@@ -62,11 +62,7 @@
         </thead>
         <tbody>
             @forelse($users as $user)
-                @if ($loop->even)
-                <tr class="table-row p-1 divide-x divide-gray-100 dark:divide-gray-900 bg-gray-100 dark:bg-gray-700">
-                @else
-                <tr class="table-row p-1 divide-x divide-gray-100 dark:divide-gray-900 bg-gray-50 dark:bg-gray-700">
-                @endif
+                <tr class="table-row">
                     <td>
                         <input type="checkbox" value="{{ $user->id }}" wire:model="selected" class="m-2">
                     </td>

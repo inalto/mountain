@@ -1,26 +1,145 @@
+@import "./_tailwind.css";
+@import "./_colors.css";
+@import "./fonts/_roboto.css";
+@import "@left4code/tw-starter/dist/css/mixins/_media.css";
+
+@import "@left4code/tw-starter/dist/css/_breadcrumb.css";
+@import "@left4code/tw-starter/dist/css/_accordion.css";
+@import "@left4code/tw-starter/dist/css/_alert.css";
+@import "@left4code/tw-starter/dist/css/_btn.css";
+@import "@left4code/tw-starter/dist/css/_dropdown.css";
+@import "@left4code/tw-starter/dist/css/_file.css";
+@import "@left4code/tw-starter/dist/css/_form-reset.css";
+@import "@left4code/tw-starter/dist/css/_form-check.css";
+@import "@left4code/tw-starter/dist/css/_form-control.css";
+@import "@left4code/tw-starter/dist/css/_form-help.css";
+@import "@left4code/tw-starter/dist/css/_form-inline.css";
+@import "@left4code/tw-starter/dist/css/_form-label.css";
+@import "@left4code/tw-starter/dist/css/_form-select.css";
+@import "@left4code/tw-starter/dist/css/_image-fit.css";
+@import "@left4code/tw-starter/dist/css/_input-group.css";
+@import "@left4code/tw-starter/dist/css/_intro.css";
+@import "@left4code/tw-starter/dist/css/_modal.css";
+@import "@left4code/tw-starter/dist/css/_pagination.css";
+@import "@left4code/tw-starter/dist/css/_progress.css";
+@import "@left4code/tw-starter/dist/css/_scrollbar.css";
+@import "@left4code/tw-starter/dist/css/_tab.css";
+@import "@left4code/tw-starter/dist/css/_table.css";
+@import "@left4code/tw-starter/dist/css/_typing-dots.css";
+@import "@left4code/tw-starter/dist/css/_zoom-in.css";
+@import "@left4code/tw-starter/dist/css/_box.css";
+
+@import "toastr";
+
+/*
+@import "highlight.js/styles/github.css";
+@import "tippy.js/dist/tippy.css";
+@import "tippy.js/themes/light.css";
+@import "tippy.js/dist/svg-arrow.css";
+@import "tippy.js/animations/shift-away.css";
+@import "toastify-js/src/toastify.css";
+@import "dropzone/dist/dropzone.css";
+@import "zoom-vanilla.js/dist/zoom.css";
+@import "tabulator-tables/dist/css/tabulator.css";
+@import "tom-select/dist/css/tom-select.css";
+@import "tiny-slider/dist/tiny-slider.css";
+
+@import "toastr";
+*/
+
+
+
+
+
+
+
+
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-
 @import 'select2';
-
 @import 'tailwindcss/utilities';
-
 @import "@fortawesome/fontawesome-free/css/fontawesome";
 @import "@fortawesome/fontawesome-free/css/regular";
 @import "@fortawesome/fontawesome-free/css/solid";
 @import "@fortawesome/fontawesome-free/css/brands";
-
-
 @import 'medialibrary';
 @import 'admin.sidebar';
 @import 'dropzone';
-
 @import "@fancyapps/ui/dist/fancybox.css";
+@import 'components/clockpicker';
+@import 'components/tables';
+
+/*
+@import "toastr";
+*/
+/*
+ |--------------------------------------------------------------------------
+ | Components
+ |--------------------------------------------------------------------------
+ |
+ | Import CSS/SCSS components.
+ |
+ */
+
+/*
+@import "components/_global.css";
+@import "components/_wrapper.css";
+@import "components/_main.css";
+
+@import "components/_login.css";
+
+@import "components/_table-report.css";
+@import "components/_report-chart.css";
+@import "components/_search.css";
+@import "components/_notification.css";
+@import "components/_report-box.css";
+@import "components/_report-box-2.css";
+@import "components/_report-box-3.css";
+@import "components/_report-box-4.css";
+@import "components/_content.css";
+@import "components/_top-nav.css";
+@import "components/_side-nav.css";
+@import "components/_breadcrumb.css";
+@import "components/_toastify.css";
+@import "components/_toastify-content.css";
+@import "components/_feather-icon.css";
+@import "components/_mobile-menu.css";
+@import "components/_inbox-filter.css";
+@import "components/_inbox.css";
+@import "components/_chat.css";
+@import "components/_chat-dropdown.css";
+@import "components/_news.css";
+@import "components/_pricing-tabs.css";
+@import "components/_error-page.css";
+@import "components/_search-result.css";
+@import "components/_notification-content.css";
+@import "components/_report-maps.css";
+@import "components/_pos-dropdown.css";
+@import "components/_post.css";
+@import "components/_litepicker.css";
+@import "components/_tiny-slider.css";
+@import "components/_tippy.css";
+@import "components/_tabulator.css";
+@import "components/_tom-select.css";
+@import "components/_dropzone.css";
+@import "components/_ckeditor.css";
+@import "components/_zoom-vanilla.css";
+@import "components/_dark-mode-switcher.css";
+@import "components/_hljs.css";
+@import "components/_source-preview.css";
+@import "components/_full-calendar.css";
+@import "components/_pristine.css";
+*/
+
 
 [x-cloak] {
     display: none;
 }
 
+
+.add {
+    @apply  dark:text-gray-200
+}
 .btn {
 
     @apply inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 active:bg-blue-900 focus:outline-none focus:border-blue-900  disabled:opacity-25 transition ease-in-out duration-150
@@ -56,3 +175,34 @@
 
 .wt1 { @apply bg-blue-200  }
 .wt2 { @apply bg-blue-400 }
+
+
+.card {
+    @apply bg-white  dark:bg-gray-800 ;
+}
+.card-header {
+    @apply border-gray-600;
+}
+.card-title {
+    @apply text-black  dark:text-white ;
+}
+.form-label {
+    @apply font-medium text-sm text-gray-700 font-bold text-xs dark:text-gray-200
+}
+
+input.form-control {
+    @apply w-full py-2 border-gray-300 border-b focus:outline-none focus:border-blue-800 w-full dark:bg-gray-800 dark:border-gray-700 dark:text-gray-300
+}
+
+/*
+** Reading space
+*/
+.rs {
+    @apply dark:bg-gray-700 dark:text-gray-200 max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8
+}
+.rs h1,.rs h2,.rs h3,.rs h4,.rs h5,.rs h6 {
+    @apply dark:text-gray-100
+}
+.rs a,.rs strong {
+    @apply dark:text-gray-100
+}

@@ -22,9 +22,7 @@ class Edit extends Component
     public function submit()
     {
         $this->validate();
-
         $this->category->save();
-
         return redirect()->route('admin.categories.index');
     }
 

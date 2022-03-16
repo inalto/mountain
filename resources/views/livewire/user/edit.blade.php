@@ -46,50 +46,51 @@
 --}}
 <div class="mt-2">
     <span class="block rounded-full w-32 h-32" style="background-size: cover; background-repeat: no-repeat; background-position: center center; background-image: url({{$user->getFirstMediaUrl('avatar')}});"></span>
+
+    <x-media-library-attachment  name="avatar" />
 </div>
 
-<x-media-library-attachment  name="avatar" />
 
     <div class="form-group {{ $errors->has('user.name') ? 'invalid' : '' }} mb-2">
-        <x-label class="form-label required" for="name">{{ trans('cruds.user.fields.username') }}</x-label>
-        <x-input class="form-control" type="text" name="name" id="name" required wire:model.defer="user.name"></x-input>
-        <x-input-error for="name" class="mt-2" ></x-input-error>
+        <x-label class="form-label required" for="user.name">{{ trans('cruds.user.fields.username') }}</x-label>
+        <x-input class="form-control" type="text" name="user.name" id="user.name" required wire:model.defer="user.name"></x-input>
+        <x-input-error for="user.name" class="mt-2" ></x-input-error>
     </div>
 
     <div class="form-group {{ $errors->has('user.first_name') ? 'invalid' : '' }} mb-2">
-        <x-label class="form-label required" for="first_name">{{ trans('cruds.user.fields.name') }}</x-label>
-        <x-input class="form-control" type="text" name="first_name" id="first_name" required wire:model.defer="user.first_name"></x-input>
-        <x-input-error for="first_name" class="mt-2" ></x-input-error>
+        <x-label class="form-label required" for="user.first_name">{{ trans('cruds.user.fields.name') }}</x-label>
+        <x-input class="form-control" type="text" name="user.first_name" id="user.first_name" required wire:model.defer="user.first_name"></x-input>
+        <x-input-error for="user.first_name" class="mt-2" ></x-input-error>
     </div>
     <div class="form-group {{ $errors->has('user.last_name') ? 'invalid' : '' }} mb-2">
-        <x-label class="form-label required" for="last_name">{{ trans('cruds.user.fields.last_name') }}</x-label>
-        <x-input class="form-control" type="text" name="last_name" id="last_name" required wire:model.defer="user.last_name"></x-input>
-        <x-input-error for="last_name" class="mt-2" ></x-input-error>
+        <x-label class="form-label required" for="user.last_name">{{ trans('cruds.user.fields.last_name') }}</x-label>
+        <x-input class="form-control" type="text" name="user.last_name" id="user.last_name" required wire:model.defer="user.last_name"></x-input>
+        <x-input-error for="user.last_name" class="mt-2" ></x-input-error>
     </div>
 
 
     <div class="form-group {{ $errors->has('user.email') ? 'invalid' : '' }}">
         <x-label class="form-label required" for="email">{{ trans('cruds.user.fields.email') }}</x-label>
         <x-input class="form-control" type="email" name="email" id="email" required wire:model.defer="user.email"></x-input>
-        <x-input-error for="email" class="mt-2" ></x-input-error>
+        <x-input-error for="user.email" class="mt-2" ></x-input-error>
 
         <div class="help-block">
             {{ trans('cruds.user.fields.email_helper') }}
         </div>
     </div>
     <div class="form-group {{ $errors->has('user.password') ? 'invalid' : '' }}">
-        <x-label class="form-label" for="password">{{ trans('cruds.user.fields.password') }}</x-label>
-        <x-input class="form-control" type="password" name="password" id="password" wire:model.defer="password"></x-input>
-        <x-input-error for="password" class="mt-2" ></x-input-error>
+        <x-label class="form-label" for="user.password">{{ trans('cruds.user.fields.password') }}</x-label>
+        <x-input class="form-control" type="password" name="user.password" id="user.password" wire:model.defer="user.password"></x-input>
+        <x-input-error for="user.password" class="mt-2" ></x-input-error>
 
         <div class="help-block">
             {{ trans('cruds.user.fields.password_helper') }}
         </div>
     </div>
-    <div class="form-group {{ $errors->has('roles') ? 'invalid' : '' }}">
-        <x-label class="form-label required" for="roles">{{ trans('cruds.user.fields.roles') }}</x-label>
-        <x-select-list class="form-control" required id="roles" name="roles" wire:model="roles" :options="$this->listsForFields['roles']" multiple />
-        <x-input-error for="roles" class="mt-2" ></x-input-error>
+    <div class="form-group {{ $errors->has('user.roles') ? 'invalid' : '' }}">
+        <x-label class="form-label required" for="user.roles">{{ trans('cruds.user.fields.roles') }}</x-label>
+        <x-select-list class="form-control" required id="user.roles" name="user.roles" wire:model="roles" :options="$this->listsForFields['roles']" multiple />
+        <x-input-error for="user.roles" class="mt-2" ></x-input-error>
         <div class="help-block">
             {{ trans('cruds.user.fields.roles_helper') }}
         </div>

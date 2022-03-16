@@ -27,7 +27,7 @@ return [
      *
     * For usage in Homestead on Mac or Windows, you can replace host with '10.0.2.2'
     */
-    'host' => '10.1.1.120',
+    'host' => '10.1.1.181',
 
     /*
     * The port number used to communicate with the Ray app.

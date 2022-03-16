@@ -77,7 +77,7 @@ class Index extends Component
 
         $users = $query->paginate($this->perPage);
 
-        return view('livewire.user.index', compact('query', 'users', 'users'));
+        return view('livewire.user.index', compact('query', 'users'));
     }
 
     public function deleteSelected()

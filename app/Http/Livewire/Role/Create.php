@@ -11,12 +11,15 @@ class Create extends Component
     public Role $role;
 
     public array $permissions = [];
+    public array $permissions_available = [];
 
     public array $listsForFields = [];
 
     public function mount(Role $role)
     {
         $this->role = $role;
+        $this->permissions_availables = Permission::all();
+
         $this->initListsForFields();
     }
 

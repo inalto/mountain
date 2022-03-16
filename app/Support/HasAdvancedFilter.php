@@ -13,6 +13,7 @@ trait HasAdvancedFilter
 
     public function processQuery($query, $data)
     {
+     
         $data = $this->processGlobalSearch($data);
 
         $v = validator()->make($data, [
@@ -29,7 +30,7 @@ trait HasAdvancedFilter
             'f.*.query_1'  => 'required',
             'f.*.query_2'  => 'required_if:f.*.operator,between,not_between',
         ]);
-
+        
         if ($v->fails()) {
             throw new ValidationException($v);
         }

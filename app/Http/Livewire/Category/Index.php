@@ -82,7 +82,7 @@ class Index extends Component
 
     public function deleteSelected()
     {
-        abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         Category::whereIn('id', $this->selected)->delete();
 
@@ -91,7 +91,7 @@ class Index extends Component
 
     public function delete(Category $category)
     {
-        abort_if(Gate::denies('category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_category_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $category->delete();
     }

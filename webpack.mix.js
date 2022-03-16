@@ -11,7 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js').js('resources/js/bottom.js', 'public/js')
+mix
+.js('resources/js/app.js', 'public/js')
+.js('resources/js/ckeditor.js', 'public/js')
+.js('resources/jslibs/clockpicker/src/clockpicker.js','public/js')
 .css('resources/css/app.css', 'public/css')
 .options({
     postCss: [
@@ -20,4 +23,10 @@ mix.js('resources/js/app.js', 'public/js').js('resources/js/bottom.js', 'public/
         require('tailwindcss'),
     ]
 })
-.copy('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');
+.copyDirectory("resources/js/translations", "public/js/translations")
+.copyDirectory("resources/css/fonts", "public/fonts")
+.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts')
+.browserSync({
+    proxy: "inalto.ls",
+    files: ["resources/**/*.*"],
+});

@@ -1,7 +1,7 @@
-<form wire:submit.prevent="submit" class="p-3">
+<form wire:submit.prevent="submit" class="flex flex-wrap p-3">
 
-    <div class="form-group {{ $errors->has('category.name') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="name">{{ trans('cruds.category.fields.name') }}</x-jet-label>
+    <div class="w-1/2 form-group {{ $errors->has('category.name') ? 'invalid' : '' }}">
+        <x-label class="form-label" for="name">{{ trans('cruds.category.fields.name') }}</x-label>
         <x-jet-input class="form-control" type="text" name="name" id="name" wire:model.defer="category.name"/>
         <div class="validation-message">
             {{ $errors->first('category.name') }}
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="form-group {{ $errors->has('category.slug') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="slug">{{ trans('cruds.category.fields.slug') }}</x-jet-label>
+        <x-label class="form-label" for="slug">{{ trans('cruds.category.fields.slug') }}</x-label>
         <x-jet-input class="form-control" type="text" name="slug" id="slug" wire:model.defer="category.slug"/>
         <div class="validation-message">
             {{ $errors->first('category.slug') }}
@@ -21,7 +21,7 @@
         </div>
     </div>
     <div class="form-group {{ $errors->has('category.description') ? 'invalid' : '' }}">
-        <x-jet-label class="form-label" for="description">{{ trans('cruds.category.fields.description') }}</x-jet-label>
+        <x-label class="form-label" for="description">{{ trans('cruds.category.fields.description') }}</x-label>
         <textarea class="form-control" name="description" id="description" wire:model.defer="category.description" rows="4"></textarea>
         <div class="validation-message">
             {{ $errors->first('category.description') }}

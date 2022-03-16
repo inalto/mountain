@@ -47,7 +47,7 @@
         </thead>
         <tbody>
             @forelse($crmDocuments as $crmDocument)
-                <tr>
+                <tr class="table-row">
                     <td>
                         <input type="checkbox" value="{{ $crmDocument->id }}" wire:model="selected">
                     </td>

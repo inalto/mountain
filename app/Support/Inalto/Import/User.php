@@ -31,10 +31,8 @@ class User
 
         $query = DB::connection('mysqlold')->table('users');
 
-        //
         $query->leftJoin('file_managed', function ($q) {
-                        $q->on('users.picture', '=', 'file_managed.fid');
-                        //    $q->where('field_data_body.language','=','it');
+                        $q->on('users.picture', '=', 'file_managed.fid');                       
                     });
 
         $query->leftJoin('field_data_field_nome', function($q){$q->on('field_data_field_nome.entity_id','=','users.uid');});
@@ -84,7 +82,7 @@ class User
 
         foreach ($users as $user) {
 
-            ray($user);
+            
             $u = U::firstOrNew([
                 'id'=>$user->uid
             ]);
@@ -118,7 +116,7 @@ class User
 
 
 
-    public static function importAvatarImage($uri,$u) {
+    public static function importAvatarImage($user,$u) {
 
         if (empty($user->uri)) {return;}
 

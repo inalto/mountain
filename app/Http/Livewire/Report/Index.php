@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire\Report;
 
+
+use App\Models\Report;
+use App\Models\ReportTranslation;
 use App\Http\Livewire\WithConfirmation;
 use App\Http\Livewire\WithSorting;
-use App\Models\Report;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;

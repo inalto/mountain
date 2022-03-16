@@ -1,5 +1,5 @@
 <x-admin-layout>
-<div class="card bg-blueGray-100">
+<div class="card">
     <div class="card-header">
         <div class="card-header-container">
             <h6 class="card-title">

@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Symfony\Component\HttpFoundation\Response;
 use Yajra\DataTables\Facades\DataTables;
+use App\Support\Inalto\ParseReport;
 
 class ReportsController extends Controller
 {
@@ -27,6 +28,7 @@ class ReportsController extends Controller
         \App::setLocale('it');
         //abort_if(Gate::denies('report_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         $report=Report::whereTranslation('slug',$slug)->get()->first();
+        $report->content=ParseReport::beautify($report->content);
         $report->load('categories', 'tags', 'owner');
         return view('report', compact('report'));
     }

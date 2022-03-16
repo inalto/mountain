@@ -1,0 +1,10 @@
+.table-row {
+    @apply p-1 divide-x divide-gray-100 dark:divide-gray-500 dark:even:bg-gray-600 dark:odd:bg-gray-700 even:bg-gray-50 odd:bg-gray-100 dark:bg-gray-700 hover:bg-yellow-200 dark:hover:bg-gray-500
+}
+.table-row td {
+    @apply py-1 px-2 dark:text-gray-200 text-gray-900
+}
+
+.table thead tr th {
+    @apply p-2 bg-gray-100 dark:bg-gray-800 dark:text-gray-200 text-black dark:border-gray-500
+}

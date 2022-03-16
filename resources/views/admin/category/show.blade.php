@@ -1,62 +1,79 @@
-@extends('layouts.admin')
-@section('content')
+<x-admin-layout>
 
-<div class="card bg-blueGray-100">
-    <div class="card-header">
-        <div class="card-header-container">
-            <h6 class="card-title">
-                {{ trans('global.view') }}
-                {{ trans('cruds.category.title_singular') }}:
-                {{ trans('cruds.category.fields.id') }}
-                {{ $category->id }}
-            </h6>
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.show') }} {{ trans('cruds.reportsCategory.title') }}
+        </div>
+
+        <div class="card-body">
+            <div class="form-group">
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.reports-categories.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.reportsCategory.fields.id') }}
+                            </th>
+                            <td>
+                                {{ $reportsCategory->id }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.reportsCategory.fields.title') }}
+                            </th>
+                            <td>
+                                {{ $reportsCategory->title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.reportsCategory.fields.slug') }}
+                            </th>
+                            <td>
+                                {{ $reportsCategory->slug }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                {{ trans('cruds.reportsCategory.fields.description') }}
+                            </th>
+                            <td>
+                                {!! $reportsCategory->description !!}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <a class="btn btn-default" href="{{ route('admin.reports-categories.index') }}">
+                        {{ trans('global.back_to_list') }}
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="card-body">
-        <div class="pt-3">
-            <table class="table table-view">
-                <tbody class="bg-white">
-                    <tr>
-                        <th>
-                            {{ trans('cruds.category.fields.id') }}
-                        </th>
-                        <td>
-                            {{ $category->id }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.category.fields.name') }}
-                        </th>
-                        <td>
-                            {{ $category->name }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.category.fields.slug') }}
-                        </th>
-                        <td>
-                            {{ $category->slug }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>
-                            {{ trans('cruds.category.fields.description') }}
-                        </th>
-                        <td>
-                            {{ $category->description }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="card">
+        <div class="card-header">
+            {{ trans('global.relatedData') }}
         </div>
-        <div class="form-group">
-            <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">
-                {{ trans('global.back') }}
-            </a>
+        <ul class="nav nav-tabs" role="tablist" id="relationship-tabs">
+            <li class="nav-item">
+                <a class="nav-link" href="#categories_reports" role="tab" data-toggle="tab">
+                    {{ trans('cruds.report.title') }}
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane" role="tabpanel" id="categories_reports">
+                @includeIf('admin.reportsCategories.relationships.categoriesReports', ['reports' =>
+                $reportsCategory->categoriesReports])
+            </div>
         </div>
     </div>
-</div>
-@endsection
+
+</x-admin-layout>

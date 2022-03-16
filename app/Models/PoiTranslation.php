@@ -16,7 +16,7 @@ class PoiTranslation extends Model
     protected $fillable = ['name', 'slug','content','excerpt','bibliography','approved','published'];
     public $timestamps = false;
 
-    public function sluggable()
+    public function sluggable():array
     {
         return [
             'slug' => [

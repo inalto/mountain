@@ -38,9 +38,9 @@ class User extends Authenticatable  implements HasMedia
     public $filterable = [
         'id',
         'name',
+        'first_name',
+        'last_name',
         'email',
-        'email_verified_at',
-        'roles.title',
     ];
     protected $appends = [
         'avatar'

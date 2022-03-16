@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Livewire\Poi;
+namespace App\Http\Livewire\InaltoPoi;
 
-use App\Models\Poi;
-use App\Models\PoiTranslation;
-use App\Models\Category;
+use App\Models\InaltoPoi as Poi;
+use App\Models\InaltoPoiTranslation as PoiTranslation;
+use App\Models\InaltoCategory;
 use App\Models\Tag;
 
 use Livewire\Component;

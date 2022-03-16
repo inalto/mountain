@@ -1,36 +1,23 @@
-
-<div wire:ignore x-data="window.{{$name}}()">
-    <template x-for="(item, index) in {{$name}}" :key="index">
-        <div class="flex">
+<div>
+    @foreach ($bibliographies as $bibliography)
+        <div class="flex" wire:key="{{ $loop->index }}">
             <div class="w-1/3 form-group py-3">
-                <x-input wire:model.defer="{{$name}}[index].title" x-model="item.title" placeholder="Titolo" type="text" name="title[]" />
+                <input class="w-full form-control" name="{{ $name }}[{{ $loop->index }}][title]"
+                    wire:model="{{ $name }}.{{ $loop->index }}.title" placeholder="Titolo" type="text" />
             </div>
+
             <div class="w-1/3 form-group p-3">
-                <x-input wire:model.defer="{{$name}}[index].author" x-model="item.author" placeholder="Autore" type="text" name="author[]" />
+                <x-input class="w-full form-control" name="{{ $name }}[{{ $loop->index }}][author]"
+                    wire:model="{{ $name }}.{{ $loop->index }}.author" placeholder="Autore" type="text" />
             </div>
             <div class="w-1/3  form-group p-3">
-                <x-input wire:model.defer="{{$name}}[index].link" x-model="item.link" placeholder="Link" type="url" name="link[]" />
+                <x-input class="w-full form-control" name="{{ $name }}[{{ $loop->index }}][link]"
+                    wire:model="{{ $name }}.{{ $loop->index }}.link" placeholder="Link" type="url" />
             </div>
-            <button type="button" class="btn w-10 h-10  my-3" @click="remove(index)">&times;</button>
+            <button type="button" class="btn w-10 h-10  my-3"
+                wire:click.prevent="removeBibliography({{ $loop->index }})">&times;</button>
         </div>
-    </template>
+    @endforeach
 
-    <button type="button" class="btn btn-info my-2" @click="add()">Aggiungi</button>
+    <button type="button" class="btn btn-info my-2" wire:click.prevent="addBibliography()">Aggiungi</button>
 </div>
-<script>
-window.bibliographies = function() {
-    return {
-        bibliographies: @entangle('bibliographies'),
-        add() {
-            this.bibliographies.push({
-                title: '',
-                author: '',
-                link: ''
-            });
-        },
-        remove(index) {
-            this.bibliographies.splice(index, 1);
-        }
-    }
-}
-</script>

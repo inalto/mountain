@@ -75,10 +75,10 @@
        
     <div class="form-group {{ $errors->has('poi.excerpt') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.poi.fields.excerpt') }}</x-label>
-        <x-summernote wire:model="poi.excerpt" name="excerpt">
+        <x-ckedit wire:model="poi.excerpt" name="excerpt">
             {{ old('excerpt', $poi->excerpt) }}
 
-        </x-summernote>
+        </x-ckedit>
 
 
         <div class="validation-message">
@@ -91,9 +91,9 @@
     <div class="form-group {{ $errors->has('poi.content') ? 'invalid' : '' }}">
         <x-label class="form-label" for="content">{{ trans('cruds.poi.fields.content') }}</x-label>
         
-            <x-summernote wire:model="poi.content" name="content">
+            <x-ckedit wire:model="poi.content" name="content">
                 {{ old('content', $poi->content) }}
-            </x-summernote>
+            </x-ckedit>
         
         <div class="validation-message">
             {{ $errors->first('poi.content') }}

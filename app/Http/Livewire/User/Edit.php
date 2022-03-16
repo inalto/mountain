@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 //use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 
@@ -46,23 +47,49 @@ class Edit extends Component
 
     public function submit()
     {
-        $this->validate();
 
-        $this->user->password = $this->password;
         
+        ray($this->validate());
+        ray($this->user);
+       // $this->user->password = $this->password;
+        
+        /*
         foreach ($this->user->getMedia('avatar') as $avatar){
             $avatar->delete();
           }
-          
-        $this->user->addFromMediaLibraryRequest($this->avatar)->toMediaCollection('avatar');
-        $this->user->save();
+        */
+
         $this->user->roles()->sync($this->roles);
+        $this->user->syncFromMediaLibraryRequest($this->avatar)->toMediaCollection('avatar');
+        
+        $this->user->save();
+        
 
         return redirect()->route('admin.users.index');
     }
 
     protected function rules(): array
     {
+        ray($this->user->id);
+        return [
+            'user.name' => [
+            'string',
+            'required',
+        ],
+        'user.first_name' => [
+            'string',
+        ],
+        'user.last_name' => [
+            'string',
+        ],
+        'user.email' => [
+            'email:rfc',
+            'required',
+            Rule::unique('users','email')->ignore($this->user->id.'id'),
+            //'unique:users,email,'. $this->user->id,
+        ],
+    ];
+        /*
         return [
             'user.name' => [
                 'string',
@@ -91,6 +118,7 @@ class Edit extends Component
                 'exists:roles,id',
             ],
         ];
+        */
     }
 
     protected function initListsForFields(): void

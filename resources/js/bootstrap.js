@@ -1,14 +1,34 @@
 window._ = require('lodash');
 
+
+
+
+// Load plugins
+import helper from "./helper";
+
+import * as Popper from "@popperjs/core";
+//import dom from "@left4code/tw-starter/dist/js/dom";
+
+
+// Set plugins globally
+window.helper = helper;
+
+window.Popper = Popper;
+//window.$ = dom;
+
+
+
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
  * code may be modified to fit the specific needs of your application.
  */
 
+
+
 try {
     window.$ = window.jQuery = require('jquery');
-/*    require('clockpicker')*/
+ /*   require('clockpicker')*/
     require('select2')
     window.Dropzone = require('dropzone').default
     require('flatpickr')

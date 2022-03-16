@@ -10,6 +10,7 @@ use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Input;
 
 class Edit extends Component
 {
@@ -27,9 +28,10 @@ class Edit extends Component
 
  //   public array $mediaCollections = [];
 
-    public $mediaComponentNames = ['photos'];
+    public $mediaComponentNames = ['photos','tracks'];
 
     public $photos;
+    public $tracks;
 
     public array $bibliographies = [];
 
@@ -53,12 +55,12 @@ class Edit extends Component
         $this->tags       = $this->report->tags()->pluck('id')->toArray();
         $this->categories = $this->report->categories()->pluck('id')->toArray();
         
-    //    dd($report->getMedia('report_photos'));
        // $this->photos =$report->getMedia('photos');
-   //  dd($this);
-        //$this->report->bibliographies ?? [];
-        //$this->bibliographies = $this->report->bibliographies?$this->report->bibliographies:[];
-        $this->bibliographies ?? [];
+
+        
+        if (is_array($this->report->bibliographies)){
+            $this->bibliographies=$this->report->bibliographies;
+        };
         //$this->report_photos = $report->photos;
  /*
         $this->mediaCollections = [
@@ -80,6 +82,8 @@ class Edit extends Component
     {
         $this->report->slug = SlugService::createSlug(ReportTranslation::class, 'slug', $this->report->title);
     }
+
+
     public function updatedType($type)
     {
         $this->type=$type;
@@ -90,19 +94,30 @@ class Edit extends Component
     public function submit()
     {
         $this->validate();
-        $this->report->bibliographies=$this->bibliographies?$this->bibliographies:[];
-        $this->report->save();
-        $this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
+        
+        //ray(Input::get('time_r'));
+        ray($this->report->time_r);
+        $this->report->bibliographies=$this->bibliographies;
+        
+        $this->report->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
+        $this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
         $this->report->tags()->sync($this->tags);
         $this->report->categories()->sync($this->categories);
-        
-   //     $this->syncMedia();
-
-        ray(json_encode($this->bibliographies));
+        $this->report->save();
 
         return redirect()->route('admin.reports.index');
     }
-/*
+
+
+    public function addBibliography() {
+        $this->bibliographies[]=['title'=>'','author'=>'','link'=>'https://'];
+    }
+
+    public function removeBibliography($index) {
+        array_splice($this->bibliographies,$index,1);
+    }
+
+    /*
     public function addMedia($media): void
     {
         $this->mediaCollections[$media['collection_name']][] = $media;
@@ -122,19 +137,32 @@ class Edit extends Component
         return $this->mediaCollections[$name];
     }
 
+
+
+public function store(Request $request)
+{
+    ray("store");
+    ray($request);
+}
+
 */
+
 
     protected function rules(): array
     {
         return [
+            'report.owner_id'=> [
+                'digits_between:0,4',
+                'required',
+            
+            ]
+            ,
             'photos.*.name' => [
                 'string',
                 'required'
             ],
 
-            'report'=>[
-                'array',
-            ],
+
             'type' => [
                 'string',
                 'nullable',
@@ -160,12 +188,22 @@ class Edit extends Component
                 'digits_between:0,4',
                 'nullable',
             ],
+
             'report.altitude_e' => [
                 'digits_between:0,4',
                 'nullable',
             ],
+            'report.time_a' => [
+                'string',
+                'nullable',
+            ],
+            'report.time_r' => [
+                'string',
+                'nullable',
+            ],
+           
             'report.length' => [
-                'digits_between:0,4',
+                'numeric',
                 'nullable',
             ],
      
@@ -199,7 +237,6 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
-
             'tags' => [
                 'array',
             ],
@@ -217,7 +254,18 @@ class Edit extends Component
             'bibliographies' => [
                 'array',
             ],
-
+            'bibliographies.*.title' => [
+                'string',
+                'nullable'
+            ],
+            'bibliographies.*.author' => [
+                'string',
+                'nullable'
+            ],
+            'bibliographies.*.link' => [
+                'string',
+                'nullable'
+            ],
           
         ];
     }
@@ -276,7 +324,7 @@ class Edit extends Component
 
  //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
         $this->listsForFields['tags']       = Tag::pluck('name', 'id')->toArray();
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
+ //       $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
     }
 
     protected function syncMedia(): void

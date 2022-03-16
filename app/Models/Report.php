@@ -16,6 +16,9 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
 use Astrotomic\Translatable\Locales;
+use Carbon\Carbon;
+use Log;
+
 class Report extends Model implements HasMedia, TranslatableContract
 {
     use HasFactory;
@@ -23,10 +26,10 @@ class Report extends Model implements HasMedia, TranslatableContract
     use SoftDeletes;
     use Tenantable;
     use InteractsWithMedia;
-  //  use Auditable;
+    //  use Auditable;
     use Translatable;
 
-    
+
     public const DIFFICULTY_SELECT = [
         'dif'  => 'dif',
         'dif2' => 'dif2',
@@ -34,7 +37,7 @@ class Report extends Model implements HasMedia, TranslatableContract
 
     public $table = 'reports';
 
-    public $translatedAttributes = ['title', 'slug','content','excerpt'];
+    public $translatedAttributes = ['title', 'slug', 'content', 'excerpt'];
 
     public $orderable = [
         'id',
@@ -48,11 +51,11 @@ class Report extends Model implements HasMedia, TranslatableContract
         'title',
         'slug',
         'difficulty',
-/*        'excerpt',
+        /*        'excerpt',
         'content',
         */
         'tags.name',
-        'categories.name',
+      //  'categories.name',
     ];
 
     protected $appends = [
@@ -67,18 +70,20 @@ class Report extends Model implements HasMedia, TranslatableContract
     ];
 
     protected $fillable = [
-//        'title',
-//        'slug',
+        //        'title',
+        //        'slug',
         'difficulty',
         'nid',
         'height',
         'length',
-//        'excerpt',
-//        'content',
+        //        'excerpt',
+        //        'content',
     ];
 
     protected $casts = [
-        'type'=>'string'
+        'type' => 'string',
+        'time_a' =>'timestamp',
+        'time_r' =>'timestamp'
     ];
 
 
@@ -105,66 +110,68 @@ class Report extends Model implements HasMedia, TranslatableContract
             ->nonQueued();
     }
 
-    public function getBibliograpiesAttribute($value)
-    {
-        return json_decode($value);
-    }
 
-    public function setBibliographiesAttribute($value=[])
-    {
-        $this->attributes['bibliographies'] = json_encode($value);
-    }
 
+    public function getLengthAttribute($value)
+    {
+        return number_format($value / 100, 2, '.');
+    }
+    public function setLengthAttribute($value)
+    {
+        if (is_numeric($value)) {
+            $this->attributes['length'] = intval($value * 100);
+        } else {
+            $this->attributes['length'] = 0;
+        }
+    }
 
     public function getTypeAttribute()
     {
-        $type=[
-            
-                'T1'=>'hiking',
-                'T2'=>'hiking',
-                'T3'=>'hiking',
-                'T4'=>'hiking',
-                'T5'=>'hiking',
+        $type = [
 
-                'F-'=>'mountaineering',
-                'F'=>'mountaineering',
-                'F+'=>'mountaineering',
-                'PD-'=>'mountaineering',
-                'PD'=>'mountaineering',
-                'PD+'=>'mountaineering',
-                'AD-'=>'mountaineering',
-                'AD'=>'mountaineering',
-                'AD+'=>'mountaineering',
-                'D-'=>'mountaineering',
-                'D'=>'mountaineering',
-                'D+'=>'mountaineering',
-                'TD-'=>'mountaineering',
-                'TD'=>'mountaineering',
-                'TD+'=>'mountaineering',
-                'ED-'=>'mountaineering',
-                'ED'=>'mountaineering',
-                'ED+'=>'mountaineering',
-                'WT1'=>'snowshoeing',
-                'WT2'=>'snowshoeing',
-                'WT3'=>'snowshoeing',
-                'WT4'=>'snowshoeing',
-                'WT5'=>'snowshoeing',
-                'MS'=>'skimountaineering',
-                'MSA'=>'skimountaineering',
-                'BS'=>'skimountaineering',
-                'BSA'=>'skimountaineering',
-                'OS'=>'skimountaineering',
-                'OSA'=>'skimountaineering',
-                    ];
-                
-                    if (array_key_exists($this->difficulty,$type )) {
-                      
-                    return $type[$this->difficulty];
-                    } 
-                    
-                    return;
+            'T1' => 'hiking',
+            'T2' => 'hiking',
+            'T3' => 'hiking',
+            'T4' => 'hiking',
+            'T5' => 'hiking',
 
+            'F-' => 'mountaineering',
+            'F' => 'mountaineering',
+            'F+' => 'mountaineering',
+            'PD-' => 'mountaineering',
+            'PD' => 'mountaineering',
+            'PD+' => 'mountaineering',
+            'AD-' => 'mountaineering',
+            'AD' => 'mountaineering',
+            'AD+' => 'mountaineering',
+            'D-' => 'mountaineering',
+            'D' => 'mountaineering',
+            'D+' => 'mountaineering',
+            'TD-' => 'mountaineering',
+            'TD' => 'mountaineering',
+            'TD+' => 'mountaineering',
+            'ED-' => 'mountaineering',
+            'ED' => 'mountaineering',
+            'ED+' => 'mountaineering',
+            'WT1' => 'snowshoeing',
+            'WT2' => 'snowshoeing',
+            'WT3' => 'snowshoeing',
+            'WT4' => 'snowshoeing',
+            'WT5' => 'snowshoeing',
+            'MS' => 'skimountaineering',
+            'MSA' => 'skimountaineering',
+            'BS' => 'skimountaineering',
+            'BSA' => 'skimountaineering',
+            'OS' => 'skimountaineering',
+            'OSA' => 'skimountaineering',
+        ];
 
+        if (array_key_exists($this->difficulty, $type)) {
+
+            return $type[$this->difficulty];
+        }
+
+        return;
     }
 
     public function getDifficultyLabelAttribute($value)
@@ -220,5 +227,42 @@ class Report extends Model implements HasMedia, TranslatableContract
         return $date->format('Y-m-d H:i:s');
     }
 
-   
+    public function getTimeAAttribute($value)
+    {   
+        if (empty($value)) { return "00:00";}
+        return Carbon::parse($value)->format('H:i');
+    }
+    
+    public function setTimeAAttribute($value)
+    {
+        
+        $this->attributes['time_a']= Carbon::parse($value)->toDateTimeString();
+    }
+
+    public function getTimeRAttribute($value)
+    {
+        if (empty($value)) { return "00:00";}
+        return Carbon::parse($value)->format('H:i');
+    }
+    
+    public function setTimeRAttribute($value)
+    {
+     //   ray(Carbon::parse($value)->toDateTimeString());
+        $this->attributes['time_r']= Carbon::parse($value)->toDateTimeString();
+    }
+    
+
+    public function getBibliographiesAttribute($value)
+    {
+       
+        return json_decode($value,true,512,JSON_OBJECT_AS_ARRAY);
+        
+    }
+
+    public function setBibliographiesAttribute($value)
+    {
+        $this->attributes['bibliographies']= json_encode($value);
+    }
+
+
 }

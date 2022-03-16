@@ -12,35 +12,35 @@ class TagController extends Controller
 {
     public function index()
     {
-        abort_if(Gate::denies('reports_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_tag_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.tag.index');
     }
 
     public function create()
     {
-        abort_if(Gate::denies('reports_tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_tag_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.tag.create');
     }
 
     public function edit(Tag $tag)
     {
-        abort_if(Gate::denies('reports_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_tag_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.tag.edit', compact('tag'));
     }
 
     public function show(Tag $tag)
     {
-        abort_if(Gate::denies('reports_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.tag.show', compact('tag'));
     }
 
     public function search($tagname)
     {
-        //abort_if(Gate::denies('reports_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        //abort_if(Gate::denies('inalto_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         return response()->json(Tag::where('name','like','ita%')->select('id','name')->get()->toArray());
         
     }
