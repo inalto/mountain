@@ -6,6 +6,7 @@
 storage
 /vendor
 vendor
+auth.json
 .env
 .env.backup
 .phpunit.result.cache
