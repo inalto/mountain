@@ -1,7 +1,5 @@
 
-import $ from 'jquery';
-window.$ = window.jQuery = $;
-
+import "./jquery"
 import "./bootstrap"
 import "./alpine";
 

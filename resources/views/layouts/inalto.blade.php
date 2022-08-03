@@ -14,10 +14,8 @@
 		
         <x-inalto.icons></x-inalto.icons>
 			
-			<link href="{{ asset('css/app.css') }}" rel="stylesheet" />
-
-    <!-- ANIMATE -->	
-{{--		<link rel='stylesheet' href="{{ mix('css/animate.min.css') }}"> --}}
+		@vite(['resources/css/app.css', 'resources/js/app.js'])
+  @stack('styles')
 
 @livewireStyles
 

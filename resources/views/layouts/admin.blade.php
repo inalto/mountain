@@ -11,19 +11,12 @@
   <meta name="author" content="Martini Multimedia s.a.s.">
 
   <x-inalto.icons></x-inalto.icons>
-  <script src="{{ mix('js/app.js') }}"></script>
-
-
-
-
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
-
-
+  
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
   @stack('styles')
-
   <livewire:styles />
-    <livewire:scripts />
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <livewire:scripts />
+    
 </head>
 
 <body class="h-full font-sans antialiased leading-tight tracking-normal">
