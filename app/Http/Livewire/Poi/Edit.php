@@ -4,9 +4,8 @@ namespace App\Http\Livewire\Poi;
 
 use App\Models\Poi;
 use App\Models\PoiTranslation;
-use Livewire\Component;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-
+use Livewire\Component;
 
 class Edit extends Component
 {
@@ -31,13 +30,10 @@ class Edit extends Component
         return redirect()->route('admin.pois.index');
     }
 
-
-
     public function updatedPoiName()
     {
         $this->poi->translate('it')->slug = SlugService::createSlug(PoiTranslation::class, 'slug', $this->poi->name);
     }
-
 
     protected function rules(): array
     {

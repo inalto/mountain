@@ -17,8 +17,7 @@
         @stack('styles')
         @livewireStyles
 
-        <!-- Scripts -->
-        <script src="{{ mix('js/app.js') }}"></script>
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -42,7 +41,8 @@
         @stack('modals')
 
         @livewireScripts
-        
+                <!-- Scripts -->
+                <script src="{{ mix('js/app.js') }}" defer></script>
         @stack('scripts')
     </body>
 </html>

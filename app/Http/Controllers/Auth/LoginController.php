@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Team;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
-use Illuminate\Http\Request;
 use Socialite;
-
-use App\Models\User;
-use App\Models\Team;
-
 
 class LoginController extends Controller
 {
@@ -43,10 +39,10 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-      /**
+    /**
      * Redirect to authentication page based on $provider.
-     * 
-     * @param string $provider
+     *
+     * @param  string  $provider
      * @return \Illuminate\Http\Response
      */
     public function redirectToProvider(string $provider)
@@ -65,15 +61,15 @@ class LoginController extends Controller
 
     /**
      * Obtain the user information from $provider
-     * 
-     * @param string $provider
+     *
+     * @param  string  $provider
      * @return \Illuminate\Http\Response
      */
     public function handleProviderCallback(string $provider)
     {
         try {
             $data = Socialite::driver($provider)->user();
-            
+
             return $this->handleSocialUser($provider, $data);
         } catch (\Exception $e) {
             return redirect('login')->withErrors(['authentication_deny' => 'Login with '.ucfirst($provider).' failed. Please try again.']);
@@ -84,8 +80,8 @@ class LoginController extends Controller
      * Handles the user's information and creates/updates
      * the record accordingly.
      *
-     * @param string $provider
-     * @param object $data
+     * @param  string  $provider
+     * @param  object  $data
      * @return \Illuminate\Http\Response
      */
     public function handleSocialUser(string $provider, object $data)
@@ -94,20 +90,20 @@ class LoginController extends Controller
             "social->{$provider}->id" => $data->id,
         ])->first();
 
-        if (!$user) {
+        if (! $user) {
             $user = User::where([
                 'email' => $data->email,
             ])->first();
         }
 
-        if (!$user) {
+        if (! $user) {
             return $this->createUserWithSocialData($provider, $data);
         }
 
         $social = $user->social;
         $social[$provider] = [
             'id' => $data->id,
-            'token' => $data->token
+            'token' => $data->token,
         ];
         $user->social = $social;
         $user->save();
@@ -118,8 +114,8 @@ class LoginController extends Controller
     /**
      * Create user
      *
-     * @param string $provider
-     * @param object $data
+     * @param  string  $provider
+     * @param  object  $data
      * @return \Illuminate\Http\Response
      */
     public function createUserWithSocialData(string $provider, object $data)
@@ -155,7 +151,7 @@ class LoginController extends Controller
     /**
      * Log the user in
      *
-     * @param User $user
+     * @param  User  $user
      * @return \Illuminate\Http\Response
      */
     public function socialLogin(User $user)

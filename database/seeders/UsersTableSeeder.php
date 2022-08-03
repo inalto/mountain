@@ -11,16 +11,16 @@ class UsersTableSeeder extends Seeder
     {
         $users = [
             [
-                'id'                 => 1,
-                'name'               => 'Admin',
-                'email'              => 'admin@admin.com',
-                'email_verified_at'        => '2020-10-01 16:44:42',
-                'password'           => bcrypt('password'),
-                'remember_token'     => null,
-//                'verified'           => 1,
-                
-//                'verification_token' => '',
-/*                'first_name'          => '',
+                'id' => 1,
+                'name' => 'Admin',
+                'email' => 'admin@admin.com',
+                'email_verified_at' => '2020-10-01 16:44:42',
+                'password' => bcrypt('password'),
+                'remember_token' => null,
+                //                'verified'           => 1,
+
+                //                'verification_token' => '',
+                /*                'first_name'          => '',
                 'last_name'          => '',
                 'tagline'            => '',
                 'city'               => '',

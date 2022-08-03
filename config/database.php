@@ -64,8 +64,8 @@ return [
         ],
         'mysqlold' => [
             'driver' => 'mysql',
-            'host' =>  env('IDB_HOST', '10.1.1.6'),
-            'port' =>  env('IDB_PORT', '3306'),
+            'host' => env('IDB_HOST', '10.1.1.6'),
+            'port' => env('IDB_PORT', '3306'),
             'database' => env('IDB_DATABASE', 'inalto_db7'),
             'username' => env('IDB_USERNAME', 'root'),
             'password' => env('IDB_PASSWORD', 'imagine'),

@@ -17,7 +17,7 @@ class CreateCategoriesTranslationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('locale')->index();
             $table->unsignedBigInteger('category_id');
-            $table->unique(['category_id','locale']);
+            $table->unique(['category_id', 'locale']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
 
             $table->string('name')->nullable();
@@ -28,7 +28,6 @@ class CreateCategoriesTranslationsTable extends Migration
             $table->dropColumn('name');
             $table->dropColumn('slug');
             $table->dropColumn('description');
-            
         });
     }
 

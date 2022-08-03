@@ -11,13 +11,14 @@ class Edit extends Component
     public Role $role;
 
     public array $permissions = [];
+
     public array $permissions_available = [];
 
     public array $listsForFields = [];
 
     public function mount(Role $role)
     {
-        $this->role        = $role;
+        $this->role = $role;
         $this->permissions = $this->role->permissions()->pluck('id')->toArray();
         $this->permissions_availables = Permission::all();
         $this->initListsForFields();
@@ -61,22 +62,22 @@ class Edit extends Component
         $this->listsForFields['permissions'] = Permission::pluck('title', 'id');
     }
 
-    
-    public function toggle($permission) {
-        if($this->role->permissions->where('title','=',$permission)->count()) {
-            $p = $this->role->permissions->where('title','=',$permission)->first();
+    public function toggle($permission)
+    {
+        if ($this->role->permissions->where('title', '=', $permission)->count()) {
+            $p = $this->role->permissions->where('title', '=', $permission)->first();
             ray($p);
-         //   $this->role->permissions()->delete($p);
-            $this->dispatchBrowserEvent('toastr:info',[
-                'message'=> $permission.' disabled'
+            //   $this->role->permissions()->delete($p);
+            $this->dispatchBrowserEvent('toastr:info', [
+                'message' => $permission.' disabled',
             ]);
-          } else {
-            $p = Permission::where('title','=',$permission)->first();
-         //   $this->role->permissions()->save($p);
+        } else {
+            $p = Permission::where('title', '=', $permission)->first();
+            //   $this->role->permissions()->save($p);
             ray($p);
-            $this->dispatchBrowserEvent('toastr:info',[
-                'message'=> $permission.' enabled'
+            $this->dispatchBrowserEvent('toastr:info', [
+                'message' => $permission.' enabled',
             ]);
-          }
+        }
     }
 }

@@ -12,6 +12,8 @@ import "@left4code/tw-starter/dist/js/dropdown";
 import "@left4code/tw-starter/dist/js/modal";
 import "@left4code/tw-starter/dist/js/tab";
 
+/*import 'dropzone';*/
+
 import "./fancybox";
 import "./toastr";
-
+import "./clockpicker";

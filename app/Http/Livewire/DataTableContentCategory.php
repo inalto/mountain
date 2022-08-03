@@ -5,8 +5,8 @@ namespace App\Http\Livewire;
 use App\Models\ContentCategory;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class DataTableContentCategory extends LivewireDatatable
 {
@@ -25,7 +25,7 @@ class DataTableContentCategory extends LivewireDatatable
 
             Column::callback(['id', 'name'], function ($id, $name) {
                 return view('livewire.datatables.table-actions', ['id' => $id, 'name' => $name]);
-            })
+            }),
         ];
     }
 }

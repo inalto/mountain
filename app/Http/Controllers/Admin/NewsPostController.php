@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\NewsPost;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -46,7 +45,7 @@ class NewsPostController extends Controller
 
         if ($request->has('size')) {
             $this->validate($request, [
-                'file' => 'max:' . $request->input('size') * 1024,
+                'file' => 'max:'.$request->input('size') * 1024,
             ]);
         }
         if (request()->has('max_width') || request()->has('max_height')) {
@@ -59,10 +58,10 @@ class NewsPostController extends Controller
             ]);
         }
 
-        $model                     = new Post();
-        $model->id                 = $request->input('model_id', 0);
-        $model->exists             = true;
-        $media                     = $model->addMediaFromRequest('file')->toMediaCollection($request->input('collection_name'));
+        $model = new Post();
+        $model->id = $request->input('model_id', 0);
+        $model->exists = true;
+        $media = $model->addMediaFromRequest('file')->toMediaCollection($request->input('collection_name'));
         $media->wasRecentlyCreated = true;
 
         return response()->json(compact('media'), Response::HTTP_CREATED);

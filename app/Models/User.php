@@ -2,23 +2,21 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
 use Cache;
 use Carbon\Carbon;
+use DateTimeInterface;
 use Hash;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+
 //use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable  implements HasMedia
+class User extends Authenticatable implements HasMedia
 {
     use HasFactory;
     use HasAdvancedFilter;
@@ -42,9 +40,11 @@ class User extends Authenticatable  implements HasMedia
         'last_name',
         'email',
     ];
+
     protected $appends = [
-        'avatar'
+        'avatar',
     ];
+
     protected $hidden = [
         'remember_token',
         'password',
@@ -95,22 +95,18 @@ class User extends Authenticatable  implements HasMedia
         return $date->format('Y-m-d H:i:s');
     }
 
-
     public function getAvatarAttribute()
     {
         return $this->getMedia('avatar')->map(function ($item) {
             $media = $item->toArray();
             $media['url'] = $item->getUrl();
-            
-            
+
             return $media;
         });
     }
 
-
     public function isOnline()
     {
-        
-        return Cache::has('inalto-u-' . $this->id);
+        return Cache::has('inalto-u-'.$this->id);
     }
 }

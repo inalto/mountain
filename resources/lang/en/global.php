@@ -210,6 +210,7 @@ return [
     "sample_category" => "Sample category",
     "sample_question" => "Sample question",
     "save" => "Save",
+    "save_and_exit" => "Save and exit",
     "search" => "Search",
     "search_input_too_short" => "Please enter :count or more characters",
     "searching" => "Searching",

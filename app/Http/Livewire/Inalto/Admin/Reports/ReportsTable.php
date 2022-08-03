@@ -5,8 +5,8 @@ namespace App\Http\Livewire\Inalto\Admin\Reports;
 use App\Models\Report;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class ReportsTable extends LivewireDatatable
 {
@@ -31,10 +31,9 @@ class ReportsTable extends LivewireDatatable
                 ->label('Data')
                 ->filterable(),
             Column::name('slug')->hide(),
-            Column::callback(['id','slug'], function ($id,$slug) {
-                    return view('inalto.components.reports-table-actions', ['id' => $id,'slug'=>$slug]);
-                })
-            ];
-
+            Column::callback(['id', 'slug'], function ($id, $slug) {
+                return view('inalto.components.reports-table-actions', ['id' => $id, 'slug' => $slug]);
+            }),
+        ];
     }
 }

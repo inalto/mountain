@@ -2,9 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Support\Inalto\TagImport;
-
+use Illuminate\Console\Command;
 
 class TagUpdate extends Command
 {
@@ -43,5 +42,4 @@ class TagUpdate extends Command
     {
         return TagImport::import($this->option('truncate'));
     }
-
 }

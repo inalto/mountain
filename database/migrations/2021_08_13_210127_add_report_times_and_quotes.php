@@ -13,7 +13,6 @@ class AddReportTimesAndQuotes extends Migration
      */
     public function up()
     {
-        
         Schema::table('reports', function (Blueprint $table) {
             $table->bigInteger('nid')->nullable();
             $table->timestamp('time_a')->nullable();

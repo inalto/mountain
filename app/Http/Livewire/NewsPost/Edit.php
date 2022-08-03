@@ -16,7 +16,7 @@ class Edit extends Component
 
     public function mount(NewsPost $Newspost)
     {
-        $this->Newspost             = $Newspost;
+        $this->Newspost = $Newspost;
         $this->mediaCollections = [
             'Newspost_photo' => $Newspost->photo,
         ];

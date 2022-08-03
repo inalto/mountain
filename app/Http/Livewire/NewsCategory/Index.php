@@ -60,18 +60,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = config('project.pagination.options');
-        $this->orderable         = (new NewsCategory())->orderable;
+        $this->orderable = (new NewsCategory())->orderable;
     }
 
     public function render()
     {
         $query = NewsCategory::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

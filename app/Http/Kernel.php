@@ -16,9 +16,9 @@ class Kernel extends HttpKernel
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
 
-\Fruitcake\Cors\HandleCors::class,
+        \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\TrustProxies::class,
-       // \Fruitcake\Cors\HandleCors::class,
+        // \Fruitcake\Cors\HandleCors::class,
         \App\Http\Middleware\PreventRequestsDuringMaintenance::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
@@ -36,13 +36,13 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
-            
-       //     \CodeZero\LocalizedRoutes\Middleware\SetLocale::class,
+
+            //     \CodeZero\LocalizedRoutes\Middleware\SetLocale::class,
             \Laravel\Jetstream\Http\Middleware\AuthenticateSession::class,
-            
+
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
-            
+
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
             \App\Http\Middleware\UserActivity::class,
@@ -52,12 +52,13 @@ class Kernel extends HttpKernel
 
         'api' => [
             'throttle:api',
-    //        'bindigs',
-    //        \App\Http\Middleware\AuthGates::class,
+            //        'bindigs',
+            //        \App\Http\Middleware\AuthGates::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\AuthGates::class,
         ],
     ];
+
     /**
      * The application's route middleware.
      *
@@ -66,15 +67,20 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth'             => \App\Http\Middleware\Authenticate::class,
-        'auth.basic'       => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'cache.headers'    => \Illuminate\Http\Middleware\SetCacheHeaders::class,
-        'can'              => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest'            => \App\Http\Middleware\RedirectIfAuthenticated::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
+        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
+        'can' => \Illuminate\Auth\Middleware\Authorize::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
-        'signed'           => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        'throttle'         => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'verified'         => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-    //    'cors'            => \App\Http\Middleware\CorsMiddleware::class
+        'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
+        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        //    'cors'            => \App\Http\Middleware\CorsMiddleware::class
+        'localize'                => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRoutes::class,
+        'localizationRedirect'    => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationRedirectFilter::class,
+        'localeSessionRedirect'   => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
+        'localeCookieRedirect'    => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
+        'localeViewPath'          => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class
     ];
 }

@@ -5,8 +5,8 @@ namespace App\Http\Livewire\Inalto\Admin\Users;
 use App\Models\User;
 use Mediconesystems\LivewireDatatables\Column;
 use Mediconesystems\LivewireDatatables\DateColumn;
-use Mediconesystems\LivewireDatatables\NumberColumn;
 use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
+use Mediconesystems\LivewireDatatables\NumberColumn;
 
 class UsersTable extends LivewireDatatable
 {
@@ -14,9 +14,8 @@ class UsersTable extends LivewireDatatable
 
     public function columns()
     {
-        
         return [
-            
+
             NumberColumn::name('id')->filterable(),
 
             Column::name('name')->filterable()->searchable(),
@@ -27,7 +26,7 @@ class UsersTable extends LivewireDatatable
 
             Column::callback(['id', 'name'], function ($id, $name) {
                 return view('inalto.components.users-table-actions', ['id' => $id, 'name' => $name]);
-            })
+            }),
         ];
     }
 }

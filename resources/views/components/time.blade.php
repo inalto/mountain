@@ -20,8 +20,11 @@
 @once
 @push('styles')
 <link rel="stylesheet" type="text/css" href="/css/clockpicker.css">
+
 @endpush
 @push('scripts')
-<script type="text/javascript"  src="/js/clockpicker.js" defer ></script>
+<script type="text/javascript"  src="/js/clockpicker.js" ></script>
+
+
 @endpush
 @endonce

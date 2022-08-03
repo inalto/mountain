@@ -1,16 +1,18 @@
 <?php
+
 namespace App\Support\Inalto;
 
-use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Str;
 use App\Models\Report;
 use Log;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
+use Str;
+
 class InaltoPathGenerator implements PathGenerator
 {
-  /*
-     * Get the path for the given media, relative to the root storage path.
-     */
+    /*
+       * Get the path for the given media, relative to the root storage path.
+       */
     public function getPath(Media $media): string
     {
         return $this->getBasePath($media).'/';
@@ -38,33 +40,33 @@ class InaltoPathGenerator implements PathGenerator
     protected function getBasePath(Media $media): string
     {
         $prepend = '';
-        
-        switch($media->model_type){
+
+        switch ($media->model_type) {
             case 'App\Models\Report':
-                
+
                 //if (!Report::find($media->model_id)) {Log::error('missing media model_id'.$media->model_id); break;}
-                $prepend = Str::slug(Report::withTrashed()->find($media->model_id)->owner()->pluck('name')->first());    
-                
-                if ($media->collection_name== 'report_tracks') {
-                    $prepend .='/reports/'.$media->model_id.'/tracks';
+                //$prepend = Str::slug(Report::withTrashed()->find($media->model_id)->owner()->first()->name);
+                //$prepend = Str::slug(Report::with('owner')->withTrashed()->where('id','=',$media->model_id)->get()->first()->owner->name);
+                //$prepend = Str::slug(Report::with('owner')->withTrashed()->find($media->model_id)->owner->name);
+                $prepend = Str::slug(Report::find($media->model_id)->owner()->first()->name);
+
+                if ($media->collection_name == 'report_tracks') {
+                    $prepend .= '/reports/'.$media->model_id.'/tracks';
                 } else {
-                    $prepend .='/reports/'.$media->model_id;
+                    $prepend .= '/reports/'.$media->model_id;
                 }
                 break;
             case 'App\Models\Poi':
-                $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    
-                $prepend .='/pois/'.$media->model_id;
+                $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());
+                $prepend .= '/pois/'.$media->model_id;
                 break;
             case 'App\Models\User':
-                $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());    
-                $prepend .='/'.$media->model_id;
+                $prepend = Str::slug(Report::find($media->model_id)->owner()->pluck('name')->first());
+                $prepend .= '/'.$media->model_id;
                 break;
 
         }
-        
 
         return $prepend;
     }
-
-    
 }

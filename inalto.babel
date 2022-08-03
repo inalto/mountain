@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<babeledit_project be_version="2.9.2" version="1.2">
+<babeledit_project be_version="3.0.1" version="1.2">
     <!--
 
     BabelEdit project file
@@ -13619,6 +13619,27 @@
                         </translations>
                     </concept_node>
                     <concept_node>
+                        <name>save_and_exit</name>
+                        <definition_loaded>false</definition_loaded>
+                        <description/>
+                        <comment/>
+                        <default_text/>
+                        <translations>
+                            <translation>
+                                <language>en-US</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>it-IT</language>
+                                <approved>false</approved>
+                            </translation>
+                            <translation>
+                                <language>fr-FR</language>
+                                <approved>false</approved>
+                            </translation>
+                        </translations>
+                    </concept_node>
+                    <concept_node>
                         <name>search</name>
                         <definition_loaded>false</definition_loaded>
                         <description/>
@@ -17772,6 +17793,7 @@
             <copy_template>@lang('%1')</copy_template>
             <copy_template>trans_choice('%1', n)</copy_template>
         </copy_templates>
+        <custom_languages/>
     </editor_configuration>
     <primary_language>it-IT</primary_language>
     <configuration>

@@ -35,11 +35,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserProfileInformationUsing(UpdateUserProfileInformation::class);
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
-/*
-        Fortify::requestPasswordResetLinkView(function(){
-            return view('Auth.forgot-password');
-        });
-*/
+        /*
+                Fortify::requestPasswordResetLinkView(function(){
+                    return view('Auth.forgot-password');
+                });
+        */
         RateLimiter::for('login', function (Request $request) {
             return Limit::perMinute(5)->by($request->email.$request->ip());
         });

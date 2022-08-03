@@ -102,7 +102,7 @@ class Create extends Component
     protected function initListsForFields(): void
     {
         $this->listsForFields['category'] = ContentCategory::pluck('name', 'id');
-        $this->listsForFields['tag']      = ContentTag::pluck('name', 'id');
+        $this->listsForFields['tag'] = ContentTag::pluck('name', 'id');
     }
 
     protected function syncMedia(): void

@@ -12,7 +12,7 @@
 </div>
 @once
 @push('scripts')
-<script src="{{ mix('js/ckeditor.js') }}"></script>
+<script src="{{asset('js/ckeditor.js') }}"></script>
 @endpush
 @endonce
 

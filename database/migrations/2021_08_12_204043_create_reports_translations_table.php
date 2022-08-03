@@ -17,10 +17,8 @@ class CreateReportsTranslationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('locale')->index();
             $table->unsignedBigInteger('report_id');
-            $table->unique(['report_id','locale']);
+            $table->unique(['report_id', 'locale']);
             $table->foreign('report_id')->references('id')->on('reports')->onDelete('cascade');
-            
-
 
             $table->string('title');
             $table->string('slug')->nullable();

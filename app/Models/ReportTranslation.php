@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class ReportTranslation extends Model
 {
@@ -13,16 +13,16 @@ class ReportTranslation extends Model
 
     public $table = 'reports_translations';
 
-    protected $fillable = ['title', 'slug','content','excerpt'];
+    protected $fillable = ['title', 'slug', 'content', 'excerpt'];
+
     public $timestamps = false;
 
     public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
-    
 }

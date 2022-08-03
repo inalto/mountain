@@ -34,16 +34,16 @@ class UpdatePoiFields extends Migration
         Schema::table('pois', function (Blueprint $table) {
             if (Schema::hasColumn('pois', 'nid')) {
                 $table->dropColumn('nid');
-          }
-          if (Schema::hasColumn('pois', 'excerpt')) {
-            $table->dropColumn('excerpt');
-      }
-      if (Schema::hasColumn('pois', 'content')) {
-        $table->dropColumn('content');
-  }
-  if (Schema::hasColumn('pois', 'slug')) {
-    $table->dropColumn('slug');
-}
+            }
+            if (Schema::hasColumn('pois', 'excerpt')) {
+                $table->dropColumn('excerpt');
+            }
+            if (Schema::hasColumn('pois', 'content')) {
+                $table->dropColumn('content');
+            }
+            if (Schema::hasColumn('pois', 'slug')) {
+                $table->dropColumn('slug');
+            }
 
             $table->dropColumn('coords');
             $table->dropColumn('published');

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\ContentTag;
 use Gate;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ContentTagController extends Controller

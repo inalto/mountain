@@ -2,15 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
-use App\Models\User;
-use App\Models\Poi;
-use Log;
-use Swift_Plugins_Loggers_EchoLogger;
 use App\Support\Inalto\Import\POI as PoiImport;
+use Illuminate\Console\Command;
 
 class PoiUpdate extends Command
 {
@@ -45,7 +38,6 @@ class PoiUpdate extends Command
      */
     public function handle()
     {
-
-        return PoiImport::import($this->option('truncate'),$this->option('skip'),$this->option('start-from'));
+        return PoiImport::import($this->option('truncate'), $this->option('skip'), $this->option('start-from'));
     }
 }

@@ -1,53 +1,50 @@
 <?php
-use App\Http\Controllers\inalto\HomeController as Home;
 
-use App\Http\Controllers\Auth\LoginController;
-
-
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
-
+use Admin\AuditLogController;
+use Admin\CategoryController;
+use Admin\ContentCategoryController;
+use Admin\ContentPageController;
 /*
 * Admin
 */
 
-
-use Admin\AuditLogController;
-use Admin\ContentCategoryController;
-use Admin\ContentPageController;
 use Admin\ContentTagController;
-use App\Http\Controllers\Admin\HomeController;
 use Admin\NewsCategoryController;
+use Admin\NewsPostController;
 use Admin\NewsTagController;
 use Admin\PermissionController;
 use Admin\PoiController;
-use Admin\NewsPostController;
 use Admin\ReportController;
-use Admin\CategoryController;
 use Admin\RoleController;
 use Admin\TagController;
 use Admin\UserController;
-
+use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Frontend\ReportsController as Report;
+use App\Http\Controllers\inalto\HomeController as Home;
+use Illuminate\Support\Facades\Auth;
 /*
 * Frontend
 */
 
-use App\Http\Controllers\Frontend\ReportsController as Report;
+use Illuminate\Support\Facades\Route;
 
 //use inalto\HomeController;
 Route::mediaLibrary();
 
-Route::get('/',[Home::class, 'index'])->name('home');
-Route::view('/info','info');
-Route::get('/relazione/{category?}/{slug?}',[Report::class, 'show'])->name('report.show');
+Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
+
+Route::get('/', [Home::class, 'index'])->name('home');
+Route::view('/info', 'info');
+Route::get('/relazione/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('report.show');
+});
 
 //Route::redirect('/', '/login');
 
 Auth::routes(['register' => false]);
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], function () {
-    
-    Route::get('/',[HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 
     // Permissions
     Route::resource('permissions', PermissionController::class, ['except' => ['store', 'update', 'destroy']]);
@@ -101,12 +98,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
 
 // Social Login Routes..
 
-
 Route::get('/login/{provider}', [LoginController::class, 'redirectToProvider'])
     ->name('social.login');
 Route::get('/login/{provider}/callback', [LoginController::class, 'handleProviderCallback'])
     ->name('social.callback');
-
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia\Inertia::render('Dashboard');

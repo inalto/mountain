@@ -5,7 +5,7 @@
         <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
             <div class="flex flex-col h-full overflow-hidden rounded-lg shadow-lg">
                 <div class="flex-grow-0">
-                    <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none focus:border-blue-600" href="{{ route('report.show', $report->categories->first()?$report->categories->first()->slug:'none'.'/'.$report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
+                    <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none focus:border-blue-600" href="{{ route('report.show', ($report->categories->first()?$report->categories->first()->slug:'none').'/'.$report->slug) }}"><img class="object-cover object-center w-full h-48" @if ($report->media) src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" @endif /></a>
                 </div>
                 <div class="flex flex-col flex-grow p-3 bg-white dark:bg-gray-800">
                     
@@ -46,6 +46,8 @@
                                         </g>
                                     </svg>
                                 {{ $report->difficulty }}
+
+                                
                                 {{--
                                 <svg class="w-4 h-4 mr-1" stroke="currentColor" stroke-width="2" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
@@ -78,7 +80,7 @@
                             {{ $report->drop_p  }} m
                         </div>
                         <div>
-                            <a href="{{ route('report.show', $report->categories->first()?$report->categories->first()->slug:'none'.'/'.$report->slug) }}" tabindex="-1" class="inline-flex items-center text-blue-500 md:mb-2 lg:mb-0">Leggi
+                            <a href="{{ route('report.show', ($report->categories->first()?$report->categories->first()->slug:'none').'/'.$report->slug) }}" tabindex="-1" class="inline-flex items-center text-blue-500 md:mb-2 lg:mb-0">Leggi
                                 <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
                                     fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M5 12h14"></path>

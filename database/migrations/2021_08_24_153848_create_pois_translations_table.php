@@ -18,20 +18,16 @@ class CreatePoisTranslationsTable extends Migration
             $table->bigIncrements('id');
             $table->string('locale')->index();
             $table->unsignedBigInteger('poi_id');
-            $table->unique(['poi_id','locale']);
+            $table->unique(['poi_id', 'locale']);
             $table->foreign('poi_id')->references('id')->on('pois')->onDelete('cascade');
-
 
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->longText('excerpt')->nullable();
             $table->longText('content')->nullable();
-
-
         });
- 
+
         Schema::table('pois', function (Blueprint $table) {
-            
             if (Schema::hasColumn('pois', 'name')) {
                 $table->dropColumn('name');
             }
@@ -44,8 +40,6 @@ class CreatePoisTranslationsTable extends Migration
             if (Schema::hasColumn('pois', 'slug')) {
                 $table->dropColumn('slug');
             }
-            
-            
         });
     }
 
@@ -59,7 +53,6 @@ class CreatePoisTranslationsTable extends Migration
         Schema::dropIfExists('pois_translations');
 
         Schema::table('pois', function (Blueprint $table) {
-            
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
             $table->longText('excerpt')->nullable();

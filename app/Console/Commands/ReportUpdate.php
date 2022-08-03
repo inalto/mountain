@@ -2,10 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-
 use App\Support\Inalto\Import\Report as ReportImport;
-
+use Illuminate\Console\Command;
 
 class ReportUpdate extends Command
 {
@@ -51,9 +49,8 @@ class ReportUpdate extends Command
             'dry_run' => $this->option('dry-run'),
         ];
 
-      //  $this->output->writeln('--'.$this->option('nid'));
+        //  $this->output->writeln('--'.$this->option('nid'));
 
-        return ReportImport::import($this->output,$options);
+        return ReportImport::import($this->output, $options);
     }
-
 }

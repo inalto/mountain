@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class CategoryTranslation extends Model
 {
@@ -13,16 +13,16 @@ class CategoryTranslation extends Model
 
     public $table = 'categories_translations';
 
-    protected $fillable = ['name', 'slug','description'];
+    protected $fillable = ['name', 'slug', 'description'];
+
     public $timestamps = false;
 
-    public function sluggable():array
+    public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'name'
-            ]
+                'source' => 'name',
+            ],
         ];
     }
-    
 }

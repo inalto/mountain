@@ -30,9 +30,10 @@ try {
     window.$ = window.jQuery = require('jquery');
  /*   require('clockpicker')*/
     require('select2')
-    window.Dropzone = require('dropzone').default
+    
     require('flatpickr')
 } catch (e) {}
+
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

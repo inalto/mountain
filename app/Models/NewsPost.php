@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
 use App\Traits\Auditable;
 use App\Traits\Tenantable;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -59,10 +59,10 @@ class NewsPost extends Model implements HasMedia
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $thumbnailWidth  = 50;
+        $thumbnailWidth = 50;
         $thumbnailHeight = 50;
 
-        $thumbnailPreviewWidth  = 120;
+        $thumbnailPreviewWidth = 120;
         $thumbnailPreviewHeight = 120;
 
         $this->addMediaConversion('thumbnail')

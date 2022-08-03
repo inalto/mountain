@@ -4,12 +4,8 @@ namespace App\Http\Livewire\InaltoPoi;
 
 use App\Models\InaltoPoi as Poi;
 use App\Models\InaltoPoiTranslation as PoiTranslation;
-use App\Models\InaltoCategory;
-use App\Models\Tag;
-
-use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Livewire\Component;
 
 class Create extends Component
 {
@@ -17,7 +13,7 @@ class Create extends Component
 
     public function mount(Poi $poi)
     {
-        /*if (!isset($poi)) { $this->poi = new Poi();} 
+        /*if (!isset($poi)) { $this->poi = new Poi();}
         else {*/
         $this->poi = $poi;
         //}
@@ -27,7 +23,6 @@ class Create extends Component
     {
         $this->poi->translate('it')->slug = SlugService::createSlug(PoiTranslation::class, 'slug', $this->poi->name);
     }
-
 
     public function render()
     {

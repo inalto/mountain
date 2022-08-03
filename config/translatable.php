@@ -13,7 +13,7 @@ return [
     'locales' => [
         'it',
         'en',
-        'fr'
+        'fr',
     ],
 
     /*

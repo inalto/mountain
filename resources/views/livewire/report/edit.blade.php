@@ -91,7 +91,7 @@
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
-   {{--         <x-time type="time" class="w-full form-control"  name="time_a" id="time_a" wire:model="report.time_a"/> --}}
+           <x-time type="time" class="w-full form-control"  name="time_a" id="time_a" wire:model="report.time_a"/> 
             <div class="validation-message">
                 {{ $errors->first('report.time_a') }}
             </div>
@@ -102,7 +102,7 @@
 
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_r">{{ trans('cruds.report.fields.time_r') }}</x-label>
-     {{--       <x-time type="time" class="w-full form-control"  name="time_r" id="time_r" wire:model="report.time_r"/> --}}
+            <x-time type="time" class="w-full form-control"  name="time_r" id="time_r" wire:model="report.time_r"/> 
             <div class="validation-message">
                 {{ $errors->first('report.time_r') }}
             </div>
@@ -300,7 +300,7 @@
             {{ trans('cruds.report.fields.tags_helper') }}
         </div>
     </div>
-{{--    <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
+    <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
         <x-label class="form-label" for="categories">{{ trans('cruds.report.fields.categories') }}</x-label>
         <x-select-list class="form-control" id="categories" name="categories" wire:model="categories"
             :options="$this->listsForFields['categories']" multiple />
@@ -311,11 +311,14 @@
             {{ trans('cruds.report.fields.categories_helper') }}
         </div>
     </div>
---}}
+
 
 
     <div class="form-group">
         <x-jet-button class="mr-2" type="submit">
+            {{ trans('global.save_and_exit') }}
+        </x-jet-button>
+        <x-jet-button class="mr-2" type="submit" wire:click.prevent="save">
             {{ trans('global.save') }}
         </x-jet-button>
         <a href="{{ route('admin.reports.index') }}" class="btn btn-secondary">
@@ -323,41 +326,10 @@
         </a>
     </div>
 </form>
+
 @push('styles')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css" integrity="sha512-jU/7UFiaW5UBGODEopEqnbIAHOI8fO6T99m7Tsmqs2gkdujByJfkCbbfPSN4Wlqlb9TGnsuC0YgUgWkRBK7B9A==" crossorigin="anonymous" />
 @endpush
-
 @push('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
-
-    <script>
-        document.addEventListener("livewire:load", () => {
-            let el = $('#categories')
-            initSelect()
-
-            Livewire.hook('message.processed', (message, component) => {
-                initSelect()
-            })
-
-            Livewire.on('setCategoriesSelect', values => {
-                el.val(values).trigger('change.select2')
-            })
-
-            el.on('change', function(e) {
-                @this.set('report.categories', el.select2("val"))
-            })
-
-            function initSelect() {
-                el.select2({
-                    placeholder: '{{ __('Select your option') }}',
-                    allowClear: !el.attr('required'),
-                })
-            }
-        })
-
-
-
-
-    </script>
+<script type="text/javascript"  src="{{ asset('js/dropzone.min.js')}}" ></script>
 @endpush

@@ -2,28 +2,26 @@
 
 namespace App\Http\Livewire\Inalto\Frontend;
 
-use Livewire\Component;
 use App\Models\Report;
+use Livewire\Component;
 use Livewire\WithPagination;
 
 class Reports extends Component
 {
+    use WithPagination;
 
-	use WithPagination;
+    //public $reports=[];
 
-	//public $reports=[];
-
-  /*
-   public function mount()
-	{
-	$this->reports=Report::all();
-	dd($this->reports);
-	}
+    /*
+     public function mount()
+      {
+      $this->reports=Report::all();
+      dd($this->reports);
+      }
 */
 
-	public function render()
+    public function render()
     {
-		
-        return view('livewire.inalto.frontend.reports',['reports'=>Report::with('owner')->with('categories')->with('media')->orderBy('created_at','desc')->paginate(12)]);
+        return view('livewire.inalto.frontend.reports', ['reports' => Report::with(['owner','categories','media','translations'])->orderBy('created_at', 'desc')->paginate(12)]);
     }
 }

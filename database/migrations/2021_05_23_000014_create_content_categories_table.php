@@ -16,7 +16,6 @@ class CreateContentCategoriesTable extends Migration
             $table->dateTime('updaated_at');
 
             $table->dateTime('deleted_at');
-
         });
     }
 }

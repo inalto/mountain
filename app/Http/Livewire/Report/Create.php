@@ -6,14 +6,13 @@ use App\Models\Category;
 use App\Models\Report;
 use App\Models\ReportTranslation;
 use App\Models\Tag;
-use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Livewire\WithFileUploads;
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Create extends Component
 {
-
     use WithFileUploads;
 
     public Report $report;
@@ -28,12 +27,13 @@ class Create extends Component
 
     public array $mediaCollections = [];
 
-    public $type ="";
-    public $difficulty ="";
+    public $type = '';
+
+    public $difficulty = '';
 
     public $title = null;
-    public $slug = null;
 
+    public $slug = null;
 
     public function mount(Report $report)
     {
@@ -43,23 +43,22 @@ class Create extends Component
 
     public function render()
     {
-        ray ($this->mediaCollections);
+        ray($this->mediaCollections);
+
         return view('livewire.report.create');
     }
-
 
     public function updatedReportTitle()
     {
         $this->report->slug = SlugService::createSlug(ReportTranslation::class, 'slug', $this->report->title);
     }
-    
+
     public function updatedType($type)
     {
-        $this->type=$type;
+        $this->type = $type;
         //ray($this->type);
         $this->difficulty = key($this->listsForFields[$type]);
     }
-
 
     public function submit()
     {
@@ -126,14 +125,14 @@ class Create extends Component
             'report.difficulty' => [
                 'nullable',
                 /*'string',*/
-                
-                'in:' . implode(',', array_keys(array_merge(
+
+                'in:'.implode(',', array_keys(array_merge(
                     $this->listsForFields['hiking'],
                     $this->listsForFields['snowshoeing'],
                     $this->listsForFields['mountaineering'],
                     $this->listsForFields['skimountaineering']
                 ))),
-                
+
             ],
             'report.approved' => [
                 'boolean',
@@ -184,14 +183,13 @@ class Create extends Component
         ];
     }
 
-   
     protected function initListsForFields(): void
     {
         $this->listsForFields['type'] = [
             'hiking' => trans('cruds.report.fields.difficulty_class.hiking'),
             'snowshoeing' => trans('cruds.report.fields.difficulty_class.snowshoeing'),
             'mountaineering' => trans('cruds.report.fields.difficulty_class.mountaineering'),
-            'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering')
+            'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering'),
         ];
 
         $this->listsForFields['hiking'] = [
@@ -199,50 +197,48 @@ class Create extends Component
             'T2' => trans('cruds.report.fields.difficulty_class.T2'),
             'T3' => trans('cruds.report.fields.difficulty_class.T3'),
             'T4' => trans('cruds.report.fields.difficulty_class.T4'),
-            'T5' => trans('cruds.report.fields.difficulty_class.T5')
+            'T5' => trans('cruds.report.fields.difficulty_class.T5'),
         ];
         $this->listsForFields['snowshoeing'] = [
-            'WT1'=>trans('cruds.report.fields.difficulty_class.WT1'),
-            'WT2'=>trans('cruds.report.fields.difficulty_class.WT2'),
-            'WT3'=>trans('cruds.report.fields.difficulty_class.WT3'),
-            'WT4'=>trans('cruds.report.fields.difficulty_class.WT4'),
-            'WT5'=>trans('cruds.report.fields.difficulty_class.WT5')
+            'WT1' => trans('cruds.report.fields.difficulty_class.WT1'),
+            'WT2' => trans('cruds.report.fields.difficulty_class.WT2'),
+            'WT3' => trans('cruds.report.fields.difficulty_class.WT3'),
+            'WT4' => trans('cruds.report.fields.difficulty_class.WT4'),
+            'WT5' => trans('cruds.report.fields.difficulty_class.WT5'),
         ];
         $this->listsForFields['mountaineering'] = [
-            'F-'=>trans('cruds.report.fields.difficulty_class.Fm'),
-            'F'=>trans('cruds.report.fields.difficulty_class.F'),
-            'F+'=>trans('cruds.report.fields.difficulty_class.Fp'),
-            'PD-'=>trans('cruds.report.fields.difficulty_class.PDm'),
-            'PD'=>trans('cruds.report.fields.difficulty_class.PD'),
-            'PD+'=>trans('cruds.report.fields.difficulty_class.PDp'),
-            'AD-'=>trans('cruds.report.fields.difficulty_class.ADm'),
-            'AD'=>trans('cruds.report.fields.difficulty_class.AD'),
-            'AD+'=>trans('cruds.report.fields.difficulty_class.ADp'),
-            'D-'=>trans('cruds.report.fields.difficulty_class.Dm'),
-            'D'=>trans('cruds.report.fields.difficulty_class.D'),
-            'D+'=>trans('cruds.report.fields.difficulty_class.Dp'),
-            'TD-'=>trans('cruds.report.fields.difficulty_class.TDm'),
-            'TD'=>trans('cruds.report.fields.difficulty_class.TD'),
-            'TD+'=>trans('cruds.report.fields.difficulty_class.TDp'),
-            'ED-'=>trans('cruds.report.fields.difficulty_class.EDm'),
-            'ED'=>trans('cruds.report.fields.difficulty_class.ED'),
-            'ED+'=>trans('cruds.report.fields.difficulty_class.EDp'),
+            'F-' => trans('cruds.report.fields.difficulty_class.Fm'),
+            'F' => trans('cruds.report.fields.difficulty_class.F'),
+            'F+' => trans('cruds.report.fields.difficulty_class.Fp'),
+            'PD-' => trans('cruds.report.fields.difficulty_class.PDm'),
+            'PD' => trans('cruds.report.fields.difficulty_class.PD'),
+            'PD+' => trans('cruds.report.fields.difficulty_class.PDp'),
+            'AD-' => trans('cruds.report.fields.difficulty_class.ADm'),
+            'AD' => trans('cruds.report.fields.difficulty_class.AD'),
+            'AD+' => trans('cruds.report.fields.difficulty_class.ADp'),
+            'D-' => trans('cruds.report.fields.difficulty_class.Dm'),
+            'D' => trans('cruds.report.fields.difficulty_class.D'),
+            'D+' => trans('cruds.report.fields.difficulty_class.Dp'),
+            'TD-' => trans('cruds.report.fields.difficulty_class.TDm'),
+            'TD' => trans('cruds.report.fields.difficulty_class.TD'),
+            'TD+' => trans('cruds.report.fields.difficulty_class.TDp'),
+            'ED-' => trans('cruds.report.fields.difficulty_class.EDm'),
+            'ED' => trans('cruds.report.fields.difficulty_class.ED'),
+            'ED+' => trans('cruds.report.fields.difficulty_class.EDp'),
         ];
         $this->listsForFields['skimountaineering'] = [
-            'MS'=>trans('cruds.report.fields.difficulty_class.MS'),
-            'MSA'=>trans('cruds.report.fields.difficulty_class.MSA'),
-            'BS'=>trans('cruds.report.fields.difficulty_class.BS'),
-            'BSA'=>trans('cruds.report.fields.difficulty_class.BSA'),
-            'OS'=>trans('cruds.report.fields.difficulty_class.OS'),
-            'OSA'=>trans('cruds.report.fields.difficulty_class.OSA')
+            'MS' => trans('cruds.report.fields.difficulty_class.MS'),
+            'MSA' => trans('cruds.report.fields.difficulty_class.MSA'),
+            'BS' => trans('cruds.report.fields.difficulty_class.BS'),
+            'BSA' => trans('cruds.report.fields.difficulty_class.BSA'),
+            'OS' => trans('cruds.report.fields.difficulty_class.OS'),
+            'OSA' => trans('cruds.report.fields.difficulty_class.OSA'),
         ];
 
- //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
-        $this->listsForFields['tags']       = Tag::pluck('name', 'id')->toArray();
+        //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
+        $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
         $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
     }
-
-
 
     protected function syncMedia(): void
     {

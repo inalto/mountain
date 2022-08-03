@@ -23,6 +23,7 @@ class Edit extends Component
     {
         $this->validate();
         $this->category->save();
+
         return redirect()->route('admin.categories.index');
     }
 

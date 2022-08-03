@@ -3,22 +3,27 @@
 namespace App\Http\Livewire\Inalto\Admin\Reports;
 
 use App\Models\Report;
-use Livewire\Component;
 use Cviebrock\EloquentSluggable\Services\SlugService;
-
+use Livewire\Component;
 
 class EditForm extends Component
 {
     public $model = Report::class;
 
     public $title;
+
     public $slug;
+
     public $difficulty;
+
     public $excerpt;
+
     public $content;
+
     public $access;
+
     public $bibliographies = [
-        0=>['title'=>'','author'=>'','url'=>'']
+        0 => ['title' => '', 'author' => '', 'url' => ''],
     ];
 
     protected $rules = [
@@ -28,9 +33,9 @@ class EditForm extends Component
         'excerpt' => 'required|max:250',
         'content' => '',
         'access' => '',
-        'bibliographies' => []
+        'bibliographies' => [],
     ];
-    
+
     public function updatedTitle()
     {
         $this->slug = SlugService::createSlug(Report::class, 'slug', $this->title);
@@ -39,12 +44,12 @@ class EditForm extends Component
     public function mount($report)
     {
         ray($this);
-        $this->title=$report->title;
-        $this->slug=$report->slug;
-        $this->difficulty=$report->difficulty;
-        $this->excerpt=$report->excerpt;
-        $this->content=$report->content;
-      //  $this->bibliography=option(json_decode($report->bibliograpy));
+        $this->title = $report->title;
+        $this->slug = $report->slug;
+        $this->difficulty = $report->difficulty;
+        $this->excerpt = $report->excerpt;
+        $this->content = $report->content;
+        //  $this->bibliography=option(json_decode($report->bibliograpy));
     }
 
     public function render()
@@ -54,7 +59,7 @@ class EditForm extends Component
 
     public function addBibliography()
     {
-        array_push($this->bibliographies,['title'=>'','author'=>'','url'=>'']);
+        array_push($this->bibliographies, ['title' => '', 'author' => '', 'url' => '']);
         ray($this->bibliographies);
     }
 
@@ -62,17 +67,16 @@ class EditForm extends Component
     {
         $this->validate();
 
-        Report::firstOrCreate(['id'],[
+        Report::firstOrCreate(['id'], [
             'title' => $this->title,
             'slug' => $this->slug,
             'difficulty' => $this->diffiulty,
             'excerpt' => $this->excerpt,
             'content' => $this->content,
-            'access' => $this->access 
-            ]);
+            'access' => $this->access,
+        ]);
 
 //        $this->title = '';
 //        $this->slug = '';
     }
-
 }

@@ -46,7 +46,7 @@ class ContentPageController extends Controller
 
         if ($request->has('size')) {
             $this->validate($request, [
-                'file' => 'max:' . $request->input('size') * 1024,
+                'file' => 'max:'.$request->input('size') * 1024,
             ]);
         }
         if (request()->has('max_width') || request()->has('max_height')) {
@@ -59,10 +59,10 @@ class ContentPageController extends Controller
             ]);
         }
 
-        $model                     = new ContentPage();
-        $model->id                 = $request->input('model_id', 0);
-        $model->exists             = true;
-        $media                     = $model->addMediaFromRequest('file')->toMediaCollection($request->input('collection_name'));
+        $model = new ContentPage();
+        $model->id = $request->input('model_id', 0);
+        $model->exists = true;
+        $media = $model->addMediaFromRequest('file')->toMediaCollection($request->input('collection_name'));
         $media->wasRecentlyCreated = true;
 
         return response()->json(compact('media'), Response::HTTP_CREATED);

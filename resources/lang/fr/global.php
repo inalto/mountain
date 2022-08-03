@@ -214,6 +214,7 @@ return [
     "sample_category" => "Exemple de catégorie",
     "sample_question" => "Exemple de question",
     "save" => "Enregistrer",
+    "save_and_exit" => "Enregistrer et sortir",
     "search" => "Rechercher",
     "search_input_too_short" => "Entrer :count ou plus de caractères",
     "searching" => "Recherche en cours",

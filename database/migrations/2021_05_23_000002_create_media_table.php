@@ -28,7 +28,6 @@ class CreateMediaTable extends Migration
 
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updaated_at')->nullable();
-
         });
     }
 }

@@ -29,7 +29,7 @@ class AddBibliographiesToReportsTable extends Migration
         Schema::table('reports', function (Blueprint $table) {
             //
             if (Schema::hasColumn('reports', 'bibliographies')) {
-            $table->dropColumn('bibliographies');
+                $table->dropColumn('bibliographies');
             }
         });
     }

@@ -2,22 +2,20 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
 use App\Traits\Auditable;
 use App\Traits\Tenantable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+use Carbon\Carbon;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Spatie\MediaLibrary\HasMedia;
 use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
-use Astrotomic\Translatable\Locales;
-use Carbon\Carbon;
-use Log;
 
 class Report extends Model implements HasMedia, TranslatableContract
 {
@@ -26,12 +24,12 @@ class Report extends Model implements HasMedia, TranslatableContract
     use SoftDeletes;
     use Tenantable;
     use InteractsWithMedia;
+
     //  use Auditable;
     use Translatable;
 
-
     public const DIFFICULTY_SELECT = [
-        'dif'  => 'dif',
+        'dif' => 'dif',
         'dif2' => 'dif2',
     ];
 
@@ -43,7 +41,7 @@ class Report extends Model implements HasMedia, TranslatableContract
         'id',
         'title',
         'slug',
-        'difficulty'
+        'difficulty',
     ];
 
     public $filterable = [
@@ -53,9 +51,9 @@ class Report extends Model implements HasMedia, TranslatableContract
         'difficulty',
         /*        'excerpt',
         'content',
-        */
-        'tags.name',
-      //  'categories.name',
+
+        'tags.name',    */
+        //  'categories.name',
     ];
 
     protected $appends = [
@@ -82,19 +80,17 @@ class Report extends Model implements HasMedia, TranslatableContract
 
     protected $casts = [
         'type' => 'string',
-        'time_a' =>'timestamp',
-        'time_r' =>'timestamp'
+        'time_a' => 'timestamp',
+        'time_r' => 'timestamp',
     ];
-
 
     public function registerMediaConversions(Media $media = null): void
     {
-        $thumbnailWidth  = 50;
+        $thumbnailWidth = 50;
         $thumbnailHeight = 50;
 
-        $thumbnailPreviewWidth  = 196;
+        $thumbnailPreviewWidth = 196;
         $thumbnailPreviewHeight = 196;
-
 
         $this->addMediaConversion('thumbnail')
             ->width($thumbnailWidth)
@@ -110,12 +106,11 @@ class Report extends Model implements HasMedia, TranslatableContract
             ->nonQueued();
     }
 
-
-
     public function getLengthAttribute($value)
     {
         return number_format($value / 100, 2, '.');
     }
+
     public function setLengthAttribute($value)
     {
         if (is_numeric($value)) {
@@ -167,11 +162,9 @@ class Report extends Model implements HasMedia, TranslatableContract
         ];
 
         if (array_key_exists($this->difficulty, $type)) {
-
             return $type[$this->difficulty];
         }
 
-        return;
     }
 
     public function getDifficultyLabelAttribute($value)
@@ -187,6 +180,7 @@ class Report extends Model implements HasMedia, TranslatableContract
             $media['thumbnail'] = $item->getUrl('thumbnail');
             $media['preview_thumbnail'] = $item->getUrl('preview_thumbnail');
             $media['preview'] = $item->getUrl('preview');
+
             return $media;
         });
     }
@@ -201,6 +195,17 @@ class Report extends Model implements HasMedia, TranslatableContract
         });
     }
 
+    /*
+        public function getCategorySlugAttribute()
+        {
+            return $this->categories->map(function($qry){ return $qry->translateOrDefault();})->first()?->slug;
+        }
+
+        public function getSlugAttribute()
+        {
+            return $this->map(function($qry){ return $qry->translateOrDefault();})->first()?->slug;
+        }
+    */
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -228,41 +233,50 @@ class Report extends Model implements HasMedia, TranslatableContract
     }
 
     public function getTimeAAttribute($value)
-    {   
-        if (empty($value)) { return "00:00";}
+    {
+        if (empty($value)) {
+            return '00:00';
+        }
+
         return Carbon::parse($value)->format('H:i');
     }
-    
+
+    public function getPathAttribute()
+    {
+        $locale=app()->getLocale();
+        $path="";
+        $path.= $this->categories->first->translate($locale)?$this->categories->first->translate($locale)->slug:'none';
+        $path.= '/'.$this->translate($locale)->slug;
+        return $path;
+    }
+
     public function setTimeAAttribute($value)
     {
-        
-        $this->attributes['time_a']= Carbon::parse($value)->toDateTimeString();
+        $this->attributes['time_a'] = Carbon::parse($value)->toDateTimeString();
     }
 
     public function getTimeRAttribute($value)
     {
-        if (empty($value)) { return "00:00";}
+        if (empty($value)) {
+            return '00:00';
+        }
+
         return Carbon::parse($value)->format('H:i');
     }
-    
+
     public function setTimeRAttribute($value)
     {
-     //   ray(Carbon::parse($value)->toDateTimeString());
-        $this->attributes['time_r']= Carbon::parse($value)->toDateTimeString();
+        //   ray(Carbon::parse($value)->toDateTimeString());
+        $this->attributes['time_r'] = Carbon::parse($value)->toDateTimeString();
     }
-    
 
     public function getBibliographiesAttribute($value)
     {
-       
-        return json_decode($value,true,512,JSON_OBJECT_AS_ARRAY);
-        
+        return json_decode($value, true, 512, JSON_OBJECT_AS_ARRAY);
     }
 
     public function setBibliographiesAttribute($value)
     {
-        $this->attributes['bibliographies']= json_encode($value);
+        $this->attributes['bibliographies'] = json_encode($value);
     }
-
-
 }

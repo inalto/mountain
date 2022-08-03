@@ -25,8 +25,8 @@ class Edit extends Component
     public function mount(ContentPage $contentPage)
     {
         $this->contentPage = $contentPage;
-        $this->category    = $this->contentPage->category()->pluck('id')->toArray();
-        $this->tag         = $this->contentPage->tag()->pluck('id')->toArray();
+        $this->category = $this->contentPage->category()->pluck('id')->toArray();
+        $this->tag = $this->contentPage->tag()->pluck('id')->toArray();
         $this->initListsForFields();
         $this->mediaCollections = [
             'content_page_featured_image' => $contentPage->featured_image,
@@ -112,7 +112,7 @@ class Edit extends Component
     protected function initListsForFields(): void
     {
         $this->listsForFields['category'] = ContentCategory::pluck('name', 'id');
-        $this->listsForFields['tag']      = ContentTag::pluck('name', 'id');
+        $this->listsForFields['tag'] = ContentTag::pluck('name', 'id');
     }
 
     protected function syncMedia(): void

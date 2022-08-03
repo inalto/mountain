@@ -18,7 +18,6 @@ class CreateAuditLogsTable extends Migration
             $table->string('host', 46)->nullable();
             $table->dateTime('created_at');
             $table->dateTime('updaated_at');
-
         });
     }
 }

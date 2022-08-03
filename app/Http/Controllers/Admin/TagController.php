@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
 use Gate;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class TagController extends Controller
@@ -41,8 +40,6 @@ class TagController extends Controller
     public function search($tagname)
     {
         //abort_if(Gate::denies('inalto_tag_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        return response()->json(Tag::where('name','like','ita%')->select('id','name')->get()->toArray());
-        
+        return response()->json(Tag::where('name', 'like', 'ita%')->select('id', 'name')->get()->toArray());
     }
-
 }

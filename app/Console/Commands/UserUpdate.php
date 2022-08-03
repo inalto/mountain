@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Support\Inalto\Import\User as UserImport;
+use Illuminate\Console\Command;
 
 class UserUpdate extends Command
 {
@@ -40,8 +40,8 @@ class UserUpdate extends Command
     {
         //ray($this->option('dryrun'));
         $this->output->writeln('Updating inalto users...');
-        return UserImport::import($this->output,$this->option('uid'),$this->option('truncate'),$this->option('dryrun'));
-        $this->output->writeln('Done.');
 
+        return UserImport::import($this->output, $this->option('uid'), $this->option('truncate'), $this->option('dryrun'));
+        $this->output->writeln('Done.');
     }
 }

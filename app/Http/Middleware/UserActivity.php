@@ -2,11 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use Closure;
-use Illuminate\Http\Request;
 use Auth;
 use Cache;
 use Carbon\Carbon;
+use Closure;
+use Illuminate\Http\Request;
 
 class UserActivity
 {
@@ -21,8 +21,9 @@ class UserActivity
     {
         if (Auth::check()) {
             $expiresAt = Carbon::now()->addMinutes(1);
-            Cache::put('inalto-u-' . Auth::user()->id, true, $expiresAt);
+            Cache::put('inalto-u-'.Auth::user()->id, true, $expiresAt);
         }
+
         return $next($request);
     }
 }

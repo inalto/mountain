@@ -29,8 +29,8 @@ return [
     */
 
     'features' => [
-         Features::profilePhotos(),
-         Features::termsAndPrivacyPolicy(),
+        Features::profilePhotos(),
+        Features::termsAndPrivacyPolicy(),
         // Features::api(),
         // Features::teams(),
     ],

@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Cviebrock\EloquentSluggable\Sluggable;
 
 class PoiTranslation extends Model
 {
@@ -13,16 +13,16 @@ class PoiTranslation extends Model
 
     public $table = 'pois_translations';
 
-    protected $fillable = ['name', 'slug','content','excerpt','bibliography','approved','published'];
+    protected $fillable = ['name', 'slug', 'content', 'excerpt', 'bibliography', 'approved', 'published'];
+
     public $timestamps = false;
 
-    public function sluggable():array
+    public function sluggable(): array
     {
         return [
             'slug' => [
-                'source' => 'title'
-            ]
+                'source' => 'title',
+            ],
         ];
     }
-    
 }

@@ -210,6 +210,7 @@ return [
     "sample_category" => "Categoria d'esempio",
     "sample_question" => "Domanda d'esempio",
     "save" => "Salva",
+    "save_and_exit" => "Salva ed esci",
     "search" => "Ricerca",
     "search_input_too_short" => "Per cortesia inserisci :count o più caratteri",
     "searching" => "sto cercando",

@@ -45,7 +45,6 @@ class AddUsersFields extends Migration
             $table->dropColumn('country');
             $table->dropColumn('work');
             $table->dropColumn('interests');
-
         });
     }
 }

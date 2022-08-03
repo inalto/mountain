@@ -2,18 +2,17 @@
 
 namespace App\Models;
 
-use \DateTimeInterface;
 use App\Support\HasAdvancedFilter;
 use App\Traits\Auditable;
 use App\Traits\Tenantable;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
+use Astrotomic\Translatable\Translatable;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
 
 class Poi extends Model implements HasMedia, TranslatableContract
 {
@@ -22,14 +21,13 @@ class Poi extends Model implements HasMedia, TranslatableContract
     use SoftDeletes;
     use Tenantable;
     use InteractsWithMedia;
- //   use Auditable;
-    use Translatable;
 
+    //   use Auditable;
+    use Translatable;
 
     public $table = 'pois';
 
-    public $translatedAttributes = ['name', 'slug','content','excerpt'];
-
+    public $translatedAttributes = ['name', 'slug', 'content', 'excerpt'];
 
     public $orderable = [
         'id',

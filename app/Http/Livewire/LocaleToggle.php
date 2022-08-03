@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use Illuminate\Support\Facades\App;
+use Livewire\Component;
 
 class LocaleToggle extends Component
 {
+    public $locales = [];
 
-    public $locales=[];
     public $currentLocale;
 
     public function render()
@@ -16,13 +16,12 @@ class LocaleToggle extends Component
         return view('livewire.locale-toggle');
     }
 
-
     public function mount()
     {
-        $this->currentLocale=App::currentLocale();
-        $locales=config('translatable')['locales'];
+        $this->currentLocale = App::currentLocale();
+        $locales = config('translatable')['locales'];
         if (is_array($locales)) {
-            $this->locales=$locales;
+            $this->locales = $locales;
         }
     }
 }

@@ -2,13 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Carbon\Carbon;
-//use App\Models\User;
 use App\Models\Tag;
-use Log;
+use Illuminate\Database\Seeder;
+//use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class TagsTableSeeder extends Seeder
 {
@@ -19,29 +16,19 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-     
-$tags = DB::connection('mysqlold')->table('taxonomy_term_data')->where('vid',1)->get();
+        $tags = DB::connection('mysqlold')->table('taxonomy_term_data')->where('vid', 1)->get();
 
-
-            foreach ($tags as $tag) {
-                
-
-                Tag::firstOrCreate(
+        foreach ($tags as $tag) {
+            Tag::firstOrCreate(
                     [
-                        'tid' => $tag->tid
+                        'tid' => $tag->tid,
                     ],
                     [
                         'name' => $tag->name,
-                'description' => $tag->description,
-                'tid' => $tag->tid
-                
+                        'description' => $tag->description,
+                        'tid' => $tag->tid,
+
                     ]);
-                
-                ;
-                
-                
-            }
         }
-
-
     }
+}

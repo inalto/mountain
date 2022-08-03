@@ -26,6 +26,7 @@
         Loading...
     </div>
 
+
     <div class="overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table table-index w-full">

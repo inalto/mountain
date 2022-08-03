@@ -243,8 +243,6 @@
                 {!!$report->excerpt!!}
                 <h2>{{ trans('cruds.report.fields.description') }}</h2>
                 {!!$report->content!!}
-       
-                <x-locale-toggle />
             </div>
         
             <div class="body-font w-full max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">

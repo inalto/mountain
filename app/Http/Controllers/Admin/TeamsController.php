@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateTeamRequest;
 use App\Models\Permission;
 use App\Models\Team;
 use Gate;
-use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TeamsController extends Controller

@@ -6,11 +6,11 @@ use App\Models\Category;
 use App\Models\Report;
 use App\Models\ReportTranslation;
 use App\Models\Tag;
+use Cviebrock\EloquentSluggable\Services\SlugService;
+use Input;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
-use Cviebrock\EloquentSluggable\Services\SlugService;
-use Input;
 
 class Edit extends Component
 {
@@ -26,49 +26,49 @@ class Edit extends Component
 
     public array $listsForFields = [];
 
- //   public array $mediaCollections = [];
+    //  public array $mediaCollections = [];
 
-    public $mediaComponentNames = ['photos','tracks'];
+    public $mediaComponentNames = ['photos', 'tracks'];
 
     public $photos;
+
     public $tracks;
 
     public array $bibliographies = [];
 
-    public $type ="";
-    public $difficulty ="";
+    public $type = '';
+
+    public $difficulty = '';
 
     public $title = null;
+
     public $slug = null;
-
-
-
 
     public function mount(Report $report)
     {
- 
-        
-        $this->report     = $report;
-        $this->difficulty     = $report->difficulty;
+        $this->report = $report;
+        $this->difficulty = $report->difficulty;
         $this->initListsForFields();
         $this->type = $this->report->getTypeAttribute();
-        $this->tags       = $this->report->tags()->pluck('id')->toArray();
+        $this->tags = $this->report->tags()->pluck('id')->toArray();
+        //$this->categories = $this->report->categories()->pluck('id')->toArray();
         $this->categories = $this->report->categories()->pluck('id')->toArray();
-        
-       // $this->photos =$report->getMedia('photos');
 
-        
-        if (is_array($this->report->bibliographies)){
-            $this->bibliographies=$this->report->bibliographies;
-        };
+        // $this->photos =$report->getMedia('photos');
+
+        if (is_array($this->report->bibliographies)) {
+            $this->bibliographies = $this->report->bibliographies;
+        }
         //$this->report_photos = $report->photos;
- /*
-        $this->mediaCollections = [
-            'report_photos'  => $report->photos,
-            'report_tracks' => $report->tracks,
-        ];
+        /*
+               $this->mediaCollections = [
+                   'report_photos'  => $report->photos,
+                   'report_tracks' => $report->tracks,
+               ];
 
-        */
+               */
+
+        ray($this);
     }
 
     public function render()
@@ -77,44 +77,47 @@ class Edit extends Component
         //$this->initListsForFields();
         return view('livewire.report.edit');
     }
-    
+
     public function updatedReportTitle()
     {
         $this->report->slug = SlugService::createSlug(ReportTranslation::class, 'slug', $this->report->title);
     }
 
-
     public function updatedType($type)
     {
-        $this->type=$type;
+        $this->type = $type;
         //ray($this->type);
         $this->difficulty = key($this->listsForFields[$type]);
     }
 
     public function submit()
     {
-        $this->validate();
-        
-        //ray(Input::get('time_r'));
-        ray($this->report->time_r);
-        $this->report->bibliographies=$this->bibliographies;
-        
+
+        $this->save();
+        return redirect()->route('admin.reports.index');
+    }
+    public function save()
+    {
+
+        $this->report->bibliographies = $this->bibliographies;
         $this->report->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
         $this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
         $this->report->tags()->sync($this->tags);
+
         $this->report->categories()->sync($this->categories);
+        unset($this->report->categories);
         $this->report->save();
-
-        return redirect()->route('admin.reports.index');
     }
 
 
-    public function addBibliography() {
-        $this->bibliographies[]=['title'=>'','author'=>'','link'=>'https://'];
+    public function addBibliography()
+    {
+        $this->bibliographies[] = ['title' => '', 'author' => '', 'link' => 'https://'];
     }
 
-    public function removeBibliography($index) {
-        array_splice($this->bibliographies,$index,1);
+    public function removeBibliography($index)
+    {
+        array_splice($this->bibliographies, $index, 1);
     }
 
     /*
@@ -147,21 +150,18 @@ public function store(Request $request)
 
 */
 
-
     protected function rules(): array
     {
         return [
-            'report.owner_id'=> [
+            'report.owner_id' => [
                 'digits_between:0,4',
                 'required',
-            
-            ]
-            ,
+
+            ],
             'photos.*.name' => [
                 'string',
-                'required'
+                'required',
             ],
-
 
             'type' => [
                 'string',
@@ -201,25 +201,23 @@ public function store(Request $request)
                 'string',
                 'nullable',
             ],
-           
+
             'report.length' => [
                 'numeric',
                 'nullable',
             ],
-     
 
-            
             'report.difficulty' => [
                 'nullable',
                 /*'string',*/
-                
-                'in:' . implode(',', array_keys(array_merge(
+
+                'in:'.implode(',', array_keys(array_merge(
                     $this->listsForFields['hiking'],
                     $this->listsForFields['snowshoeing'],
                     $this->listsForFields['mountaineering'],
                     $this->listsForFields['skimountaineering']
                 ))),
-                
+
             ],
             'report.approved' => [
                 'boolean',
@@ -237,6 +235,7 @@ public function store(Request $request)
                 'string',
                 'nullable',
             ],
+
             'tags' => [
                 'array',
             ],
@@ -256,17 +255,17 @@ public function store(Request $request)
             ],
             'bibliographies.*.title' => [
                 'string',
-                'nullable'
+                'nullable',
             ],
             'bibliographies.*.author' => [
                 'string',
-                'nullable'
+                'nullable',
             ],
             'bibliographies.*.link' => [
                 'string',
-                'nullable'
+                'nullable',
             ],
-          
+
         ];
     }
 
@@ -276,7 +275,7 @@ public function store(Request $request)
             'hiking' => trans('cruds.report.fields.difficulty_class.hiking'),
             'snowshoeing' => trans('cruds.report.fields.difficulty_class.snowshoeing'),
             'mountaineering' => trans('cruds.report.fields.difficulty_class.mountaineering'),
-            'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering')
+            'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering'),
         ];
 
         $this->listsForFields['hiking'] = [
@@ -284,47 +283,47 @@ public function store(Request $request)
             'T2' => trans('cruds.report.fields.difficulty_class.T2'),
             'T3' => trans('cruds.report.fields.difficulty_class.T3'),
             'T4' => trans('cruds.report.fields.difficulty_class.T4'),
-            'T5' => trans('cruds.report.fields.difficulty_class.T5')
+            'T5' => trans('cruds.report.fields.difficulty_class.T5'),
         ];
         $this->listsForFields['snowshoeing'] = [
-            'WT1'=>trans('cruds.report.fields.difficulty_class.WT1'),
-            'WT2'=>trans('cruds.report.fields.difficulty_class.WT2'),
-            'WT3'=>trans('cruds.report.fields.difficulty_class.WT3'),
-            'WT4'=>trans('cruds.report.fields.difficulty_class.WT4'),
-            'WT5'=>trans('cruds.report.fields.difficulty_class.WT5')
+            'WT1' => trans('cruds.report.fields.difficulty_class.WT1'),
+            'WT2' => trans('cruds.report.fields.difficulty_class.WT2'),
+            'WT3' => trans('cruds.report.fields.difficulty_class.WT3'),
+            'WT4' => trans('cruds.report.fields.difficulty_class.WT4'),
+            'WT5' => trans('cruds.report.fields.difficulty_class.WT5'),
         ];
         $this->listsForFields['mountaineering'] = [
-            'F-'=>trans('cruds.report.fields.difficulty_class.Fm'),
-            'F'=>trans('cruds.report.fields.difficulty_class.F'),
-            'F+'=>trans('cruds.report.fields.difficulty_class.Fp'),
-            'PD-'=>trans('cruds.report.fields.difficulty_class.PDm'),
-            'PD'=>trans('cruds.report.fields.difficulty_class.PD'),
-            'PD+'=>trans('cruds.report.fields.difficulty_class.PDp'),
-            'AD-'=>trans('cruds.report.fields.difficulty_class.ADm'),
-            'AD'=>trans('cruds.report.fields.difficulty_class.AD'),
-            'AD+'=>trans('cruds.report.fields.difficulty_class.ADp'),
-            'D-'=>trans('cruds.report.fields.difficulty_class.Dm'),
-            'D'=>trans('cruds.report.fields.difficulty_class.D'),
-            'D+'=>trans('cruds.report.fields.difficulty_class.Dp'),
-            'TD-'=>trans('cruds.report.fields.difficulty_class.TDm'),
-            'TD'=>trans('cruds.report.fields.difficulty_class.TD'),
-            'TD+'=>trans('cruds.report.fields.difficulty_class.TDp'),
-            'ED-'=>trans('cruds.report.fields.difficulty_class.EDm'),
-            'ED'=>trans('cruds.report.fields.difficulty_class.ED'),
-            'ED+'=>trans('cruds.report.fields.difficulty_class.EDp'),
+            'F-' => trans('cruds.report.fields.difficulty_class.Fm'),
+            'F' => trans('cruds.report.fields.difficulty_class.F'),
+            'F+' => trans('cruds.report.fields.difficulty_class.Fp'),
+            'PD-' => trans('cruds.report.fields.difficulty_class.PDm'),
+            'PD' => trans('cruds.report.fields.difficulty_class.PD'),
+            'PD+' => trans('cruds.report.fields.difficulty_class.PDp'),
+            'AD-' => trans('cruds.report.fields.difficulty_class.ADm'),
+            'AD' => trans('cruds.report.fields.difficulty_class.AD'),
+            'AD+' => trans('cruds.report.fields.difficulty_class.ADp'),
+            'D-' => trans('cruds.report.fields.difficulty_class.Dm'),
+            'D' => trans('cruds.report.fields.difficulty_class.D'),
+            'D+' => trans('cruds.report.fields.difficulty_class.Dp'),
+            'TD-' => trans('cruds.report.fields.difficulty_class.TDm'),
+            'TD' => trans('cruds.report.fields.difficulty_class.TD'),
+            'TD+' => trans('cruds.report.fields.difficulty_class.TDp'),
+            'ED-' => trans('cruds.report.fields.difficulty_class.EDm'),
+            'ED' => trans('cruds.report.fields.difficulty_class.ED'),
+            'ED+' => trans('cruds.report.fields.difficulty_class.EDp'),
         ];
         $this->listsForFields['skimountaineering'] = [
-            'MS'=>trans('cruds.report.fields.difficulty_class.MS'),
-            'MSA'=>trans('cruds.report.fields.difficulty_class.MSA'),
-            'BS'=>trans('cruds.report.fields.difficulty_class.BS'),
-            'BSA'=>trans('cruds.report.fields.difficulty_class.BSA'),
-            'OS'=>trans('cruds.report.fields.difficulty_class.OS'),
-            'OSA'=>trans('cruds.report.fields.difficulty_class.OSA')
+            'MS' => trans('cruds.report.fields.difficulty_class.MS'),
+            'MSA' => trans('cruds.report.fields.difficulty_class.MSA'),
+            'BS' => trans('cruds.report.fields.difficulty_class.BS'),
+            'BSA' => trans('cruds.report.fields.difficulty_class.BSA'),
+            'OS' => trans('cruds.report.fields.difficulty_class.OS'),
+            'OSA' => trans('cruds.report.fields.difficulty_class.OSA'),
         ];
 
- //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
-        $this->listsForFields['tags']       = Tag::pluck('name', 'id')->toArray();
- //       $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
+        //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
+        $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
+        $this->listsForFields['categories'] = Category::all()->map(function ($qry) { return $qry->translateOrDefault(); })->pluck('name', 'id')->toArray();
     }
 
     protected function syncMedia(): void

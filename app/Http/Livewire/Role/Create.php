@@ -11,6 +11,7 @@ class Create extends Component
     public Role $role;
 
     public array $permissions = [];
+
     public array $permissions_available = [];
 
     public array $listsForFields = [];

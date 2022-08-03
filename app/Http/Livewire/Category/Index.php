@@ -16,19 +16,19 @@ class Index extends Component
     use WithSorting;
     use WithConfirmation;
 
-    public int $perPage;
+    public $perPage;
 
-    public array $orderable;
+    public $orderable = [];
 
-    public string $search = '';
+    public $search = '';
 
-    public array $selected = [];
+    public $selected = [];
 
-    public array $paginationOptions;
+    public $paginationOptions = [];
 
     protected $queryString = [
         'search' => [
-            'except' => '',
+            'except' => 'description',
         ],
         'sortBy' => [
             'except' => 'id',
@@ -60,18 +60,18 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = config('project.pagination.options');
-        $this->orderable         = (new Category())->orderable;
+        $this->orderable = (new Category())->orderable;
     }
 
     public function render()
     {
         $query = Category::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

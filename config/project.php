@@ -1,23 +1,23 @@
 <?php
 
 return [
-    'date_format'               => 'd/m/Y',
-    'time_format'               => 'H:i:s',
-    'datetime_format'           => 'd/m/Y H:i:s',
-    'flatpickr_date_format'     => 'd/m/Y',
-    'flatpickr_time_format'     => 'H:i:S',
+    'date_format' => 'd/m/Y',
+    'time_format' => 'H:i:s',
+    'datetime_format' => 'd/m/Y H:i:s',
+    'flatpickr_date_format' => 'd/m/Y',
+    'flatpickr_time_format' => 'H:i:S',
     'flatpickr_datetime_format' => 'd/m/Y H:i:S',
-    'supported_languages'       => [
+    'supported_languages' => [
         [
-            'title'      => 'Italian',
+            'title' => 'Italian',
             'short_code' => 'it',
         ],
         [
-            'title'      => 'English',
+            'title' => 'English',
             'short_code' => 'en',
         ],
         [
-            'title'      => 'French',
+            'title' => 'French',
             'short_code' => 'fr',
         ],
     ],
