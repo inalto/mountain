@@ -101,8 +101,8 @@
 /* Items */
 .media-library-multiple .media-library-items {
     @apply block;
-    @apply border-2;
-    @apply border-gray-300;
+    @apply border rounded;
+    @apply border-gray-200;
 }
 
 .media-library-item {
@@ -113,8 +113,8 @@
 }
 
 .media-library-item-row:not(:last-child) {
-    @apply border-b;
-    @apply border-gray-300;
+    @apply border-b border-dotted;
+    @apply border-gray-200;
 }
 
 .media-library-filled.media-library-sortable .media-library-add .media-library-dropzone:before {
@@ -361,7 +361,7 @@
     @apply appearance-none !important;
     @apply flex;
     @apply items-center;
-    @apply border-2;
+    @apply border;
     @apply border-gray-600;
     @apply border-opacity-25;
     @apply transition-colors;
@@ -411,7 +411,7 @@
     @apply text-gray-600;
     @apply flex-grow;
     @apply min-w-0;
-    @apply mr-4;
+    @apply mr-8;
     @apply my-4;
 }
 
@@ -420,7 +420,8 @@
 }
 
 .media-library-properties-fixed {
-    @apply w-32;
+    @apply w-16;
+    @apply mr-0;
     @apply flex-grow-0;
 }
 
@@ -433,7 +434,7 @@
 /* Field */
 .media-library-field {
     @apply block;
-    @apply overflow-hidden;
+   /* @apply overflow-hidden;*/
     @apply my-2;
 }
 
@@ -451,21 +452,20 @@
 }
 
 .media-library-input {
-    @apply flex-1;
     @apply w-full;
     @apply text-xs;
     @apply text-gray-800;
-    @apply rounded-sm;
-    @apply bg-gray-200;
-    @apply px-2;
-    @apply py-1;
+    @apply rounded;
+    @apply bg-gray-100;
+    @apply mt-1;
+    @apply p-2;
     @apply transition-colors;
     @apply duration-300;
 }
 
 .media-library-input:focus {
-    @apply outline-none;
-    @apply bg-indigo-100;
+   /* @apply outline-none;
+    @apply bg-indigo-100;*/
 }
 
 /* Rounded buttons */
@@ -520,7 +520,6 @@
 .media-library-dropzone:not(.disabled):focus .media-library-placeholder .media-library-button,
 .media-library-dropzone-drag + .media-library-placeholder .media-library-button {
     @apply opacity-100;
-    @apply shadow-md;
 }
 
 .media-library-dropzone:not(.disabled):active .media-library-placeholder .media-library-button,

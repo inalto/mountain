@@ -4,6 +4,8 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
+use App\Models\Category;
+
 class AppLayout extends Component
 {
     /**
@@ -13,6 +15,8 @@ class AppLayout extends Component
      */
     public function render()
     {
-        return view('layouts.app');
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+        
+        return view('layouts.app',['categories'=>$categories]);
     }
 }

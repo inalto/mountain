@@ -2,23 +2,22 @@
     <div class="card-controls sm:flex">
         <div class="w-full sm:w-1/2">
             Per page:
-            <select wire:model="perPage" class="form-select w-full sm:w-1/6">
+            <select wire:model="perPage" class="form-select  w-full sm:w-1/6">
                 @foreach($paginationOptions as $value)
-                    <option value="{{ $value }}">{{ $value }}</option>
+                <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-
-           
-
+            @can('report_delete')
+                <button class="btn btn-rose ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
+                    {{ __('Delete Selected') }}
+                </button>
+            @endcan
         </div>
         <div class="w-full sm:w-1/2 sm:text-right">
-            Search:
-            <input type="text" wire:model.debounce.300ms="search" class="w-full sm:w-1/3 inline-block" />
+            <x-search wire:model.debounce.300ms="search" class="w-full sm:w-1/3 inline-block" placeholder="{{trans('global.search')}}"></x-search>
         </div>
     </div>
-    <div wire:loading.delay class="col-12 alert alert-info">
-        Loading...
-    </div>
+
 
     <div class="overflow-hidden">
         <div class="overflow-x-auto">
@@ -36,8 +35,13 @@
                             @include('components.table.sort', ['field' => 'title'])
                         </th>
                         <th>
-                            {{ trans('cruds.report.fields.slug') }}
-                            @include('components.table.sort', ['field' => 'slug'])
+                            {{ trans('cruds.report.fields.username') }}
+                            @include('components.table.sort', ['field' => 'owner.name'])
+
+                        </th>
+                        <th>
+                            {{ trans('cruds.report.fields.categories') }}
+                            @include('components.table.sort', ['field' => 'categories.name'])
                         </th>
                         <th>
                             {{ trans('cruds.report.fields.difficulty') }}
@@ -51,88 +55,73 @@
                 <tbody>
                     @forelse($reports as $report)
 
-                        <tr class="table-row">
+                    <tr class="table-row">
 
-                            <td>
-                                <input type="checkbox" value="{{ $report->id }}" wire:model="selected" class="m-2">
-                            </td>
-                            <td>
-                                {{ $report->id }}
-                            </td>
-                            <td>
+                        <td>
+                            <input type="checkbox" value="{{ $report->id }}" wire:model="selected" class="m-2">
+                        </td>
+                        <td>
+                            {{ $report->id }}
+                        </td>
+                        <td>
+                            <div class="relative inline-flex items-center justify-between space-x-2 w-full max-w-sm">
                                 {{ $report->title }}
-                            </td>
-                            <td>
-                                {{ $report->slug }}
-                            </td>
-                            <td>
-                                {{ $report->difficulty }}
-                            </td>
-                            {{--
-                            <td>
-                                {{ $report->excerpt }}
-                            </td>
-                            <td>
-                                {{ $report->content }}
-                            </td>
-                            <td>
-                                @foreach($report->photo as $key => $entry)
-                                    <a class="link-photo" href="{{ $entry['url'] }}">
-                                        <img src="{{ $entry['thumbnail'] }}" alt="{{ $entry['name'] }}" title="{{ $entry['name'] }}">
-                                    </a>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($report->tracks as $key => $entry)
-                                    <a class="link-light-blue" href="{{ $entry['url'] }}">
-                                        <i class="far fa-file">
-                                        </i>
-                                        {{ $entry['file_name'] }}
-                                    </a>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($report->tags as $key => $entry)
-                                    <span class="badge badge-relationship">{{ $entry->name }}</span>
-                                @endforeach
-                            </td>
-                            <td>
-                                @foreach($report->categories as $key => $entry)
-                                    <span class="badge badge-relationship">{{ $entry->name }}</span>
-                                @endforeach
-                            </td>
-                            --}}
-                            <td>
-                                <div class="flex justify-end">
-                                    @can('inalto_report_show')
-                                        <a class="show mr-2" href="{{ route('report.show', $report->path) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-</svg>
-                                        </a>
-                                    @endcan
-                                    @can('inalto_report_edit')
-                                        <a class="edit mr-2" href="{{ route('admin.reports.edit', $report) }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-</svg>
-                                        </a>
-                                    @endcan
-                                    @can('inalto_report_delete')
-                                        <button class="delete mr-2" type="button" wire:click="confirm('delete', {{ $report->id }})" wire:loading.attr="disabled">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-</svg>
-                                        </button>
-                                    @endcan
+                                <div class="inline group">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" stroke-width="1.5" viewBox="0 0 24 24" fill="none" class="h-4 w-4 group-hover:text-blue-500 transition duration-150">
+                                            <path d="M12 11.5V16.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M12 7.51L12.01 7.49889" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <div class="invisible group-hover:visible absolute top-0 left-0 z-10 space-y-1 bg-gray-900 text-gray-50 text-sm rounded px-4 py-2 w-full max-w-xs shadow-md" role="tooltip" aria-hidden="true">
+                                        <p>url alias:<br>{{ $report->slug }}</p>
+                                    </div>
                                 </div>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="10">No entries found.</td>
-                        </tr>
+                            </div>
+                        </td>
+                        <td>
+                            {{ $report->owner->name }}
+                        </td>
+                        <td>
+                            @foreach($report->categories as $key => $entry)
+                            <span class="badge badge-relationship">{{ $entry->name }}</span>
+                            @endforeach
+                        </td>
+                        <td>
+                            {{ $report->difficulty }}
+                        </td>
+                        <td>
+                            <div class="flex justify-end">
+                                @can('report_show')
+                                <a class="show mr-2" href="{{ route('report.show', $report->path) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </a>
+                                @endcan
+                                @can('report_edit')
+                                <a class="edit mr-2" href="{{ route('admin.reports.edit', $report) }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </a>
+                                @endcan
+                                @can('report_delete')
+                                <button class="delete mr-2" type="button" wire:click="$emit('swal:confirm', {{ $report->id }})" wire:loading.attr="disabled">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                    </svg>
+                                </button>
+                                @endcan
+                            </div>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="10">No entries found.</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -142,20 +131,20 @@
     <div class="card-body">
         <div class="p-3">
             @if($this->selectedCount)
-                <p class="text-sm leading-5">
-                    <span class="font-medium">
-                        {{ $this->selectedCount }}
-                    </span>
-                    {{ __('Entries selected') }}
-                    @can('report_delete')
-                    <button class="delete ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
-                        <i class="fa fa-trash"></i>
-                    </button>
-    
+            <p class="text-sm leading-5">
+                <span class="font-medium">
+                    {{ $this->selectedCount }}
+                </span>
+                {{ __('Entries selected') }}
+                @can('report_delete')
+                <button class="delete ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
+                    <i class="fa fa-trash"></i>
+                </button>
+
                 @endcan
-    
-    
-                </p>
+
+
+            </p>
             @endif
             {{ $reports->links() }}
         </div>
@@ -163,12 +152,12 @@
 </div>
 
 @push('scripts')
-    <script>
-        Livewire.on('confirm', e => {
-    if (!confirm("Are You Sure?")) {
-        return
-    }
-@this[e.callback](...e.argv)
-})
-    </script>
+<script>
+    Livewire.on('confirm', e => {
+        if (!confirm("Are You Sure?")) {
+            return
+        }
+        @this[e.callback](...e.argv)
+    })
+</script>
 @endpush

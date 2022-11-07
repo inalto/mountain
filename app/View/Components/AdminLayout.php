@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\Category;
 
 class AdminLayout extends Component
 {
@@ -13,6 +14,7 @@ class AdminLayout extends Component
      */
     public function render()
     {
-        return view('layouts.admin');
+        $categories = Category::with('children')->whereNull('parent_id')->get();
+        return view('layouts.admin',['categories'=>$categories]);
     }
 }

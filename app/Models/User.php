@@ -105,8 +105,18 @@ class User extends Authenticatable implements HasMedia
         });
     }
 
+
+
     public function isOnline()
     {
         return Cache::has('inalto-u-'.$this->id);
+    }
+
+    /*
+     * Jestream profile photo override using medialibrary
+     */
+    public function getProfilePhotoUrlAttribute()
+    {
+        return $this->getFirstMediaUrl('avatar');
     }
 }

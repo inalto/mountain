@@ -19,9 +19,10 @@ use Admin\RoleController;
 use Admin\TagController;
 use Admin\UserController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\HaveBeenThereController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Frontend\ReportsController as Report;
-use App\Http\Controllers\inalto\HomeController as Home;
+
 use Illuminate\Support\Facades\Auth;
 /*
 * Frontend
@@ -34,9 +35,24 @@ Route::mediaLibrary();
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
-Route::get('/', [Home::class, 'index'])->name('home');
-Route::view('/info', 'info');
-Route::get('/relazione/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('report.show');
+    Route::get('/', [Report::class, 'index'])->name('home');
+
+    Route::view('/info', 'info');
+
+    Route::get('/relazioni/{category?}', [Report::class, 'index'])->name('reports');
+    Route::get('/relazioni/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('report.show');
+
+    Route::get('/'.trans('routes.my').'/{category?}', [Report::class, 'my'])->name('reports.my');
+    /*
+    Route::get('/poi/{category?}', [Report::class, 'index'])->name('poi');
+    Route::get('/poi/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('poi.show');
+
+    Route::get('/news/{category?}', [Report::class, 'index'])->name('news');
+    Route::get('/news/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('news.show');
+
+    Route::get('/have-been-there/{category?}', [Report::class, 'index'])->name('have-been-there');
+    Route::get('/have-been-there/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('have-been-there.show');
+    */
 });
 
 //Route::redirect('/', '/login');
@@ -70,15 +86,21 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     Route::resource('audit-logs', AuditLogController::class, ['except' => ['store', 'update', 'destroy', 'create', 'edit']]);
 
     // Report
+    Route::resource('reports', ReportController::class, ['except' => ['store', 'update', 'destroy']]);
     Route::post('reports/media', [\App\Http\Controllers\Admin\ReportController::class, 'storeMedia'])->name('reports.storeMedia');
 
-    Route::resource('reports', ReportController::class, ['except' => ['store', 'update', 'destroy']]);
+    // Have Been There
+    Route::resource('have-been-there', HaveBeenThereController::class, ['except' => ['store', 'update', 'destroy']]);
+    Route::post('have-been-there/media', [HaveBeenThereController::class, 'storeMedia'])->name('havebeenthere.storeMedia');
+
+
 
     // Tag
     Route::resource('tags', TagController::class, ['except' => ['store', 'update', 'destroy']]);
 
     // Poi
     Route::resource('pois', PoiController::class, ['except' => ['store', 'update', 'destroy']]);
+    Route::post('pois/media', [\App\Http\Controllers\Admin\PoiController::class, 'storeMedia'])->name('poi.storeMedia');
 
     // Category
     Route::resource('categories', CategoryController::class, ['except' => ['store', 'update', 'destroy']]);

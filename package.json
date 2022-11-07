@@ -2,27 +2,35 @@
     "private": true,
     "scripts": {
         "dev": "vite --host=10.1.1.8",
-        "build": "vite build"
+        "build": "vite build",
+        "rollup": "rollup --bundleConfigAsCjs --config rollup.config.js"
     },
     "dependencies": {
         "@fancyapps/ui": "^4.0.25",
         "@left4code/tw-starter": "^3.1.17",
         "@popperjs/core": "^2.11.2",
+        "@raruto/leaflet-elevation": "^2.2.7",
         "@ryangjchandler/alpine-clipboard": "^2.1.0",
         "clockpicker": "0.0.7",
         "dayjs": "^1.10.7",
         "dropzone": "^5.9.3",
-        "flatpickr": "^4.6.9",
+        "flatpickr": "^4.6.13",
         "jquery": "^3.6.0",
+        "leaflet": "^1.8.0",
+        "leaflet-gpx": "^1.7.0",
+        "leaflet-i18n": "^0.3.1",
         "select2": "^4.1.0-rc.0",
         "toastr": "^2.1.4"
     },
     "devDependencies": {
         "@fortawesome/fontawesome-free": "^6.0.0",
+        "@rollup/plugin-commonjs": "^23.0.2",
+        "@rollup/plugin-node-resolve": "^15.0.1",
+        "@rollup/plugin-replace": "^5.0.1",
         "@tailwindcss/forms": "^0.4.0",
         "@tailwindcss/typography": "^0.5.2",
-        "alpinejs": "^3.9.0",
-        "autoprefixer": "^10.4.2",
+        "alpinejs": "^3.10.3",
+        "autoprefixer": "^10.4.8",
         "axios": "^0.26",
         "exceljs": "^4.3.0",
         "laravel-vite-plugin": "^0.5.2",
@@ -32,6 +40,11 @@
         "postcss-import": "^14.0.2",
         "postcss-nested": "^5.0.6",
         "resolve-url-loader": "^5.0.0",
+        "rollup-plugin-copy": "^3.4.0",
+        "rollup-plugin-import-css": "^3.1.0",
+        "rollup-plugin-postcss": "^4.0.2",
+        "rollup-plugin-terser": "^7.0.2",
+        "tailwind": "^4.0.0",
         "tailwindcss": "^3.1.7",
         "vite": "^3.0.4"
     }

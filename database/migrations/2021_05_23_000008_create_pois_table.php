@@ -15,7 +15,7 @@ class CreatePoisTable extends Migration
             $table->integer('height')->nullable();
             $table->longText('bibliography')->nullable();
             $table->dateTime('created_at');
-            $table->dateTime('updaated_at');
+            $table->dateTime('updated_at');
 
             $table->dateTime('deleted_at');
         });

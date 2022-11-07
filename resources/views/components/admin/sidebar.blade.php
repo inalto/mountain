@@ -35,8 +35,8 @@
           x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
           @can('permission_access')
             <li class="nav-item">
-              <a href="{{ route("admin.permissions.index") }}"
-                class="nav-link {{ request()->is("admin/permissions") || request()->is("admin/permissions/*") ? "active" : "" }}">
+              <a href="{{ route('admin.permissions.index') }}"
+                class="nav-link {{ request()->is('admin/permissions') || request()->is('admin/permissions/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-unlock-alt">
                 </i>
                 {{ trans('cruds.permission.title') }}
@@ -45,8 +45,8 @@
           @endcan
           @can('role_access')
             <li class="nav-item">
-              <a href="{{ route("admin.roles.index") }}"
-                class="nav-link {{ request()->is("admin/roles") || request()->is("admin/roles/*") ? "active" : "" }}">
+              <a href="{{ route('admin.roles.index') }}"
+                class="nav-link {{ request()->is('admin/roles') || request()->is('admin/roles/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-briefcase"></i>
                 <p>
                   {{ trans('cruds.role.title') }}
@@ -56,8 +56,8 @@
           @endcan
           @can('user_access')
             <li class="nav-item">
-              <a href="{{ route("admin.users.index") }}"
-                class="nav-link {{ request()->is("admin/users") || request()->is("admin/users/*") ? "active" : "" }}">
+              <a href="{{ route('admin.users.index') }}"
+                class="nav-link {{ request()->is('admin/users') || request()->is('admin/users/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   {{ trans('cruds.user.title') }}
@@ -71,7 +71,7 @@
 
     @can('content_management_access')
       <li
-        x-data="{ open: {{ request()->is("admin/content-categories*") ||request()->is("admin/content-tags*")||request()->is("admin/content-pages*")? 'true' : 'false' }} }"
+        x-data="{ open: {{ request()->is('admin/content-categories*') ||request()->is('admin/content-tags*')||request()->is('admin/content-pages*')? 'true' : 'false' }} }"
         class="nav-item has-treeview ">
         <a x-on:click="open = !open" class="nav-link nav-dropdown-toggle" href="#">
           <span>
@@ -86,8 +86,8 @@
           x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
           @can('content_category_access')
             <li class="nav-item">
-              <a href="{{ route("admin.content-categories.index") }}"
-                class="nav-link {{ request()->is("admin/content-categories") || request()->is("admin/content-categories/*") ? "active" : "" }}">
+              <a href="{{ route('admin.content-categories.index') }}"
+                class="nav-link {{ request()->is('admin/content-categories') || request()->is('admin/content-categories/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-folder"></i>
                 <p>
                   {{ trans('cruds.contentCategory.title') }}
@@ -97,8 +97,8 @@
           @endcan
           @can('content_tag_access')
             <li class="nav-item">
-              <a href="{{ route("admin.content-tags.index") }}"
-                class="nav-link {{ request()->is("admin/content-tags") || request()->is("admin/content-tags/*") ? "active" : "" }}">
+              <a href="{{ route('admin.content-tags.index') }}"
+                class="nav-link {{ request()->is('admin/content-tags') || request()->is('admin/content-tags/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tags"></i>
                 <p>
                   {{ trans('cruds.contentTag.title') }}
@@ -108,8 +108,8 @@
           @endcan
           @can('content_page_access')
             <li class="nav-item">
-              <a href="{{ route("admin.content-pages.index") }}"
-                class="nav-link {{ request()->is("admin/content-pages") || request()->is("admin/content-pages/*") ? "active" : "" }}">
+              <a href="{{ route('admin.content-pages.index') }}"
+                class="nav-link {{ request()->is('admin/content-pages') || request()->is('admin/content-pages/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-file"></i>
                 <p>
                   {{ trans('cruds.contentPage.title') }}
@@ -122,7 +122,7 @@
     @endcan
     @can('inalto_access')
       <li
-        x-data="{ open: {{ request()->is("admin/reports*")||request()->is("admin/pois*")||request()->is("admin/reports-tags*")||request()->is("admin/reports-categories*")? 'true' : 'false' }} }"
+        x-data="{ open: {{ request()->is('admin/reports*')||request()->is('admin/pois*')||request()->is('admin/tags*')||request()->is('admin/categories*')||request()->is('admin/have-been-there*')? 'true' : 'false' }} }"
         class="nav-item has-treeview ">
         <a x-on:click="open = !open" class="nav-link nav-dropdown-toggle" href="#">
           <span>
@@ -134,10 +134,10 @@
         </a>
         <ul x-ref="inner" class="relative overflow-hidden transition-all duration-700 max-h-0"
           x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
-          @can('inalto_report_access')
+          @can('report_access')
             <li class="nav-item">
-              <a href="{{ route("admin.reports.index") }}"
-                class="nav-link {{ request()->is("admin/reports") || request()->is("admin/reports/*") ? "active" : "" }}">
+              <a href="{{ route('admin.reports.index') }}"
+                class="nav-link {{ request()->is('admin/reports') || request()->is('admin/reports/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-street-view"></i>
                 <p>
                   {{ trans('cruds.report.title') }}
@@ -145,10 +145,11 @@
               </a>
             </li>
           @endcan
+
           @can('inalto_poi_access')
             <li class="nav-item">
-              <a href="{{ route("admin.pois.index") }}"
-                class="nav-link {{ request()->is("admin/pois*") ? "active" : "" }}">
+              <a href="{{ route('admin.pois.index') }}"
+                class="nav-link {{ request()->is('admin/oois') || request()->is('admin/pois/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                   {{ trans('cruds.poi.title') }}
@@ -156,11 +157,21 @@
               </a>
             </li>
           @endcan
-
+          @can('inalto_havebeenthere_access')
+            <li class="nav-item">
+              <a href="{{ route('admin.have-been-there.index') }}"
+                class="nav-link {{ request()->is('admin/have-been-there') || request()->is('admin/have-been-there/*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-street-view"></i>
+                <p>
+                  {{ trans('cruds.havebeenthere.title') }}
+                </p>
+              </a>
+            </li>
+          @endcan
           @can('inalto_tag_access')
             <li class="nav-item">
-              <a href="{{ route("admin.tags.index") }}"
-                class="nav-link {{ request()->is("admin/tags*")? "active" : "" }}">
+              <a href="{{ route('admin.tags.index') }}"
+                class="nav-link {{ request()->is('admin/tags') || request()->is('admin/tags/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tags"></i>
                 <p>
                   {{ trans('cruds.reportsTag.title') }}
@@ -171,8 +182,8 @@
 
           @can('inalto_category_access')
             <li class="nav-item">
-              <a href="{{ route("admin.categories.index") }}"
-                class="nav-link {{ request()->is("admin/categories*") ? "active" : "" }}">
+              <a href="{{ route('admin.categories.index') }}"
+                class="nav-link {{ request()->is('admin/categories') || request()->is('admin/categories/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-list"></i>
                 <p>
                   {{ trans('cruds.category.title') }}
@@ -186,7 +197,7 @@
     @endcan
     @can('news_access')
       <li
-        x-data="{ open: {{ request()->is("admin/news-posts*")||request()->is("admin/news-categories*")||request()->is("admin/news-tags*")? 'true' : 'false' }} }"
+        x-data="{ open: {{ request()->is('admin/news-posts*')||request()->is('admin/news-categories*')||request()->is('admin/news-tags*')? 'true' : 'false' }} }"
         class="nav-item has-treeview">
         <a x-on:click="open = !open" class="nav-link nav-dropdown-toggle" href="#">
           <span>
@@ -202,8 +213,8 @@
 
           @can('news_post_access')
             <li class="nav-item">
-              <a href="{{ route("admin.news-posts.index") }}"
-                class="nav-link {{ request()->is("admin/news-posts") || request()->is("admin/news-posts/*") ? "active" : "" }}">
+              <a href="{{ route('admin.news-posts.index') }}"
+                class="nav-link {{ request()->is('admin/news-posts') || request()->is('admin/news-posts/*') ? 'active' : '' }}">
                 <i class="nav-icon far fa-file-alt"></i>
                 <p>
                   {{ trans('cruds.newsPost.title') }}
@@ -213,8 +224,8 @@
           @endcan
           @can('news_category_access')
             <li class="nav-item">
-              <a href="{{ route("admin.news-categories.index") }}"
-                class="nav-link {{ request()->is("admin/news-categories") || request()->is("admin/news-categories/*") ? "active" : "" }}">
+              <a href="{{ route('admin.news-categories.index') }}"
+                class="nav-link {{ request()->is('admin/news-categories') || request()->is('admin/news-categories/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-list"></i>
                 <p>
                   {{ trans('cruds.newsCategory.title') }}
@@ -224,8 +235,8 @@
           @endcan
           @can('news_tag_access')
             <li class="nav-item">
-              <a href="{{ route("admin.news-tags.index") }}"
-                class="nav-link {{ request()->is("admin/news-tags") || request()->is("admin/news-tags/*") ? "active" : "" }}">
+              <a href="{{ route('admin.news-tags.index') }}"
+                class="nav-link {{ request()->is('admin/news-tags') || request()->is('admin/news-tags/*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-tags"></i>
                 <p>
                   {{ trans('cruds.newsTag.title') }}

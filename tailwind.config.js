@@ -26,6 +26,7 @@ module.exports = {
                 danger: withOpacityValue("--color-danger"),
                 light: withOpacityValue("--color-light"),
                 dark: withOpacityValue("--color-dark"),
+              
                 slate: {
                     50: withOpacityValue("--color-slate-50"),
                     100: withOpacityValue("--color-slate-100"),
@@ -50,6 +51,23 @@ module.exports = {
                     800: withOpacityValue("--color-darkmode-800"),
                     900: withOpacityValue("--color-darkmode-900"),
                 },
+               gray:{
+                    850: '#141D2F'
+               }
+               ,
+                'inalto': {
+                    50:  '#E9EEFB',
+                    100: '#D2DCF7',
+                    200: '#AEC0F0',
+                    300: '#8CA4E7',
+                    400: '#7E91DB',
+                    500: '#707FCF',
+                    600: '#6570C5',
+                    700: '#5A64B1',
+                    800: '#4D559A',
+                    900: '#424985',
+                }
+
             },
             fontFamily: {
                 roboto: ["Roboto"],

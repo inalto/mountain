@@ -14,7 +14,7 @@ class CreateContentPagesTable extends Migration
             $table->longText('page_text')->nullable();
             $table->longText('excerpt')->nullable();
             $table->dateTime('created_at');
-            $table->dateTime('updaated_at');
+            $table->dateTime('updated_at');
 
             $table->dateTime('deleted_at');
         });

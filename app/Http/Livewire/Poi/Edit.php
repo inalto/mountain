@@ -4,16 +4,32 @@ namespace App\Http\Livewire\Poi;
 
 use App\Models\Poi;
 use App\Models\PoiTranslation;
+use App\Models\Tag;
+
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
+use GuzzleHttp\Client;
 
 class Edit extends Component
 {
+    use WithMedia;
     public Poi $poi;
+
+    public array $tags = [];
+
+    public array $listsForFields = [];
+
+    public $mediaComponentNames = ['photos'];
+    public $photos;
 
     public function mount(Poi $poi)
     {
         $this->poi = $poi;
+        $this->initListsForFields();
+        $this->tags = $this->poi->tags()->pluck('id')->toArray();
+
     }
 
     public function render()
@@ -21,14 +37,48 @@ class Edit extends Component
         return view('livewire.poi.edit');
     }
 
+    protected function initListsForFields(): void
+    {
+        $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
+     
+    }
+
+
+
+
     public function submit()
     {
-        $this->validate();
 
-        $this->poi->save();
-
+        $this->save();
         return redirect()->route('admin.pois.index');
     }
+    public function save()
+    {
+
+        $this->poi->tags()->sync($this->tags);
+
+        $this->poi->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('poi_photos');
+        
+        $this->poi->save();
+    }
+
+
+    public function getHeight()
+    {
+        $client = new Client();
+        //get elevation from bing maps
+        
+        $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Elevation/List?points='.$this->poi->location['lat'].','.$this->poi->location['lon'].'&key='.env('BING_MAP_API'), []);
+
+        if($res->getStatusCode()==200)
+        {
+            $body = json_decode($res->getBody());
+            $this->poi->height = $body->resourceSets[0]->resources[0]->elevations[0];
+        }
+      //  ray($res->getBody()->getContents());
+        //$this->poi->height = "10";
+    }
+
 
     public function updatedPoiName()
     {
@@ -46,6 +96,8 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
+            'poi.location.lat' => 'numeric|between:-90,90',
+            'poi.location.lon' => 'numeric|between:-180,180',
 
             'poi.height' => [
                 'digits_between:0,4',
@@ -71,6 +123,27 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
+            'photos.*.name' => [
+                'string',
+                'required',
+            ],
+            'tags' => [
+                'array',
+            ],
+            'tags.*.id' => [
+                'integer',
+                'exists:tags,id',
+            ],
+
         ];
+    }
+
+    protected function syncMedia(): void
+    {
+        collect($this->photos)->flatten(1)
+            ->each(fn ($item) => Media::where('uuid', $item['uuid'])
+            ->update(['model_id' => $this->poi->id]));
+
+        Media::whereIn('uuid', $this->mediaToRemove)->delete();
     }
 }

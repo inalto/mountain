@@ -21,7 +21,7 @@ class CreatePersonalAccessTokensTable extends Migration
             $table->text('abilities')->nullable();
             $table->dateTime('last_used_at')->nullable();
             $table->dateTime('created_at');
-            $table->dateTime('updaated_at');
+            $table->dateTime('updated_at');
         });
     }
 

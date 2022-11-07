@@ -12,7 +12,7 @@ class CreatePermissionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->dateTime('created_at');
-            $table->dateTime('updaated_at');
+            $table->dateTime('updated_at');
 
             $table->dateTime('deleted_at');
         });

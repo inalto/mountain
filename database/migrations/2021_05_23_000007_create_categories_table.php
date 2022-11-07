@@ -14,7 +14,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->nullable();
             $table->longText('description')->nullable();
             $table->dateTime('created_at');
-            $table->dateTime('updaated_at');
+            $table->dateTime('updated_at');
 
             $table->dateTime('deleted_at');
         });

@@ -4,17 +4,22 @@ namespace App\Http\Livewire\Report;
 
 use App\Models\Category;
 use App\Models\Report;
+use App\Models\HaveBeenThere;
 use App\Models\ReportTranslation;
-use App\Models\Tag;
+use Spatie\Tags\Tag;
+
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Input;
 use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
+use Request;
 
 class Edit extends Component
 {
     use WithMedia;
+
+    protected $listeners = ['delete','save'];
+
 
     public Report $report;
 
@@ -27,6 +32,8 @@ class Edit extends Component
     public array $listsForFields = [];
 
     //  public array $mediaCollections = [];
+
+
 
     public $mediaComponentNames = ['photos', 'tracks'];
 
@@ -44,6 +51,8 @@ class Edit extends Component
 
     public $slug = null;
 
+    public $parent_id = null;
+
     public function mount(Report $report)
     {
         $this->report = $report;
@@ -51,30 +60,18 @@ class Edit extends Component
         $this->initListsForFields();
         $this->type = $this->report->getTypeAttribute();
         $this->tags = $this->report->tags()->pluck('id')->toArray();
-        //$this->categories = $this->report->categories()->pluck('id')->toArray();
         $this->categories = $this->report->categories()->pluck('id')->toArray();
 
-        // $this->photos =$report->getMedia('photos');
+
+//        $this->photos= $this->report->getMedia('report_photos');
 
         if (is_array($this->report->bibliographies)) {
             $this->bibliographies = $this->report->bibliographies;
         }
-        //$this->report_photos = $report->photos;
-        /*
-               $this->mediaCollections = [
-                   'report_photos'  => $report->photos,
-                   'report_tracks' => $report->tracks,
-               ];
-
-               */
-
-        ray($this);
     }
 
     public function render()
     {
-        //ray($this);
-        //$this->initListsForFields();
         return view('livewire.report.edit');
     }
 
@@ -98,17 +95,61 @@ class Edit extends Component
     }
     public function save()
     {
-
+     
         $this->report->bibliographies = $this->bibliographies;
-        $this->report->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
-        $this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
         $this->report->tags()->sync($this->tags);
-
         $this->report->categories()->sync($this->categories);
         unset($this->report->categories);
+        unset($this->report->parent_id);
         $this->report->save();
+        ray($this->photos);
+        //$this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
+        //$this->report->addFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
+        $this->report->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title','author')->toMediaCollection('report_photos');
+        $this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
+
+        $this->dispatchBrowserEvent('toastr:success', ['message' => trans('cruds.report.toastr.saved')]);
     }
 
+    public function convert()
+    {
+
+        if ($this->parent_id) {
+
+            $hbt = new HaveBeenThere();
+            $hbt->title = $this->report->title;
+            $hbt->slug = $this->report->slug;
+
+            $hbt->difficulty = $this->difficulty;
+            $hbt->content = $this->report->content;
+            $hbt->created_at = $this->report->created_at;
+            $hbt->updated_at = $this->report->updated_at;
+            $hbt->date = $this->report->created_at;
+            $hbt->report_id = $this->parent_id;
+            $hbt->save();
+            $hbt->owner_id = $this->report->owner_id;
+            $hbt->save();
+            //ray($hbt);
+
+            foreach( $this->report->getMedia('report_photos') as $photo) {
+                $photo->copy($hbt,'havebeenthere_photos');
+            }
+            
+            foreach( $this->report->getMedia('report_tracks') as $track) {
+                $track->copy($hbt,'havebeenthere_photos');
+            }
+
+            /*
+            $hbt->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('havebeenthere_photos');
+            $hbt->syncFromMediaLibraryRequest($this->track)->toMediaCollection('havebeenthere_tracks');
+            */
+            
+        //    $this->report->delete();
+            $this->dispatchBrowserEvent('toastr:success', ['message' => trans('cruds.report.toastr.converted')]);
+           return redirect()->route('admin.reports.index');
+
+        }
+    }
 
     public function addBibliography()
     {
@@ -120,35 +161,7 @@ class Edit extends Component
         array_splice($this->bibliographies, $index, 1);
     }
 
-    /*
-    public function addMedia($media): void
-    {
-        $this->mediaCollections[$media['collection_name']][] = $media;
-    }
 
-    public function removeMedia($media): void
-    {
-        $collection = collect($this->mediaCollections[$media['collection_name']]);
-
-        $this->mediaCollections[$media['collection_name']] = $collection->reject(fn ($item) => $item['uuid'] === $media['uuid'])->toArray();
-
-        $this->mediaToRemove[] = $media['uuid'];
-    }
-
-    public function getMediaCollection($name)
-    {
-        return $this->mediaCollections[$name];
-    }
-
-
-
-public function store(Request $request)
-{
-    ray("store");
-    ray($request);
-}
-
-*/
 
     protected function rules(): array
     {
@@ -162,7 +175,13 @@ public function store(Request $request)
                 'string',
                 'required',
             ],
-
+            'photos.*.custom_properties.title' => [
+                'required',  
+            ],
+            'photos.*.custom_properties.author' => [
+                'required',  
+            ],
+       
             'type' => [
                 'string',
                 'nullable',
@@ -211,7 +230,7 @@ public function store(Request $request)
                 'nullable',
                 /*'string',*/
 
-                'in:'.implode(',', array_keys(array_merge(
+                'in:' . implode(',', array_keys(array_merge(
                     $this->listsForFields['hiking'],
                     $this->listsForFields['snowshoeing'],
                     $this->listsForFields['mountaineering'],
@@ -233,6 +252,18 @@ public function store(Request $request)
             ],
             'report.content' => [
                 'string',
+                'nullable',
+            ],
+            'report.access' => [
+                'string',
+                'nullable',
+            ],
+            'report.updated_at' => [
+
+                'nullable',
+            ],
+            'report.parent_id' => [
+                'numeric',
                 'nullable',
             ],
 
@@ -257,6 +288,10 @@ public function store(Request $request)
                 'string',
                 'nullable',
             ],
+            'bibliographies.*.publisher' => [
+                'string',
+                'nullable',
+            ],
             'bibliographies.*.author' => [
                 'string',
                 'nullable',
@@ -276,6 +311,7 @@ public function store(Request $request)
             'snowshoeing' => trans('cruds.report.fields.difficulty_class.snowshoeing'),
             'mountaineering' => trans('cruds.report.fields.difficulty_class.mountaineering'),
             'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering'),
+            'ferrata' => trans('cruds.report.fields.difficulty_class.ferrata'),
         ];
 
         $this->listsForFields['hiking'] = [
@@ -320,18 +356,45 @@ public function store(Request $request)
             'OS' => trans('cruds.report.fields.difficulty_class.OS'),
             'OSA' => trans('cruds.report.fields.difficulty_class.OSA'),
         ];
+        $this->listsForFields['ferrata'] = [
+            'F' => trans('cruds.report.fields.difficulty_class.F'),
+            'PD' => trans('cruds.report.fields.difficulty_class.PD'),
+            'D' => trans('cruds.report.fields.difficulty_class.D'),
+            'MD' => trans('cruds.report.fields.difficulty_class.MD'),
+            'ED' => trans('cruds.report.fields.difficulty_class.ED')
+        ];
 
         //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
         $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
-        $this->listsForFields['categories'] = Category::all()->map(function ($qry) { return $qry->translateOrDefault(); })->pluck('name', 'id')->toArray();
+        $this->listsForFields['categories'] = Category::all()->map(function ($qry) {
+            return $qry->translateOrDefault();
+        })->pluck('name', 'id')->toArray();
     }
 
     protected function syncMedia(): void
     {
         collect($this->photos)->flatten(1)
             ->each(fn ($item) => Media::where('uuid', $item['uuid'])
-            ->update(['model_id' => $this->report->id]));
+                ->update(['model_id' => $this->report->id]));
 
         Media::whereIn('uuid', $this->mediaToRemove)->delete();
+    }
+
+    public function deleteConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure? ',
+            'text' => '',
+            'id' => $this->report->id,
+        ]);
+    }
+
+    public function delete($id)
+    {
+        Report::find($id)->delete();
+        $this->dispatchBrowserEvent('toastr:error', [
+            'message' => 'Report deleted'
+        ]);
     }
 }

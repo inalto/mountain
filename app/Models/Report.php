@@ -16,14 +16,19 @@ use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Tags\HasTags;
+use Laravel\Scout\Searchable;
 
 class Report extends Model implements HasMedia, TranslatableContract
 {
+    use HasTags;
+
     use HasFactory;
     use HasAdvancedFilter;
     use SoftDeletes;
     use Tenantable;
     use InteractsWithMedia;
+    use Searchable;
 
     //  use Auditable;
     use Translatable;
@@ -35,13 +40,15 @@ class Report extends Model implements HasMedia, TranslatableContract
 
     public $table = 'reports';
 
-    public $translatedAttributes = ['title', 'slug', 'content', 'excerpt'];
+    public $translatedAttributes = ['title', 'slug', 'content', 'excerpt','access','info'];
 
     public $orderable = [
         'id',
         'title',
         'slug',
         'difficulty',
+        'owner.name',
+        'categories.name',
     ];
 
     public $filterable = [
@@ -49,10 +56,12 @@ class Report extends Model implements HasMedia, TranslatableContract
         'title',
         'slug',
         'difficulty',
-        /*        'excerpt',
-        'content',
+        //'tags.name',
+        
+        //        'excerpt',
+        //'content',
 
-        'tags.name',    */
+        
         //  'categories.name',
     ];
 
@@ -206,7 +215,24 @@ class Report extends Model implements HasMedia, TranslatableContract
             return $this->map(function($qry){ return $qry->translateOrDefault();})->first()?->slug;
         }
     */
-    public function tags()
+
+
+    public function getUrl()
+    {
+       return $this->categories->first->translate()?->slug.'/'.$this->slug;
+    }
+
+    /*
+    * Relationships
+    */
+    
+
+    public function havebeentheres()
+    {
+        return $this->hasMany(HaveBeenThere::class);
+    }
+    
+    public function oldtags()
     {
         return $this->belongsToMany(Tag::class);
     }
@@ -279,4 +305,68 @@ class Report extends Model implements HasMedia, TranslatableContract
     {
         $this->attributes['bibliographies'] = json_encode($value);
     }
+
+    /*
+    * Scopes
+    */
+    public function scopeOwnerNameLike($query, $name)
+    {
+        return $query->whereHas('owner', function ($q) use ($name) {
+            $q->where('name', 'like', '%'.$name.'%');
+        });
+    }
+    public function scopeOrOwnerNameLike($query, $name)
+    {
+        return $query->orWhereHas('owner', function ($q) use ($name) {
+            $q->where('name', 'like', '%'.$name.'%');
+        });
+    }
+    public function scopeOwnerId($query, $id)
+    {
+        return $query->where('owner_id', $id);
+    }
+
+    public function scopeOrderBytitle($query, $order = 'asc')
+    {
+        return $query->orderBy('title', $order);
+    }
+    
+
+
+
+
+    
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        /*
+        $array = $this->toArray();
+        ray($array);
+        return $array;
+        */
+        return [
+        
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'excerpt' => $this->excerpt,
+            'access' => $this->access,
+            'content' => $this->content,
+
+          
+        ];
+        
+    }
+
+    public function searchable(): bool
+
+	{
+        return true;
+    	//return $this->published || $this->approved;
+
+	}
+
 }

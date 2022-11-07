@@ -27,7 +27,7 @@ class CreateMediaTable extends Migration
             $table->unsignedInteger('order_column')->nullable();
 
             $table->dateTime('created_at')->nullable();
-            $table->dateTime('updaated_at')->nullable();
+            $table->dateTime('updated_at')->nullable();
         });
     }
 }

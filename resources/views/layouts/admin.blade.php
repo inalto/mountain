@@ -19,11 +19,10 @@
     
 </head>
 
-<body class="h-full font-sans antialiased leading-tight tracking-normal">
+<body class="h-full font-sans antialiased leading-tight tracking-normal @if(Session::get('theme')) {{Session::get('theme') }}@endif">
   <div class="flex flex-col min-h-screen bg-gray-100 dark:bg-gray-900">
 
-    <x-navigation-dropdown></x-navigation-dropdown>
-
+  <x-navigation ></x-navigation>
     {{--
          <nav class="flex flex-col w-1/5 bg-white main-header navbar navbar-expand navbar-light border-bottom">
         <!-- Left navbar links -->

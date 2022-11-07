@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{$title ?? ''}} - inalto.org</title>
 		
         <x-inalto.icons></x-inalto.icons>
         <!-- Fonts -->
@@ -17,10 +17,9 @@
 
 
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased @if(Session::get('theme')) {{Session::get('theme') }}@endif">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            <x-navigation-dropdown></x-navigation-dropdown>
-
+            <x-navigation :categories="$categories"></x-navigation>
             <!-- Page Heading -->
             <header class="bg-white dark:bg-gray-800 shadow">
                 <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
@@ -34,13 +33,15 @@
 
                 @yield('content')
             </main>
+            <x-footer></x-footer>
         </div>
 
         @stack('modals')
 
         @livewireScripts
-                <!-- Scripts -->
+                <!-- Scripts
                 <script src="{{ mix('js/app.js') }}" defer></script>
+                 -->
         @stack('scripts')
     </body>
 </html>

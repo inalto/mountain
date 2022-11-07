@@ -5,15 +5,17 @@ namespace App\Http\Livewire\Report;
 use App\Models\Category;
 use App\Models\Report;
 use App\Models\ReportTranslation;
-use App\Models\Tag;
+use Spatie\Tags\Tag;
+
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use Input;
 use Livewire\Component;
-use Livewire\WithFileUploads;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 
 class Create extends Component
 {
-    use WithFileUploads;
+    use WithMedia;
 
     public Report $report;
 
@@ -25,7 +27,14 @@ class Create extends Component
 
     public array $listsForFields = [];
 
-    public array $mediaCollections = [];
+    // public array $mediaCollections = [];
+    public $mediaComponentNames = ['photos', 'tracks'];
+
+    public $photos;
+
+    public $tracks;
+
+    public array $bibliographies = [];
 
     public $type = '';
 
@@ -35,16 +44,40 @@ class Create extends Component
 
     public $slug = null;
 
-    public function mount(Report $report)
+    public function mount()
     {
+        $report = new Report();
+        
         $this->report = $report;
         $this->initListsForFields();
+        /*
+        $this->difficulty = $report->difficulty;
+        
+        $this->type = $this->report->getTypeAttribute();
+        $this->tags = $this->report->tags()->pluck('id')->toArray();
+        //$this->categories = $this->report->categories()->pluck('id')->toArray();
+        $this->categories = $this->report->categories()->pluck('id')->toArray();
+
+        // $this->photos =$report->getMedia('photos');
+
+        if (is_array($this->report->bibliographies)) {
+            $this->bibliographies = $this->report->bibliographies;
+        }
+        */
+        //$this->report_photos = $report->photos;
+        /*
+               $this->mediaCollections = [
+                   'report_photos'  => $report->photos,
+                   'report_tracks' => $report->tracks,
+               ];
+
+               */
+
+        
     }
 
     public function render()
     {
-        ray($this->mediaCollections);
-
         return view('livewire.report.create');
     }
 
@@ -62,33 +95,54 @@ class Create extends Component
 
     public function submit()
     {
-        $this->validate();
 
-        $this->report->save();
-        $this->report->tags()->sync($this->tags);
-        $this->report->categories()->sync($this->categories);
-        $this->syncMedia();
-
+        $this->save();
         return redirect()->route('admin.reports.index');
     }
-
-    public function addMedia($media): void
+    public function save()
     {
-        $this->mediaCollections[$media['collection_name']][] = $media;
+        $this->report->save();
+
+        $this->report->bibliographies = $this->bibliographies;
+
+        $this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
+        $this->report->addFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
+
+        //$this->report->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
+        //$this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
+
+        $this->report->tags()->sync($this->tags);
+        $this->report->categories()->sync($this->categories);
+        //unset($this->report->categories);
+        $this->report->save();
     }
 
-    public function removeMedia($media): void
+
+    public function addBibliography()
     {
-        $collection = collect($this->mediaCollections[$media['collection_name']]);
-
-        $this->mediaCollections[$media['collection_name']] = $collection->reject(fn ($item) => $item['uuid'] === $media['uuid'])->toArray();
-
-        $this->mediaToRemove[] = $media['uuid'];
+        $this->bibliographies[] = ['title' => '', 'author' => '', 'publisher'=>'','link' => 'https://'];
     }
+
+    public function removeBibliography($index)
+    {
+        array_splice($this->bibliographies, $index, 1);
+    }
+
+
 
     protected function rules(): array
     {
         return [
+            'report.owner_id' => [
+                'digits_between:0,4',
+                'required',
+
+            ],
+            'photos.*.name' => [
+                'string',
+                'required',
+            ],
+
             'type' => [
                 'string',
                 'nullable',
@@ -114,14 +168,25 @@ class Create extends Component
                 'digits_between:0,4',
                 'nullable',
             ],
+
             'report.altitude_e' => [
                 'digits_between:0,4',
                 'nullable',
             ],
-            'report.length' => [
-                'digits_between:0,4',
+            'report.time_a' => [
+                'string',
                 'nullable',
             ],
+            'report.time_r' => [
+                'string',
+                'nullable',
+            ],
+
+            'report.length' => [
+                'numeric',
+                'nullable',
+            ],
+
             'report.difficulty' => [
                 'nullable',
                 /*'string',*/
@@ -150,22 +215,11 @@ class Create extends Component
                 'string',
                 'nullable',
             ],
-            'mediaCollections.report_photo' => [
-                'array',
+            'report.updated_at' => [
+
                 'nullable',
             ],
-            'mediaCollections.report_photo.*.id' => [
-                'integer',
-                'exists:media,id',
-            ],
-            'mediaCollections.report_tracks' => [
-                'array',
-                'nullable',
-            ],
-            'mediaCollections.report_tracks.*.id' => [
-                'integer',
-                'exists:media,id',
-            ],
+
             'tags' => [
                 'array',
             ],
@@ -180,8 +234,29 @@ class Create extends Component
                 'integer',
                 'exists:categories,id',
             ],
+            'bibliographies' => [
+                'array',
+            ],
+            'bibliographies.*.title' => [
+                'string',
+                'nullable',
+            ],
+            'bibliographies.*.publisher' => [
+                'string',
+                'nullable',
+            ],
+            'bibliographies.*.author' => [
+                'string',
+                'nullable',
+            ],
+            'bibliographies.*.link' => [
+                'string',
+                'nullable',
+            ],
+
         ];
     }
+
 
     protected function initListsForFields(): void
     {
@@ -190,6 +265,7 @@ class Create extends Component
             'snowshoeing' => trans('cruds.report.fields.difficulty_class.snowshoeing'),
             'mountaineering' => trans('cruds.report.fields.difficulty_class.mountaineering'),
             'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering'),
+            'ferrata' => trans('cruds.report.fields.difficulty_class.ferrata'),
         ];
 
         $this->listsForFields['hiking'] = [
@@ -234,15 +310,24 @@ class Create extends Component
             'OS' => trans('cruds.report.fields.difficulty_class.OS'),
             'OSA' => trans('cruds.report.fields.difficulty_class.OSA'),
         ];
+        $this->listsForFields['ferrata'] = [
+            'F' => trans('cruds.report.fields.difficulty_class.F'),
+            'PD' => trans('cruds.report.fields.difficulty_class.PD'),
+            'D' => trans('cruds.report.fields.difficulty_class.D'),
+            'MD' => trans('cruds.report.fields.difficulty_class.MD'),
+            'ED' => trans('cruds.report.fields.difficulty_class.ED')
+        ];
 
         //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
         $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
-        $this->listsForFields['categories'] = Category::pluck('name', 'id')->toArray();
+        $this->listsForFields['categories'] = Category::all()->map(function ($qry) {
+            return $qry->translateOrDefault();
+        })->pluck('name', 'id')->toArray();
     }
 
     protected function syncMedia(): void
     {
-        collect($this->mediaCollections)->flatten(1)
+        collect($this->photos)->flatten(1)
             ->each(fn ($item) => Media::where('uuid', $item['uuid'])
             ->update(['model_id' => $this->report->id]));
 

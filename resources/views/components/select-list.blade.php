@@ -8,7 +8,7 @@
             </div>
         @endif
         --}}
-        <select style="width:100%" class="select2 form-control w-full" data-minimum-results-for-search="Infinity" data-placeholder="{{ __('Select your option') }}" {{ $attributes }}>
+        <select class="w-full" data-minimum-results-for-search="Infinity" data-placeholder="{{ __('Select your option') }}" {{ $attributes }}>
             @if(!isset($attributes['multiple']))
                 <option></option>
             @endif
@@ -19,9 +19,11 @@
     </div>
 </div>
 @once 
+{{--
 @push('styles')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @endpush
+--}}
 @endonce
 @push('scripts')
     <script>
@@ -48,8 +50,9 @@
             allowClear: !el.attr('required')
         })
     }
-
+$(document).ready(function() {
     initSelect()
+});
 
     Livewire.hook('message.processed', (message, component) => {
         initSelect()

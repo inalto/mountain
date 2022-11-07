@@ -10,6 +10,7 @@ class ParseReport
         $payload = self::routeSquareParser($payload);
         $payload = self::routeRoundParser($payload);
         $payload = self::routeTriangleParser($payload);
+        $payload = self::routeBassaParser($payload);
         $payload = self::dropParser($payload);
 
         return $payload;
@@ -96,7 +97,7 @@ class ParseReport
 
     public static function dropParser($payload)
     {
-        ray($payload);
+        
         preg_match_all('/\(([0-9 ]+m)(D[\+\-])\)/m', $payload, $matches);
         if (count($matches) < 2 || empty($matches[0]) || empty($matches[1]) || empty($matches[2])) {
             return $payload;
@@ -107,9 +108,6 @@ class ParseReport
         $contents = $matches[1];
         $types = $matches[2];
 
-        ray($occurrences);
-        ray($contents);
-        ray($types);
         for ($i = 0; $i < count($occurrences); $i++) {
             switch ($types[$i]) {
                 case 'D+':
@@ -145,6 +143,31 @@ class ParseReport
             switch ($types[$i]) {
                 case 'g':
                     $replace[] = Signs::triangleYellow($contents[$i]);
+                break;
+                default:
+                    $replace[] = '<small>unable to parse</small>';
+                break;
+            }
+        }
+
+        return str_replace($occurrences, $replace, $payload);
+    }
+
+    public static function routeBassaParser($payload)
+    {
+        preg_match_all('@[\\\]([a-zA-Z0-9 ]+)[//]([a-z])@m', $payload, $matches);
+        if (count($matches) < 2 || empty($matches[0]) || empty($matches[1]) || empty($matches[2])) {
+            return $payload;
+        }
+        $replace = [];
+        $occurrences = $matches[0];
+        $contents = $matches[1];
+        $types = $matches[2];
+
+        for ($i = 0; $i < count($occurrences); $i++) {
+            switch ($types[$i]) {
+                case 'g':
+                    $replace[] = Signs::bassaYellow($contents[$i]);
                 break;
                 default:
                     $replace[] = '<small>unable to parse</small>';

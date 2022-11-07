@@ -1,4 +1,4 @@
-@if(in_array($field, $orderable))
+@if(isset($orderable) && in_array($field, $orderable))
     @if($sortBy !== $field)
         <i wire:click="sortBy('{{ $field }}')" class="fa fa-fw fa-sort cursor-pointer" aria-hidden="true"></i>
     @elseif($sortBy === $field && $sortDirection == 'desc')

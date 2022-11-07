@@ -84,7 +84,7 @@ return [
      * The class that contains the strategy for determining a media file's path.
      */
     //'path_generator' => Spatie\MediaLibrary\Support\PathGenerator\DefaultPathGenerator::class,
-    'path_generator' => App\Support\Inalto\InaltoPathGenerator::class,
+    'path_generator' => App\Services\MediaLibrary\InaltoPathGenerator::class,
     /*
      * When urls to files get generated, this class will be called. Use the default
      * if your files are stored locally above the site root or on s3.

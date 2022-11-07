@@ -5,7 +5,7 @@
                 <h6 class="card-title">
                     {{ trans('cruds.report.title') }}
                 </h6>
-                @can('inalto_report_create')
+                @can('report_create')
                     <a class="add" href="{{ route('admin.reports.create') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -17,4 +17,6 @@
         </div>
         <livewire:report.index />
     </div>
+    <x-swal></x-swal>
+
 </x-admin-layout>

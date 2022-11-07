@@ -24,16 +24,17 @@ window.Popper = Popper;
  * code may be modified to fit the specific needs of your application.
  */
 
+/*
 
 
 try {
     window.$ = window.jQuery = require('jquery');
- /*   require('clockpicker')*/
-    require('select2')
-    
-    require('flatpickr')
+ 
+    require('select2');
+    require('clockpicker');
+    require('flatpickr');
 } catch (e) {}
-
+*/
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

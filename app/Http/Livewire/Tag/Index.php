@@ -7,6 +7,8 @@ use App\Http\Livewire\WithSorting;
 use App\Models\Tag;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
+
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,6 +17,7 @@ class Index extends Component
     use WithPagination;
     use WithSorting;
     use WithConfirmation;
+
 
     public int $perPage;
 
@@ -25,6 +28,8 @@ class Index extends Component
     public array $selected = [];
 
     public array $paginationOptions;
+
+    protected $listeners = ['slugUpdated' => 'slugUpdated','nameUpdated' => 'nameUpdated'];
 
     protected $queryString = [
         'search' => [
@@ -67,6 +72,22 @@ class Index extends Component
         $this->orderable = (new Tag())->orderable;
     }
 
+    public function slugUpdated($id,$slug)
+    {
+        Tag::where('id',$id)->update(['slug'=>$slug]);
+    }
+
+    public function nameUpdated($id,$name)
+    {
+        $slug=Str::slug($name);
+        Tag::where('id',$id)->update(['name'=>$name,'slug'=>$slug]);
+    }
+
+    
+    public function save($tag)
+    {
+        ray($tag);
+    }
     public function render()
     {
         $query = Tag::advancedFilter([
@@ -82,7 +103,7 @@ class Index extends Component
 
     public function deleteSelected()
     {
-        abort_if(Gate::denies('tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         Tag::whereIn('id', $this->selected)->delete();
 
@@ -91,7 +112,7 @@ class Index extends Component
 
     public function delete(Tag $tag)
     {
-        abort_if(Gate::denies('tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies('inalto_tag_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $tag->delete();
     }

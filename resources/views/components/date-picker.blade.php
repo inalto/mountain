@@ -32,7 +32,7 @@
     }
 
 @if($attributes['picker'] === 'date')
-        let el = flatpickr('.flatpickr-{{ $attributes['id'] }}', {
+        let el = flatpickr('window.flatpickr-{{ $attributes['id'] }}', {
             dateFormat: "{{ config('project.flatpickr_date_format') }}",
             wrap: true,
             onChange: (SelectedDates, DateStr, instance) => {

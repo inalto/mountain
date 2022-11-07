@@ -24,13 +24,21 @@ class FilterQueryBuilder
         }
 
         $this->makeOrder($query, $data);
-
         return $query;
     }
 
-    public function contains($filter, $query)
+    public function contains($query, $payload = [])
     {
-        return $query->where($filter['column'], 'like', '%'.$filter['query_1'].'%');
+     //   ray($payload['column'].' like '. '%'.$payload['query_1'].'%');
+        /*
+        if ($payload['match'] === 'and') {
+            return $query->where($payload['column'],'like', '%'.$payload['query_1'].'%');
+        } else {
+            return $query->orWhere($payload['column'],'like', '%'.$payload['query_1'].'%');
+        }
+        */
+        return $query;
+        //return $query->where($payload['column'], 'like', '%'.$payload['query'].'%');
     }
 
     public function containsTranslation($filter, $query)
@@ -80,17 +88,26 @@ class FilterQueryBuilder
     protected function makeFilter($query, $filter)
     {
         if ($this->isNestedColumn($filter['column'])) {
-            [$relation, $filter['column']] = explode('.', $filter['column']);
+            /*
+            [$relation, $column] = explode('.', $filter['column']);
+
             $callable = Str::camel($relation);
+
             $filter['match'] = 'and';
 
-            $query->orWhereHas(Str::camel($callable), function ($q) use ($filter) {
-                $this->{Str::camel($filter['operator'])}(
-                    $filter,
-                    $q
+            
+            $query->whereHas(Str::camel($callable), function ($q) use ($filter) {
+//                ray(Str::camel($filter['operator']));
+                $this->{Str::camel($filter['operator'])}(                    
+                    $q,
+                    $filter
                 );
             });
+*/
+
         } else {
+          //  ray('not nested');
+            //ray($filter['column']);
             if ($filter['match'] == 'or') {
                 if ($this->isTranslatedColumn($filter['column'])) {
                     $query->orWhereTranslationLike($filter['column'], '%'.$filter['query_1'].'%');
@@ -104,6 +121,7 @@ class FilterQueryBuilder
         } else {
             $query->where($filter['column'], 'like', '%'.$filter['query_1'].'%');
         }
+
     }
 
     protected function isTranslatedColumn($column)

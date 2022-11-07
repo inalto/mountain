@@ -15,7 +15,7 @@ class CreateTagsTable extends Migration
             $table->string('slug')->nullable();
             $table->string('description')->nullable();
             $table->dateTime('created_at');
-            $table->dateTime('updaated_at');
+            $table->dateTime('updated_at');
 
             $table->dateTime('deleted_at');
         });

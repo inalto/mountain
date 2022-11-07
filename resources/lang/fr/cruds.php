@@ -107,6 +107,21 @@ return [
         "title" => "Tags",
         "title_singular" => "Tag"
     ],
+    "havebeenthere" => [
+        "fields" => [
+            "content" => "Contenu",
+            "difficulty" => "Difficulté",
+            "id" => "ID",
+            "owner_id" => "Identifiant du propriétaire",
+            "owner_id_helper" => "Identification du propriétaire",
+            "report_id" => "Rapport Id",
+            "report_id_helper" => "Identifiant du rapport",
+            "slug" => "Url alias",
+            "title" => "Titre",
+            "username" => "Nom de l'utilisateur"
+        ],
+        "title" => "Je suis passé par là."
+    ],
     "inalto" => ["title" => "Inalto", "title_singular" => "Inalto"],
     "news" => ["title" => "News", "title_singular" => "News"],
     "newsCategory" => [
@@ -223,6 +238,8 @@ return [
             "name_helper" => "Nom du point d'intérêt",
             "owner" => "Owner",
             "owner_helper" => " ",
+            "photos" => "Photos",
+            "photos_helper" => "",
             "published" => "Publié sur",
             "published_helper" => "Si elle est publiée, elle est visible sur la page",
             "slug" => "Slug",
@@ -230,7 +247,7 @@ return [
             "updated_at" => "Updated at",
             "updated_at_helper" => " "
         ],
-        "title" => "POI",
+        "title" => "Points d'intérêt",
         "title_singular" => "POI"
     ],
     "post" => [
@@ -262,6 +279,7 @@ return [
     "report" => [
         "fields" => [
             "access" => "Accès",
+            "access_helper" => "Brève description de la route d'accès au point de départ",
             "altitude_e" => "Hauteur d'arrivée",
             "altitude_e_helper" => "Altitude du point d'arrivée ou altitude maximale atteinte en mètres",
             "altitude_s" => "Altitude de départ",
@@ -274,7 +292,8 @@ return [
             "categories_helper" => " ",
             "content" => "Content",
             "content_helper" => " ",
-            "created_at" => "Created at",
+            "convert" => "Convertir en J'ai été là",
+            "created_at" => "Créé le",
             "created_at_helper" => " ",
             "created_by" => "Créé par",
             "created_by_helper" => "",
@@ -298,6 +317,7 @@ return [
                 "F" => "F",
                 "Fm" => "F-",
                 "Fp" => "F+",
+                "MD" => "MD",
                 "MS" => "ms",
                 "MSA" => "MSA",
                 "OS" => "Os",
@@ -318,6 +338,7 @@ return [
                 "WT3" => "WT3",
                 "WT4" => "WT4",
                 "WT5" => "WT5",
+                "ferrata" => "via ferrata",
                 "helper" => "Choisissez le type d'excursion",
                 "hiking" => "Randonnée pédestre",
                 "mountaineering" => "alpinisme",
@@ -341,6 +362,8 @@ return [
             "owner_helper" => "Auteur du rapport",
             "owner_id" => "ID Auteur",
             "owner_id_helper" => "Id de l'auteur du rapport",
+            "parent_id" => "ID du lien de parenté avec le père",
+            "parent_id_helper" => "Entrez l'identifiant du rapport auquel le \"j'ai été là\" fait référence.",
             "photo" => "Photo",
             "photo_helper" => " ",
             "photos" => "Photos",
@@ -361,10 +384,12 @@ return [
             "tracks_helper" => " ",
             "updated_at" => "Updated at",
             "updated_at_helper" => " ",
-            "url" => "URL"
+            "url" => "URL",
+            "username" => "Utilisateur"
         ],
         "title" => "Reports",
-        "title_singular" => "Report"
+        "title_singular" => "Report",
+        "toastr" => ["converted" => "Convertie en j'ai ete la", "saved" => "Rapport enregistré"]
     ],
     "reportsCategory" => [
         "fields" => [

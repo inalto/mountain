@@ -107,6 +107,21 @@ return [
         "title" => "Tags",
         "title_singular" => "Tag"
     ],
+    "havebeenthere" => [
+        "fields" => [
+            "content" => "Contenuto",
+            "difficulty" => "Difficoltà",
+            "id" => "ID",
+            "owner_id" => "Id proprietario",
+            "owner_id_helper" => "Identificativo del proprietario",
+            "report_id" => "Id Relazione",
+            "report_id_helper" => "Identificativo della relazione",
+            "slug" => "Url alias",
+            "title" => "Titolo",
+            "username" => "Nome utente"
+        ],
+        "title" => "Ci sono stato"
+    ],
     "inalto" => ["title" => "Inalto", "title_singular" => "Inalto"],
     "news" => ["title" => "News", "title_singular" => "News"],
     "newsCategory" => [
@@ -223,6 +238,8 @@ return [
             "name_helper" => "Nome del punto di interesse",
             "owner" => "",
             "owner_helper" => "",
+            "photos" => "Fotografie",
+            "photos_helper" => "",
             "published" => "Pubblicato",
             "published_helper" => "Se pubblicato è visibile nel sito",
             "slug" => "Slug",
@@ -230,7 +247,7 @@ return [
             "updated_at" => "Updated at",
             "updated_at_helper" => ""
         ],
-        "title" => "POI",
+        "title" => "Punti d'interesse",
         "title_singular" => "POI"
     ],
     "post" => [
@@ -262,6 +279,7 @@ return [
     "report" => [
         "fields" => [
             "access" => "Accesso",
+            "access_helper" => "Breve descrizione dell'accesso stradale al punto di partenza",
             "altitude_e" => "Altezza di arrivo",
             "altitude_e_helper" => "Quota del punto di arrivo o massima quota raggiunta in metri",
             "altitude_s" => "Quota di partenza",
@@ -274,7 +292,8 @@ return [
             "categories_helper" => "",
             "content" => "Relazione",
             "content_helper" => "",
-            "created_at" => "Creato a",
+            "convert" => "Converti in Ci Sono Stato",
+            "created_at" => "Creato il",
             "created_at_helper" => "",
             "created_by" => "Creato da",
             "created_by_helper" => "",
@@ -298,6 +317,7 @@ return [
                 "F" => "F",
                 "Fm" => "F-",
                 "Fp" => "F+",
+                "MD" => "MD",
                 "MS" => "MS",
                 "MSA" => "MSA",
                 "OS" => "OS",
@@ -318,6 +338,7 @@ return [
                 "WT3" => "WT3",
                 "WT4" => "WT4",
                 "WT5" => "WT5",
+                "ferrata" => "Via ferrata",
                 "helper" => "Scegli la tipologia di escursione",
                 "hiking" => "Escursionismo",
                 "mountaineering" => "Alpinismo",
@@ -341,6 +362,8 @@ return [
             "owner_helper" => "Autore della relazione",
             "owner_id" => "ID Autore",
             "owner_id_helper" => "Id dell'autore della relazione",
+            "parent_id" => "ID della relazione padre",
+            "parent_id_helper" => "Inserisci l'id della relazione a cui si riferisce il \"ci sono stato\"",
             "photo" => "Fotografia",
             "photo_helper" => "",
             "photos" => "Fotografie",
@@ -361,10 +384,12 @@ return [
             "tracks_helper" => "",
             "updated_at" => "Aggiornato a",
             "updated_at_helper" => "",
-            "url" => "Url"
+            "url" => "Url",
+            "username" => "Nome utente"
         ],
         "title" => "Relazioni",
-        "title_singular" => "Relazione"
+        "title_singular" => "Relazione",
+        "toastr" => ["converted" => "Convertito in Ci Sono Stato", "saved" => "Relazione salvata"]
     ],
     "reportsCategory" => [
         "fields" => [
@@ -428,11 +453,11 @@ return [
             "created_at_helper" => "",
             "deleted_at" => "",
             "deleted_at_helper" => "",
-            "id" => "",
+            "id" => "ID",
             "id_helper" => "",
-            "name" => "",
+            "name" => "Nome",
             "name_helper" => "",
-            "slug" => "",
+            "slug" => "url",
             "slug_helper" => "",
             "updated_at" => "",
             "updated_at_helper" => ""

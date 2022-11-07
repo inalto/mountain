@@ -16,11 +16,15 @@ class Index extends Component
     use WithSorting;
     use WithConfirmation;
 
+    protected $listeners = ['delete'];
+
+
     public $perPage;
 
     public $orderable = [];
 
     public $search = '';
+    public $user = '';
 
     public $selected = [];
 
@@ -76,6 +80,8 @@ class Index extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
+          $query = $query->orOwnerNameLike($this->search);
+
         $reports = $query->paginate($this->perPage);
 
         return view('livewire.report.index', compact('query', 'reports', 'reports'));
@@ -90,10 +96,33 @@ class Index extends Component
         $this->resetSelected();
     }
 
+
+    public function deleteConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure? ',
+            'text' => '',
+            'id' => $this->report->id,
+        ]);
+    }
+
+    public function delete($id)
+    {
+        abort_if(Gate::denies('report_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        Report::find($id)->delete();
+        $this->dispatchBrowserEvent('toastr:error', [
+            'message' => 'Report deleted'
+        ]);
+    }
+
+/*
     public function delete(Report $report)
     {
         abort_if(Gate::denies('report_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         $report->delete();
     }
+    */
 }
