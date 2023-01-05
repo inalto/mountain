@@ -187,6 +187,8 @@
 
 .card {
     @apply bg-white  dark:bg-gray-800 ;
+    border: 1px solid #ddd;
+    box-shadow: 0px 2px 1px rgba(0,0,0,0.1);
 }
 .card-header {
     @apply border-b border-gray-200 dark:border-gray-700;

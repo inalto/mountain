@@ -1,5 +1,5 @@
-@extends('layouts.admin')
-@section('content')
+<x-admin-layout>
+
 <div class="card bg-white">
     <div class="card-header border-b border-blueGray-200">
         <div class="card-header-container">
@@ -15,7 +15,7 @@
             @endcan
         </div>
     </div>
-    @livewire('permission.index')
+    <livewire:admin.permission.index ></livewire:admin.permission.index>
 
 </div>
-@endsection
+</x-admin-layout>

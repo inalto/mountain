@@ -1,6 +1,4 @@
-@extends('layouts.admin')
-@section('content')
-
+<x-admin-layout>
 <div class="card bg-blueGray-100">
     <div class="card-header">
         <div class="card-header-container">
@@ -14,7 +12,7 @@
     </div>
 
     <div class="card-body">
-        @livewire('tag.edit', [$tag])
+        <livewire:admin.tag.edit :tag=$tag ></livewire:admin.tag.edit>
     </div>
 </div>
-@endsection
+</x-admin-layout>

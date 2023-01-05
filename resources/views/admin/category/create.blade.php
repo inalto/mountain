@@ -5,7 +5,7 @@
         </div>
 
         <div class="card-body">
-            <livewire:category.create />
+            <livewire:admin.category.create />
         </div>
     </div>
 </x-admin-layout>

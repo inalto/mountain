@@ -17,7 +17,7 @@
         </div>
     </div>
    
-    <livewire:content-page.index></livewire:content-page.index>
+    <livewire:admin.content-page.index />
 
 </div>
 </x-admin-layout>

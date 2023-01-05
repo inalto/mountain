@@ -21,7 +21,7 @@ use Laravel\Scout\Searchable;
 
 class Report extends Model implements HasMedia, TranslatableContract
 {
-    use HasTags;
+//    use HasTags;
 
     use HasFactory;
     use HasAdvancedFilter;
@@ -232,7 +232,7 @@ class Report extends Model implements HasMedia, TranslatableContract
         return $this->hasMany(HaveBeenThere::class);
     }
     
-    public function oldtags()
+    public function tags()
     {
         return $this->belongsToMany(Tag::class);
     }
@@ -359,6 +359,9 @@ class Report extends Model implements HasMedia, TranslatableContract
           
         ];
         
+    }
+    public function searchableAs(): string {
+        return 'reports';
     }
 
     public function searchable(): bool

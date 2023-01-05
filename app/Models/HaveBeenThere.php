@@ -29,10 +29,6 @@ class HaveBeenThere extends Model  implements HasMedia
     use InteractsWithMedia;
     use Searchable;
 
-    public const DIFFICULTY_SELECT = [
-        'dif' => 'dif',
-        'dif2' => 'dif2',
-    ];
 
     public $table = 'havebeentheres';
 
@@ -74,57 +70,6 @@ class HaveBeenThere extends Model  implements HasMedia
                 'source' => 'title',
             ],
         ];
-    }
-    public function getTypeAttribute()
-    {
-        $type = [
-
-            'T1' => 'hiking',
-            'T2' => 'hiking',
-            'T3' => 'hiking',
-            'T4' => 'hiking',
-            'T5' => 'hiking',
-
-            'F-' => 'mountaineering',
-            'F' => 'mountaineering',
-            'F+' => 'mountaineering',
-            'PD-' => 'mountaineering',
-            'PD' => 'mountaineering',
-            'PD+' => 'mountaineering',
-            'AD-' => 'mountaineering',
-            'AD' => 'mountaineering',
-            'AD+' => 'mountaineering',
-            'D-' => 'mountaineering',
-            'D' => 'mountaineering',
-            'D+' => 'mountaineering',
-            'TD-' => 'mountaineering',
-            'TD' => 'mountaineering',
-            'TD+' => 'mountaineering',
-            'ED-' => 'mountaineering',
-            'ED' => 'mountaineering',
-            'ED+' => 'mountaineering',
-            'WT1' => 'snowshoeing',
-            'WT2' => 'snowshoeing',
-            'WT3' => 'snowshoeing',
-            'WT4' => 'snowshoeing',
-            'WT5' => 'snowshoeing',
-            'MS' => 'skimountaineering',
-            'MSA' => 'skimountaineering',
-            'BS' => 'skimountaineering',
-            'BSA' => 'skimountaineering',
-            'OS' => 'skimountaineering',
-            'OSA' => 'skimountaineering',
-        ];
-
-        if (array_key_exists($this->difficulty, $type)) {
-            return $type[$this->difficulty];
-        }
-
-    }
-
-    public function getDifficultyLabelAttribute($value)
-    {
-        return static::DIFFICULTY_SELECT[$this->difficulty] ?? null;
     }
 
     public function getPhotosAttribute()
@@ -190,5 +135,40 @@ class HaveBeenThere extends Model  implements HasMedia
     {
         return $date->format('Y-m-d H:i:s');
     }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        /*
+        $array = $this->toArray();
+        ray($array);
+        return $array;
+        */
+        return [
+        
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'content' => $this->content,
+
+          
+        ];
+        
+    }
+    public function searchableAs(): string {
+        return 'havebeentheres';
+    }
+
+    public function searchable(): bool
+
+	{
+        return true;
+    	//return $this->published || $this->approved;
+
+	}
+
 
 }

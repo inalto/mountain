@@ -15,7 +15,7 @@ class Tag extends Model
     use HasAdvancedFilter;
     use SoftDeletes;
 
-    public $table = 'oldtags';
+    public $table = 'tags';
 
     public $orderable = [
         'id',

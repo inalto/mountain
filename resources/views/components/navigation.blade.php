@@ -43,6 +43,9 @@
                 </x-dropdown>
                 @endif
 
+                <x-jet-nav-link class="dark:text-gray-200 dark:hover:text-white" href="{{ route('havebeentheres') }}" :active="request()->routeIs('havebeentheres')">
+                        {{ __('Ci sono stato') }}
+                    </x-jet-nav-link>
                 </div>
             </div>
 

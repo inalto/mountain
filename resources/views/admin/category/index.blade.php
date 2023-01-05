@@ -17,7 +17,7 @@
             </div>
         </div>
         <div class="card-body">
-            <livewire:category.index />
+            <livewire:admin.category.index />
         </div>
     </div>
 </x-admin-layout>

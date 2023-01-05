@@ -16,7 +16,7 @@
         </div>
 
         <div class="card-body">
-            <livewire:report.edit :report=$report />
+            <livewire:admin.report.edit :report=$report />
         </div>
     </div>
     <x-swal></x-swal>

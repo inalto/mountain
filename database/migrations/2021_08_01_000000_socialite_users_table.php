@@ -11,7 +11,7 @@ class SocialiteUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('password')->nullable()->change();
             $table->json('social')->nullable();
-            $table->dateTime('deleted_at');
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

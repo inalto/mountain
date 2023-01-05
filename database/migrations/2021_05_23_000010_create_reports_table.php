@@ -18,7 +18,7 @@ class CreateReportsTable extends Migration
             $table->dateTime('created_at');
             $table->dateTime('updated_at');
 
-            $table->dateTime('deleted_at');
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 }

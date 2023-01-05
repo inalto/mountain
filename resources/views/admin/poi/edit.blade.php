@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="card-body">
-            <livewire:poi.edit :poi=$poi />
+            <livewire:admin.poi.edit :poi=$poi />
             
         </div>
     </div>

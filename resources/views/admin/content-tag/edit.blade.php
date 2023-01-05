@@ -12,7 +12,7 @@
     </div>
 
     <div class="card-body">
-        <livewire:content-tag.edit :contentTag=$contentTag></livewire:content-tag.edit>
+        <livewire:admin.content-tag.edit :contentTag=$contentTag></livewire:admin.content-tag.edit>
     </div>
 </div>
 </x-admin-layout>

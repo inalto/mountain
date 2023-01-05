@@ -15,7 +15,7 @@
                 @endcan
             </div>
         </div>
-        <livewire:report.index />
+        <livewire:admin.report.index />
     </div>
     <x-swal></x-swal>
 

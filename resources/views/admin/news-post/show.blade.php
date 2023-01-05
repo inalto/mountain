@@ -1,5 +1,4 @@
-@extends('layouts.admin')
-@section('content')
+<x-admin-layout>
 
 <div class="card bg-blueGray-100">
     <div class="card-header">
@@ -73,10 +72,10 @@
             </table>
         </div>
         <div class="form-group">
-            <a href="{{ route('admin.posts.index') }}" class="btn btn-secondary">
+            <a href="{{ route('admin.news-posts.index') }}" class="btn btn-secondary">
                 {{ trans('global.back') }}
             </a>
         </div>
     </div>
 </div>
-@endsection
+</x-admin-layout>

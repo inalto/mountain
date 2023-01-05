@@ -17,7 +17,7 @@
 
 
         <div class="card-body">
-            <livewire:have-been-there.edit :havebeenthere=$havebeenthere  />
+            <livewire:admin.have-been-there.edit :havebeenthere=$havebeenthere  />
         </div>
     </div>
     <x-swal></x-swal>

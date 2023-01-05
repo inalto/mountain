@@ -1,11 +1,9 @@
-
 .elevation-control .background {
     background-color: transparent;
 }
 path.leaflet-interactive {
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.7));
 }
-
 
 g.tick  {
     @apply text-gray-300 dark:text-gray-700;

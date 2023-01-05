@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <livewire:have-been-there.create />
+            <livewire:admin.have-been-there.create />
         </div>
     </div>
 </x-admin-layout>

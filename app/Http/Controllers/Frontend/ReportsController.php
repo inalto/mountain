@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Traits\MediaUploadingTrait;
 use App\Models\Category;
+use App\Models\Tag;
 use App\Models\Report;
 use App\Support\Inalto\ParseReport;
 
@@ -26,6 +27,24 @@ class ReportsController extends Controller
         } else {
         
                 return view('frontend.reports.index', ['category'=>null]);
+        }
+    }
+    
+    public function tag($tag = null)
+    {
+        
+        
+        if ($tag) {
+            $t = Tag::where('slug', $tag)->first();
+           // ray($t);
+            if ($t) {
+                return view('frontend.reports.index', ['tag'=>$t]);
+            } else {
+                abort(404);
+            }
+        } else {
+        
+                return view('frontend.reports.index', ['tag'=>null]);
         }
     }
 
@@ -92,7 +111,7 @@ class ReportsController extends Controller
             $report->content = ParseReport::beautify($report->content);
             $report->load('tags', 'owner');
 
-            return view('report', compact('report'));
+            return view('frontend.reports.report', compact('report'));
         }
     }
 }

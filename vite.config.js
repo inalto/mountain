@@ -9,7 +9,7 @@ export default defineConfig({
             input: [
             'resources/css/app.css',
             'resources/js/app.js',
-            'resources/css/maps.css',
+    //        'resources/css/maps.css',
             'resources/js/maps.js',
             ],
            

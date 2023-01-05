@@ -11,7 +11,7 @@
     </div>
 
     <div class="card-body">
-        <livewire:content-page.create></livewire:content-page.create>
+        <livewire:admin.content-page.create></livewire:admin.content-page.create>
     </div>
 </div>
 </x-admin-layout>

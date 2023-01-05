@@ -21,7 +21,9 @@ use Admin\UserController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\HaveBeenThereController;
 use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\Frontend\ReportsController as Report;
+use App\Http\Controllers\Frontend\HaveBeenTheresController;
 
 use Illuminate\Support\Facades\Auth;
 /*
@@ -39,10 +41,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Route::view('/info', 'info');
 
+    Route::get('/tag/{tag?}', [Report::class, 'tag'])->name('reports.tag');
+
     Route::get('/relazioni/{category?}', [Report::class, 'index'])->name('reports');
     Route::get('/relazioni/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('report.show');
 
     Route::get('/'.trans('routes.my').'/{category?}', [Report::class, 'my'])->name('reports.my');
+
+
+
+    Route::get('/cisonostato/tag/{tag?}', [HaveBeenTheresController::class, 'tag'])->name('havebeentheres.tag');
+
+    Route::get('/cisonostato/{category?}', [HaveBeenTheresController::class, 'index'])->name('havebeentheres');
     /*
     Route::get('/poi/{category?}', [Report::class, 'index'])->name('poi');
     Route::get('/poi/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('poi.show');

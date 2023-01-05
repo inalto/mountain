@@ -13,7 +13,7 @@
     </div>
 
     <div class="card-body">
-        @livewire('user.edit', [$user])
+        <livewire:admin.user.edit :user=$user ></livewire:admin.user.edit>
     </div>
 </div>
 </x-admin-layout>

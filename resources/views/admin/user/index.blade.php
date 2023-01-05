@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <livewire:user.index></livewire:user.index>
+    <livewire:admin.user.index></livewire:admin.user.index>
 
 </div>
 </x-admin-layout>

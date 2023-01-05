@@ -18,7 +18,7 @@
 
   
 
-    <livewire:news-post.index></livewire:report.index>
+    <livewire:admin.news-post.index></livewire:report.index>
     
 </div>
 

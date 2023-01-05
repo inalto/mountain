@@ -10,7 +10,7 @@
     </div>
 
     <div class="card-body">
-        <livewire:news-post.create></livewire:news-post.create>
+        <livewire:admin.news-post.create></livewire:news-post.create>
     </div>
     
     

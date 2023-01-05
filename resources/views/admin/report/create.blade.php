@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <livewire:report.create />
+            <livewire:admin.report.create />
         </div>
     </div>
 </x-admin-layout>

@@ -15,6 +15,6 @@
                 @endcan
             </div>
         </div>
-<livewire:have-been-there.index ></livewire> 
+<livewire:admin.have-been-there.index ></livewire> 
     </div>
 </x-admin-layout>

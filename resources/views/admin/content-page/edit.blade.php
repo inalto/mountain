@@ -13,7 +13,7 @@
     </div>
 
     <div class="card-body">
-        <livewire:content-page.edit  :contentPage=$contentPage></livewire:content-page.edit>
+        <livewire:admin.content-page.edit  :contentPage=$contentPage></livewire:admin.content-page.edit>
     </div>
 </div>
 </x-admin-layout>

@@ -14,7 +14,7 @@
             @endcan
         </div>
     </div>
-    <livewire:content-tag.index></livewire:content-tag.index>
+    <livewire:admin.content-tag.index></livewire:admin.content-tag.index>
 
 </div>
 </x-admin-layout>

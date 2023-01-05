@@ -26,7 +26,7 @@ class InaltoPathGenerator implements BasePathGenerator
      */
     public function getPathForConversions(Media $media): string
     {
-        return $this->getBasePath($media).'/conversions/';
+        return $this->getBasePath($media).'conversions/';
     }
 
     /*
@@ -34,12 +34,12 @@ class InaltoPathGenerator implements BasePathGenerator
      */
     public function getPathForResponsiveImages(Media $media): string
     {
-        return $this->getBasePath($media).'/responsive-images/';
+        return $this->getBasePath($media).'responsive-images/';
     }
 
     /*
      * Get a unique base path for the given media.
-     */
+     */ 
     protected function getBasePath(Media $media): string
     {
         $prepend = '';
@@ -53,6 +53,7 @@ class InaltoPathGenerator implements BasePathGenerator
                 //$prepend = Str::slug(Report::with('owner')->withTrashed()->find($media->model_id)->owner->name);
                 $prepend = Str::slug(Report::find($media->model_id)->owner()->first()->name);
 
+               // ray($prepend);
                 if ($media->collection_name == 'report_tracks') {
                     $prepend .= '/reports/'.$media->model_id.'/tracks';
                 } else {

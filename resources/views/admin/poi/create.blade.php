@@ -10,7 +10,7 @@
         </div>
 
         <div class="card-body">
-            <livewire:poi.create />
+            <livewire:admin.poi.create />
         </div>
     </div>
 </x-admin-layout>

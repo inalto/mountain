@@ -14,7 +14,7 @@
                 @endcan
             </div>
         </div>
-        <livewire:poi.index />
+        <livewire:admin.poi.index />
 
     </div>
 </x-admin-layout>
