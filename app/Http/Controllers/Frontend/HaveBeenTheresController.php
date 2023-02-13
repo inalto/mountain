@@ -16,7 +16,7 @@ class HaveBeenTheresController extends Controller
     public function index()
     {
        
-                return view('frontend.havebeentheres.index');
+                return view('frontend.have-been-there.index');
    }
     
     public function tag($tag = null)
@@ -27,13 +27,13 @@ class HaveBeenTheresController extends Controller
             $t = Tag::where('slug', $tag)->first();
            // ray($t);
             if ($t) {
-                return view('frontend.havebeentheres.index', ['tag'=>$t]);
+                return view('frontend.have-been-there.index', ['tag'=>$t]);
             } else {
                 abort(404);
             }
         } else {
         
-                return view('frontend.havebeentheres.index', ['tag'=>null]);
+                return view('frontend.have-been-there.index', ['tag'=>null]);
         }
     }
 

@@ -6,6 +6,7 @@ use Str;
 use App\Models\User;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
+use Cache;
 
 class UserPathGenerator implements PathGenerator
 {
@@ -14,7 +15,11 @@ class UserPathGenerator implements PathGenerator
        */
     public function getPath(Media $media): string
     {
-        $prepend = Str::slug(User::find($media->model_id)->name);
+        $prepend = Cache::remember('user_name_'.$media->model_id, 60, function () use ($media) {
+            return Str::slug(User::find($media->model_id)->name);
+        });
+
+//        $prepend = Str::slug(User::find($media->model_id)->name);
         $prepend .= '/avatar';
        // ray($prepend);
         return $prepend."/";

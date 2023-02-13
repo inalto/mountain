@@ -6,6 +6,7 @@ use Str;
 use App\Models\HaveBeenThere;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
+use Cache;
 
 class HaveBeenTherePathGenerator implements PathGenerator
 {
@@ -14,7 +15,12 @@ class HaveBeenTherePathGenerator implements PathGenerator
        */
     public function getPath(Media $media): string
     {
-        $prepend = Str::slug(HaveBeenThere::find($media->model_id)->owner()->first()->name);
+         //caching the report owner name to avoid multiple queries
+        $prepend = Cache::remember('havebeenthere_owner_name_'.$media->model_id, 60, function () use ($media) {
+            return Str::slug(HaveBeenThere::find($media->model_id)->owner()->first()->name);
+        });
+
+        //$prepend = Str::slug(HaveBeenThere::find($media->model_id)->owner()->first()->name);
         if ($media->collection_name == 'report_tracks') {
             $prepend .= '/havebeenthere/'.$media->model_id.'/tracks';
         } else {

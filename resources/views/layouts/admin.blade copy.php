@@ -30,10 +30,10 @@
 
         <!-- Right navbar links -->
 @if(count(config('panel.available_languages', [])) > 1)
-        <ul class="ml-auto navbar-nav">
-            <li class="nav-item dropdown">
-                <a class="nav-link" data-toggle="dropdown" href="#">
-                    {{ strtoupper(app()->getLocale()) }}
+            <ul class="ml-auto navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        {{ strtoupper(app()->getLocale()) }}
     </a>
     <div class="dropdown-menu dropdown-menu-right">
       <blade foreach|%20(config(%26%2339%3Bpanel.available_languages%26%2339%3B)%20as%20%24langLocale%20%3D%3E%20%24langName)>

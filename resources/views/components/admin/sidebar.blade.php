@@ -1,24 +1,18 @@
-<nav
-  class="absolute inset-0 transform lg:transform-none lg:opacity-100 duration-200 lg:relative z-10 w-64 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 h-screen"
-  :class="{'translate-x-0 ease-in opacity-100':open === true, '-translate-x-full ease-out opacity-0': open === false}">
+<nav class="absolute inset-0 transform lg:transform-none lg:opacity-100 duration-200 lg:relative z-10 w-64 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 h-screen" :class="{'translate-x-0 ease-in opacity-100':open === true, '-translate-x-full ease-out opacity-0': open === false}">
   <ul class="" role="menu">
     <li class="nav-item">
-      <a class="nav-link" href="{{ route("admin.home") }}">
+      <a class="nav-link" href="{{ route('admin.home') }}">
         <svg viewBox="0 0 576 512" xmlns="http://www.w3.org/2000/svg" class="mr-3 w-5 h-5">
           <path fill="currentColor"
             d="M128 288c-17.67 0-32 14.33-32 32s14.33 32 32 32 32-14.33 32-32-14.33-32-32-32zm154.65-97.08l16.24-48.71c1.16-3.45 3.18-6.35 4.92-9.43-4.73-2.76-9.94-4.78-15.81-4.78-17.67 0-32 14.33-32 32 0 15.78 11.63 28.29 26.65 30.92zM176 176c-17.67 0-32 14.33-32 32s14.33 32 32 32 32-14.33 32-32-14.33-32-32-32zM288 32C128.94 32 0 160.94 0 320c0 52.8 14.25 102.26 39.06 144.8 5.61 9.62 16.3 15.2 27.44 15.2h443c11.14 0 21.83-5.58 27.44-15.2C561.75 422.26 576 372.8 576 320c0-159.06-128.94-288-288-288zm212.27 400H75.73C57.56 397.63 48 359.12 48 320 48 187.66 155.66 80 288 80s240 107.66 240 240c0 39.12-9.56 77.63-27.73 112zM416 320c0 17.67 14.33 32 32 32s32-14.33 32-32-14.33-32-32-32-32 14.33-32 32zm-56.41-182.77c-12.72-4.23-26.16 2.62-30.38 15.17l-45.34 136.01C250.49 290.58 224 318.06 224 352c0 11.72 3.38 22.55 8.88 32h110.25c5.5-9.45 8.88-20.28 8.88-32 0-19.45-8.86-36.66-22.55-48.4l45.34-136.01c4.17-12.57-2.64-26.17-15.21-30.36zM432 208c0-15.8-11.66-28.33-26.72-30.93-.07.21-.07.43-.14.65l-19.5 58.49c4.37 2.24 9.11 3.8 14.36 3.8 17.67-.01 32-14.34 32-32.01z">
           </path>
         </svg>
-
         {{ trans('global.dashboard') }}
-
       </a>
     </li>
 
     @can('user_management_access')
-      <li
-        x-data="{ open: {{ request()->is('admin/permissions*')||request()->is('admin/roles*')||request()->is('admin/users') ? 'true' : 'false' }} }"
-        class="nav-item">
+    <li x-data="{ open: {{ request()->is('admin/permissions*')||request()->is('admin/roles*')||request()->is('admin/users') ? 'true' : 'false' }} }" class="nav-item">
         <a @click.prevent="open = !open" class="nav-link nav-dropdown-toggle" href="#">
           <span>
             <svg viewBox="0 0 640 512" xmlns="http://www.w3.org/2000/svg" class="mr-3 w-5 h-5">
@@ -28,11 +22,9 @@
             </svg>
             {{ trans('cruds.userManagement.title') }}
           </span>
-          <i
-            :class="[ open ? 'ease-in-out duration-500 transform -rotate-90 right fa fa-angle-left nav-icon' : 'ease-in-out duration-500 transform right fa fa-angle-left nav-icon']"></i>
+          <i :class="[ open ? 'ease-in-out duration-500 transform -rotate-90 right fa fa-angle-left nav-icon' : 'ease-in-out duration-500 transform right fa fa-angle-left nav-icon']"></i>
         </a>
-        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-700 max-h-0"
-          x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
+        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-300 max-h-0" x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
           @can('permission_access')
             <li class="nav-item">
               <a href="{{ route('admin.permissions.index') }}"
@@ -70,20 +62,16 @@
     @endcan
 
     @can('content_management_access')
-      <li
-        x-data="{ open: {{ request()->is('admin/content-categories*') ||request()->is('admin/content-tags*')||request()->is('admin/content-pages*')? 'true' : 'false' }} }"
-        class="nav-item has-treeview ">
+    <li x-data="{ open: {{ request()->is('admin/content-categories*') ||request()->is('admin/content-tags*')||request()->is('admin/content-pages*')? 'true' : 'false' }} }" class="nav-item has-treeview ">
         <a x-on:click="open = !open" class="nav-link nav-dropdown-toggle" href="#">
           <span>
             <i class="nav-icon fas fa-book"></i>
-
             {{ trans('cruds.contentManagement.title') }}
           </span>
           <i
             :class="[ open ? 'transform -rotate-90 right fa fa-angle-left nav-icon' : 'transform right fa fa-angle-left nav-icon']"></i>
         </a>
-        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-700 max-h-0"
-          x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
+        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-300 max-h-0" x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
           @can('content_category_access')
             <li class="nav-item">
               <a href="{{ route('admin.content-categories.index') }}"
@@ -117,13 +105,11 @@
               </a>
             </li>
           @endcan
-        </ul>
-      </li>
+      </ul>
+    </li>
     @endcan
     @can('inalto_access')
-      <li
-        x-data="{ open: {{ request()->is('admin/reports*')||request()->is('admin/pois*')||request()->is('admin/tags*')||request()->is('admin/categories*')||request()->is('admin/have-been-there*')? 'true' : 'false' }} }"
-        class="nav-item has-treeview ">
+      <li x-data="{ open: {{ request()->is('admin/reports*')||request()->is('admin/pois*')||request()->is('admin/tags*')||request()->is('admin/categories*')||request()->is('admin/have-been-there*')? 'true' : 'false' }} }" class="nav-item has-treeview ">
         <a x-on:click="open = !open" class="nav-link nav-dropdown-toggle" href="#">
           <span>
             <i class="nav-icon fas fa-walking"></i>
@@ -132,7 +118,7 @@
           <i
             :class="[ open ? 'transform -rotate-90 right fa fa-angle-left nav-icon' : 'transform right fa fa-angle-left nav-icon']"></i>
         </a>
-        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-700 max-h-0"
+        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-300 max-h-0"
           x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
           @can('report_access')
             <li class="nav-item">
@@ -208,7 +194,7 @@
           <i
             :class="[ open ? 'transform -rotate-90 right fa fa-angle-left nav-icon' : 'transform right fa fa-angle-left nav-icon']"></i>
         </a>
-        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-700 max-h-0"
+        <ul x-ref="inner" class="relative overflow-hidden transition-all duration-300 max-h-0"
           x-bind:style="open ? `max-height:  ${ $refs.inner.scrollHeight }px` : ``">
 
           @can('news_post_access')

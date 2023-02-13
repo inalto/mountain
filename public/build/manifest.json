@@ -1,34 +1,37 @@
 {
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
-    "file": "assets/fa-solid-900.52bbd916.woff2",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
-  },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
     "file": "assets/fa-regular-400.52ec4d83.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900.52bbd916.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
     "file": "assets/fa-brands-400.967394d1.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
   },
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
-    "file": "assets/fa-solid-900.5808ca8f.ttf",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
-  },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf": {
     "file": "assets/fa-regular-400.e2d44fc8.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.ttf"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900.5808ca8f.ttf",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.ttf"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf": {
     "file": "assets/fa-brands-400.2cd4cf89.ttf",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.ttf"
   },
   "resources/js/app.js": {
-    "file": "assets/app.2bf5a406.js",
+    "file": "assets/app.bf1a1e98.js",
     "src": "resources/js/app.js",
     "isEntry": true,
     "imports": [
       "__commonjsHelpers.4e997714.js"
+    ],
+    "css": [
+      "assets/app.aac9d8c3.css"
     ]
   },
   "resources/js/maps.js": {
@@ -42,8 +45,12 @@
   "__commonjsHelpers.4e997714.js": {
     "file": "assets/_commonjsHelpers.4e997714.js"
   },
+  "resources/js/app.css": {
+    "file": "assets/app.aac9d8c3.css",
+    "src": "resources/js/app.css"
+  },
   "resources/css/app.css": {
-    "file": "assets/app.1371a06f.css",
+    "file": "assets/app.a01b37a0.css",
     "src": "resources/css/app.css",
     "isEntry": true
   }

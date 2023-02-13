@@ -7,6 +7,7 @@ use App\Models\Report;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
 
+use Cache;
 class ReportPathGenerator implements PathGenerator
 {
     /*
@@ -14,7 +15,12 @@ class ReportPathGenerator implements PathGenerator
        */
     public function getPath(Media $media): string
     {
-        $prepend = Str::slug(Report::find($media->model_id)->owner()->first()->name);
+        //caching the report owner name to avoid multiple queries
+        $prepend = Cache::remember('report_owner_name_'.$media->model_id, 60, function () use ($media) {
+            return Str::slug(Report::find($media->model_id)->owner()->first()->name);
+        });
+        
+        //$prepend = Str::slug(Report::find($media->model_id)->owner()->first()->name);
         if ($media->collection_name == 'report_tracks') {
             $prepend .= '/reports/'.$media->model_id.'/tracks';
         } else {

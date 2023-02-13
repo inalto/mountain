@@ -9,6 +9,12 @@ class CoordPicker extends Component
     public $coords=[];
     public $open=false;
 
+    public function mount($coords)
+    {
+        $this->coords=$coords;
+        ray($coords);
+    }
+
     public function render()
     {
         return view('livewire.coordpicker');

@@ -353,6 +353,8 @@ return [
             "drop_p_helper" => "Positive height difference D+ in meters",
             "excerpt" => "Excerpt",
             "excerpt_helper" => " ",
+            "exposure" => "Exposure",
+            "exposure_helper" => "Sun exposure",
             "id" => "ID",
             "id_helper" => " ",
             "intro" => "Introduction",

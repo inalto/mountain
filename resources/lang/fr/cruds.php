@@ -353,6 +353,8 @@ return [
             "drop_p_helper" => "Dénivelé positif D+ en mètres",
             "excerpt" => "Excerpt",
             "excerpt_helper" => " ",
+            "exposure" => "Exposition",
+            "exposure_helper" => "L'exposition au soleil",
             "id" => "ID",
             "id_helper" => " ",
             "intro" => "Introduction",

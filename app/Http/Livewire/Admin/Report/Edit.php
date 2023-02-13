@@ -49,6 +49,8 @@ class Edit extends Component
 
     public $title = null;
 
+//    public $exposure = null;
+
     public $slug = null;
 
     public $parent_id = null;
@@ -102,7 +104,7 @@ class Edit extends Component
         unset($this->report->categories);
         unset($this->report->parent_id);
         $this->report->save();
-        ray($this->photos);
+        ray($this->report);
         //$this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
         //$this->report->addFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
         $this->report->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title','author')->toMediaCollection('report_photos');
@@ -259,7 +261,10 @@ class Edit extends Component
                 'nullable',
             ],
             'report.updated_at' => [
-
+                'nullable',
+            ],
+            'report.exposure' => [
+                'string',
                 'nullable',
             ],
             'report.parent_id' => [

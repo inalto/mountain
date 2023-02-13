@@ -88,6 +88,14 @@ class Edit extends Component
     protected function rules(): array
     {
         return [
+            'poi.created_at' => [
+                'string',
+                'nullable',
+            ],
+            'poi.updated_at' => [
+                'string',
+                'nullable',
+            ],
             'poi.name' => [
                 'string',
                 'nullable',

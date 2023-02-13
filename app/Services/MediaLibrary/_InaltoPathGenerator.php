@@ -43,6 +43,7 @@ class InaltoPathGenerator implements BasePathGenerator
     protected function getBasePath(Media $media): string
     {
         $prepend = '';
+        ray($media->model_type);
      //   ray($media->model_type);
         switch ($media->model_type) {
             case 'App\Models\Report':

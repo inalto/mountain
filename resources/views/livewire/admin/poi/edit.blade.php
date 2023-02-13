@@ -1,6 +1,27 @@
-
 <form wire:submit.prevent="submit" class="p-3">
+    <div class="flex gap-10">
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.created_at') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="created_at">{{ trans('cruds.poi.fields.created_at') }}</x-label>
+            <x-datetime-picker class="w-full form-control" type="text" name="created_at" id="updated_at" required wire:model="poi.created_at" />
+            <div class="validation-message">
+                {{ $errors->first('poi.created_at') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.poi.fields.created_at_helper') }}
+            </div>
+        </div>
 
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.updated_at') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="updated_at">{{ trans('cruds.poi.fields.updated_at') }}</x-label>
+            <x-datetime-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" wire:model.defer="poi.updated_at" />
+            <div class="validation-message">
+                {{ $errors->first('poi.updated_at') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.poi.fields.updated_at_helper') }}
+            </div>
+        </div>
+    </div>
 
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.name') ? 'invalid' : '' }}">
@@ -25,26 +46,28 @@
         </div>
     </div>
 
-
     <div class="flex gap-10">
-<livewire:coord-picker ></livewire:coord-picker>
-</div>
-<div class="flex gap-10">
+        <x-inputs.coords wire:model="poi.location" />
+    </div>
+    <div class="flex gap-10">
+        <livewire:coord-picker :coords="$poi->location"></livewire:coord-picker>
+    </div>
+    <div class="flex gap-10">
 
 
         <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('poi.location.lat') ? 'invalid' : '' }}">
             <x-label class="form-label" for="location.lat">{{ trans('cruds.poi.fields.lat') }}</x-label>
             <x-input class="form-control" type="text" name="location.lat" id="location.lat" wire:model.defer="poi.location.lat" step="1" />
-                <div class="validation-message">
-                    {{ $errors->first('poi.location.lat') }}
-                </div>
-                <div class="help-block">
-                    {{ trans('cruds.poi.fields.lat_helper') }}
-                </div>
+            <div class="validation-message">
+                {{ $errors->first('poi.location.lat') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.poi.fields.lat_helper') }}
+            </div>
         </div>
         <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('poi.location.lon') ? 'invalid' : '' }}">
             <x-label class="form-label" for="location.lon">{{ trans('cruds.poi.fields.lon') }}</x-jet-label>
-            <x-input class="form-control" type="text" name="location.lon" id="location.lon" wire:model.defer="poi.location.lon" step="1" />
+                <x-input class="form-control" type="text" name="location.lon" id="location.lon" wire:model.defer="poi.location.lon" step="1" />
                 <div class="validation-message">
                     {{ $errors->first('poi.location.lon') }}
                 </div>
@@ -118,8 +141,7 @@
 
     <div class="form-group {{ $errors->has('tags') ? 'invalid' : '' }}">
         <x-label class="form-label" for="tags">{{ trans('cruds.poi.fields.tags') }}</x-label>
-        <x-select-list class="form-control" id="tags" name="tags" wire:model="tags"
-            :options="$this->listsForFields['tags']" multiple />
+        <x-select-list class="form-control" id="tags" name="tags" wire:model="tags" :options="$this->listsForFields['tags']" multiple />
         <div class="validation-message">
             {{ $errors->first('tags') }}
         </div>
@@ -128,12 +150,12 @@
         </div>
     </div>
 
-        <div class="form-group mt-5">
-            <x-jet-button class="mr-2" type="submit">
-                {{ trans('global.save') }}
-            </x-jet-button>
-            <a href="{{ route('admin.pois.index') }}" class="btn btn-secondary">
-                {{ trans('global.cancel') }}
-            </a>
-        </div>
+    <div class="form-group mt-5">
+        <x-jet-button class="mr-2" type="submit">
+            {{ trans('global.save') }}
+        </x-jet-button>
+        <a href="{{ route('admin.pois.index') }}" class="btn btn-secondary">
+            {{ trans('global.cancel') }}
+        </a>
+    </div>
 </form>

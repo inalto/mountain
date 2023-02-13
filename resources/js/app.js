@@ -2,6 +2,8 @@ import "./jquery";
 import "./alpine";
 import "./toastr";
 import "./clockpicker";
+import "../css/exposure.css";
+import "./exposure";
 import select2 from "select2";
 select2(jQuery);
 

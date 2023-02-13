@@ -12,10 +12,10 @@
     </div>
 </div>
 
+{{--
 @push('scripts')
     <script>
-        document.addEventListener("livewire:load", () => {
-    function update(value) {
+         function update(value) {
         let el = document.getElementById('clear-{{ $attributes['id'] }}')
 
         if (value === '') {
@@ -27,9 +27,10 @@
         } else if (el !== null) {
             el.classList.remove('invisible')
         }
-
-@this.set('{{ $attributes['wire:model'] }}', value)
+        @this.set('{{ $attributes['wire:model'] }}', value)
     }
+        document.addEventListener("livewire:load", () => {
+   
 
 @if($attributes['picker'] === 'date')
         let el = flatpickr('window.flatpickr-{{ $attributes['id'] }}', {
@@ -75,3 +76,4 @@
 });
     </script>
 @endpush
+--}}

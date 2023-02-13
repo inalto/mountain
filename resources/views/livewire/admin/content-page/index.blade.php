@@ -53,7 +53,7 @@
         </thead>
         <tbody>
             @forelse($contentPages as $contentPage)
-                <tr>
+                <tr  class="table-row">
                     <td>
                         <input type="checkbox" value="{{ $contentPage->id }}" wire:model="selected">
                     </td>

@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Tag;
 use App\Models\Report;
 use App\Support\Inalto\ParseReport;
-
+use Cache;
 class ReportsController extends Controller
 {
     use MediaUploadingTrait;
@@ -18,7 +18,8 @@ class ReportsController extends Controller
         
         
         if ($category) {
-            $cat = Category::whereTranslation('slug', $category)->first();
+            // cache the category query
+            $cat = Category::with('translates')->whereTranslation('slug', $category)->first();
             if ($cat) {
                 return view('frontend.reports.index', ['category'=>$cat]);
             } else {
@@ -85,10 +86,11 @@ class ReportsController extends Controller
             return view('report', compact('report'));
         }
 */
+
         if ($category == 'none') {
-            $reports = Report::with('categories')->doesntHave('categories')->whereTranslation('slug', $slug)->get();
+            $reports = Report::with(['owner', 'categories', 'media', 'translations'])->doesntHave('categories')->whereTranslation('slug', $slug)->get();
             if ($reports->count() > 1) {
-                $reports = Report::with('categories')->doesntHave('categories')->whereTranslation('slug', $slug)->get();
+                $reports = Report::with(['owner', 'categories', 'media', 'translations'])->doesntHave('categories')->whereTranslation('slug', $slug)->get();
 
                 return view('conflict', compact('reports'));
             } else {
@@ -97,8 +99,8 @@ class ReportsController extends Controller
                 return view('report', compact('report'));
             }
         } else {
-            $category = Category::whereTranslation('slug', $category)->get()->first();
-            $report = Report::with('categories')->whereHas('categories', function ($query) use ($category) {
+            $category = Category::with('translations')->whereTranslation('slug', $category)->get()->first();
+            $report = Report::with(['owner', 'categories','tags', 'media', 'translations'])->whereHas('categories', function ($query) use ($category) {
                 //$query->whereTranslation('slug','escursionismo');
                 $query->where('id', '=', $category->id);
             })->whereTranslation('slug', $slug)->get()->first();
@@ -109,7 +111,7 @@ class ReportsController extends Controller
             $report->access = ParseReport::beautify($report->access);
             $report->excerpt = ParseReport::beautify($report->excerpt);
             $report->content = ParseReport::beautify($report->content);
-            $report->load('tags', 'owner');
+//            $report->load('tags', 'owner');
 
             return view('frontend.reports.report', compact('report'));
         }

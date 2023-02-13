@@ -1,7 +1,8 @@
+
 <div class="relative w-full flex ">
     <div class="mb-2 form-group {{ $errors->has('poi.location.lat') ? 'invalid' : '' }}">
         <x-label class="form-label" for="location.lat">{{ trans('cruds.poi.fields.lat') }}</x-label>
-        <x-input class="form-control" type="text" name="location.lat" id="location.lat" wire:model.defer="poi.location.lat" step="1" />
+        <x-input class="form-control" type="text" name="location.lat" id="location.lat" step="1" value="{{$coords['lat']}}" />
         <div class="validation-message">
             {{ $errors->first('poi.location.lat') }}
         </div>
@@ -21,7 +22,7 @@
     </div>
 
     @if($open)
-    <div class="absolute  w-full  top-6 left-0 p-4 mt-12 bg-white rounded-lg shadow z-20">
+    <div class="absolute w-full top-6 left-0 p-4 mt-12 bg-white rounded-lg shadow z-20">
         <div wire:click.away="closeWindow()">x</div>
         <div id="map" class="h-full" style="height:500px"></div>
     </div>

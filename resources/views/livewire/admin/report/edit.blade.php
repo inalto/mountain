@@ -14,7 +14,7 @@
         </div>
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.updated_at') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.updated_at') }}</x-label>
-            <x-date-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" required wire:model="report.updated_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" required wire:model="report.updated_at" />
             <div class="validation-message">
                 {{ $errors->first('report.updated_at') }}
             </div>
@@ -81,7 +81,7 @@
         </div>
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.drop_n') ? 'invalid' : '' }}">
             <x-label class="form-label" for="drop_n">{{ trans('cruds.report.fields.drop_n') }}</x-label>
-            <x-input class="w-full form-control" type="text" name="drop_n" id="drop_n" wire:model.lazi="report.drop_n" right="m" />
+            <x-input class="w-full form-control" type="text" name="drop_n" id="drop_n" wire:model.lazy="report.drop_n" right="m" />
             <div class="validation-message">
                 {{ $errors->first('report.drop_n') }}
             </div>
@@ -92,7 +92,7 @@
     </div>
 
     <div class="flex gap-10">
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
             <x-time type="time" class="w-full form-control" name="time_a" id="time_a" wire:model.lazy="report.time_a" />
             <div class="validation-message">
@@ -103,7 +103,7 @@
             </div>
         </div>
 
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_r">{{ trans('cruds.report.fields.time_r') }}</x-label>
             <x-time type="time" class="w-full form-control" name="time_r" id="time_r" wire:model.lazy="report.time_r" />
             <div class="validation-message">
@@ -113,8 +113,7 @@
                 {{ trans('cruds.report.fields.time_r_helper') }}
             </div>
         </div>
-    </div>
-    <div class="flex gap-10">
+
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.length') ? 'invalid' : '' }}">
             <x-label class="form-label" for="length">{{ trans('cruds.report.fields.length') }}</x-label>
             <x-input class="w-full form-control" type="text" name="length" id="length" wire:model.lazy="report.length" right="Km" />
@@ -126,6 +125,20 @@
             </div>
         </div>
 
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.exposure') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="exposure">{{ trans('cruds.report.fields.exposure') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="exposure" id="exposure" wire:model.lazy="report.exposure" data-sun />
+            <div class="validation-message">
+                {{ $errors->first('report.exposure') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.exposure_helper') }}
+            </div>
+        </div>
+
+    </div>
+    <div class="flex gap-10">
+        
         <div class="w-full md:w-1/4 mb-2 form-group">
             <x-label class="form-label" for="type">{{ trans('cruds.report.fields.difficulty_class.type') }}
             </x-label>

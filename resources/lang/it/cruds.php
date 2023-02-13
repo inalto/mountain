@@ -353,6 +353,8 @@ return [
             "drop_p_helper" => "Dislivello positivo D+ in metri",
             "excerpt" => "Introduzione",
             "excerpt_helper" => "",
+            "exposure" => "Esposizione",
+            "exposure_helper" => "Esposizione al sole",
             "id" => "ID",
             "id_helper" => "",
             "intro" => "Introduzione",

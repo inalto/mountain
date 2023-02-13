@@ -40,7 +40,7 @@
         </thead>
         <tbody>
             @forelse($permissions as $permission)
-                <tr>
+                <tr  class="table-row"> 
                     <td>
                         <input type="checkbox" value="{{ $permission->id }}" wire:model="selected">
                     </td>

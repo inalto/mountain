@@ -77,7 +77,7 @@
         </div>
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.drop_n') ? 'invalid' : '' }}">
             <x-label class="form-label" for="drop_n">{{ trans('cruds.report.fields.drop_n') }}</x-label>
-            <x-input class="w-full form-control" type="text" name="drop_n" id="drop_n" wire:model="report.drop_n"
+            <x-input class="w-full form-control" type="text" name="drop_n" id="drop_n" wire:model.lazy="report.drop_n"
                 right="m" />
             <div class="validation-message">
                 {{ $errors->first('report.drop_n') }}
@@ -89,9 +89,9 @@
     </div>
 
     <div class="flex gap-10">
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
-           <x-time type="time" class="w-full form-control"  name="time_a" id="time_a" wire:model="report.time_a"/> 
+            <x-time type="time" class="w-full form-control" name="time_a" id="time_a" wire:model.lazy="report.time_a" />
             <div class="validation-message">
                 {{ $errors->first('report.time_a') }}
             </div>
@@ -100,9 +100,9 @@
             </div>
         </div>
 
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_r">{{ trans('cruds.report.fields.time_r') }}</x-label>
-            <x-time type="time" class="w-full form-control"  name="time_r" id="time_r" wire:model="report.time_r"/> 
+            <x-time type="time" class="w-full form-control" name="time_r" id="time_r" wire:model.lazy="report.time_r" />
             <div class="validation-message">
                 {{ $errors->first('report.time_r') }}
             </div>
@@ -110,12 +110,10 @@
                 {{ trans('cruds.report.fields.time_r_helper') }}
             </div>
         </div>
-    </div>
-    <div class="flex gap-10">
+
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.length') ? 'invalid' : '' }}">
             <x-label class="form-label" for="length">{{ trans('cruds.report.fields.length') }}</x-label>
-            <x-input class="w-full form-control" type="text" name="length" id="length" wire:model="report.length"
-                right="Km" />
+            <x-input class="w-full form-control" type="text" name="length" id="length" wire:model.lazy="report.length" right="Km" />
             <div class="validation-message">
                 {{ $errors->first('report.length') }}
             </div>
@@ -124,13 +122,27 @@
             </div>
         </div>
 
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.exposure') ? 'invalid' : '' }}">
+            <x-label class="form-label" for="exposure">{{ trans('cruds.report.fields.exposure') }}</x-label>
+            <x-input class="w-full form-control" type="text" name="exposure" id="exposure" wire:model.lazy="report.exposure" data-sun />
+            <div class="validation-message">
+                {{ $errors->first('report.exposure') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.exposure_helper') }}
+            </div>
+        </div>
+
+    </div>
+    <div class="flex gap-10">
+        
         <div class="w-full md:w-1/4 mb-2 form-group">
             <x-label class="form-label" for="type">{{ trans('cruds.report.fields.difficulty_class.type') }}
             </x-label>
-            <select class="form-control w-full py-1 mt-2" wire:model="type" name="type">
+            <select class="form-control w-full" wire:model="type" name="type">
                 <option value="null">{{ trans('global.pleaseSelect') }}...</option>
                 @foreach ($this->listsForFields['type'] as $key => $value)
-                    <option value="{{ $key }}">{{ $value }}</option>
+                <option value="{{ $key }}">{{ $value }}</option>
                 @endforeach
 
             </select>
@@ -142,32 +154,32 @@
 
         <div class="w-full md:w-1/4 mb-2 form-group">
             <x-label class="form-label">{{ trans('cruds.report.fields.difficulty') }}</x-label>
-            <select class="form-control  w-full py-1 mt-2" wire:model="report.difficulty" name="difficulty">
+            <select class="form-control  w-full" wire:model="report.difficulty" name="difficulty">
                 <option value="null">{{ trans('global.pleaseSelect') }}...</option>
 
                 @if ($type == 'hiking')
-                    @foreach ($this->listsForFields['hiking'] as $key => $value)
-                        <option value="{{ $key }}" @if ($key == $report->difficulty)selected @endif>{{ $value }}</option>
-                    @endforeach
+                @foreach ($this->listsForFields['hiking'] as $key => $value)
+                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
+                @endforeach
                 @endif
                 @if ($type == 'snowshoeing')
-                    @foreach ($this->listsForFields['snowshoeing'] as $key => $value)
-                        <option value="{{ $key }}" @if ($key == $report->difficulty)selected @endif>{{ $value }}</option>
-                    @endforeach
+                @foreach ($this->listsForFields['snowshoeing'] as $key => $value)
+                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
+                @endforeach
                 @endif
 
                 @if ($type == 'mountaineering')
-                    @foreach ($this->listsForFields['mountaineering'] as $key => $value)
-                        <option value="{{ $key }}" @if ($key == $report->difficulty)selected @endif>{{ $value }}</option>
-                    @endforeach
+                @foreach ($this->listsForFields['mountaineering'] as $key => $value)
+                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
+                @endforeach
                 @endif
 
                 @if ($type == 'skimountaineering')
-                    @foreach ($this->listsForFields['skimountaineering'] as $key => $value)
-                        <option value="{{ $key }}" @if ($key == $report->difficulty)selected @endif>{{ $value }}</option>
-                    @endforeach
+                @foreach ($this->listsForFields['skimountaineering'] as $key => $value)
+                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
+                @endforeach
                 @endif
-
+                
                 @if ($type == 'ferrata')
                     @foreach ($this->listsForFields['ferrata'] as $key => $value)
                         <option value="{{ $key }}" @if ($key == $report->difficulty)selected @endif>{{ $value }}</option>
@@ -202,7 +214,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="form-group {{ $errors->has('report.excerpt') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-label>

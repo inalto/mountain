@@ -186,9 +186,8 @@
 
 
 .card {
-    @apply bg-white  dark:bg-gray-800 ;
-    border: 1px solid #ddd;
-    box-shadow: 0px 2px 1px rgba(0,0,0,0.1);
+    @apply bg-white  dark:bg-gray-800 shadow border-gray-600;
+    
 }
 .card-header {
     @apply border-b border-gray-200 dark:border-gray-700;
@@ -198,6 +197,10 @@
 }
 .form-label {
     @apply font-medium text-sm text-gray-700 font-bold text-xs dark:text-gray-200
+}
+
+.card-body {
+    @apply p-4
 }
 
 input.form-control,

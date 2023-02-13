@@ -1,12 +1,12 @@
 @props(['user' => false,'show'=>false,'intro'=>trans('global.by')])
 
 @if ($user)
-<div class="flex mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font ">
-    <div class="relative">
+<div class="flex mb-1 text-xs font-medium text-gray-500 dark:text-gray-300 title-font not-prose">
+    <div class="relative h-10 w-10">
         @if ($user->getFirstMedia('avatar'))
         <img class="inline-block object-cover w-10 h-10 rounded-lg" src="{{$user->getFirstMedia('avatar')->geturl()}}" alt="Profile image" />
         @else
-        <img class="object-cover w-10 h-10 rounded-lg" src="https://www.gravatar.com/avatar/{{md5( strtolower( trim( $user->email ) ) )}}?d=identicon" alt="{{ $user->name }}" /> 
+        <img class="object-cover w-10 h-10  rounded-lg" src="https://www.gravatar.com/avatar/{{md5( strtolower( trim( $user->email ) ) )}}?d=identicon" alt="{{ $user->name }}" /> 
         {{-- <img class="object-cover w-10 h-10 rounded-lg" src="https://eu.ui-avatars.com/api/?name={{ $user->name }}" alt="{{ $user->name }}" /> --}}
         @endif
         @if ($user->isOnline())
