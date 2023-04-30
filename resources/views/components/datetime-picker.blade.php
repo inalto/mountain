@@ -7,7 +7,7 @@
                 enableTime: true,
                 disableMobile: true,
                 onChange: function(selectedDates, dateStr, instance) {
-                    @this.set('{{ $attributes['wire:model'] }}', dateStr)
+                    @this.set('{{ $attributes['wire:model.defer'] }}', dateStr)
                 }
             })
     }

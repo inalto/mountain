@@ -15,6 +15,10 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Carbon;
+
+
 class HaveBeenThere extends Model implements HasMedia
 {
     use HasFactory;
@@ -46,7 +50,9 @@ class HaveBeenThere extends Model implements HasMedia
 
     public $casts = [
         'location' => 'array',
-
+        'date' => 'datetime:Y-m-d H:i:s',
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
 
     public $orderable = [
@@ -71,6 +77,14 @@ class HaveBeenThere extends Model implements HasMedia
         ];
     }
 
+    /*
+    protected function createdAt(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) => Carbon::create($value)->format("Y-m-d H:i:s")
+        );
+    }
+*/
     public function getPhotosAttribute()
     {
         return $this->getMedia('havebeenthere_photos')->map(function ($item) {

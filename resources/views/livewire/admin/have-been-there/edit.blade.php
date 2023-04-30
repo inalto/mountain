@@ -30,7 +30,7 @@
     <div class="flex gap-10">
     <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.created_at') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.created_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.created_at" id="havebeenthere.created_at" wire:model="havebeenthere.created_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.created_at" id="havebeenthere.created_at" wire:model.defer="havebeenthere.created_at" />
             <div class="validation-message">
                 {{ $errors->first('havebeenthere.created_at') }}
             </div>
@@ -40,7 +40,7 @@
         </div>
         <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.updated_at') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.updated_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.updated_at" id="havebeenthere.updated_at" wire:model="havebeenthere.updated_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.updated_at" id="havebeenthere.updated_at" wire:model.defer="havebeenthere.updated_at" />
             <div class="validation-message">
                 {{ $errors->first('havebeenthere.updated_at') }}
             </div>
@@ -50,7 +50,7 @@
         </div>
     <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.date') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.date') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="date" id="date" wire:model="havebeenthere.date" />
+            <x-datetime-picker class="w-full form-control" type="text" name="date" id="date" wire:model.defer="havebeenthere.date" />
             <div class="validation-message">
                 {{ $errors->first('havebeenthere.date') }}
             </div>

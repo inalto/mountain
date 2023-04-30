@@ -3,17 +3,19 @@
 namespace App\Http\Livewire\Admin\Report;
 
 use App\Models\Category;
+use App\Models\HaveBeenThere;
 use App\Models\Report;
 use App\Models\ReportTranslation;
+use Carbon\Carbon;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
-use Spatie\Tags\Tag;
 
 class Create extends Component
 {
     use WithMedia;
+
+    protected $listeners = ['delete', 'save', 'userSelected'];
 
     public Report $report;
 
@@ -25,7 +27,8 @@ class Create extends Component
 
     public array $listsForFields = [];
 
-    // public array $mediaCollections = [];
+    //  public array $mediaCollections = [];
+
     public $mediaComponentNames = ['photos', 'tracks'];
 
     public $photos;
@@ -34,47 +37,49 @@ class Create extends Component
 
     public array $bibliographies = [];
 
-    public $type = '';
-
     public $difficulty = '';
+
+    public $difficulties = [];
 
     public $title = null;
 
+//    public $exposure = null;
+
     public $slug = null;
 
-    public function mount()
+    public $parent_id = null;
+
+    public function mount(Report $report)
     {
-        $report = new Report();
-
+        ray($report);
         $this->report = $report;
-        $this->initListsForFields();
-        /*
+        $this->report->period=[];
         $this->difficulty = $report->difficulty;
+        if (! $report->category_id) {
+            $report->category_id = Category::query()->first()->id;
+        }
+        //   $this->initListsForFields();
+        $this->difficulties = $this->report->getDifficulties();
 
-        $this->type = $this->report->getTypeAttribute();
+        //$this->tags = $this->report->tags()->pluck('id')->toArray();
         $this->tags = $this->report->tags()->pluck('id')->toArray();
-        //$this->categories = $this->report->categories()->pluck('id')->toArray();
-        $this->categories = $this->report->categories()->pluck('id')->toArray();
+        $this->categories = Category::query()->get()->pluck('name', 'id')->toArray();
 
-        // $this->photos =$report->getMedia('photos');
+//        $this->photos= $this->report->getMedia('report_photos');
 
         if (is_array($this->report->bibliographies)) {
             $this->bibliographies = $this->report->bibliographies;
         }
-        */
-        //$this->report_photos = $report->photos;
-        /*
-               $this->mediaCollections = [
-                   'report_photos'  => $report->photos,
-                   'report_tracks' => $report->tracks,
-               ];
-
-               */
     }
 
     public function render()
     {
-        return view('livewire.admin.report.create');
+        return view('livewire.admin.report.edit');
+    }
+
+    public function userSelected($id)
+    {
+        $this->report->owner_id = $id;
     }
 
     public function updatedReportTitle()
@@ -82,11 +87,9 @@ class Create extends Component
         $this->report->slug = SlugService::createSlug(ReportTranslation::class, 'slug', $this->report->title);
     }
 
-    public function updatedType($type)
+    public function updatedReportCategoryId()
     {
-        $this->type = $type;
-        //ray($this->type);
-        $this->difficulty = key($this->listsForFields[$type]);
+        $this->difficulties = $this->report->getDifficulties();
     }
 
     public function submit()
@@ -98,25 +101,64 @@ class Create extends Component
 
     public function save()
     {
-        $this->report->save();
-
         $this->report->bibliographies = $this->bibliographies;
-
-        $this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
-        $this->report->addFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
-
-        //$this->report->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
-        //$this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
-
         $this->report->tags()->sync($this->tags);
-        $this->report->categories()->sync($this->categories);
-        //unset($this->report->categories);
+
+        $this->report->time_a = Carbon::parse($this->report->time_a)->format('H:i');
+        $this->report->time_r = Carbon::parse($this->report->time_r)->format('H:i');
+
+        unset($this->report->parent_id);
         $this->report->save();
+
+        //$this->report->addFromMediaLibraryRequest($this->photos)->toMediaCollection('report_photos');
+        //$this->report->addFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
+        $this->report->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title', 'author')->toMediaCollection('report_photos');
+        $this->report->syncFromMediaLibraryRequest($this->tracks)->toMediaCollection('report_tracks');
+
+        $this->dispatchBrowserEvent('toastr:success', ['message' => trans('cruds.report.toastr.saved')]);
+    }
+
+    public function convert()
+    {
+        if ($this->parent_id) {
+            $hbt = new HaveBeenThere();
+            $hbt->title = $this->report->title;
+            $hbt->slug = $this->report->slug;
+
+            $hbt->difficulty = $this->difficulty;
+            $hbt->content = $this->report->content;
+            $hbt->created_at = $this->report->created_at;
+            $hbt->updated_at = $this->report->updated_at;
+            $hbt->date = $this->report->created_at;
+            $hbt->report_id = $this->parent_id;
+            $hbt->save();
+            $hbt->owner_id = $this->report->owner_id;
+            $hbt->save();
+            //ray($hbt);
+
+            foreach ($this->report->getMedia('report_photos') as $photo) {
+                $photo->copy($hbt, 'havebeenthere_photos');
+            }
+
+            foreach ($this->report->getMedia('report_tracks') as $track) {
+                $track->copy($hbt, 'havebeenthere_photos');
+            }
+
+            /*
+            $hbt->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('havebeenthere_photos');
+            $hbt->syncFromMediaLibraryRequest($this->track)->toMediaCollection('havebeenthere_tracks');
+            */
+
+            //    $this->report->delete();
+            $this->dispatchBrowserEvent('toastr:success', ['message' => trans('cruds.report.toastr.converted')]);
+
+            return redirect()->route('admin.reports.index');
+        }
     }
 
     public function addBibliography()
     {
-        $this->bibliographies[] = ['title' => '', 'author' => '', 'publisher' => '', 'link' => 'https://'];
+        $this->bibliographies[] = ['title' => '', 'author' => '', 'link' => 'https://'];
     }
 
     public function removeBibliography($index)
@@ -134,6 +176,12 @@ class Create extends Component
             ],
             'photos.*.name' => [
                 'string',
+                'required',
+            ],
+            'photos.*.custom_properties.title' => [
+                'required',
+            ],
+            'photos.*.custom_properties.author' => [
                 'required',
             ],
 
@@ -183,20 +231,26 @@ class Create extends Component
 
             'report.difficulty' => [
                 'nullable',
-                /*'string',*/
+                'string',
 
-                'in:'.implode(',', array_keys(array_merge(
+                /*
+                'in:' . implode(',', array_keys(array_merge(
                     $this->listsForFields['hiking'],
                     $this->listsForFields['snowshoeing'],
                     $this->listsForFields['mountaineering'],
                     $this->listsForFields['skimountaineering']
                 ))),
-
+*/
+            ],
+            'report.period' => [
+                'array',
+                'nullable',
             ],
             'report.approved' => [
                 'boolean',
                 'nullable',
             ],
+
             'report.published' => [
                 'boolean',
                 'nullable',
@@ -209,11 +263,25 @@ class Create extends Component
                 'string',
                 'nullable',
             ],
-            'report.updated_at' => [
-
+            'report.access' => [
+                'string',
                 'nullable',
             ],
-
+            'report.updated_at' => [
+                'nullable',
+            ],
+            'report.exposure' => [
+                'string',
+                'nullable',
+            ],
+            'report.parent_id' => [
+                'numeric',
+                'nullable',
+            ],
+            'report.category_id' => [
+                'numeric',
+                'nullable',
+            ],
             'tags' => [
                 'array',
             ],
@@ -251,79 +319,30 @@ class Create extends Component
         ];
     }
 
-    protected function initListsForFields(): void
-    {
-        $this->listsForFields['type'] = [
-            'hiking' => trans('cruds.report.fields.difficulty_class.hiking'),
-            'snowshoeing' => trans('cruds.report.fields.difficulty_class.snowshoeing'),
-            'mountaineering' => trans('cruds.report.fields.difficulty_class.mountaineering'),
-            'skimountaineering' => trans('cruds.report.fields.difficulty_class.skimountaineering'),
-            'ferrata' => trans('cruds.report.fields.difficulty_class.ferrata'),
-        ];
-
-        $this->listsForFields['hiking'] = [
-            'T1' => trans('cruds.report.fields.difficulty_class.T1'),
-            'T2' => trans('cruds.report.fields.difficulty_class.T2'),
-            'T3' => trans('cruds.report.fields.difficulty_class.T3'),
-            'T4' => trans('cruds.report.fields.difficulty_class.T4'),
-            'T5' => trans('cruds.report.fields.difficulty_class.T5'),
-        ];
-        $this->listsForFields['snowshoeing'] = [
-            'WT1' => trans('cruds.report.fields.difficulty_class.WT1'),
-            'WT2' => trans('cruds.report.fields.difficulty_class.WT2'),
-            'WT3' => trans('cruds.report.fields.difficulty_class.WT3'),
-            'WT4' => trans('cruds.report.fields.difficulty_class.WT4'),
-            'WT5' => trans('cruds.report.fields.difficulty_class.WT5'),
-        ];
-        $this->listsForFields['mountaineering'] = [
-            'F-' => trans('cruds.report.fields.difficulty_class.Fm'),
-            'F' => trans('cruds.report.fields.difficulty_class.F'),
-            'F+' => trans('cruds.report.fields.difficulty_class.Fp'),
-            'PD-' => trans('cruds.report.fields.difficulty_class.PDm'),
-            'PD' => trans('cruds.report.fields.difficulty_class.PD'),
-            'PD+' => trans('cruds.report.fields.difficulty_class.PDp'),
-            'AD-' => trans('cruds.report.fields.difficulty_class.ADm'),
-            'AD' => trans('cruds.report.fields.difficulty_class.AD'),
-            'AD+' => trans('cruds.report.fields.difficulty_class.ADp'),
-            'D-' => trans('cruds.report.fields.difficulty_class.Dm'),
-            'D' => trans('cruds.report.fields.difficulty_class.D'),
-            'D+' => trans('cruds.report.fields.difficulty_class.Dp'),
-            'TD-' => trans('cruds.report.fields.difficulty_class.TDm'),
-            'TD' => trans('cruds.report.fields.difficulty_class.TD'),
-            'TD+' => trans('cruds.report.fields.difficulty_class.TDp'),
-            'ED-' => trans('cruds.report.fields.difficulty_class.EDm'),
-            'ED' => trans('cruds.report.fields.difficulty_class.ED'),
-            'ED+' => trans('cruds.report.fields.difficulty_class.EDp'),
-        ];
-        $this->listsForFields['skimountaineering'] = [
-            'MS' => trans('cruds.report.fields.difficulty_class.MS'),
-            'MSA' => trans('cruds.report.fields.difficulty_class.MSA'),
-            'BS' => trans('cruds.report.fields.difficulty_class.BS'),
-            'BSA' => trans('cruds.report.fields.difficulty_class.BSA'),
-            'OS' => trans('cruds.report.fields.difficulty_class.OS'),
-            'OSA' => trans('cruds.report.fields.difficulty_class.OSA'),
-        ];
-        $this->listsForFields['ferrata'] = [
-            'F' => trans('cruds.report.fields.difficulty_class.F'),
-            'PD' => trans('cruds.report.fields.difficulty_class.PD'),
-            'D' => trans('cruds.report.fields.difficulty_class.D'),
-            'MD' => trans('cruds.report.fields.difficulty_class.MD'),
-            'ED' => trans('cruds.report.fields.difficulty_class.ED'),
-        ];
-
-        //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;
-        $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
-        $this->listsForFields['categories'] = Category::all()->map(function ($qry) {
-            return $qry->translateOrDefault();
-        })->pluck('name', 'id')->toArray();
-    }
-
     protected function syncMedia(): void
     {
         collect($this->photos)->flatten(1)
             ->each(fn ($item) => Media::where('uuid', $item['uuid'])
-            ->update(['model_id' => $this->report->id]));
+                ->update(['model_id' => $this->report->id]));
 
         Media::whereIn('uuid', $this->mediaToRemove)->delete();
+    }
+
+    public function deleteConfirm()
+    {
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure? ',
+            'text' => '',
+            'id' => $this->report->id,
+        ]);
+    }
+
+    public function delete($id)
+    {
+        Report::find($id)->delete();
+        $this->dispatchBrowserEvent('toastr:error', [
+            'message' => 'Report deleted',
+        ]);
     }
 }

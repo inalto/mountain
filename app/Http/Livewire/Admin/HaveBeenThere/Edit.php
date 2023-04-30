@@ -107,6 +107,10 @@ class Edit extends Component
                 'datetime',
                 'nullable',
             ],
+            'havebeenthere.created_at' => [
+                'datetime',
+                'nullable',
+            ],
 
             'havebeenthere.title' => [
                 'string',

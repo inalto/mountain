@@ -15,7 +15,7 @@
         </div>
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.updated_at') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.updated_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" required wire:model="report.updated_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" required wire:model.defer="report.updated_at" />
             <div class="validation-message">
                 {{ $errors->first('report.updated_at') }}
             </div>
