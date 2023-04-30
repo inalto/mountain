@@ -34,6 +34,10 @@
                             {{ trans('cruds.havebeenthere.fields.report_id') }}
                             @include('components.table.sort', ['field' => 'report_id'])
                         </th>
+                        <th class="w-28">
+                            {{ trans('cruds.havebeenthere.fields.date') }}
+                            @include('components.table.sort', ['field' => 'date'])
+                        </th>
                         <th>
                             {{ trans('cruds.havebeenthere.fields.title') }}
                             @include('components.table.sort', ['field' => 'title'])
@@ -73,7 +77,9 @@
                         <td>
                             {{ $hbt->report_id }}
                         </td>
-
+                        <td>
+                            {{ $hbt->date }}
+                        </td>
                         <td>
                             <div class="relative inline-flex items-center justify-between space-x-2 w-full max-w-sm">
                                 {{ $hbt->title }}

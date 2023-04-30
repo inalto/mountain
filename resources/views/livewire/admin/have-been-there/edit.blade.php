@@ -30,7 +30,7 @@
     <div class="flex gap-10">
     <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.created_at') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.created_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="created_at" id="created_at" wire:model="havebeenthere.created_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.created_at" id="havebeenthere.created_at" wire:model="havebeenthere.created_at" />
             <div class="validation-message">
                 {{ $errors->first('havebeenthere.created_at') }}
             </div>
@@ -40,7 +40,7 @@
         </div>
         <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.updated_at') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.updated_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" wire:model="havebeenthere.updated_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.updated_at" id="havebeenthere.updated_at" wire:model="havebeenthere.updated_at" />
             <div class="validation-message">
                 {{ $errors->first('havebeenthere.updated_at') }}
             </div>
@@ -129,7 +129,7 @@
     <div class="form-group {{ $errors->has('havebeenthere.content') ? 'invalid' : '' }}">
         <x-label class="form-label" for="content">{{ trans('cruds.havebeenthere.fields.content') }}</x-label>
 
-        <x-ckedit wire:model="havebeenthere.content" name="content">
+        <x-ckedit wire:model.defer="havebeenthere.content" id="havebeenthere.content" name="havebeenthere.content">
             {{ old('content', $havebeenthere->content) }}
         </x-ckedit>
 

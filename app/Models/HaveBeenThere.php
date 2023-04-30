@@ -52,6 +52,8 @@ class HaveBeenThere extends Model implements HasMedia
     public $orderable = [
         'id',
         'title',
+        'date',
+        'report_id'
 
     ];
 

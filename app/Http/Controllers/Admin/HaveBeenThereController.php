@@ -52,8 +52,6 @@ class HaveBeenThereController extends Controller
 
     public function storeMedia(Request $request)
     {
-        ray('storeMedia');
-
         abort_if(Gate::none(['inalto_havebeenthere_create', 'inalto_havebeenthere_edit']), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->has('size')) {
