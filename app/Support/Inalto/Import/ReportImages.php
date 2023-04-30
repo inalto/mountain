@@ -3,10 +3,7 @@
 namespace App\Support\Inalto\Import;
 
 use App\Models\Report as R;
-use App\Models\User;
-use Carbon\Carbon;
 use DB;
-use Str;
 
 class ReportImages
 {
@@ -14,29 +11,24 @@ class ReportImages
     {
         extract($options);
 
-        
+        $r = R::where('nid', '=', $nid)->first();
 
-
-        $r=R::where('nid','=', $nid)->first();
-
-
-
-            $covers = DB::connection('mysqlold')->table('field_data_field_copertina')
+        $covers = DB::connection('mysqlold')->table('field_data_field_copertina')
                 ->where('entity_id', '=', $nid)
                 ->where('deleted', '=', 0)
                 ->join('file_managed', function ($q) {
                     $q->on('field_data_field_copertina.field_copertina_fid', '=', 'file_managed.fid');
                 })->get();
 
-            foreach ($covers as $img) {
-                $path = '/home/inalto/public_html_old/sites/default/files/'.substr($img->uri, 9);
-                if (! file_exists($path)) {
-                    continue;
-                }
-                if (self::photo_exists($r->photos, $path)) {
-                    continue;
-                } else {
-                    $r->addMedia($path)
+        foreach ($covers as $img) {
+            $path = '/home/inalto/public_html_old/sites/default/files/'.substr($img->uri, 9);
+            if (! file_exists($path)) {
+                continue;
+            }
+            if (self::photo_exists($r->photos, $path)) {
+                continue;
+            } else {
+                $r->addMedia($path)
                     ->preservingOriginal()
                     ->withResponsiveImages()
                     ->withCustomProperties([
@@ -44,24 +36,24 @@ class ReportImages
                         'title' => $img->field_copertina_title,
                     ])
                     ->toMediaCollection('report_photos');
-                }
+            }
+        }
+
+        $images = DB::connection('mysqlold')->table('field_data_field_galleria_fotografica')->where('entity_id', '=', $nid)->where('deleted', '=', 0)->join('file_managed', function ($q) {
+            $q->on('field_data_field_galleria_fotografica.field_galleria_fotografica_fid', '=', 'file_managed.fid');
+        })->get();
+
+        foreach ($images as $img) {
+            $path = '/home/inalto/public_html_old/sites/default/files/'.substr($img->uri, 9);
+            if (! file_exists($path)) {
+                echo 'missing '.$path."\n";
+                continue;
             }
 
-            $images = DB::connection('mysqlold')->table('field_data_field_galleria_fotografica')->where('entity_id', '=', $nid)->where('deleted', '=', 0)->join('file_managed', function ($q) {
-                $q->on('field_data_field_galleria_fotografica.field_galleria_fotografica_fid', '=', 'file_managed.fid');
-            })->get();
+            if (! self::photo_exists($r->photos, $path)) {
+                $filename = pathinfo($path, 8).'.'.self::mime2ext($path);
 
-            foreach ($images as $img) {
-                $path = '/home/inalto/public_html_old/sites/default/files/'.substr($img->uri, 9);
-                if (! file_exists($path)) {
-                    echo 'missing '.$path."\n";
-                    continue;
-                }
-
-                if (! self::photo_exists($r->photos, $path)) {
-                    $filename = pathinfo($path, 8).'.'.self::mime2ext($path);
-
-                    $r->addMedia($path)
+                $r->addMedia($path)
                     ->preservingOriginal()
                     ->withResponsiveImages()
                     ->usingFileName($filename)
@@ -70,10 +62,8 @@ class ReportImages
                         'title' => $img->field_galleria_fotografica_title,
                     ])
                     ->toMediaCollection('report_photos');
-                }
             }
-            
-     
+        }
     }
 
     public static function photo_exists($photos, $filename)
@@ -86,8 +76,6 @@ class ReportImages
 
         return false;
     }
-
-
 
     private static function mime2ext($file)
     {
@@ -281,5 +269,4 @@ class ReportImages
 
         return isset($mime_map[$mime]) ? $mime_map[$mime] : false;
     }
-
 }

@@ -62,7 +62,7 @@
 
 .select2-container--open .select2-dropdown {
 	/* Dropdown container opened and results are shown*/
-	@apply mt-3 left-0;
+	@apply left-0;
 }
 
 .select2-container--open .select2-dropdown--above {
@@ -83,12 +83,12 @@
 		@apply block w-full;
 	}
 textarea.select2-search__field {
-	
+	resize:none;
 	@apply outline-none border-none focus:ring-0;
 }
 	.select2-search--dropdown .select2-search__field {
 		/* Search box itself where you can enter text*/
-		@apply h-10 p-1 bg-white dark:bg-slate-500 box-border rounded border-2 border-blue-300 dark:border-gray-700 dark:text-gray-200 outline-none;
+		@apply p-1 bg-white dark:bg-slate-500 box-border rounded border-2 border-blue-300 dark:border-gray-700 dark:text-gray-200 outline-none;
 		width: 100%;
 	}
     .select2-search--dropdown .select2-search__field::-webkit-search-cancel-button {

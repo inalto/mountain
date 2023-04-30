@@ -5,11 +5,12 @@
             <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
                 <div class="flex flex-col h-full overflow-hidden bg-gray-50 dark:bg-gray-850 rounded-lg shadow-lg">
                     <div class="flex-grow-0">
+                        
                         @if ($report->getFirstMediaUrl('report_photos'))
-                        <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none hover:border-inalto-400 hover:dark:border-inalto-700 focus:border-inalto-400 dark:focus:border-inalto-700" href="{{ route('report.show', ($report->categories->first()?$report->categories->first()->slug:'none').'/'.$report->slug) }}">
+                        <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none hover:border-inalto-400 hover:dark:border-inalto-700 focus:border-inalto-400 dark:focus:border-inalto-700" href="{{ route('report.show', ($report->category?$report->category->translate()->slug:'none').'/'.$report->slug) }}">
                             <img class="object-cover object-center w-full h-48" src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" /></a>
                         @else
-                        <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none hover:border-inalto-400 hover:dark:border-inalto-700 focus:border-inalto-400 dark:focus:border-inalto-700" href="{{ route('report.show', ($report->categories->first()?$report->categories->first()->slug:'none').'/'.$report->slug) }}">
+                        <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none hover:border-inalto-400 hover:dark:border-inalto-700 focus:border-inalto-400 dark:focus:border-inalto-700" href="{{ route('report.show', ($report->category?$report->category->translate()->slug:'none').'/'.$report->slug) }}">
                             <svg class="h-48 mx-auto py-4 opacity-30 dark:text-gray-300" fill="currentColor" width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
                                 <rect id="inalto" x="0" y="0" width="1024" height="1024" style="fill:none;" />
                                 <path d="M432.257,407.823c127.891,-291.318 540.37,-154.79 32.982,336.993c174.783,-321.208 93.545,-437.904 -32.982,-336.993Z" fill="currentColor" style="fill-opacity:0.8;" />
@@ -84,7 +85,7 @@
                                     {{ $report->drop_p  }} m
                             </div>
                             <div>
-                                <a href="{{ route('report.show', ($report->categories->first()?$report->categories->first()->slug:'none').'/'.$report->slug) }}" tabindex="-1" class="py-2 px-3 border text-gray-600 hover:bg-gray-50 dark:text-gray-300 text-sm rounded-lg dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-900 inline-flex items-center dark:hover:text-inalto-500 hover:text-inalto-400 md:mb-2 lg:mb-0">{{ __('inalto.read')}}
+                                <a href="{{ route('report.show', ($report->category?$report->category->translate()->slug:'none').'/'.$report->slug) }}" tabindex="-1" class="py-2 px-3 border text-gray-600 hover:bg-gray-50 dark:text-gray-300 text-sm rounded-lg dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-900 inline-flex items-center dark:hover:text-inalto-500 hover:text-inalto-400 md:mb-2 lg:mb-0">{{ __('inalto.read')}}
                                     <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                         <path d="M5 12h14"></path>
                                         <path d="M12 5l7 7-7 7"></path>
@@ -98,8 +99,14 @@
             @empty
             <p>No Report</p>
             @endforelse
+            @if($reports->hasMorePages())
+            
+    <livewire:frontend.load-more-reports :category="$category" :tag="$tag" :user_id="$user_id" :page=$page :perPage=$perPage  key="page-$page" />
+    
+@endif
 
-            {{ $reports->links() }}
+       
+            
         </div>
     </div>
 </section>

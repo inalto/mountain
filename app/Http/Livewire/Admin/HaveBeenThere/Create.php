@@ -3,10 +3,6 @@
 namespace App\Http\Livewire\Admin\HaveBeenThere;
 
 use App\Models\HaveBeenThere as HaveBeenThere;
-
-
-
-
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
@@ -14,11 +10,13 @@ use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 class Create extends Component
 {
     use WithMedia;
+
     public HaveBeenThere $havebeenthere;
 
     public array $listsForFields = [];
 
-    public $mediaComponentNames = ['photos','tracks'];
+    public $mediaComponentNames = ['photos', 'tracks'];
+
     public $photos;
 
     public function mount(HaveBeenThere $havebeenthere)
@@ -38,16 +36,14 @@ class Create extends Component
 
     public function submit()
     {
-
         $this->save();
+
         return redirect()->route('admin.have-been-there.index');
     }
+
     public function save()
     {
-
-
         $this->havebeenthere->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('havebeenthere_photos');
-        
         $this->havebeenthere->save();
     }
 
@@ -56,37 +52,33 @@ class Create extends Component
         return [
             'havebeenthere.owner_id' => [
                 'numeric',
-                'nullable',
+                'required',
             ],
             'havebeenthere.report_id' => [
                 'numeric',
-                'nullable',
+                'required',
             ],
             'havebeenthere.date' => [
                 'string',
-                'nullable',
+                'required',
             ],
-           
+
             'havebeenthere.title' => [
                 'string',
-                'nullable',
+                'required',
             ],
             'havebeenthere.slug' => [
                 'string',
-                'nullable',
+                'required',
             ],
-            'report.time_a' => [
+            'havebeenthere.time_a' => [
                 'string',
                 'nullable',
             ],
-            'report.time_r' => [
+            'havebeenthere.time_r' => [
                 'string',
                 'nullable',
             ],
-
-            'havebeenthere.location.lat' => 'numeric|between:-90,90',
-            'havebeenthere.location.lon' => 'numeric|between:-180,180',
-
             'havebeenthere.approved' => [
                 'boolean',
                 'nullable',
@@ -104,7 +96,7 @@ class Create extends Component
             'photos.*.name' => [
                 'string',
                 'required',
-            ]
+            ],
 
         ];
     }

@@ -3,25 +3,28 @@
 namespace App\Http\Livewire\Admin\HaveBeenThere;
 
 use App\Models\HaveBeenThere;
-
-
-
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use GuzzleHttp\Client;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
-use GuzzleHttp\Client;
 
 class Edit extends Component
 {
     use WithMedia;
+
     public HaveBeenThere $havebeenthere;
 
+    protected $listeners = ['reportSelected', 'userSelected'];
 
     public array $listsForFields = [];
+
     public $type = '';
-    public $mediaComponentNames = ['photos','tracks'];
+
+    public $mediaComponentNames = ['photos', 'tracks'];
+
     public $photos;
+
     public $tracks;
 
     public $difficulty = '';
@@ -32,11 +35,8 @@ class Edit extends Component
 
     public function mount(HaveBeenThere $havebeenthere)
     {
-        
         $this->havebeenthere = $havebeenthere;
-        $this->difficulty = $havebeenthere->difficulty;
-
-
+   //     $this->difficulty = $havebeenthere->difficulty;
     }
 
     public function render()
@@ -44,50 +44,48 @@ class Edit extends Component
         return view('livewire.admin.have-been-there.edit');
     }
 
-
     public function updatedHavebeenthereTitle()
     {
-        $this->havebeenthere->slug = SlugService::createSlug(HaveBeenThere::class,'slug',$this->havebeenthere->title);
+        $this->havebeenthere->slug = SlugService::createSlug(HaveBeenThere::class, 'slug', $this->havebeenthere->title);
     }
 
+    public function userSelected($id)
+    {
+        $this->havebeenthere->owner_id = $id;
+    }
+
+    public function reportSelected($id)
+    {
+        $this->havebeenthere->report_id = $id;
+    }
 
     public function submit()
     {
-
         $this->save();
+
         return redirect()->route('admin.have-been-there.index');
     }
+
     public function save()
     {
+        $this->havebeenthere->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title', 'author')->toMediaCollection('havebeenthere_photos');
 
-
-
-        $this->havebeenthere->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('havebeenthere_photos');
-        
         $this->havebeenthere->save();
     }
-
 
     public function getHeight()
     {
         $client = new Client();
         //get elevation from bing maps
-        
+
         $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Elevation/List?points='.$this->havebeenthere->location['lat'].','.$this->havebeenthere->location['lon'].'&key='.env('BING_MAP_API'), []);
 
-        if($res->getStatusCode()==200)
-        {
+        if ($res->getStatusCode() == 200) {
             $body = json_decode($res->getBody());
             $this->havebeenthere->height = $body->resourceSets[0]->resources[0]->elevations[0];
         }
-      //  ray($res->getBody()->getContents());
+        //  ray($res->getBody()->getContents());
         //$this->havebeenthere->height = "10";
-    }
-
-
-    public function updatedHaveBeenThereName()
-    {
-        $this->havebeenthere->slug = SlugService::createSlug(HaveBeenThereTranslation::class, 'slug', $this->havebeenthere->title);
     }
 
     protected function rules(): array
@@ -109,12 +107,20 @@ class Edit extends Component
                 'datetime',
                 'nullable',
             ],
-            
+
             'havebeenthere.title' => [
                 'string',
                 'nullable',
             ],
             'havebeenthere.slug' => [
+                'string',
+                'nullable',
+            ],
+            'havebeenthere.time_a' => [
+                'string',
+                'nullable',
+            ],
+            'havebeenthere.time_r' => [
                 'string',
                 'nullable',
             ],
@@ -135,11 +141,9 @@ class Edit extends Component
             'photos.*.name' => [
                 'string',
                 'required',
-            ]
+            ],
         ];
     }
-
-    
 
     protected function syncMedia(): void
     {

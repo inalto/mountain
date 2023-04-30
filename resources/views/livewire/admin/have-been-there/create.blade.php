@@ -1,7 +1,6 @@
 <form wire:submit.prevent="submit" class="p-3">
-
     <div class="flex gap-10">
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('havebeenthere.owner_id') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.owner_id') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="owner_id">{{ trans('cruds.havebeenthere.fields.owner_id') }}</x-label>
             <x-input class="w-full form-control" type="text" name="owner_id" id="owner_id" required wire:model="havebeenthere.owner_id" />
             <div class="validation-message">
@@ -11,7 +10,7 @@
                 {{ trans('cruds.havebeenthere.fields.owner_id_helper') }}
             </div>
         </div>
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('havebeenthere.report_id') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.report_id') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="report_id">{{ trans('cruds.havebeenthere.fields.report_id') }}</x-label>
             <x-input class="w-full form-control" type="text" name="report_id" id="report_id" required wire:model="havebeenthere.report_id" />
             <div class="validation-message">
@@ -21,11 +20,10 @@
                 {{ trans('cruds.havebeenthere.fields.report_id_helper') }}
             </div>
         </div>
-    </div>
-    <div class="flex gap-10">
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('havebeenthere.date') ? 'invalid' : '' }}">
+
+        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.date') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.date') }}</x-label>
-            <x-input class="w-full form-control" type="text" name="date" id="owner_id" wire:model="havebeenthere.date" />
+            <x-datetime-picker class="w-full form-control" type="text" name="date" id="date" wire:model="havebeenthere.date" />
             <div class="validation-message">
                 {{ $errors->first('havebeenthere.date') }}
             </div>
@@ -35,6 +33,7 @@
         </div>
         
     </div>
+    
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('havebeenthere.title') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="title">{{ trans('cruds.havebeenthere.fields.title') }}</x-label>
@@ -121,7 +120,7 @@
     <h2>Tracciati GPS</h2>
     <x-media-library-collection name="tracks" :model="$havebeenthere" collection="havebeenthere_tracks" fields-view="livewire.partials.collection.fields"  />
 
-    <div class="form-group  flex justify-between">
+    <div class="form-group mt-4  flex justify-between">
         <div>
             <x-jet-button class="mr-2" type="submit">
                 {{ trans('global.save_and_exit') }}

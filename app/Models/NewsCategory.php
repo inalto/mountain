@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Support\HasAdvancedFilter;
+use Cviebrock\EloquentSluggable\Sluggable;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,6 +14,7 @@ class NewsCategory extends Model
     use HasFactory;
     use HasAdvancedFilter;
     use SoftDeletes;
+    use Sluggable;
 
     public $table = 'news_categories';
 
@@ -45,5 +47,14 @@ class NewsCategory extends Model
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+            ],
+        ];
     }
 }

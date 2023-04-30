@@ -6,12 +6,13 @@ use Livewire\Component;
 
 class CoordPicker extends Component
 {
-    public $coords=[];
-    public $open=false;
+    public $coords = [];
+
+    public $open = false;
 
     public function mount($coords)
     {
-        $this->coords=$coords;
+        $this->coords = $coords;
         ray($coords);
     }
 
@@ -19,13 +20,14 @@ class CoordPicker extends Component
     {
         return view('livewire.coordpicker');
     }
+
     public function openWindow()
     {
-        $this->open=true;
+        $this->open = true;
     }
+
     public function closeWindow()
     {
-        $this->open=false;
+        $this->open = false;
     }
-    
 }

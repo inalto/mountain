@@ -11,7 +11,6 @@ use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 
 class Edit extends Component
 {
-    
     use WithMedia;
 
     public User $user;
@@ -28,8 +27,7 @@ class Edit extends Component
 
     public function mount(User $user)
     {
-        
-       $this->user = $user;
+        $this->user = $user;
         $this->roles = $this->user->roles()->pluck('id')->toArray();
         $this->initListsForFields();
     }
@@ -37,6 +35,7 @@ class Edit extends Component
     public function render()
     {
         ray($this->user);
+
         return view('livewire.admin.user.edit');
     }
 
@@ -71,8 +70,8 @@ class Edit extends Component
                 //'unique:users,email,'. $this->user->id,
             ],
             'user.password' => [
-                'string'
-            ]
+                'string',
+            ],
         ];
     }
 

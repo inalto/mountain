@@ -1,2 +1,3 @@
 <?php
-return ["my" => "mie"];
+
+return ['my' => 'mie'];

@@ -44,7 +44,7 @@ return [
      * When enabled, slow queries will automatically be sent to Ray.
      */
     'send_slow_queries_to_ray' => env('SEND_SLOW_QUERIES_TO_RAY', false),
-    
+
     /*
     * When enabled, all requests made to this app will automatically be sent to Ray.
     */
@@ -71,7 +71,7 @@ return [
     * When using Homestead with the VirtualBox provider, you can replace localhost with '10.0.2.2'
     * When using Homestead with the Parallels provider, you can replace localhost with '10.211.55.2'
     */
-    'host' => env('RAY_HOST', 'localhost'),
+    'host' => env('RAY_HOST', '10.1.1.100'),
 
     /*
     * The port number used to communicate with the Ray app.

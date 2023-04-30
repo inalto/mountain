@@ -64,7 +64,6 @@ class Edit extends Component
 
     public function toggle($permission)
     {
-     
         if ($this->role->permissions->where('title', '=', $permission)->count()) {
             $p = $this->role->permissions->where('title', '=', $permission)->first();
             $this->role->permissions()->detach($p);

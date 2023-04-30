@@ -8,7 +8,6 @@ use App\Models\Tag;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
-
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -17,7 +16,6 @@ class Index extends Component
     use WithPagination;
     use WithSorting;
     use WithConfirmation;
-
 
     public int $perPage;
 
@@ -29,7 +27,7 @@ class Index extends Component
 
     public array $paginationOptions;
 
-    protected $listeners = ['slugUpdated' => 'slugUpdated','nameUpdated' => 'nameUpdated'];
+    protected $listeners = ['slugUpdated' => 'slugUpdated', 'nameUpdated' => 'nameUpdated'];
 
     protected $queryString = [
         'search' => [
@@ -72,22 +70,22 @@ class Index extends Component
         $this->orderable = (new Tag())->orderable;
     }
 
-    public function slugUpdated($id,$slug)
+    public function slugUpdated($id, $slug)
     {
-        Tag::where('id',$id)->update(['slug'=>$slug]);
+        Tag::where('id', $id)->update(['slug' => $slug]);
     }
 
-    public function nameUpdated($id,$name)
+    public function nameUpdated($id, $name)
     {
-        $slug=Str::slug($name);
-        Tag::where('id',$id)->update(['name'=>$name,'slug'=>$slug]);
+        $slug = Str::slug($name);
+        Tag::where('id', $id)->update(['name' => $name, 'slug' => $slug]);
     }
 
-    
     public function save($tag)
     {
         ray($tag);
     }
+
     public function render()
     {
         $query = Tag::advancedFilter([

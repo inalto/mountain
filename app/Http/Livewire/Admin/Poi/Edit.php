@@ -5,16 +5,16 @@ namespace App\Http\Livewire\Admin\Poi;
 use App\Models\Poi;
 use App\Models\PoiTranslation;
 use App\Models\Tag;
-
 use Cviebrock\EloquentSluggable\Services\SlugService;
+use GuzzleHttp\Client;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
-use GuzzleHttp\Client;
 
 class Edit extends Component
 {
     use WithMedia;
+
     public Poi $poi;
 
     public array $tags = [];
@@ -22,6 +22,7 @@ class Edit extends Component
     public array $listsForFields = [];
 
     public $mediaComponentNames = ['photos'];
+
     public $photos;
 
     public function mount(Poi $poi)
@@ -29,7 +30,6 @@ class Edit extends Component
         $this->poi = $poi;
         $this->initListsForFields();
         $this->tags = $this->poi->tags()->pluck('id')->toArray();
-
     }
 
     public function render()
@@ -40,45 +40,38 @@ class Edit extends Component
     protected function initListsForFields(): void
     {
         $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
-     
     }
-
-
-
 
     public function submit()
     {
-
         $this->save();
+
         return redirect()->route('admin.pois.index');
     }
+
     public function save()
     {
-
         $this->poi->tags()->sync($this->tags);
 
-        $this->poi->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('poi_photos');
-        
+        $this->poi->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title', 'author')->toMediaCollection('poi_photos');
+
         $this->poi->save();
     }
-
 
     public function getHeight()
     {
         $client = new Client();
         //get elevation from bing maps
-        
+
         $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Elevation/List?points='.$this->poi->location['lat'].','.$this->poi->location['lon'].'&key='.env('BING_MAP_API'), []);
 
-        if($res->getStatusCode()==200)
-        {
+        if ($res->getStatusCode() == 200) {
             $body = json_decode($res->getBody());
             $this->poi->height = $body->resourceSets[0]->resources[0]->elevations[0];
         }
-      //  ray($res->getBody()->getContents());
+        //  ray($res->getBody()->getContents());
         //$this->poi->height = "10";
     }
-
 
     public function updatedPoiName()
     {

@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::table('reports', function (Blueprint $table) {
             $table->string('exposure')->nullable();
             $table->text('period')->nullable();
-            
         });
     }
 

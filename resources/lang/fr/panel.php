@@ -1,2 +1,3 @@
 <?php
-return ["site_title" => "Mountain"];
+
+return ['site_title' => 'Mountain'];

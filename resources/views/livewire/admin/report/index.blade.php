@@ -41,13 +41,16 @@
                         </th>
                         <th>
                             {{ trans('cruds.report.fields.categories') }}
-                            @include('components.table.sort', ['field' => 'categories.name'])
+                            @include('components.table.sort', ['field' => 'category.name'])
                         </th>
-                        <th class="w-64">
-                            {{ trans('cruds.report.fields.tags') }}
-                            
+                        <th class="w-18">
+                            {{ trans('cruds.report.fields.approved') }}
+                            @include('components.table.sort', ['field' => 'approved'])
                         </th>
-
+                        <th class="w-18">
+                            {{ trans('cruds.report.fields.published') }}
+                            @include('components.table.sort', ['field' => 'published'])
+                        </th>
                         <th>
                             {{ trans('cruds.report.fields.difficulty') }}
                             @include('components.table.sort', ['field' => 'difficulty'])
@@ -69,34 +72,38 @@
                             {{ $report->id }}
                         </td>
                         <td>
-                            <div class="relative inline-flex items-center justify-between space-x-2 w-full max-w-sm">
+                            <div class="relative  w-full">
                                 {{ $report->title }}
-                                <div class="inline group">
-                                    <span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" stroke-width="1.5" viewBox="0 0 24 24" fill="none" class="h-4 w-4 group-hover:text-blue-500 transition duration-150">
-                                            <path d="M12 11.5V16.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M12 7.51L12.01 7.49889" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
-                                        </svg>
-                                    </span>
-                                    <div class="invisible group-hover:visible absolute top-0 left-0 z-10 space-y-1 bg-gray-900 text-gray-50 text-sm rounded px-4 py-2 w-full max-w-xs shadow-md" role="tooltip" aria-hidden="true">
-                                        <p>url alias:<br>{{ $report->slug }}</p>
-                                    </div>
                                 </div>
+                                <div>
+                                @foreach($report->tags as $key => $entry)
+                            <span class="inline-block whitespace-nowrap px-2 mb-1 mr-1 text-xs leading-5 text-blue-500 bg-blue-100 font-medium rounded-full shadow-sm no-underline">{{ $entry->name }}</span>
+                            @endforeach
                             </div>
                         </td>
                         <td>
                             {{ $report->owner->name }}
                         </td>
                         <td>
-                            @foreach($report->categories as $key => $entry)
-                            <span class="badge badge-relationship">{{ $entry->name }}</span>
-                            @endforeach
+                            
+                            <span class="badge badge-relationship">{{ $report->category?->translate()->name }}</span>
+                            
                         </td>
                         <td>
-                            @foreach($report->tags as $key => $entry)
-                            <span class="inline-block whitespace-nowrap py-px px-2 mb-4 mr-3 text-xs leading-5 text-blue-500 bg-blue-100 font-medium rounded-full shadow-sm no-underline">{{ $entry->name }}</span>
-                            @endforeach
+                            @if($report->approved)
+                            <svg class="mx-auto w-6 h-6 fill-green-600" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M6.756,12.808l-3.795,-3.795l1.271,-1.271l2.524,2.524l5.012,-5.012l1.271,1.271l-6.283,6.283Z" /></svg>
+                            @else 
+                            <svg class="mx-auto w-6 h-6 fill-red-500" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M8.09,6.934l2.506,-2.506l1.271,1.271l-2.506,2.506l2.506,2.507l-1.271,1.271l-2.506,-2.506l-2.506,2.506l-1.271,-1.271l2.506,-2.507l-2.506,-2.506l1.271,-1.271l2.506,2.506Z" 
+                                ></svg>
+                            @endif
+                        </td>
+                        <td>
+                            @if($report->published)
+                            <svg class="mx-auto w-6 h-6 fill-green-600" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M6.756,12.808l-3.795,-3.795l1.271,-1.271l2.524,2.524l5.012,-5.012l1.271,1.271l-6.283,6.283Z" /></svg>
+                            @else 
+                            <svg class="mx-auto w-6 h-6 fill-red-500" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M8.09,6.934l2.506,-2.506l1.271,1.271l-2.506,2.506l2.506,2.507l-1.271,1.271l-2.506,-2.506l-2.506,2.506l-1.271,-1.271l2.506,-2.507l-2.506,-2.506l1.271,-1.271l2.506,2.506Z" 
+                                ></svg>
+                            @endif
                         </td>
                         <td>
                             {{ $report->difficulty }}

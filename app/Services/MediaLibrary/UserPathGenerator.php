@@ -2,11 +2,11 @@
 
 namespace App\Services\MediaLibrary;
 
-use Str;
 use App\Models\User;
+use Cache;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
-use Cache;
+use Str;
 
 class UserPathGenerator implements PathGenerator
 {
@@ -21,8 +21,8 @@ class UserPathGenerator implements PathGenerator
 
 //        $prepend = Str::slug(User::find($media->model_id)->name);
         $prepend .= '/avatar';
-       // ray($prepend);
-        return $prepend."/";
+        // ray($prepend);
+        return $prepend.'/';
     }
 
     /*

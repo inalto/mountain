@@ -1,2 +1,3 @@
 <?php
-return ["my" => "My hikes", "read" => "Read", "settings" => "Settings"];
+
+return ['edit' => 'Edit:', 'my' => 'My hikes', 'read' => 'Read', 'settings' => 'Settings'];

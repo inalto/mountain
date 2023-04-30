@@ -14,7 +14,7 @@ return [
         'storage/*',
         'login',
         'logout',
-        'register'
+        'register',
     ],
 
     /*
@@ -26,7 +26,7 @@ return [
      */
     'ignore_content_by_css_selector' => [
         '[data-no-index]',
-      //  'nav',
+        //  'nav',
     ],
 
     /*
@@ -47,7 +47,7 @@ return [
         'storage/*',
         'login',
         'logout',
-        'register'
+        'register',
     ],
 
     /*
@@ -73,5 +73,5 @@ return [
      * A driver is responsible for writing all scraped content
      * to a search index.
      */
-    'default_driver' =>  Spatie\SiteSearch\Drivers\MeiliSearchDriver::class,
+    'default_driver' => Spatie\SiteSearch\Drivers\MeiliSearchDriver::class,
 ];

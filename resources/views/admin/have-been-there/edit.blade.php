@@ -13,9 +13,6 @@
                 </h6>
             </div>
         </div>
-
-
-
         <div class="card-body">
             <livewire:admin.have-been-there.edit :havebeenthere=$havebeenthere  />
         </div>

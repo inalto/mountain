@@ -2,10 +2,6 @@
     <x-slot name="title">
         {{ $category->name??__('Home') }}
     </x-slot>
-    <x-slot name="header">
-        <livewire:frontend.search></livewire:frontend.search>
-    </x-slot>
-
     <section class="rs havebeenthere prose-xl">
 <div class="card">
   <div class="card-header">

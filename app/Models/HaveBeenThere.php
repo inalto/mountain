@@ -2,25 +2,21 @@
 
 namespace App\Models;
 
+use App\Support\HasAdvancedFilter;
+use App\Traits\Tenantable;
+use Cviebrock\EloquentSluggable\Sluggable;
+use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Traits\Tenantable;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use Cviebrock\EloquentSluggable\Sluggable;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use DateTimeInterface;
-use App\Support\HasAdvancedFilter;
-use Laravel\Scout\Searchable;
-
-
-
-class HaveBeenThere extends Model  implements HasMedia
+class HaveBeenThere extends Model implements HasMedia
 {
-                                                                                                               
     use HasFactory;
     use SoftDeletes;
     use HasAdvancedFilter;
@@ -28,7 +24,6 @@ class HaveBeenThere extends Model  implements HasMedia
     use Tenantable;
     use InteractsWithMedia;
     use Searchable;
-
 
     public $table = 'havebeentheres';
 
@@ -38,31 +33,33 @@ class HaveBeenThere extends Model  implements HasMedia
     ];
 
     protected $dates = [
+        'date',
         'created_at',
         'updated_at',
         'deleted_at',
     ];
 
     protected $fillable = [
-        'difficulty',
+        'title',
         'content',
     ];
 
-    
     public $casts = [
         'location' => 'array',
-      
+
     ];
+
     public $orderable = [
         'id',
         'title',
-       
+
     ];
 
     public $filterable = [
         'title',
-        
+
     ];
+
     public function sluggable(): array
     {
         return [
@@ -77,9 +74,10 @@ class HaveBeenThere extends Model  implements HasMedia
         return $this->getMedia('havebeenthere_photos')->map(function ($item) {
             $media = $item->toArray();
             $media['url'] = $item->getUrl();
-            $media['thumbnail'] = $item->getUrl('thumbnail');                                                                                                                                                                   
+            $media['thumbnail'] = $item->getUrl('thumbnail');
             $media['preview_thumbnail'] = $item->getUrl('preview_thumbnail');
             $media['preview'] = $item->getUrl('preview');
+
             return $media;
         });
     }
@@ -94,10 +92,20 @@ class HaveBeenThere extends Model  implements HasMedia
         });
     }
 
+    public function setApprovedAttribute($value)
+    {
+        return $this->attributes['approved'] = $value ? 1 : 0;
+    }
+
+    public function setPublishedAttribute($value)
+    {
+        return $this->attributes['published'] = $value ? 1 : 0;
+    }
+
     /*
     * Relationships
     */
-    
+
     public function report()
     {
         return $this->belongsTo(Report::class);
@@ -107,6 +115,7 @@ class HaveBeenThere extends Model  implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+
 
     public function registerMediaConversions(Media $media = null): void
     {
@@ -129,13 +138,12 @@ class HaveBeenThere extends Model  implements HasMedia
             ->fit(Manipulations::FIT_CROP, 300, 300)
             ->nonQueued();
     }
-
-
+/*
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
     }
-
+*/
     /**
      * Get the indexable data array for the model.
      *
@@ -149,26 +157,22 @@ class HaveBeenThere extends Model  implements HasMedia
         return $array;
         */
         return [
-        
+
             'title' => $this->title,
             'slug' => $this->slug,
             'content' => $this->content,
 
-          
         ];
-        
     }
-    public function searchableAs(): string {
+
+    public function searchableAs(): string
+    {
         return 'havebeentheres';
     }
 
     public function searchable(): bool
-
-	{
+    {
         return true;
-    	//return $this->published || $this->approved;
-
-	}
-
-
+        //return $this->published || $this->approved;
+    }
 }

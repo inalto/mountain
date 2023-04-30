@@ -34,8 +34,6 @@ class ParseReport
         return str_replace($occurrences, $replace, $payload);
     }
 
-
-
     public static function routeSquareParser($payload)
     {
         preg_match_all('/\[([a-zA-Z0-9 ]+)\]([a-zA-Z])/m', $payload, $matches);
@@ -97,7 +95,6 @@ class ParseReport
 
     public static function dropParser($payload)
     {
-        
         preg_match_all('/\(([0-9 ]+m)(D[\+\-])\)/m', $payload, $matches);
         if (count($matches) < 2 || empty($matches[0]) || empty($matches[1]) || empty($matches[2])) {
             return $payload;
@@ -121,12 +118,9 @@ class ParseReport
                 break;
             }
         }
-        
 
         return str_replace($occurrences, $replace, $payload);
     }
-
-
 
     public static function routeTriangleParser($payload)
     {

@@ -28,7 +28,7 @@ trait HasAdvancedFilter
             'f.*.query_1' => 'required',
             'f.*.query_2' => 'required_if:f.*.operator,between,not_between',
         ]);
-    //    ray($data);
+        //    ray($data);
         if ($v->fails()) {
             throw new ValidationException($v);
         }
@@ -43,7 +43,6 @@ trait HasAdvancedFilter
         if (is_array($this->orderable)) {
             return implode(',', $this->orderable);
         }
-        return;
     }
 
     protected function whiteListColumns()
@@ -51,7 +50,6 @@ trait HasAdvancedFilter
         if (is_array($this->filterable)) {
             return implode(',', $this->filterable);
         }
-        return;
     }
 
     protected function allowedOperators()

@@ -2,8 +2,8 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
 use App\Models\Category;
+use Illuminate\View\Component;
 
 class AdminLayout extends Component
 {
@@ -14,7 +14,8 @@ class AdminLayout extends Component
      */
     public function render()
     {
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        return view('layouts.admin',['categories'=>$categories]);
+        $categories = Category::query()->get();
+
+        return view('layouts.admin', ['categories' => $categories]);
     }
 }

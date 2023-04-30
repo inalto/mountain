@@ -42,7 +42,14 @@
                             {{ trans('cruds.havebeenthere.fields.username') }}
                             @include('components.table.sort', ['field' => 'owner.name'])
                         </th>
-                        <th>
+
+                        <th class="w-18">
+                            {{ trans('cruds.report.fields.approved') }}
+                            @include('components.table.sort', ['field' => 'approved'])
+                        </th>
+                        <th class="w-18">
+                            {{ trans('cruds.report.fields.published') }}
+                            @include('components.table.sort', ['field' => 'published'])
                         </th>
                         <th>
                             {{ trans('cruds.havebeenthere.fields.difficulty') }}
@@ -88,7 +95,20 @@
                             {{ $hbt->owner->name }}
                         </td>
                         <td>
-
+                            @if($hbt->approved)
+                            <svg class="mx-auto w-6 h-6 fill-green-600" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M6.756,12.808l-3.795,-3.795l1.271,-1.271l2.524,2.524l5.012,-5.012l1.271,1.271l-6.283,6.283Z" /></svg>
+                            @else 
+                            <svg class="mx-auto w-6 h-6 fill-red-500" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M8.09,6.934l2.506,-2.506l1.271,1.271l-2.506,2.506l2.506,2.507l-1.271,1.271l-2.506,-2.506l-2.506,2.506l-1.271,-1.271l2.506,-2.507l-2.506,-2.506l1.271,-1.271l2.506,2.506Z" 
+                                ></svg>
+                            @endif
+                        </td>
+                        <td>
+                            @if($hbt->published)
+                            <svg class="mx-auto w-6 h-6 fill-green-600" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M6.756,12.808l-3.795,-3.795l1.271,-1.271l2.524,2.524l5.012,-5.012l1.271,1.271l-6.283,6.283Z" /></svg>
+                            @else 
+                            <svg class="mx-auto w-6 h-6 fill-red-500" fill="currentColor" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><path d="M8.09,0.642c4.174,0 7.563,3.389 7.563,7.563c0,4.175 -3.389,7.564 -7.563,7.564c-4.174,-0 -7.564,-3.389 -7.564,-7.564c0,-4.174 3.39,-7.563 7.564,-7.563Zm-0,1.891c3.131,-0 5.672,2.542 5.672,5.672c0,3.131 -2.541,5.673 -5.672,5.673c-3.131,0 -5.673,-2.542 -5.673,-5.673c0,-3.13 2.542,-5.672 5.673,-5.672Z" /><path d="M8.09,6.934l2.506,-2.506l1.271,1.271l-2.506,2.506l2.506,2.507l-1.271,1.271l-2.506,-2.506l-2.506,2.506l-1.271,-1.271l2.506,-2.507l-2.506,-2.506l1.271,-1.271l2.506,2.506Z" 
+                                ></svg>
+                            @endif
                         </td>
                         <td>
                             {{ $hbt->difficulty }}
@@ -97,7 +117,7 @@
                         <td>
                             <div class="flex justify-end">
                                 @can('inalto_havebeenthere_show')
-                                <a class="show mr-2" href="{{route('report.show', $hbt->url)}}">
+                                <a class="show mr-2" href="{{route('report.show',$hbt->report?->getUrl())}}">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />

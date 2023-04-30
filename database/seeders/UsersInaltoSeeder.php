@@ -16,16 +16,36 @@ class UsersInaltoSeeder extends Seeder
     public function run()
     {
         $users = DB::connection('mysqlold')->table('users')
-          ->leftJoin('field_data_field_nome', function ($q) {$q->on('field_data_field_nome.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_cognome', function ($q) {$q->on('field_data_field_cognome.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_data_di_nascita', function ($q) {$q->on('field_data_field_data_di_nascita.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_bio', function ($q) {$q->on('field_data_field_bio.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_indirizzo', function ($q) {$q->on('field_data_field_indirizzo.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_cap', function ($q) {$q->on('field_data_field_cap.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_comune', function ($q) {$q->on('field_data_field_comune.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_nazione', function ($q) {$q->on('field_data_field_nazione.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_occupazione', function ($q) {$q->on('field_data_field_occupazione.entity_id', '=', 'users.uid'); })
-          ->leftJoin('field_data_field_interessi_personali', function ($q) {$q->on('field_data_field_interessi_personali.entity_id', '=', 'users.uid'); })
+          ->leftJoin('field_data_field_nome', function ($q) {
+              $q->on('field_data_field_nome.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_cognome', function ($q) {
+              $q->on('field_data_field_cognome.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_data_di_nascita', function ($q) {
+              $q->on('field_data_field_data_di_nascita.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_bio', function ($q) {
+              $q->on('field_data_field_bio.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_indirizzo', function ($q) {
+              $q->on('field_data_field_indirizzo.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_cap', function ($q) {
+              $q->on('field_data_field_cap.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_comune', function ($q) {
+              $q->on('field_data_field_comune.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_nazione', function ($q) {
+              $q->on('field_data_field_nazione.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_occupazione', function ($q) {
+              $q->on('field_data_field_occupazione.entity_id', '=', 'users.uid');
+          })
+          ->leftJoin('field_data_field_interessi_personali', function ($q) {
+              $q->on('field_data_field_interessi_personali.entity_id', '=', 'users.uid');
+          })
           ->where('users.uid', '>', 1)->get();
 
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');

@@ -24,12 +24,13 @@ class FilterQueryBuilder
         }
 
         $this->makeOrder($query, $data);
+
         return $query;
     }
 
     public function contains($query, $payload = [])
     {
-     //   ray($payload['column'].' like '. '%'.$payload['query_1'].'%');
+        //   ray($payload['column'].' like '. '%'.$payload['query_1'].'%');
         /*
         if ($payload['match'] === 'and') {
             return $query->where($payload['column'],'like', '%'.$payload['query_1'].'%');
@@ -95,18 +96,17 @@ class FilterQueryBuilder
 
             $filter['match'] = 'and';
 
-            
+
             $query->whereHas(Str::camel($callable), function ($q) use ($filter) {
 //                ray(Str::camel($filter['operator']));
-                $this->{Str::camel($filter['operator'])}(                    
+                $this->{Str::camel($filter['operator'])}(
                     $q,
                     $filter
                 );
             });
 */
-
         } else {
-          //  ray('not nested');
+            //  ray('not nested');
             //ray($filter['column']);
             if ($filter['match'] == 'or') {
                 if ($this->isTranslatedColumn($filter['column'])) {
@@ -121,7 +121,6 @@ class FilterQueryBuilder
         } else {
             $query->where($filter['column'], 'like', '%'.$filter['query_1'].'%');
         }
-
     }
 
     protected function isTranslatedColumn($column)

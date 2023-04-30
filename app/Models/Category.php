@@ -9,11 +9,12 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Kalnoy\Nestedset\NodeTrait;
+
+//use Kalnoy\Nestedset\NodeTrait;
 
 class Category extends Model implements TranslatableContract
 {
-    use NodeTrait;
+    //  use NodeTrait;
     use HasFactory;
     use HasAdvancedFilter;
     use SoftDeletes;
@@ -48,6 +49,14 @@ class Category extends Model implements TranslatableContract
         'updated_at',
         'deleted_at',
     ];
+
+    /*
+    *   Relations
+    */
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'category_id', 'id');
+    }
 
     protected function serializeDate(DateTimeInterface $date)
     {

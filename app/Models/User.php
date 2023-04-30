@@ -56,11 +56,11 @@ class User extends Authenticatable implements HasMedia
         'password',
     ];
 
-    protected $dates = [
-        'email_verified_at',
-        'created_at',
-        'updated_at',
-        'deleted_at',
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     public function getIsAdminAttribute()
@@ -104,8 +104,6 @@ class User extends Authenticatable implements HasMedia
             return $media;
         });
     }
-
-
 
     public function isOnline()
     {

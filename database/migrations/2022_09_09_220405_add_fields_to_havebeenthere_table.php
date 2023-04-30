@@ -17,7 +17,6 @@ return new class extends Migration
             //
             $table->boolean('approved')->default(true);
             $table->boolean('published')->default(true);
-
         });
     }
 
@@ -32,8 +31,6 @@ return new class extends Migration
             //
             $table->dropColumn('approved');
             $table->dropColumn('published');
-
-
         });
     }
 };

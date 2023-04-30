@@ -3,23 +3,24 @@
 namespace App\Http\Livewire\Admin\Poi;
 
 use App\Models\Poi as Poi;
-use App\Models\Translation as PoiTranslation;
-
 use App\Models\Tag;
-
+use App\Models\Translation as PoiTranslation;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
-use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
+
 class Create extends Component
 {
     use WithMedia;
+
     public Poi $poi;
 
     public array $tags = [];
+
     public array $listsForFields = [];
 
     public $mediaComponentNames = ['photos'];
+
     public $photos;
 
     public function mount(Poi $poi)
@@ -47,22 +48,21 @@ class Create extends Component
     protected function initListsForFields(): void
     {
         $this->listsForFields['tags'] = Tag::pluck('name', 'id')->toArray();
-     
     }
 
     public function submit()
     {
-
         $this->save();
+
         return redirect()->route('admin.pois.index');
     }
+
     public function save()
     {
-
         $this->report->tags()->sync($this->tags);
 
         $this->poi->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('poi_photos');
-        
+
         $this->poi->save();
     }
 
@@ -108,7 +108,7 @@ class Create extends Component
                 'string',
                 'required',
             ],
-            
+
             'tags' => [
                 'array',
             ],

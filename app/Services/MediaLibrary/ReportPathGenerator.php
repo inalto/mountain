@@ -2,12 +2,12 @@
 
 namespace App\Services\MediaLibrary;
 
-use Str;
 use App\Models\Report;
+use Cache;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
+use Str;
 
-use Cache;
 class ReportPathGenerator implements PathGenerator
 {
     /*
@@ -17,9 +17,16 @@ class ReportPathGenerator implements PathGenerator
     {
         //caching the report owner name to avoid multiple queries
         $prepend = Cache::remember('report_owner_name_'.$media->model_id, 60, function () use ($media) {
-            return Str::slug(Report::find($media->model_id)->owner()->first()->name);
+            $r = Report::find($media->model_id);
+            if ($r) {
+                return Str::slug($r->owner()->first()->name);
+            } else {
+                ray('report not found: '.$media->model_id.' Media id: '.$media->id.' Collection: '.$media->collection_name);
+
+                return;
+            }
         });
-        
+
         //$prepend = Str::slug(Report::find($media->model_id)->owner()->first()->name);
         if ($media->collection_name == 'report_tracks') {
             $prepend .= '/reports/'.$media->model_id.'/tracks';
@@ -27,7 +34,7 @@ class ReportPathGenerator implements PathGenerator
             $prepend .= '/reports/'.$media->model_id;
         }
         //ray($prepend);
-        return $prepend."/";
+        return $prepend.'/';
     }
 
     /*

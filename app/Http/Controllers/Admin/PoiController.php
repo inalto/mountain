@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Poi;
 use Gate;
-use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class PoiController extends Controller
 {
@@ -42,7 +42,6 @@ class PoiController extends Controller
 
     public function storeMedia(Request $request)
     {
-    
         abort_if(Gate::none(['inalto_poi_create', 'inalto_poi_edit']), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->has('size')) {

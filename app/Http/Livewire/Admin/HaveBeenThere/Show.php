@@ -26,8 +26,7 @@ class Show extends Component
 
     public array $paginationOptions;
 
-   // public int $id;
-
+    // public int $id;
 
     protected $queryString = [
         'search' => [
@@ -61,25 +60,23 @@ class Show extends Component
         $this->selected = [];
     }
 
-    public function mount($id=null)
+    public function mount($id = null)
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
         $this->perPage = 100;
         $this->paginationOptions = config('project.pagination.options');
-        
-      //  ray($id);
+
+        //  ray($id);
 
         $this->id = $id;
-
     }
 
     public function render()
     {
+        $query = HaveBeenThere::where('report_id', $this->id)->orderBy('created_at', 'desc');
 
-        $query = HaveBeenThere::where('report_id', $this->id)->orderBy('created_at','desc');
-
-      //  ray($query->get());
+        //  ray($query->get());
 
         $hbts = $query->paginate($this->perPage);
 

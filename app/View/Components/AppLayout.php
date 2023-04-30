@@ -2,9 +2,9 @@
 
 namespace App\View\Components;
 
-use Illuminate\View\Component;
-
 use App\Models\Category;
+use Illuminate\Support\Facades\Request;
+use Illuminate\View\Component;
 
 class AppLayout extends Component
 {
@@ -15,8 +15,12 @@ class AppLayout extends Component
      */
     public function render()
     {
-        $categories = Category::with('children')->whereNull('parent_id')->get();
-        
-        return view('layouts.app',['categories'=>$categories]);
+        $categories = Category::withCount(['reports' => function ($query) {
+            $query->where('published', true);
+        }])->get()->where('reports_count', '>', 0);
+
+        $category = Request::route('category');
+
+        return view('layouts.app', ['categories' => $categories, 'category' => $category]);
     }
 }

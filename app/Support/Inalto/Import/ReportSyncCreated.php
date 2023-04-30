@@ -6,7 +6,6 @@ use App\Models\Report as R;
 use App\Models\User;
 use Carbon\Carbon;
 use DB;
-use Str;
 
 class ReportSyncCreated
 {
@@ -16,7 +15,6 @@ class ReportSyncCreated
 
         $o->writeln('start');
         $qry = DB::connection('mysqlold')->table('node')->where('type', 'relazioni')->where('status', 1);
-
 
         if ($new) {
             $start = R::query()->orderBy('nid', 'desc')->first()->nid;
@@ -36,9 +34,8 @@ class ReportSyncCreated
         $reports = $qry->get();
         $bar = $o->createProgressBar(count($reports));
 
-
         foreach ($reports as $key => $value) {
-            if (!User::where('id', $value->uid)->first()) {
+            if (! User::where('id', $value->uid)->first()) {
                 continue;
             }
             /*
@@ -54,20 +51,17 @@ class ReportSyncCreated
             if ($r) {
                 $r->created_at = Carbon::createFromTimestamp($value->created)->format('Y-m-d H:i:s');
                 $r->updated_at = Carbon::createFromTimestamp($value->changed)->format('Y-m-d H:i:s');
-    
-                if (!$dry_run) {
+
+                if (! $dry_run) {
                     $r->save();
                 } else {
-                    $o->writeln('Title->' . $value->title);
-                    $o->writeln('uid->' . $value->uid);
-                    $o->writeln('created->' . $r->created_at);
-                }    
+                    $o->writeln('Title->'.$value->title);
+                    $o->writeln('uid->'.$value->uid);
+                    $o->writeln('created->'.$r->created_at);
+                }
             }
-            
-
 
             $bar->advance();
         }
     }
-
 }

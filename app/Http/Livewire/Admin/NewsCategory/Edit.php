@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\NewsCategory;
 
 use App\Models\NewsCategory;
+use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
 
 class Edit extends Component
@@ -44,5 +45,11 @@ class Edit extends Component
                 'nullable',
             ],
         ];
+    }
+
+    public function updatedNewsCategoryName()
+    {
+        ray('updatedName');
+        $this->newsCategory->slug = SlugService::createSlug(NewsCategory::class, 'slug', $this->newsCategory->name);
     }
 }

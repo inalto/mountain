@@ -27,7 +27,7 @@ class ReportController extends Controller
     public function edit(Report $report)
     {
         abort_if(Gate::denies('report_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-   //     ray('admin.report.edit', compact('report'));
+        //     ray('admin.report.edit', compact('report'));
 
         return view('admin.report.edit', compact('report'));
     }

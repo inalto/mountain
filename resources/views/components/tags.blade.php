@@ -8,7 +8,7 @@
     </svg>
     <div class="flex flex-wrap ml-3">
         @foreach($tags as $tag)
-        <a href="{{ route('reports.tag',['tag'=>$tag->slug])}}" class="inline-block whitespace-nowrap py-px px-2 mb-4 mr-3 text-xs leading-5 text-blue-500 bg-blue-100 font-medium rounded-full shadow-sm no-underline">{{$tag->name}}</a>
+        <a href="{{ route('reports.tag',['tag'=>$tag->slug])}}" class="inline-block whitespace-nowrap dark:bg-sky-800 px-2 mb-4 mr-3 text-xs leading-5 text-blue-500 bg-sky-100 font-medium rounded-full shadow-sm no-underline">{{$tag->name}}</a>
         @endforeach
     </div>
 </div>

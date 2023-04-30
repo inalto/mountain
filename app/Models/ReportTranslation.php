@@ -13,7 +13,7 @@ class ReportTranslation extends Model
 
     public $table = 'reports_translations';
 
-    protected $fillable = ['title', 'slug', 'content', 'excerpt','access','info'];
+    protected $fillable = ['title', 'slug', 'content', 'excerpt', 'access', 'info'];
 
     public $timestamps = false;
 

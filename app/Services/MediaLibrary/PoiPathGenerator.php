@@ -2,11 +2,12 @@
 
 namespace App\Services\MediaLibrary;
 
-use Str;
 use App\Models\Poi;
+use Cache;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
-use Cache;
+use Str;
+
 class PoiPathGenerator implements PathGenerator
 {
     /*
@@ -14,14 +15,14 @@ class PoiPathGenerator implements PathGenerator
        */
     public function getPath(Media $media): string
     {
-         //caching the report owner name to avoid multiple queries
+        //caching the report owner name to avoid multiple queries
         $prepend = Cache::remember('poi_owner_name_'.$media->model_id, 60, function () use ($media) {
             return Str::slug(Poi::find($media->model_id)->owner()->first()->name);
-        });    
+        });
         //$prepend = Str::slug(Poi::find($media->model_id)->owner()->first()->name);
         $prepend .= '/pois/'.$media->model_id;
-       // ray($prepend);
-        return $prepend."/";
+        // ray($prepend);
+        return $prepend.'/';
     }
 
     /*

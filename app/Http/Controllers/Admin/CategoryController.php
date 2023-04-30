@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Gate;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class CategoryController extends Controller
@@ -35,5 +36,25 @@ class CategoryController extends Controller
         abort_if(Gate::denies('inalto_category_show'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.category.show', compact('category'));
+    }
+
+    public function search(Request $request)
+    {
+        return response()->json(
+                Category::withTranslation()->get()
+                ->map(function ($category) use ($request) {
+                    if (str_starts_with(strtolower($category->name), strtolower($request->q))) {
+                        return [
+                            'id' => $category->id,
+                            'text' => $category->name,
+                        ];
+                    }
+
+                    return false;
+                })
+                ->reject(function ($value) {
+                    return $value === false;
+                })
+            );
     }
 }

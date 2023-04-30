@@ -1,2 +1,8 @@
 <?php
-return ["my" => "Mes excursions", "read" => "Lire", "settings" => "Paramètres"];
+
+return [
+    'edit' => 'Edit :',
+    'my' => 'Mes excursions',
+    'read' => 'Lire',
+    'settings' => 'Paramètres',
+];

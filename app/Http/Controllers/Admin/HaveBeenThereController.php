@@ -12,10 +12,8 @@ class HaveBeenThereController extends Controller
 {
     protected $havebeentheres;
 
-   
     public function index()
     {
-      
         abort_if(Gate::denies('inalto_havebeenthere_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         return view('admin.have-been-there.index');
@@ -31,12 +29,10 @@ class HaveBeenThereController extends Controller
     public function edit($id)
     {
         abort_if(Gate::denies('inalto_havebeenthere_edit'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-  //      ray('controller edit');
-//        ray($havebeenthere);
 
-        $havebeenthere=HaveBeenThere::query()->where('id','=',$id)->get()->first();
-        ray($havebeenthere);
-        return view('admin.have-been-there.edit', ['havebeenthere' =>$havebeenthere ]);
+        $havebeenthere = HaveBeenThere::query()->where('id', '=', $id)->get()->first();
+
+        return view('admin.have-been-there.edit', ['havebeenthere' => $havebeenthere]);
     }
 
     /*

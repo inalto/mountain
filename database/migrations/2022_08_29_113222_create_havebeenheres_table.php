@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('difficulty')->nullable();
             $table->integer('rate')->nullable();
 
-
             $table->json('location')->nullable();
             $table->string('title');
             $table->string('slug')->nullable();

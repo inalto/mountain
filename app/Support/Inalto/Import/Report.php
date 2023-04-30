@@ -59,6 +59,7 @@ class Report
         $qry->orderBy('node.nid');
 
         $reports = $qry->get();
+
         //  var_dump($reports);
         //echo $qry->toSql();
         $bar = $o->createProgressBar(count($reports));
@@ -92,6 +93,7 @@ class Report
             }
 
             $r = R::firstOrNew(['nid' => $value->nid]);
+            ray($r);
 
             /*
             * Skip approved
@@ -128,6 +130,8 @@ class Report
 
             $r->created_at = Carbon::createFromTimestamp($value->created)->format('Y-m-d H:i:s');
             $r->updated_at = Carbon::createFromTimestamp($value->changed)->format('Y-m-d H:i:s');
+
+            ray($r);
 
             if (! $dry_run) {
                 $r->save();
@@ -259,7 +263,6 @@ class Report
         if (array_key_exists($id, $difficulty)) {
             return $difficulty[$id];
         }
-
     }
 
     private static function mime2ext($file)

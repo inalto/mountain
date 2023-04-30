@@ -4,7 +4,8 @@
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.owner_id') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.owner_id') }}</x-label>
-            <x-input class="w-full form-control" type="text" name="owner_id" id="owner_id" required wire:model="report.owner_id" />
+            <input  type="hidden" name="owner_id" id="owner_id" required wire:model="report.owner_id" />
+            <livewire:admin.user.finder :user_id="$report->owner_id" />
             <div class="validation-message">
                 {{ $errors->first('report.owner_id') }}
             </div>
@@ -140,12 +141,13 @@
     <div class="flex gap-10">
         
         <div class="w-full md:w-1/4 mb-2 form-group">
+            
             <x-label class="form-label" for="type">{{ trans('cruds.report.fields.difficulty_class.type') }}
             </x-label>
-            <select class="form-control w-full" wire:model="type" name="type">
-                <option value="null">{{ trans('global.pleaseSelect') }}...</option>
-                @foreach ($this->listsForFields['type'] as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
+            <select class="form-control w-full" wire:model="report.category_id" name="category">
+                <option disabled>{{ trans('global.pleaseSelect') }}...</option>
+                @foreach ($categories as $key => $value)
+                <option value="{{ $key }}" @if($key==$report->category_id) selected @endif >{{ $value }}</option>
                 @endforeach
 
             </select>
@@ -160,35 +162,10 @@
             <select class="form-control  w-full" wire:model="report.difficulty" name="difficulty">
                 <option value="null">{{ trans('global.pleaseSelect') }}...</option>
 
-                @if ($type == 'hiking')
-                @foreach ($this->listsForFields['hiking'] as $key => $value)
+                @foreach ($difficulties as $key => $value)
                 <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
                 @endforeach
-                @endif
-                @if ($type == 'snowshoeing')
-                @foreach ($this->listsForFields['snowshoeing'] as $key => $value)
-                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
-                @endforeach
-                @endif
-
-                @if ($type == 'mountaineering')
-                @foreach ($this->listsForFields['mountaineering'] as $key => $value)
-                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
-                @endforeach
-                @endif
-
-                @if ($type == 'skimountaineering')
-                @foreach ($this->listsForFields['skimountaineering'] as $key => $value)
-                <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
-                @endforeach
-                @endif
                 
-                @if ($type == 'ferrata')
-                    @foreach ($this->listsForFields['ferrata'] as $key => $value)
-                        <option value="{{ $key }}" @if ($key == $report->difficulty)selected @endif>{{ $value }}</option>
-                    @endforeach
-                @endif
-
             </select>
 
             <div class="help-block">
@@ -198,8 +175,12 @@
         </div>
 
 
-        <div class="w-full md:w-1/4 mb-2 form-group gap-5 flex">
+        <div class="w-full md:w-1/2 mb-2 form-group gap-5 flex">
             <div class="w-full md:w-1/2 mb-2 form-group">
+                <x-label class="form-label w-full" for="type">{{ trans('cruds.report.fields.period') }}</x-label>
+                <x-inputs.seasons :period="$report->period"/>
+            </div>
+            <div class="w-full md:w-1/4 mb-2 form-group">
                 <x-label class="form-label" for="type">{{ trans('cruds.report.fields.approved') }}</x-label>
                 <x-jet-checkbox wire:model="report.approved"></x-jet-checkbox>
                 <div class="help-block">
@@ -207,7 +188,7 @@
                 </div>
 
             </div>
-            <div class="w-full md:w-1/2 mb-2 form-group">
+            <div class="w-full md:w-1/4 mb-2 form-group">
                 <x-label class="form-label" for="type">{{ trans('cruds.report.fields.published') }}</x-label>
                 <x-jet-checkbox wire:model="report.published"></x-jet-checkbox>
                 <div class="help-block">
@@ -220,7 +201,7 @@
 
     <div class="form-group {{ $errors->has('report.access') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.access') }}</x-label>
-        <x-ckedit wire:model="report.access" name="access">
+        <x-ckedit id="report.access" wire:model.defer="report.access" name="access">
             {{ old('access', $report->access) }}
 
         </x-ckedit>
@@ -237,7 +218,7 @@
 
     <div class="form-group {{ $errors->has('report.excerpt') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-label>
-        <x-ckedit wire:model="report.excerpt" name="excerpt">
+        <x-ckedit id="report.excerpt" wire:model.defer="report.excerpt" name="excerpt">
             {{ old('excerpt', $report->excerpt) }}
 
         </x-ckedit>
@@ -256,7 +237,7 @@
     <div class="form-group {{ $errors->has('report.content') ? 'invalid' : '' }}">
         <x-label class="form-label" for="content">{{ trans('cruds.report.fields.content') }}</x-label>
 
-        <x-ckedit wire:model="report.content" name="content">
+        <x-ckedit id="report.content" wire:model.defer="report.content" name="content">
             {{ old('content', $report->content) }}
         </x-ckedit>
 
@@ -281,7 +262,7 @@
 
     <div class="form-group {{ $errors->has('tags') ? 'invalid' : '' }}">
         <x-label class="form-label" for="tags">{{ trans('cruds.report.fields.tags') }}</x-label>
-        <x-select-list class="form-control" id="tags" name="tags" wire:model="tags" :options="$this->listsForFields['tags']" multiple=true tags=true data-allow-clear="false"  />
+        <x-select-list class="form-control" id="tags" name="tags" wire:model="tags" :options="$report->tags->pluck('name','id')->toArray()" multiple=true tags=true data-allow-clear="false"  />
         <div class="validation-message">
             {{ $errors->first('tags') }}
         </div>
@@ -289,9 +270,10 @@
             {{ trans('cruds.report.fields.tags_helper') }}
         </div>
     </div>
+    {{--
     <div class="form-group {{ $errors->has('categories') ? 'invalid' : '' }}">
         <x-label class="form-label" for="categories">{{ trans('cruds.report.fields.categories') }}</x-label>
-        <x-select-list class="form-control" id="categories" name="categories" wire:model="categories" :options="$this->listsForFields['categories']" multiple=true data-allow-clear="false" />
+        <x-select-list class="form-control" id="categories" name="categories" wire:model="categories" :options="$report->categories->pluck('name','id')->toArray()"  multiple=true  data-allow-clear="false" />
         <div class="validation-message">
             {{ $errors->first('categories') }}
         </div>
@@ -299,6 +281,7 @@
             {{ trans('cruds.report.fields.categories_helper') }}
         </div>
     </div>
+    --}}
 <hr>
     <div class="flex gap-10">
         <div class="w-4/5 mb-2 form-group {{ $errors->has('parent_id') ? 'invalid' : '' }}">

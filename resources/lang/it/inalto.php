@@ -1,2 +1,8 @@
 <?php
-return ["my" => "Le mie relazioni", "read" => "Leggi", "settings" => "Impostazioni"];
+
+return [
+    'edit' => 'Modifica:',
+    'my' => 'Le mie relazioni',
+    'read' => 'Leggi',
+    'settings' => 'Impostazioni',
+];

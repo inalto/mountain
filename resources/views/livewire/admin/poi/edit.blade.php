@@ -45,38 +45,11 @@
             </div>
         </div>
     </div>
-
     <div class="flex gap-10">
-        <x-inputs.coords wire:model="poi.location" />
-    </div>
-    <div class="flex gap-10">
-        <livewire:coord-picker :coords="$poi->location"></livewire:coord-picker>
-    </div>
-    <div class="flex gap-10">
-
-
-        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('poi.location.lat') ? 'invalid' : '' }}">
-            <x-label class="form-label" for="location.lat">{{ trans('cruds.poi.fields.lat') }}</x-label>
-            <x-input class="form-control" type="text" name="location.lat" id="location.lat" wire:model.defer="poi.location.lat" step="1" />
-            <div class="validation-message">
-                {{ $errors->first('poi.location.lat') }}
-            </div>
-            <div class="help-block">
-                {{ trans('cruds.poi.fields.lat_helper') }}
-            </div>
+        <div class="w-full md:w-1/2 mb-2"> 
+            <x-inputs.coords />
         </div>
-        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('poi.location.lon') ? 'invalid' : '' }}">
-            <x-label class="form-label" for="location.lon">{{ trans('cruds.poi.fields.lon') }}</x-jet-label>
-                <x-input class="form-control" type="text" name="location.lon" id="location.lon" wire:model.defer="poi.location.lon" step="1" />
-                <div class="validation-message">
-                    {{ $errors->first('poi.location.lon') }}
-                </div>
-                <div class="help-block">
-                    {{ trans('cruds.poi.fields.lon_helper') }}
-                </div>
-        </div>
-
-        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('poi.height') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.height') ? 'invalid' : '' }}">
             <x-label class="form-label" for="height">{{ trans('cruds.poi.fields.height') }}</x-label>
             <x-height class="w-full form-control" type="text" name="height" id="height" wire:model="poi.height" right="m" />
             <div class="validation-message">
@@ -89,7 +62,7 @@
 
 
 
-        <div class="w-full md:w-1/3 mb-2 form-group">
+        <div class="w-full md:w-1/4 mb-2 form-group">
             <x-label class="form-label" for="type">{{ trans('cruds.poi.fields.approved') }}</x-label>
             <x-jet-checkbox wire:model="poi.approved"></x-jet-checkbox>
             <div class="help-block">
@@ -97,7 +70,7 @@
             </div>
 
         </div>
-        <div class="w-full md:w-1/8 mb-3 form-group">
+        <div class="w-full md:w-1/4 mb-3 form-group">
             <x-label class="form-label" for="type">{{ trans('cruds.poi.fields.published') }}</x-label>
             <x-jet-checkbox wire:model="poi.published"></x-jet-checkbox>
             <div class="help-block">
@@ -141,7 +114,7 @@
 
     <div class="form-group {{ $errors->has('tags') ? 'invalid' : '' }}">
         <x-label class="form-label" for="tags">{{ trans('cruds.poi.fields.tags') }}</x-label>
-        <x-select-list class="form-control" id="tags" name="tags" wire:model="tags" :options="$this->listsForFields['tags']" multiple />
+        <x-select-list class="form-control" id="tags" name="tags" wire:model="tags" :options="$poi->tags->pluck('name','id')->toArray()" multiple />
         <div class="validation-message">
             {{ $errors->first('tags') }}
         </div>

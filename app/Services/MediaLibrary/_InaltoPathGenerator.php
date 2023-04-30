@@ -2,9 +2,9 @@
 
 namespace App\Services\MediaLibrary;
 
-use App\Models\Report;
 use App\Models\HaveBeenThere;
 use App\Models\Poi;
+use App\Models\Report;
 use App\Models\User;
 use Log;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -39,12 +39,12 @@ class InaltoPathGenerator implements BasePathGenerator
 
     /*
      * Get a unique base path for the given media.
-     */ 
+     */
     protected function getBasePath(Media $media): string
     {
         $prepend = '';
         ray($media->model_type);
-     //   ray($media->model_type);
+        //   ray($media->model_type);
         switch ($media->model_type) {
             case 'App\Models\Report':
 
@@ -79,7 +79,7 @@ class InaltoPathGenerator implements BasePathGenerator
                 break;
 
         }
-//ray ($prepend);
+        //ray ($prepend);
         return $prepend;
     }
 }

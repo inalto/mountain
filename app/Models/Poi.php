@@ -12,11 +12,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Image\Manipulations;
-
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-
 
 class Poi extends Model implements HasMedia, TranslatableContract
 {
@@ -67,12 +65,13 @@ class Poi extends Model implements HasMedia, TranslatableContract
 
     public $casts = [
         'location' => 'array',
-      
+
     ];
-    
+
     protected $appends = [
         'photos',
     ];
+
     public function owner()
     {
         return $this->belongsTo(User::class);
@@ -105,7 +104,6 @@ class Poi extends Model implements HasMedia, TranslatableContract
             ->nonQueued();
     }
 
-
     public function getPhotosAttribute()
     {
         return $this->getMedia('poi_photos')->map(function ($item) {
@@ -117,6 +115,19 @@ class Poi extends Model implements HasMedia, TranslatableContract
 
             return $media;
         });
+    }
+
+    public function getLocationAttribute($value)
+    {
+        $out = json_decode($value, true);
+        if (empty($out['lat'])) {
+            $out['lat'] = 45;
+        }
+        if (empty($out['lon'])) {
+            $out['lon'] = 7;
+        }
+
+        return $out;
     }
 
     protected function serializeDate(DateTimeInterface $date)

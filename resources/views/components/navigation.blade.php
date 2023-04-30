@@ -1,55 +1,22 @@
 @props(['categories'=>null])
 
-<nav class="bg-white border-b border-gray-100 dark:border-gray-700 dark:bg-gray-900">
+<nav class="fixed top-0 left-0 right-0 bg-white border-b border-gray-100 dark:border-gray-700 dark:bg-gray-900 shadow-lg z-10">
     <!-- Primary Navigation Menu -->
-    <div class="px-4 mx-auto sm:px-6 lg:px-8">
+    <div class="px-4">
         <div class="flex justify-between h-16">
-            <div class="flex">
+            <div class="w-full flex">
                 <!-- Logo -->
-                <div class="flex items-center flex-shrink-0">
-
+                <div class="flex items-center flex-shrink-0 mr-6">
+                    <x-hamburger x-on:click="isOpen = !isOpen; localStorage.sidebar=isOpen; console.log(isOpen);" />
                     <a href="{{ route('home') }}">
                         <x-application-logo class="block w-14 h-14" />
                     </a>
-
                 </div>
+                    <livewire:frontend.search></livewire:frontend.search>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                @auth
-                    <x-jet-nav-link class="dark:text-gray-200 dark:hover:text-white" href="{{ route('admin.home') }}" :active="request()->routeIs('admin')">
-                        {{ __('Admin') }}
-                    </x-jet-nav-link>
-                @endauth
-
-
-
-                @if ($categories)
-                <x-dropdown align="left" width="48">
-                    <x-slot name="trigger">
-                        <x-jet-nav-link class="dark:text-gray-200 dark:hover:text-white h-full" >
-                            {{ __('global.reports') }}
-                        </x-jet-nav-link>
-                    </x-slot>
-                    <x-slot name="content">
-                        @foreach($categories as $category)
-                            <x-dropdown-link class="dark:text-gray-200 dark:hover:text-white" href="{{ route('reports', $category->slug) }}">
-                                {{ $category->name }}
-                            </x-dropdown-link>
-                        @endforeach
-                        <div class="border-t border-gray-100 border-gray-800"></div>
-                       
-                    </x-slot>
-                </x-dropdown>
-                @endif
-
-                <x-jet-nav-link class="dark:text-gray-200 dark:hover:text-white" href="{{ route('havebeentheres') }}" :active="request()->routeIs('havebeentheres')">
-                        {{ __('Ci sono stato') }}
-                    </x-jet-nav-link>
-                </div>
             </div>
 
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden sm:flex sm:items-center">
                 <livewire:light-switch></livewire:light-switch>
                 @auth
                 <x-dropdown align="right" width="48">
@@ -89,7 +56,7 @@
                         <rect opacity="0.3" x="8" y="3" width="8" height="8" rx="4" fill="currentColor"></rect>
                     </svg>{{ __('global.login') }}
                 </a>
-                {{-- 
+                {{--
                     <x-nav-link href="{{ route('login') }}">{{ __('Login') }}</x-nav-link>
                 <x-nav-link href="{{ route('register') }}">{{ __('Register') }}</x-nav-link>
                 --}}

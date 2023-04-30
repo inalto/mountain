@@ -12,16 +12,16 @@ use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Spatie\Image\Manipulations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\Tags\HasTags;
-use Laravel\Scout\Searchable;
 
 class Report extends Model implements HasMedia, TranslatableContract
 {
-//    use HasTags;
+    //    use HasTags;
 
     use HasFactory;
     use HasAdvancedFilter;
@@ -33,22 +33,19 @@ class Report extends Model implements HasMedia, TranslatableContract
     //  use Auditable;
     use Translatable;
 
-    public const DIFFICULTY_SELECT = [
-        'dif' => 'dif',
-        'dif2' => 'dif2',
-    ];
-
     public $table = 'reports';
 
-    public $translatedAttributes = ['title', 'slug', 'content', 'excerpt','access','info'];
+    public $translatedAttributes = ['title', 'slug', 'content', 'excerpt', 'access', 'info'];
 
     public $orderable = [
         'id',
         'title',
         'slug',
         'difficulty',
+        'approved',
+        'published',
         'owner.name',
-        'categories.name',
+        'category.name',
     ];
 
     public $filterable = [
@@ -57,23 +54,11 @@ class Report extends Model implements HasMedia, TranslatableContract
         'slug',
         'difficulty',
         //'tags.name',
-        
+
         //        'excerpt',
         //'content',
 
-        
         //  'categories.name',
-    ];
-
-    protected $appends = [
-        'photos',
-        'tracks',
-    ];
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
-        'deleted_at',
     ];
 
     protected $fillable = [
@@ -88,9 +73,12 @@ class Report extends Model implements HasMedia, TranslatableContract
     ];
 
     protected $casts = [
-        'type' => 'string',
+        'period' => 'array',
         'time_a' => 'timestamp',
         'time_r' => 'timestamp',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+        'deleted_at' => 'datetime',
     ];
 
     public function registerMediaConversions(Media $media = null): void
@@ -115,6 +103,15 @@ class Report extends Model implements HasMedia, TranslatableContract
             ->nonQueued();
     }
 
+    public function getPeriodAttribute($value): array
+    {
+        if ($value == null) {
+            return ['m1' => false, 'm2' => false, 'm3' => false, 'm4' => false, 'm5' => false, 'm6' => false, 'm7' => false, 'm8' => false, 'm9' => false, 'm10' => false, 'm11' => false, 'm12' => false];
+        } else {
+            return json_decode($value, true);
+        }
+    }
+
     public function getLengthAttribute($value)
     {
         return number_format($value / 100, 2, '.');
@@ -129,56 +126,74 @@ class Report extends Model implements HasMedia, TranslatableContract
         }
     }
 
-    public function getTypeAttribute()
+    public function getDifficulties(): array
     {
-        $type = [
+        $difficulties = [];
 
-            'T1' => 'hiking',
-            'T2' => 'hiking',
-            'T3' => 'hiking',
-            'T4' => 'hiking',
-            'T5' => 'hiking',
+        switch ($this->category_id) {
+            case 1:
+                $difficulties = [
+                    'T1' => trans('cruds.report.fields.difficulty_class.T1'),
+                    'T2' => trans('cruds.report.fields.difficulty_class.T2'),
+                    'T3' => trans('cruds.report.fields.difficulty_class.T3'),
+                    'T4' => trans('cruds.report.fields.difficulty_class.T4'),
+                    'T5' => trans('cruds.report.fields.difficulty_class.T5'),
+                ];
+                break;
+            case 2:
+                $difficulties = [
+                    'WT1' => trans('cruds.report.fields.difficulty_class.WT1'),
+                    'WT2' => trans('cruds.report.fields.difficulty_class.WT2'),
+                    'WT3' => trans('cruds.report.fields.difficulty_class.WT3'),
+                    'WT4' => trans('cruds.report.fields.difficulty_class.WT4'),
+                    'WT5' => trans('cruds.report.fields.difficulty_class.WT5'),
+                ];
+                break;
+            case 3:
+                $difficulties = [
+                    'MS' => trans('cruds.report.fields.difficulty_class.MS'),
+                    'MSA' => trans('cruds.report.fields.difficulty_class.MSA'),
+                    'BS' => trans('cruds.report.fields.difficulty_class.BS'),
+                    'BSA' => trans('cruds.report.fields.difficulty_class.BSA'),
+                    'OS' => trans('cruds.report.fields.difficulty_class.OS'),
+                    'OSA' => trans('cruds.report.fields.difficulty_class.OSA'),
+                ];
+                break;
+            case 4:
+                $difficulties = [
+                    'F-' => trans('cruds.report.fields.difficulty_class.Fm'),
+                    'F' => trans('cruds.report.fields.difficulty_class.F'),
+                    'F+' => trans('cruds.report.fields.difficulty_class.Fp'),
+                    'PD-' => trans('cruds.report.fields.difficulty_class.PDm'),
+                    'PD' => trans('cruds.report.fields.difficulty_class.PD'),
+                    'PD+' => trans('cruds.report.fields.difficulty_class.PDp'),
+                    'AD-' => trans('cruds.report.fields.difficulty_class.ADm'),
+                    'AD' => trans('cruds.report.fields.difficulty_class.AD'),
+                    'AD+' => trans('cruds.report.fields.difficulty_class.ADp'),
+                    'D-' => trans('cruds.report.fields.difficulty_class.Dm'),
+                    'D' => trans('cruds.report.fields.difficulty_class.D'),
+                    'D+' => trans('cruds.report.fields.difficulty_class.Dp'),
+                    'TD-' => trans('cruds.report.fields.difficulty_class.TDm'),
+                    'TD' => trans('cruds.report.fields.difficulty_class.TD'),
+                    'TD+' => trans('cruds.report.fields.difficulty_class.TDp'),
+                    'ED-' => trans('cruds.report.fields.difficulty_class.EDm'),
+                    'ED' => trans('cruds.report.fields.difficulty_class.ED'),
+                    'ED+' => trans('cruds.report.fields.difficulty_class.EDp'),
+                ];
+                break;
+            case 5:
+                $difficulties = [
+                    'F' => trans('cruds.report.fields.difficulty_class.F'),
+                    'PD' => trans('cruds.report.fields.difficulty_class.PD'),
+                    'D' => trans('cruds.report.fields.difficulty_class.D'),
+                    'MD' => trans('cruds.report.fields.difficulty_class.MD'),
+                    'ED' => trans('cruds.report.fields.difficulty_class.ED'),
+                ];
+                break;
 
-            'F-' => 'mountaineering',
-            'F' => 'mountaineering',
-            'F+' => 'mountaineering',
-            'PD-' => 'mountaineering',
-            'PD' => 'mountaineering',
-            'PD+' => 'mountaineering',
-            'AD-' => 'mountaineering',
-            'AD' => 'mountaineering',
-            'AD+' => 'mountaineering',
-            'D-' => 'mountaineering',
-            'D' => 'mountaineering',
-            'D+' => 'mountaineering',
-            'TD-' => 'mountaineering',
-            'TD' => 'mountaineering',
-            'TD+' => 'mountaineering',
-            'ED-' => 'mountaineering',
-            'ED' => 'mountaineering',
-            'ED+' => 'mountaineering',
-            'WT1' => 'snowshoeing',
-            'WT2' => 'snowshoeing',
-            'WT3' => 'snowshoeing',
-            'WT4' => 'snowshoeing',
-            'WT5' => 'snowshoeing',
-            'MS' => 'skimountaineering',
-            'MSA' => 'skimountaineering',
-            'BS' => 'skimountaineering',
-            'BSA' => 'skimountaineering',
-            'OS' => 'skimountaineering',
-            'OSA' => 'skimountaineering',
-        ];
-
-        if (array_key_exists($this->difficulty, $type)) {
-            return $type[$this->difficulty];
         }
 
-    }
-
-    public function getDifficultyLabelAttribute($value)
-    {
-        return static::DIFFICULTY_SELECT[$this->difficulty] ?? null;
+        return $difficulties;
     }
 
     public function getPhotosAttribute()
@@ -204,34 +219,20 @@ class Report extends Model implements HasMedia, TranslatableContract
         });
     }
 
-    /*
-        public function getCategorySlugAttribute()
-        {
-            return $this->categories->map(function($qry){ return $qry->translateOrDefault();})->first()?->slug;
-        }
-
-        public function getSlugAttribute()
-        {
-            return $this->map(function($qry){ return $qry->translateOrDefault();})->first()?->slug;
-        }
-    */
-
-
     public function getUrl()
     {
-       return $this->categories->first->translate()?->slug.'/'.$this->slug;
+        return $this->category?->translate()?->slug.'/'.$this->slug;
     }
 
-    /*
+    /*e
     * Relationships
     */
-    
 
     public function havebeentheres()
     {
         return $this->hasMany(HaveBeenThere::class);
     }
-    
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
@@ -243,11 +244,17 @@ class Report extends Model implements HasMedia, TranslatableContract
         return $this->belongsTo(ReportTranslation::class);
     }
 */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    /*
     public function categories()
     {
         return $this->belongsToMany(Category::class);
     }
-
+*/
     public function owner()
     {
         return $this->belongsTo(User::class);
@@ -269,10 +276,14 @@ class Report extends Model implements HasMedia, TranslatableContract
 
     public function getPathAttribute()
     {
-        $locale=app()->getLocale();
-        $path="";
-        $path.= $this->categories->first->translate($locale)?$this->categories->first->translate($locale)->slug:'none';
-        $path.= '/'.$this->translate($locale)->slug;
+        if ($this->category == null) {
+            return 'none';
+        }
+
+        $path = '';
+        $path .= $this->category->translate() ? $this->category->translate()->slug : 'none';
+        $path .= '/'.$this->translate()->slug;
+
         return $path;
     }
 
@@ -296,6 +307,11 @@ class Report extends Model implements HasMedia, TranslatableContract
         $this->attributes['time_r'] = Carbon::parse($value)->toDateTimeString();
     }
 
+    public function setApprovedAttribute($value)
+    {
+        return $this->attributes['approved'] = $value ? 1 : 0;
+    }
+
     public function getBibliographiesAttribute($value)
     {
         return json_decode($value, true, 512, JSON_OBJECT_AS_ARRAY);
@@ -315,12 +331,14 @@ class Report extends Model implements HasMedia, TranslatableContract
             $q->where('name', 'like', '%'.$name.'%');
         });
     }
+
     public function scopeOrOwnerNameLike($query, $name)
     {
         return $query->orWhereHas('owner', function ($q) use ($name) {
             $q->where('name', 'like', '%'.$name.'%');
         });
     }
+
     public function scopeOwnerId($query, $id)
     {
         return $query->where('owner_id', $id);
@@ -330,12 +348,49 @@ class Report extends Model implements HasMedia, TranslatableContract
     {
         return $query->orderBy('title', $order);
     }
-    
 
+    public function scopeIsPublished($query)
+    {
+        return $query->where('published', '=', true);
+    }
 
+    /**
+     * Scope a query to only exclude specific Columns.
+     *
+     * @author Manojkiran.A <manojkiran10031998@gmail.com>
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeExclude($query, ...$columns)
+    {
+        if ($columns !== []) {
+            if (count($columns) !== count($columns, COUNT_RECURSIVE)) {
+                $columns = iterator_to_array(new \RecursiveIteratorIterator(new \RecursiveArrayIterator($columns)));
+            }
+            //  ray($this->getTableColumns());
+            return $query->select(array_diff($this->getTableColumns(), $columns));
+        }
 
+        return $query;
+    }
 
-    
+    /**
+     * Shows All the columns of the Corresponding Table of Model
+     *
+     * @author Manojkiran.A <manojkiran10031998@gmail.com>
+     * If You need to get all the Columns of the Model Table.
+     * Useful while including the columns in search
+     *
+     * @return array
+     **/
+    public function getTableColumns()
+    {
+        return \Illuminate\Support\Facades\Cache::rememberForever('MigrMod:'.filemtime(database_path('migrations')).':'.$this->getTable(), function () {
+            return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+        });
+    }
+
     /**
      * Get the indexable data array for the model.
      *
@@ -349,27 +404,24 @@ class Report extends Model implements HasMedia, TranslatableContract
         return $array;
         */
         return [
-        
+
             'title' => $this->title,
             'slug' => $this->slug,
             'excerpt' => $this->excerpt,
             'access' => $this->access,
             'content' => $this->content,
 
-          
         ];
-        
     }
-    public function searchableAs(): string {
+
+    public function searchableAs(): string
+    {
         return 'reports';
     }
 
     public function searchable(): bool
-
-	{
+    {
         return true;
-    	//return $this->published || $this->approved;
-
-	}
-
+        //return $this->published || $this->approved;
+    }
 }

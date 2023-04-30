@@ -2,11 +2,11 @@
 
 namespace App\Services\MediaLibrary;
 
-use Str;
 use App\Models\HaveBeenThere;
+use Cache;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\Support\PathGenerator\PathGenerator;
-use Cache;
+use Str;
 
 class HaveBeenTherePathGenerator implements PathGenerator
 {
@@ -15,9 +15,17 @@ class HaveBeenTherePathGenerator implements PathGenerator
        */
     public function getPath(Media $media): string
     {
-         //caching the report owner name to avoid multiple queries
+        //caching the report owner name to avoid multiple queries
         $prepend = Cache::remember('havebeenthere_owner_name_'.$media->model_id, 60, function () use ($media) {
-            return Str::slug(HaveBeenThere::find($media->model_id)->owner()->first()->name);
+            //return Str::slug(HaveBeenThere::find($media->model_id)->owner()->first()->name);
+            $r = HaveBeenThere::find($media->model_id);
+            if ($r) {
+                return Str::slug($r->owner()->first()->name);
+            } else {
+                ray('report not found: '.$media->model_id.' Media id: '.$media->id.' Collection: '.$media->collection_name);
+
+                return;
+            }
         });
 
         //$prepend = Str::slug(HaveBeenThere::find($media->model_id)->owner()->first()->name);
@@ -26,8 +34,8 @@ class HaveBeenTherePathGenerator implements PathGenerator
         } else {
             $prepend .= '/havebeenthere/'.$media->model_id;
         }
-       // ray($prepend);
-        return $prepend."/";
+        // ray($prepend);
+        return $prepend.'/';
     }
 
     /*

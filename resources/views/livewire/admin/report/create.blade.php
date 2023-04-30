@@ -217,7 +217,7 @@
 
     <div class="form-group {{ $errors->has('report.excerpt') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.report.fields.excerpt') }}</x-label>
-        <x-ckedit wire:model="report.excerpt" name="excerpt">
+        <x-ckedit wire:model.defer="report.excerpt" name="excerpt">
             {{ old('excerpt', $report->excerpt) }}
 
         </x-ckedit>
@@ -233,7 +233,7 @@
     <div class="form-group {{ $errors->has('report.content') ? 'invalid' : '' }}">
         <x-label class="form-label" for="content">{{ trans('cruds.report.fields.content') }}</x-label>
 
-        <x-ckedit wire:model="report.content" name="content">
+        <x-ckedit wire:model.defer="report.content" name="content">
             {{ old('content', $report->content) }}
         </x-ckedit>
 

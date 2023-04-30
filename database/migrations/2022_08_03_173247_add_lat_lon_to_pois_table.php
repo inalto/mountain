@@ -29,7 +29,6 @@ return new class extends Migration
         Schema::table('pois', function (Blueprint $table) {
             //
             $table->dropColumn('location');
-
         });
     }
 };

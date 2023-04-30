@@ -1,30 +1,10 @@
-<div>
-    <div wire:ignore class="w-full">
-        {{--
-        @if(isset($attributes['multiple']))
-            <div id="{{ $attributes['id'] }}-btn-container" class="mb-3">
-                <button type="button" class="btn btn-info btn-sm select-all-button">{{ trans('global.select_all') }}</button>
-                <button type="button" class="btn btn-info btn-sm deselect-all-button">{{ trans('global.deselect_all') }}</button>
-            </div>
-        @endif
-        --}}
-        <select class="w-full" data-minimum-results-for-search="Infinity" data-placeholder="{{ __('Select your option') }}" {{ $attributes }}>
-            @if(!isset($attributes['multiple']))
-                <option></option>
-            @endif
-            @foreach($options as $key => $value)
-                <option value="{{ $key }}">{{ $value }}</option>
-            @endforeach
-        </select>
-    </div>
+<div wire:ignore class="w-full">
+    <select class="w-full" data-minimum-results-for-search="Infinity" data-placeholder="{{ __('Select your option') }}" {{ $attributes }}>
+        @foreach($options as $key => $option)
+            <option value="{{$key}}" selected="selected">{{$option}}</option>
+        @endforeach
+    </select>
 </div>
-@once 
-{{--
-@push('styles')
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-@endpush
---}}
-@endonce
 @push('scripts')
     <script>
         document.addEventListener("livewire:load", () => {
@@ -46,6 +26,19 @@
     function initSelect () {
         initButtons()
         el.select2({
+            ajax: {
+                url: '/api/{{ $attributes['id'] }}',
+                dataType: 'json',
+                minimumInputLength: 2,
+                delay: 250,
+                processResults: function (data) {
+               //     console.log(data);
+                    return {
+                        results: data
+                    };
+                }
+            },
+            multiple: el.attr('multiple') ? true : false,
             placeholder: '{{ __('Select your option') }}',
             allowClear: !el.attr('required')
         })

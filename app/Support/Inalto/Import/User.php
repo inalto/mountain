@@ -25,16 +25,36 @@ class User
             $q->on('users.picture', '=', 'file_managed.fid');
         });
 
-        $query->leftJoin('field_data_field_nome', function ($q) {$q->on('field_data_field_nome.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_cognome', function ($q) {$q->on('field_data_field_cognome.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_data_di_nascita', function ($q) {$q->on('field_data_field_data_di_nascita.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_bio', function ($q) {$q->on('field_data_field_bio.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_indirizzo', function ($q) {$q->on('field_data_field_indirizzo.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_cap', function ($q) {$q->on('field_data_field_cap.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_comune', function ($q) {$q->on('field_data_field_comune.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_nazione', function ($q) {$q->on('field_data_field_nazione.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_occupazione', function ($q) {$q->on('field_data_field_occupazione.entity_id', '=', 'users.uid'); });
-        $query->leftJoin('field_data_field_interessi_personali', function ($q) {$q->on('field_data_field_interessi_personali.entity_id', '=', 'users.uid'); });
+        $query->leftJoin('field_data_field_nome', function ($q) {
+            $q->on('field_data_field_nome.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_cognome', function ($q) {
+            $q->on('field_data_field_cognome.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_data_di_nascita', function ($q) {
+            $q->on('field_data_field_data_di_nascita.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_bio', function ($q) {
+            $q->on('field_data_field_bio.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_indirizzo', function ($q) {
+            $q->on('field_data_field_indirizzo.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_cap', function ($q) {
+            $q->on('field_data_field_cap.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_comune', function ($q) {
+            $q->on('field_data_field_comune.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_nazione', function ($q) {
+            $q->on('field_data_field_nazione.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_occupazione', function ($q) {
+            $q->on('field_data_field_occupazione.entity_id', '=', 'users.uid');
+        });
+        $query->leftJoin('field_data_field_interessi_personali', function ($q) {
+            $q->on('field_data_field_interessi_personali.entity_id', '=', 'users.uid');
+        });
 
         $query->where('users.status', '=', 1);
         $query->select('users.uid', 'users.name', 'users.mail', 'users.pass', 'users.created', 'users.access',

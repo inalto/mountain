@@ -1,6 +1,8 @@
-<textarea {{ $attributes }} wire:ignore>
+<div wire:ignore>
+<textarea {{ $attributes }} >
     {!! $slot !!}
 </textarea>
+</div>
 @push('styles')
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 @endpush

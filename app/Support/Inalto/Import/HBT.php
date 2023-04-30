@@ -99,11 +99,11 @@ class HBT
             $hbt->nid = $value->nid;
             $hbt->owner_id = $value->uid;
             $hbt->difficulty = self::resolveDifficulty(intval($value->field_difficolt__value));
-            
-            if (!empty($value->field_tempo_di_salita_value)) {
+
+            if (! empty($value->field_tempo_di_salita_value)) {
                 $hbt->time_a = Carbon::createFromFormat('H*i*', $value->field_tempo_di_salita_value)->toDateTimeString();
             }
-            if (!empty($value->field_tempo_di_discesa_value)) {
+            if (! empty($value->field_tempo_di_discesa_value)) {
                 $hbt->time_r = Carbon::createFromFormat('H*i*', $value->field_tempo_di_discesa_value)->toDateTimeString();
             }
             ray($value->field_data_value);
@@ -174,8 +174,7 @@ class HBT
                     continue;
                 }
 
-                if (!self::photo_exists($hbt->photos, $path)) {
-                    
+                if (! self::photo_exists($hbt->photos, $path)) {
                     $filename = pathinfo($path, 8).'.'.self::mime2ext($path);
                     $hbt->addMedia($path)
                     ->preservingOriginal()
@@ -189,7 +188,6 @@ class HBT
                 }
             }
 
-   
             $bar->advance();
         }
     }
@@ -247,7 +245,6 @@ class HBT
         if (array_key_exists($id, $difficulty)) {
             return $difficulty[$id];
         }
-
     }
 
     private static function mime2ext($file)

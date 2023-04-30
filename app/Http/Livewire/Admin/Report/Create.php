@@ -5,13 +5,11 @@ namespace App\Http\Livewire\Admin\Report;
 use App\Models\Category;
 use App\Models\Report;
 use App\Models\ReportTranslation;
-use Spatie\Tags\Tag;
-
 use Cviebrock\EloquentSluggable\Services\SlugService;
-use Input;
 use Livewire\Component;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
+use Spatie\Tags\Tag;
 
 class Create extends Component
 {
@@ -47,12 +45,12 @@ class Create extends Component
     public function mount()
     {
         $report = new Report();
-        
+
         $this->report = $report;
         $this->initListsForFields();
         /*
         $this->difficulty = $report->difficulty;
-        
+
         $this->type = $this->report->getTypeAttribute();
         $this->tags = $this->report->tags()->pluck('id')->toArray();
         //$this->categories = $this->report->categories()->pluck('id')->toArray();
@@ -72,8 +70,6 @@ class Create extends Component
                ];
 
                */
-
-        
     }
 
     public function render()
@@ -95,10 +91,11 @@ class Create extends Component
 
     public function submit()
     {
-
         $this->save();
+
         return redirect()->route('admin.reports.index');
     }
+
     public function save()
     {
         $this->report->save();
@@ -117,18 +114,15 @@ class Create extends Component
         $this->report->save();
     }
 
-
     public function addBibliography()
     {
-        $this->bibliographies[] = ['title' => '', 'author' => '', 'publisher'=>'','link' => 'https://'];
+        $this->bibliographies[] = ['title' => '', 'author' => '', 'publisher' => '', 'link' => 'https://'];
     }
 
     public function removeBibliography($index)
     {
         array_splice($this->bibliographies, $index, 1);
     }
-
-
 
     protected function rules(): array
     {
@@ -257,7 +251,6 @@ class Create extends Component
         ];
     }
 
-
     protected function initListsForFields(): void
     {
         $this->listsForFields['type'] = [
@@ -315,7 +308,7 @@ class Create extends Component
             'PD' => trans('cruds.report.fields.difficulty_class.PD'),
             'D' => trans('cruds.report.fields.difficulty_class.D'),
             'MD' => trans('cruds.report.fields.difficulty_class.MD'),
-            'ED' => trans('cruds.report.fields.difficulty_class.ED')
+            'ED' => trans('cruds.report.fields.difficulty_class.ED'),
         ];
 
         //       $this->listsForFields['difficulty'] = $this->report::DIFFICULTY_SELECT;

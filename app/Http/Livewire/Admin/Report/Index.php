@@ -18,12 +18,12 @@ class Index extends Component
 
     protected $listeners = ['delete'];
 
-
     public $perPage;
 
     public $orderable = [];
 
     public $search = '';
+
     public $user = '';
 
     public $selected = [];
@@ -80,7 +80,7 @@ class Index extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
-          $query = $query->orOwnerNameLike($this->search);
+        $query = $query->orOwnerNameLike($this->search);
 
         $reports = $query->paginate($this->perPage);
 
@@ -95,7 +95,6 @@ class Index extends Component
 
         $this->resetSelected();
     }
-
 
     public function deleteConfirm()
     {
@@ -113,16 +112,16 @@ class Index extends Component
 
         Report::find($id)->delete();
         $this->dispatchBrowserEvent('toastr:error', [
-            'message' => 'Report deleted'
+            'message' => 'Report deleted',
         ]);
     }
 
-/*
-    public function delete(Report $report)
-    {
-        abort_if(Gate::denies('report_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+    /*
+        public function delete(Report $report)
+        {
+            abort_if(Gate::denies('report_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $report->delete();
-    }
-    */
+            $report->delete();
+        }
+        */
 }

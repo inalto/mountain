@@ -18,13 +18,11 @@ use Admin\ReportController;
 use Admin\RoleController;
 use Admin\TagController;
 use Admin\UserController;
-use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\HaveBeenThereController;
+use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
-
-use App\Http\Controllers\Frontend\ReportsController as Report;
 use App\Http\Controllers\Frontend\HaveBeenTheresController;
-
+use App\Http\Controllers\Frontend\ReportsController as Report;
 use Illuminate\Support\Facades\Auth;
 /*
 * Frontend
@@ -36,7 +34,6 @@ use Illuminate\Support\Facades\Route;
 Route::mediaLibrary();
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
-
     Route::get('/', [Report::class, 'index'])->name('home');
 
     Route::view('/info', 'info');
@@ -48,11 +45,14 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
 
     Route::get('/'.trans('routes.my').'/{category?}', [Report::class, 'my'])->name('reports.my');
 
-
-
     Route::get('/cisonostato/tag/{tag?}', [HaveBeenTheresController::class, 'tag'])->name('havebeentheres.tag');
 
     Route::get('/cisonostato/{category?}', [HaveBeenTheresController::class, 'index'])->name('havebeentheres');
+    Route::get('/cisonostato/{id?}/create', [HaveBeenTheresController::class, 'create'])->name('havebeentheres.create');
+    Route::get('/cisonostato/{id?}/edit', [HaveBeenTheresController::class, 'edit'])->name('have-been-there.edit');
+
+    
+
     /*
     Route::get('/poi/{category?}', [Report::class, 'index'])->name('poi');
     Route::get('/poi/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('poi.show');
@@ -102,8 +102,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth']], 
     // Have Been There
     Route::resource('have-been-there', HaveBeenThereController::class, ['except' => ['store', 'update', 'destroy']]);
     Route::post('have-been-there/media', [HaveBeenThereController::class, 'storeMedia'])->name('havebeenthere.storeMedia');
-
-
 
     // Tag
     Route::resource('tags', TagController::class, ['except' => ['store', 'update', 'destroy']]);

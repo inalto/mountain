@@ -7,15 +7,11 @@
                     <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-
             @can('inalto_category_delete')
                 <button class="btn btn-rose ml-3 disabled:opacity-50 disabled:cursor-not-allowed" type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled" {{ $this->selectedCount ? '' : 'disabled' }}>
                     {{ __('Delete Selected') }}
                 </button>
             @endcan
-
-
-
         </div>
         <div class="w-full sm:w-1/2 sm:text-right">
             Search:
@@ -42,14 +38,7 @@
                             {{ trans('cruds.category.fields.name') }}
                             @include('components.table.sort', ['field' => 'name'])
                         </th>
-                        <th>
-                            {{ trans('cruds.category.fields.slug') }}
-                            @include('components.table.sort', ['field' => 'slug'])
-                        </th>
-                        <th>
-                            {{ trans('cruds.category.fields.description') }}
-                            @include('components.table.sort', ['field' => 'description'])
-                        </th>
+                        
                         <th>
                         </th>
                     </tr>
@@ -63,15 +52,22 @@
                             <td>
                                 {{ $category->id }}
                             </td>
-                            <td>
+                            <td class="relative inline-flex items-center justify-between space-x-2 w-full max-w-sm">
                                 {{ $category->name }}
+                                <div class="inline group">
+                                    <span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" stroke-width="1.5" viewBox="0 0 24 24" fill="none" class="h-4 w-4 group-hover:text-blue-500 transition duration-150">
+                                            <path d="M12 11.5V16.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M12 7.51L12.01 7.49889" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" />
+                                        </svg>
+                                    </span>
+                                    <div class="invisible group-hover:visible absolute top-0 left-0 z-10 space-y-1 bg-gray-900 text-gray-50 text-sm rounded px-4 py-2 w-full max-w-xs shadow-md" role="tooltip" aria-hidden="true">
+                                        <p>url alias:<br>{{ $category->slug }}</p>
+                                    </div>
+                                </div>
                             </td>
-                            <td>
-                                {{ $category->slug }}
-                            </td>
-                            <td>
-                                {{ $category->description }}
-                            </td>
+                            
                             <td>
                                 <div class="flex justify-end">
                                     @can('inalto_category_show')

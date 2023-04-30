@@ -73,12 +73,13 @@ class Index extends Component
         $query = HaveBeenThere::with('report')->advancedFilter([
             's' => $this->search ?: null,
             'order_column' => $this->sortBy,
-          'order_direction' => $this->sortDirection,
+            'order_direction' => $this->sortDirection,
         ]);
         $hbts = $query->paginate($this->perPage);
-        foreach($hbts as $hbt) {
-            $hbt->url=Report::find($hbt->report_id)?->getUrl();
+        foreach ($hbts as $hbt) {
+            $hbt->url = Report::find($hbt->report_id)?->getUrl();
         }
+
         return view('livewire.admin.have-been-there.index', compact('query', 'hbts'));
     }
 

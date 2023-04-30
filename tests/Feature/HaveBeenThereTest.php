@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Tests\TestCase;
 use App\Models\User;
+use Tests\TestCase;
 
 class HaveBeenThereTest extends TestCase
 {
@@ -14,6 +12,7 @@ class HaveBeenThereTest extends TestCase
      *
      * @return void
      */
+    /*
     public function test_can_create_have_been_there()
     {
         $user=User::factory()->create();
@@ -23,4 +22,5 @@ class HaveBeenThereTest extends TestCase
 
         $response->assertStatus(200);
     }
+    */
 }

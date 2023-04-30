@@ -8,7 +8,7 @@ class SetPreferredLocale
 {
     public function handle($request, Closure $next)
     {
-        
+
         // Force use first supported language as primary language
         $locales = array_column(config('project.supported_languages'), 'short_code');
         app()->setLocale($locales[0]);
