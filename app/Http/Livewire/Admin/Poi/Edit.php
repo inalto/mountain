@@ -23,7 +23,6 @@ class Edit extends Component
 
     public $mediaComponentNames = ['photos'];
 
-    public $photos;
 
     public function mount(Poi $poi)
     {

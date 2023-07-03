@@ -80,6 +80,14 @@ class Index extends Component
         return view('livewire.admin.poi.index', compact('query', 'pois', 'pois'));
     }
 
+    public function toggle($what,$id)
+    {
+        
+        $p = Poi::find($id);
+        $p->{$what} = !$p->{$what};
+        $p->save();
+    }
+
     public function deleteSelected()
     {
         abort_if(Gate::denies('poi_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');

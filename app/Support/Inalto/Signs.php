@@ -71,7 +71,7 @@ class Signs
                     <circle cx="14.794" cy="14.851" r="14.4" style="fill:rgb(255,198,0);stroke:black;stroke-width:1.03px;"/>
                 </g>
                 <g transform="matrix(3.09627,0,0,2.99952,5.65076,0.833791)">
-                    <text x="50%" y="19.359px" text-anchor="middle" style="font-family:\'ArialMT\', \'Arial\', sans-serif;font-size:12px;">'.$content.'</text>
+                    <text x="43%" y="19.359px" text-anchor="middle" style="font-family:\'ArialMT\', \'Arial\', sans-serif;font-size:12px;">'.$content.'</text>
                 </g>
             </g>
         </svg></span>
@@ -85,7 +85,7 @@ class Signs
 
     public static function bassaYellow($content)
     {
-        return '<span class="inline-flex w-6 h-6 relative"><svg width="100%" height="100%" viewBox="0 0 30 30" version="1.1" style="position:absolute;top:6px;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><rect id="bassa" x="0" y="-0" width="30" height="30" style="fill:none;"/><clipPath id="_clip1"><rect x="0" y="-0" width="30" height="30"/></clipPath><g clip-path="url(#_clip1)"><path d="M15,30l-15,-30l30,0l-15,30Z" style="fill:#ffc600;"/><path d="M15,30l-15,-30l30,0l-15,30Zm0,-2.236l-13.382,-26.764c0,0 26.764,0 26.764,0l-13.382,26.764Z"/><text x="6.658px" y="9.434px" style="font-family:\'ArialMT\', \'Arial\', sans-serif;font-size:10px;">.$content.</text></g></svg></span>';
+        return '<span class="inline-flex w-6 h-6 relative"><svg width="100%" height="100%" viewBox="0 0 30 30" version="1.1" style="position:absolute;top:6px;fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><rect id="bassa" x="0" y="-0" width="30" height="30" style="fill:none;"/><clipPath id="_clip1"><rect x="0" y="-0" width="30" height="30"/></clipPath><g clip-path="url(#_clip1)"><path d="M15,30l-15,-30l30,0l-15,30Z" style="fill:#ffc600;"/><path d="M15,30l-15,-30l30,0l-15,30Zm0,-2.236l-13.382,-26.764c0,0 26.764,0 26.764,0l-13.382,26.764Z"/><text x="43%" y="50%" style="font-family:\'ArialMT\', \'Arial\', sans-serif;font-size:10px;">'.$content.'</text></g></svg></span>';
     }
 
     public static function dropPositive($content)

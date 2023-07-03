@@ -7,7 +7,6 @@ use Admin\ContentPageController;
 /*
 * Admin
 */
-
 use Admin\ContentTagController;
 use Admin\NewsCategoryController;
 use Admin\NewsPostController;
@@ -21,17 +20,26 @@ use Admin\UserController;
 use App\Http\Controllers\Admin\HaveBeenThereController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Frontend\DasboardController;
+use App\Http\Controllers\Frontend\DashboardController;
 use App\Http\Controllers\Frontend\HaveBeenTheresController;
+use App\Http\Controllers\Frontend\PoisController;
 use App\Http\Controllers\Frontend\ReportsController as Report;
 use Illuminate\Support\Facades\Auth;
 /*
 * Frontend
 */
-
 use Illuminate\Support\Facades\Route;
 
 //use inalto\HomeController;
 Route::mediaLibrary();
+
+
+Route::get('/ml',function(){
+
+    Artisan::call('media-library:regenerate --ids=67753');
+    return "ok";
+});
 
 Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/', [Report::class, 'index'])->name('home');
@@ -43,15 +51,18 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function () {
     Route::get('/relazioni/{category?}', [Report::class, 'index'])->name('reports');
     Route::get('/relazioni/{category?}/{slug?}/{id?}', [Report::class, 'show'])->name('report.show');
 
-    Route::get('/'.trans('routes.my').'/{category?}', [Report::class, 'my'])->name('reports.my');
-
+    Route::get('/mio', [DasboardController::class, 'index'])->name('my');
+    Route::get('/mio/cisonostato', [HaveBeenTheresController::class, 'my'])->name('my.have-been-there');
+    Route::get('/mio/relazioni/{category?}', [Report::class, 'my'])->name('my.reports');
+    
     Route::get('/cisonostato/tag/{tag?}', [HaveBeenTheresController::class, 'tag'])->name('havebeentheres.tag');
 
-    Route::get('/cisonostato/{category?}', [HaveBeenTheresController::class, 'index'])->name('havebeentheres');
-    Route::get('/cisonostato/{id?}/create', [HaveBeenTheresController::class, 'create'])->name('havebeentheres.create');
+    Route::get('/cisonostato/{category?}', [HaveBeenTheresController::class, 'index'])->name('have-been-there');
+    Route::get('/cisonostato/{id?}/create', [HaveBeenTheresController::class, 'create'])->name('have-been-there.create');
     Route::get('/cisonostato/{id?}/edit', [HaveBeenTheresController::class, 'edit'])->name('have-been-there.edit');
 
-    
+    Route::get('/punti-di-interesse', [PoisController::class, 'index'])->name('pois');
+    Route::get('/punti-di-interesse/{slug?}', [PoisController::class, 'show'])->name('poi.show');
 
     /*
     Route::get('/poi/{category?}', [Report::class, 'index'])->name('poi');

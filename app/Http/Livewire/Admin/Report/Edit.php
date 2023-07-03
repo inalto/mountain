@@ -101,6 +101,7 @@ class Edit extends Component
     {
         $this->report->bibliographies = $this->bibliographies;
         $this->report->tags()->sync($this->tags);
+        ray($this->report);
 
         $this->report->time_a = Carbon::parse($this->report->time_a)->format('H:i');
         $this->report->time_r = Carbon::parse($this->report->time_r)->format('H:i');
@@ -230,15 +231,6 @@ class Edit extends Component
             'report.difficulty' => [
                 'nullable',
                 'string',
-
-                /*
-                'in:' . implode(',', array_keys(array_merge(
-                    $this->listsForFields['hiking'],
-                    $this->listsForFields['snowshoeing'],
-                    $this->listsForFields['mountaineering'],
-                    $this->listsForFields['skimountaineering']
-                ))),
-*/
             ],
             'report.period' => [
                 'array',
@@ -265,7 +257,10 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
-            'report.updated_at' => [
+            'report.created_at' => [
+                'nullable',
+            ],
+            'report.last_survey' => [
                 'nullable',
             ],
             'report.exposure' => [

@@ -22,7 +22,7 @@
     <div class="overflow-hidden">
         <div class="overflow-x-auto">
             <table class="table table-index w-full">
-                <thead>
+                <thead >
                     <tr>
                         <th class="w-9">
                         </th>
@@ -34,9 +34,13 @@
                             {{ trans('cruds.poi.fields.name') }}
                             @include('components.table.sort', ['field' => 'name'])
                         </th>
-                        <th>
-                            {{ trans('cruds.poi.fields.slug') }}
-                            @include('components.table.sort', ['field' => 'slug'])
+                        <th class="w-18">
+                            {{ trans('cruds.report.fields.approved') }}
+                            @include('components.table.sort', ['field' => 'approved'])
+                        </th>
+                        <th class="w-18">
+                            {{ trans('cruds.report.fields.published') }}
+                            @include('components.table.sort', ['field' => 'published'])
                         </th>
                         <th>
                             {{ trans('cruds.poi.fields.height') }}
@@ -49,7 +53,7 @@
                 </thead>
                 <tbody>
                     @forelse($pois as $poi)
-                    <tr class="table-row">
+                    <tr class="table-row ">
                         <td>
                             <input type="checkbox" value="{{ $poi->id }}" wire:model="selected">
                         </td>
@@ -57,10 +61,21 @@
                             {{ $poi->id }}
                         </td>
                         <td>
-                            {{ $poi->name }}
+                            
+                            <div class="relative  w-full">
+                                {{ $poi->name }}
+                                </div>
+                                <div>
+                                @foreach($poi->tags as $key => $entry)
+                            <span class="inline-block whitespace-nowrap px-2 mb-1 mr-1 text-xs leading-5 text-blue-500 bg-blue-100 font-medium rounded-full shadow-sm no-underline">{{ $entry->name }}</span>
+                            @endforeach
+                            </div>
                         </td>
                         <td>
-                            {{ $poi->slug }}
+                            <a href="javascript:void(0)" wire:click.prevent="toggle('approved',{{$poi->id}})"> <x-input.toggle :checked="$poi->approved" /></a>
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" wire:click.prevent="toggle('published',{{$poi->id}})"> <x-input.toggle :checked="$poi->published" /></a>
                         </td>
 
                         <td>

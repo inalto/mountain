@@ -30,6 +30,6 @@ class LoadReports
         }
 
         //$reports = $reports->makeHidden(['content','tracks']);
-        return  $reports->orderBy('created_at', 'desc')->paginate($perPage, ['*'], null, $page);
+        return  $reports->orderBy('last_survey', 'desc')->paginate($perPage, ['*'], null, $page);
     }
 }

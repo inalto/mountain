@@ -2,7 +2,7 @@
 
 
     <div class="flex gap-10">
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.owner_id') ? 'invalid' : '' }}">
+        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('report.owner_id') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.owner_id') }}</x-label>
             <input  type="hidden" name="owner_id" id="owner_id" required wire:model="report.owner_id" />
             <livewire:admin.user.finder :user_id="$report->owner_id" />
@@ -13,14 +13,24 @@
                 {{ trans('cruds.report.fields.owner_id_helper') }}
             </div>
         </div>
-        <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('report.updated_at') ? 'invalid' : '' }}">
-            <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.updated_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="updated_at" id="updated_at" required wire:model.defer="report.updated_at" />
+        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('report.created_at') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.created_at') }}</x-label>
+            <x-datetime-picker class="w-full form-control" type="text" name="created_at" id="created_at" required wire:model.defer="report.created_at" />
             <div class="validation-message">
-                {{ $errors->first('report.updated_at') }}
+                {{ $errors->first('report.created_at') }}
             </div>
             <div class="help-block">
-                {{ trans('cruds.report.fields.updated_at_helper') }}
+                {{ trans('cruds.report.fields.created_at_helper') }}
+            </div>
+        </div>
+        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('report.last_survey') ? 'invalid' : '' }}">
+            <x-label class="form-label required" for="title">{{ trans('cruds.report.fields.last_survey') }}</x-label>
+            <x-datetime-picker class="w-full form-control" type="text" name="last_survey" id="last_survey" required wire:model.defer="report.last_survey" />
+            <div class="validation-message">
+                {{ $errors->first('report.last_survey') }}
+            </div>
+            <div class="help-block">
+                {{ trans('cruds.report.fields.last_survey_helper') }}
             </div>
         </div>
     </div>
@@ -95,7 +105,7 @@
     <div class="flex gap-10">
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.time_a') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
-            <x-time type="time" class="w-full form-control" name="time_a" id="time_a" wire:model.lazy="report.time_a" />
+            <x-time type="time" class="w-full form-control" name="time_a" id="time_a" wire:model.debounce.500ms="report.time_a" />
             <div class="validation-message">
                 {{ $errors->first('report.time_a') }}
             </div>
@@ -106,7 +116,7 @@
 
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('report.time_r') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_r">{{ trans('cruds.report.fields.time_r') }}</x-label>
-            <x-time type="time" class="w-full form-control" name="time_r" id="time_r" wire:model.lazy="report.time_r" />
+            <x-time type="time" class="w-full form-control" name="time_r" id="time_r" wire:model.debounce.500ms="report.time_r" />
             <div class="validation-message">
                 {{ $errors->first('report.time_r') }}
             </div>
@@ -178,7 +188,7 @@
         <div class="w-full md:w-1/2 mb-2 form-group gap-5 flex">
             <div class="w-full md:w-1/2 mb-2 form-group">
                 <x-label class="form-label w-full" for="type">{{ trans('cruds.report.fields.period') }}</x-label>
-                <x-inputs.seasons :period="$report->period"/>
+                <x-input.seasons :period="$report->period"/>
             </div>
             <div class="w-full md:w-1/4 mb-2 form-group">
                 <x-label class="form-label" for="type">{{ trans('cruds.report.fields.approved') }}</x-label>

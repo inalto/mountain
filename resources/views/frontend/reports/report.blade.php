@@ -29,11 +29,14 @@
     </div>
 
 
-    <div class="rs bg-white dark:bg-gray-800 dark:text-gray-200 body-font">
+    <div class="rs bg-white dark:bg-gray-800 dark:text-gray-200 body-font  flex justify-between">
+    
       <x-avatar :user="$report->owner" show="true"></x-avatar>
+    
+    <div class="text-sm">
+      {{__('cruds.report.fields.last_survey')}}: {{ \Carbon\Carbon::parse($report->last_survey)->format('d/m/Y') }}
     </div>
-
-
+</div>
 
 
     <div class="rs bg-white dark:bg-gray-800 dark:text-gray-200 body-font prose">

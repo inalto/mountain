@@ -6,20 +6,21 @@ use App\Models\HaveBeenThere;
 use App\Models\Report;
 use Livewire\Component;
 use Carbon\Carbon;
-
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
 class Edit extends Component
 {
-
+    use WithMedia;
     public $listeners = ['hbtIndexRefresh' => '$refresh', 'hbtEdit' => 'edit'];
    
+    public $mediaComponentNames = ['photos', 'tracks'];
+
     public $route;
     public $havebeenthere;
     public $owner_id;
     public $report_id;
-    public $photos = [];
-    public $tracks = [];
-
-
+    public $photos;
+    public $tracks;
 
     public $rules=[
             'havebeenthere.owner_id' => [
@@ -37,6 +38,14 @@ class Edit extends Component
             'havebeenthere.date' => [
                 'required',
 //                'date_format: "Y-m-d H:i:s"',
+            ],
+            'havebeenthere.time_a' => [
+                'string',
+                'nullable',
+            ],
+            'havebeenthere.time_r' => [
+                'string',
+                'nullable',
             ],
             'havebeenthere.content' => [
                 'string',
@@ -87,12 +96,11 @@ class Edit extends Component
     public function save()
     {
         $this->validate();
-
+        $this->havebeenthere->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title', 'author')->toMediaCollection('havebeenthere_photos');
 
         $this->havebeenthere->save();
       // go to previous page
         return redirect($this->route);
-
     }
 
     public function cancel()
@@ -100,4 +108,14 @@ class Edit extends Component
         // go to previous page
         return redirect($this->route);
     }
+
+    protected function syncMedia(): void
+    {
+        collect($this->photos)->flatten(1)
+            ->each(fn ($item) => Media::where('uuid', $item['uuid'])
+            ->update(['model_id' => $this->havebeenthere->id]));
+
+        Media::whereIn('uuid', $this->mediaToRemove)->delete();
+    }
 }
+?>

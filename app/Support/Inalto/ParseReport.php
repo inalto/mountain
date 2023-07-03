@@ -149,15 +149,20 @@ class ParseReport
 
     public static function routeBassaParser($payload)
     {
-        preg_match_all('@[\\\]([a-zA-Z0-9 ]+)[//]([a-z])@m', $payload, $matches);
-        if (count($matches) < 2 || empty($matches[0]) || empty($matches[1]) || empty($matches[2])) {
+        //preg_match_all('@[\\\]([a-zA-Z0-9 ]+)[//]([a-z])@m', $payload, $matches);
+        preg_match_all('/\\\\([0-9]+)\/([a-zA-Z])/', $payload, $matches,PREG_SET_ORDER);
+        if (empty($matches)) {
             return $payload;
         }
         $replace = [];
-        $occurrences = $matches[0];
-        $contents = $matches[1];
-        $types = $matches[2];
-
+        $occurrences = [];
+        $contents = [];
+        $types = [];
+        foreach ($matches as $match) {
+            $occurrences[] = $match[0];
+            $contents[] = $match[1];
+            $types[] = $match[2];
+        }
         for ($i = 0; $i < count($occurrences); $i++) {
             switch ($types[$i]) {
                 case 'g':

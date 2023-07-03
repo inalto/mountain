@@ -5,6 +5,8 @@ namespace App\Http\Livewire\Admin\Poi;
 use App\Models\Poi as Poi;
 use App\Models\Tag;
 use App\Models\Translation as PoiTranslation;
+use GuzzleHttp\Client;
+
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
@@ -64,6 +66,20 @@ class Create extends Component
         $this->poi->syncFromMediaLibraryRequest($this->photos)->toMediaCollection('poi_photos');
 
         $this->poi->save();
+    }
+    public function getHeight()
+    {
+        $client = new Client();
+        //get elevation from bing maps
+
+        $res = $client->request('GET', 'http://dev.virtualearth.net/REST/v1/Elevation/List?points='.$this->poi->location['lat'].','.$this->poi->location['lon'].'&key='.env('BING_MAP_API'), []);
+
+        if ($res->getStatusCode() == 200) {
+            $body = json_decode($res->getBody());
+            $this->poi->height = $body->resourceSets[0]->resources[0]->elevations[0];
+        }
+        //  ray($res->getBody()->getContents());
+        //$this->poi->height = "10";
     }
 
     protected function rules(): array

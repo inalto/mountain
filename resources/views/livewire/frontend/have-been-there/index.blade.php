@@ -34,9 +34,9 @@
 
     @if (auth()->user())
     @if ($hbts->count()==0)
-    <x-a wire:click="new()" class="mr-2">{{ trans('global.havebeentherefirst') }}</x-a>
+    <x-a href="{{route('have-been-there.create',['id'=>$report_id])}}" class="mr-2">{{ trans('global.havebeentherefirst') }}</x-a>
     @else
-    <x-a wire:click="new()" class="mr-2">{{ trans('global.havebeenthere') }}</x-a>
+    <x-a href="{{route('have-been-there.create',['id'=>$report_id])}}" class="mr-2">{{ trans('global.havebeenthere') }}</x-a>
     @endif
 
     {{-- Modal --}}
@@ -99,7 +99,7 @@
         </div>
 
         <x-ckedit id="editor" rows="3" wire:model.defer="editing.content" name="editing.content" class="w-full" :value="$editing->content">
-       sss {{$editing->content}}
+        {{$editing->content}}
         </x-ckedit>
         
         <div class="validation-message">
@@ -136,4 +136,5 @@
 
     @endif
 
+    <x-swal></x-swal>
 </div>

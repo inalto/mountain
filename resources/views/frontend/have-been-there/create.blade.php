@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="card-body">
-            <livewire:frontend.have-been-there.create :report_id="$report_id"/>
+            <livewire:frontend.have-been-there.create :report_id="$id"/>
         </div>
     </div>
 </x-app-layout>

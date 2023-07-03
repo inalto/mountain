@@ -83,6 +83,14 @@ class Index extends Component
         return view('livewire.admin.have-been-there.index', compact('query', 'hbts'));
     }
 
+    public function toggle($what,$id)
+    {
+        
+        $h = HaveBeenThere::find($id);
+        $h->{$what} = !$h->{$what};
+        $h->save();
+    }
+
     public function deleteSelected()
     {
         abort_if(Gate::denies('inalto_havebeenthere_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');

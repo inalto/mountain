@@ -67,11 +67,11 @@ class Poi extends Model implements HasMedia, TranslatableContract
         'location' => 'array',
 
     ];
-
+/*
     protected $appends = [
         'photos',
     ];
-
+*/
     public function owner()
     {
         return $this->belongsTo(User::class);
@@ -133,5 +133,16 @@ class Poi extends Model implements HasMedia, TranslatableContract
     protected function serializeDate(DateTimeInterface $date)
     {
         return $date->format('Y-m-d H:i:s');
+    }
+
+    public function scopeOwnerId($query, $id)
+    {
+        return $query->where('owner_id', $id);
+    }
+
+
+    public function scopeIsPublished($query)
+    {
+        return $query->where('published', '=', true);
     }
 }

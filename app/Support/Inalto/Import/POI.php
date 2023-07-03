@@ -84,7 +84,7 @@ class POI
                         'alt' => $img->field_copertina_alt,
                         'title' => $img->field_copertina_title,
                     ])
-                    ->toMediaCollection('Poi_photos');
+                    ->toMediaCollection('poi_photos');
                 }
             }
 
@@ -109,7 +109,7 @@ class POI
                         'alt' => $img->field_galleria_fotografica_alt,
                         'title' => $img->field_galleria_fotografica_title,
                     ])
-                    ->toMediaCollection('Poi_photos');
+                    ->toMediaCollection('poi_photos');
                 }
             }
         }

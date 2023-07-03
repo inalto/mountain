@@ -8,7 +8,7 @@
             <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.date" id="havebeenthere.date" wire:model="havebeenthere.date" />
 
             <div class="validation-message">
-                {{ $errors->first('date') }}
+                {{ $errors->first('havebeenthere.date') }}
             </div>
             {{--
             <div class="help-block">
@@ -21,7 +21,7 @@
             <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
             <x-time type="time" class="w-full form-control" name="havebeenthere.time_a" id="havebeenthere.time_a" wire:model="havebeenthere.time_a" />
             <div class="validation-message">
-                {{ $errors->first('time_a') }}
+                {{ $errors->first('havebeenthere.time_a') }}
             </div>
             {{--
             <div class="help-block">
@@ -34,7 +34,7 @@
             <x-label class="form-label" for="time_r">{{ trans('cruds.report.fields.time_r') }}</x-label>
             <x-time type="time" class="w-full form-control" name="time_r" id="time_r" wire:model="time_r" />
             <div class="validation-message">
-                {{ $errors->first('havebeentheret.time_r') }}
+                {{ $errors->first('havebeenthere.time_r') }}
             </div>
             {{--
             <div class="help-block">
@@ -49,7 +49,7 @@
             <x-label class="form-label required" for="title">{{ trans('cruds.havebeenthere.fields.title') }}</x-label>
             <x-input class="w-full form-control" type="text" name="havebeenthere.title" id="havebeenthere.title" required wire:model="havebeenthere.title" />
             <div class="validation-message">
-                {{ $errors->first('title') }}
+                {{ $errors->first('havebeenthere.title') }}
             </div>
             {{--
             <div class="help-block">

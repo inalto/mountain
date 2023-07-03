@@ -28,27 +28,8 @@
     </div>
     
     <div class="flex gap-10">
-    <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.created_at') ? 'invalid' : '' }}">
-            <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.created_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.created_at" id="havebeenthere.created_at" wire:model.defer="havebeenthere.created_at" />
-            <div class="validation-message">
-                {{ $errors->first('havebeenthere.created_at') }}
-            </div>
-            <div class="help-block">
-                {{ trans('cruds.havebeenthere.fields.created_at_helper') }}
-            </div>
-        </div>
-        <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.updated_at') ? 'invalid' : '' }}">
-            <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.updated_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="havebeenthere.updated_at" id="havebeenthere.updated_at" wire:model.defer="havebeenthere.updated_at" />
-            <div class="validation-message">
-                {{ $errors->first('havebeenthere.updated_at') }}
-            </div>
-            <div class="help-block">
-                {{ trans('cruds.havebeenthere.fields.updated_at_helper') }}
-            </div>
-        </div>
-    <div class="w-full md:w-1/3 mb-2 form-group {{ $errors->has('havebeenthere.date') ? 'invalid' : '' }}">
+
+        <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('havebeenthere.date') ? 'invalid' : '' }}">
             <x-label class="form-label " for="title">{{ trans('cruds.havebeenthere.fields.date') }}</x-label>
             <x-datetime-picker class="w-full form-control" type="text" name="date" id="date" wire:model.defer="havebeenthere.date" />
             <div class="validation-message">
@@ -58,10 +39,6 @@
                 {{ trans('cruds.havebeenthere.fields.date_helper') }}
             </div>
         </div>
-</div>
-
-
-    <div class="flex gap-10">
         <div class="w-full md:w-1/4 mb-2 form-group {{ $errors->has('havebeenthere.time_a') ? 'invalid' : '' }}">
             <x-label class="form-label" for="time_a">{{ trans('cruds.report.fields.time_a') }}</x-label>
             <x-time type="time" class="w-full form-control" name="time_a" id="time_a" wire:model="havebeenthere.time_a" />
@@ -90,7 +67,6 @@
                 <div class="help-block">
                     {{ trans('cruds.report.fields.approved_helper') }}
                 </div>
-
             </div>
             <div class="w-full md:w-1/2 mb-2 form-group">
                 <x-label class="form-label" for="type">{{ trans('cruds.report.fields.published') }}</x-label>

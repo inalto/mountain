@@ -21,7 +21,10 @@
             </x-inalto.nav-link>
             @endforeach
         @endif
-        <x-inalto.nav-link href="{{ route('havebeentheres') }}" :active="request()->routeIs('havebeentheres')">
+        <x-inalto.nav-link href="{{ route('pois') }}" :active="request()->routeIs('pois')">
+            {{ __('Punti di interesse') }}
+        </x-inalto.nav-link>
+        <x-inalto.nav-link href="{{ route('have-been-there') }}" :active="request()->routeIs('have-been-there')">
             {{ __('Ci sono stato') }}
         </x-inalto.nav-link>
         @auth

@@ -24,11 +24,13 @@
                         <x-avatar :user="Auth::user()" />
                     </x-slot>
                     <x-slot name="content">
-                        <!-- Account Management -->
-                        <div class="block px-4 py-2 text-xs text-gray-400">
-                            {{ __('Manage Account') }}
-                        </div>
-                        <x-dropdown-link href="{{ route('reports.my') }}">
+                        <x-dropdown-link href="{{ route('my') }}">
+                            {{ __('inalto.dashboard') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link href="{{ route('my.have-been-there') }}">
+                            {{ __('inalto.have-been-there') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link href="{{ route('my.reports') }}">
                             {{ __('inalto.my') }}
                         </x-dropdown-link>
                         <x-dropdown-link href="{{ route('profile.show') }}">

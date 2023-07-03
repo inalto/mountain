@@ -86,6 +86,14 @@ class Index extends Component
 
         return view('livewire.admin.report.index', compact('query', 'reports', 'reports'));
     }
+    
+    public function toggle($what,$id)
+    {
+        
+        $r = Report::find($id);
+        $r->{$what} = !$r->{$what};
+        $r->save();
+    }
 
     public function deleteSelected()
     {

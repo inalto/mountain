@@ -12,16 +12,20 @@ class HaveBeenTheresController extends Controller
 
     public function index()
     {
-        return view('frontend.have-been-there.index');
+        return view('frontend.have-been-there.index',['uid' => null]);
+    }
+
+    public function my()
+    {
+        return view('frontend.have-been-there.index',['uid' => auth()->user()->id]);
     }
 
     public function create($id)
     {
-        return view('frontend.have-been-there.create', ['report_id' => $id]);
+        return view('frontend.have-been-there.create', ['id' => $id]);
     }
     public function edit($id)
     {
-        
         return view('frontend.have-been-there.edit', ['id' => $id] );
     }
 

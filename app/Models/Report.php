@@ -39,6 +39,7 @@ class Report extends Model implements HasMedia, TranslatableContract
 
     public $orderable = [
         'id',
+        'last_survey',
         'title',
         'slug',
         'difficulty',
@@ -68,6 +69,8 @@ class Report extends Model implements HasMedia, TranslatableContract
         'nid',
         'height',
         'length',
+        'time_a',
+        'time_r'
         //        'excerpt',
         //        'content',
     ];

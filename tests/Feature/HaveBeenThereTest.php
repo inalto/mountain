@@ -1,26 +1,32 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Http\Livewire\Frontend\HaveBeenThere;
 
+use App\Http\Livewire\Frontend\HaveBeenThere\Create;
+use App\Models\HaveBeenThere;
 use App\Models\User;
+use Carbon\Carbon;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Livewire\Livewire;
 use Tests\TestCase;
 
-class HaveBeenThereTest extends TestCase
+class CreateTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    /*
-    public function test_can_create_have_been_there()
-    {
-        $user=User::factory()->create();
-        ray($user);
-        $this->actingAs($user);
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    /** @test */
+    public function it_can_render_create_component()
+    {
+        $this->actingAs(User::factory()->create());
+        
+     $this->get('/cisonostato/1076/create')
+     ->assertSuccessful()->assertSeeLivewire('frontend.have-been-there.create');
+       
+     /*Livewire::actingAs(User::factory()->create())
+            ->test(Create::class)
+            ->assertSuccessful();
+            */
     }
-    */
+
 }
+?>

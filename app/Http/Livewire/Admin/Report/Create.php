@@ -267,7 +267,8 @@ class Create extends Component
                 'string',
                 'nullable',
             ],
-            'report.updated_at' => [
+            
+            'report.last_survey' => [
                 'nullable',
             ],
             'report.exposure' => [

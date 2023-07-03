@@ -2,7 +2,7 @@
 
 namespace App\Http\Livewire\Admin\HaveBeenThere;
 
-use App\Models\HaveBeenThere as HaveBeenThere;
+use App\Models\HaveBeenThere;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 use Livewire\Component;
 use Spatie\MediaLibraryPro\Http\Livewire\Concerns\WithMedia;
@@ -73,11 +73,11 @@ class Create extends Component
             ],
             'havebeenthere.time_a' => [
                 'string',
-                'nullable',
+                'sometimes|nullable',
             ],
             'havebeenthere.time_r' => [
                 'string',
-                'nullable',
+                'sometimes|nullable',
             ],
             'havebeenthere.approved' => [
                 'boolean',

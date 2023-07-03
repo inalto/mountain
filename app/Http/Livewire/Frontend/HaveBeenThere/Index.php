@@ -6,6 +6,9 @@ use App\Models\HaveBeenThere as HaveBeenThereModel;
 use App\Models\Tag;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Tests\Feature\HaveBeenThereTest;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class Index extends Component
 {
@@ -19,30 +22,21 @@ class Index extends Component
 
     public $report_id;
 
-    public $isModalOpen = 0;
-
-    protected $listeners = ['hbtIndexRefresh' => '$refresh', 'parentModalClose' => 'modalClose'];
+    protected $listeners = ['refresh' => '$refresh','delete'];
 
     private $havebeentheres;
 
     public HaveBeenThereModel $editing;
-
-    protected $rules = [
-        'editing.title' => 'required',
-        'editing.content' => 'required',
-        'editing.date' => 'required',
-        'editing.time_a' => 'required',
-        'editing.time_r' => 'required',
-    ];
-
-    //public $havebeentheres=[];
 
     public function mount($report_id = null, $category = null, $user = null, $tag = null)
     {
         $this->editing = new HaveBeenThereModel();
 
         $this->category = $category;
-        $this->user_id = $user;
+        if ($user) {
+            $this->user_id = $user;
+        }
+        
         $this->tag = $tag;
         $this->report_id = $report_id;
     }
@@ -71,27 +65,25 @@ class Index extends Component
         return view('livewire.frontend.have-been-there.index', ['hbts' => $this->havebeentheres]);
     }
 
-    public function new()
+    public function deleteConfirm($id)
     {
-        $this->isModalOpen = true;
+        $this->dispatchBrowserEvent('swal:confirm', [
+            'type' => 'warning',
+            'title' => 'Are you sure? ',
+            'text' => '',
+            'id' => $id,
+        ]);
     }
 
-    public function edit(HaveBeenThereModel $havebeenthere)
+    public function delete($id)
     {
-        $this->editing = $havebeenthere;
-        $this->isModalOpen = true;
-        //$this->emit('ckeditorLoaded');
-        //$this->dispatchBrowserEvent('ckeditorLoaded');
-    }
-    public function save() {
-        $this->validate();
-        $this->editing->save();
-        $this->isModalOpen = false;
-    }
-    
+        abort_if(Gate::denies('report_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-    public function modalClose()
-    {
-        $this->isModalOpen = false;
+        HaveBeenThereModel::find($id)->delete();
+        $this->emit('refresh');
+        $this->dispatchBrowserEvent('toastr:error', [
+            'message' => 'Report deleted',
+        ]);
     }
+
 }

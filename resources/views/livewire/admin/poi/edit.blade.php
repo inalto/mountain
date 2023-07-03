@@ -1,8 +1,9 @@
 <form wire:submit.prevent="submit" class="p-3">
+    @ray($poi)
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.created_at') ? 'invalid' : '' }}">
             <x-label class="form-label required" for="created_at">{{ trans('cruds.poi.fields.created_at') }}</x-label>
-            <x-datetime-picker class="w-full form-control" type="text" name="created_at" id="updated_at" required wire:model="poi.created_at" />
+            <x-datetime-picker class="w-full form-control" type="text" name="created_at" id="updated_at" required wire:model.defer="poi.created_at" />
             <div class="validation-message">
                 {{ $errors->first('poi.created_at') }}
             </div>
@@ -47,7 +48,7 @@
     </div>
     <div class="flex gap-10">
         <div class="w-full md:w-1/2 mb-2"> 
-            <x-inputs.coords />
+            <x-input.coords />
         </div>
         <div class="w-full md:w-1/2 mb-2 form-group {{ $errors->has('poi.height') ? 'invalid' : '' }}">
             <x-label class="form-label" for="height">{{ trans('cruds.poi.fields.height') }}</x-label>
@@ -81,7 +82,7 @@
     </div>
     <div class="form-group {{ $errors->has('poi.excerpt') ? 'invalid' : '' }}">
         <x-label class="form-label" for="excerpt">{{ trans('cruds.poi.fields.excerpt') }}</x-label>
-        <x-ckedit wire:model="poi.excerpt" name="excerpt">
+        <x-ckedit id="poi.excerpt" wire:model.defer="poi.excerpt" name="excerpt">
             {{ old('excerpt', $poi->excerpt) }}
 
         </x-ckedit>
@@ -97,7 +98,7 @@
     <div class="form-group {{ $errors->has('poi.content') ? 'invalid' : '' }}">
         <x-label class="form-label" for="content">{{ trans('cruds.poi.fields.content') }}</x-label>
 
-        <x-ckedit wire:model="poi.content" name="content">
+        <x-ckedit id="poi.content" wire:model.defer="poi.content" name="content">
             {{ old('content', $poi->content) }}
         </x-ckedit>
 
@@ -123,12 +124,18 @@
         </div>
     </div>
 
-    <div class="form-group mt-5">
-        <x-jet-button class="mr-2" type="submit">
-            {{ trans('global.save') }}
-        </x-jet-button>
-        <a href="{{ route('admin.pois.index') }}" class="btn btn-secondary">
-            {{ trans('global.cancel') }}
-        </a>
+    <div class="form-group flex justify-between">
+        <div>
+            <x-jet-button class="mr-2" type="submit">
+                {{ trans('global.save_and_exit') }}
+            </x-jet-button>
+            <x-jet-button class="mr-2" type="submit" wire:click.prevent="save">
+                {{ trans('global.save') }}
+            </x-jet-button>
+            <a href="{{ route('admin.reports.index') }}" class="btn btn-secondary">
+                {{ trans('global.cancel') }}
+            </a>
+        </div>
+        <x-delete-button></x-delete-button>
     </div>
 </form>

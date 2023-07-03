@@ -16,7 +16,7 @@
 
     <div class="col-span-6 md:col-span-3">
       <x-jet-label for="excerpt" value="{{ __('cruds.report.fields.excerpt') }}" />
-      <x-inputs.richtext id="excerpt" wire:model.lazy="excerpt" :content="$excerpt" />
+      <x-input.richtext id="excerpt" wire:model.lazy="excerpt" :content="$excerpt" />
     </div>
     <div class="col-span-6 md:col-span-3">
       <h2>{{ __('cruds.report.fields.details') }}</h2>
@@ -25,13 +25,13 @@
 
     <div class="col-span-6">
         <x-jet-label for="access" value="{{ __('cruds.report.fields.access') }}" />
-        <x-inputs.richtext id="access" wire:model.lazy="content" :content="$access" />
+        <x-input.richtext id="access" wire:model.lazy="content" :content="$access" />
       </div>
 
       
     <div class="col-span-6">
       <x-jet-label for="content" value="{{ __('cruds.report.fields.description') }}" />
-      <x-inputs.richtext id="content" wire:model.lazy="content" :content="$content" />
+      <x-input.richtext id="content" wire:model.lazy="content" :content="$content" />
     </div>
 
 <div class="col-span-6">
