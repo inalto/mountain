@@ -36,6 +36,10 @@ class Poi extends Model implements HasMedia, TranslatableContract
         'name',
         'slug',
         'height',
+        'last_survey',
+        'approved',
+        'published',
+        'owner.name'
     ];
 
     public $filterable = [
@@ -45,13 +49,14 @@ class Poi extends Model implements HasMedia, TranslatableContract
         'approved',
         'published',
     ];
+/*
 
     protected $dates = [
         'created_at',
         'updated_at',
         'deleted_at',
     ];
-
+*/
     protected $fillable = [
         'name',
         'height',
@@ -65,7 +70,9 @@ class Poi extends Model implements HasMedia, TranslatableContract
 
     public $casts = [
         'location' => 'array',
-
+        'created_at' => 'datetime: Y-m-d H:i',
+        'updated_at' => 'datetime: Y-m-d H:i',
+        'last_survey' => 'datetime: Y-m-d H:i'
     ];
 /*
     protected $appends = [
@@ -145,4 +152,11 @@ class Poi extends Model implements HasMedia, TranslatableContract
     {
         return $query->where('published', '=', true);
     }
+
+
+    public function getUrl()
+    {
+        return $this->translate()?->slug;
+    }
+
 }

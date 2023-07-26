@@ -6,7 +6,10 @@
 
         <x-slot name="header">
         </x-slot>
-        <livewire:frontend.pois.index></livewire:frontend.pois.index>
-
+        <section class="py-3 body-font">
+            <div class="px-1 py-1 mx-auto">
+                <livewire:frontend.pois.index></livewire:frontend.pois.index>
+                </div>
+</section>
 
 </x-app-layout>

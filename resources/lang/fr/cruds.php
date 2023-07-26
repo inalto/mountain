@@ -397,6 +397,7 @@ return [
             "title_helper" => " ",
             "tracks" => "Tracks",
             "tracks_helper" => " ",
+            "type" => "Type d'itinéraire",
             "updated_at" => "Mis à jour le",
             "updated_at_helper" => " ",
             "url" => "URL",

@@ -196,6 +196,10 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
+            'report.type' => [
+                'digits_between:0,3',
+                'nullable',
+            ],
 
             'report.drop_p' => [
                 'digits_between:0,4',

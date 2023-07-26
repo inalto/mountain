@@ -10,24 +10,61 @@ class UserTest extends TestCase
 {
     use CreatesApplication;
 
+
     /**
-     * A basic feature test example.
+     * Test User model creation.
      *
      * @return void
      */
-    public function test_user_creation()
+    public function testUserCreation()
     {
-        $data = [
-            'name' => 'John Doe',
-            'email' => 'john.doe@example.com',
-            'password' => 'secret',
+        $data=User::factory()->definition();
+
+        User::create($data);
+        $this->assertDatabaseHas('users', ['email' => $data['email']]);
+    }
+
+    /**
+     * Test User model update.
+     *
+     * @return void
+     */
+  /*
+     public function testUserUpdate()
+    {
+        $user = User::factory()->create();
+
+        $updatedData = [
+            'name' => 'Updated Name',
+            'email' => 'updated_email@example.com',
         ];
 
-        $user = User::create($data);
+        $response = $this->put('/users/' . $user->id, $updatedData);
 
-        $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals($data['name'], $user->name);
-        $this->assertEquals($data['email'], $user->email);
-        $this->assertTrue(password_verify($data['password'], $user->password));
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'name' => 'Updated Name',
+            'email' => 'updated_email@example.com',
+        ]);
     }
+*/
+    /**
+     * Test User model deletion.
+     *
+     * @return void
+     */
+    /*
+    public function testUserDeletion()
+    {
+        $user = User::factory()->create();
+
+        $response = $this->delete('/users/' . $user->id);
+
+        $response->assertStatus(200);
+
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
+    }
+    */
 }

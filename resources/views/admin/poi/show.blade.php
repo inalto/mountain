@@ -12,81 +12,62 @@
         </div>
 
         <div class="card-body">
-            <div class="pt-3">
-                <table class="table table-view">
-                    <tbody class="bg-white">
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.id') }}
-                            </th>
-                            <td>
-                                {{ $poi->id }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.name') }}
-                            </th>
-                            <td>
-                                {{ $poi->name }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.lat') }}
-                            </th>
-                            <td>
-                                {{ $poi->lat }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.lon') }}
-                            </th>
-                            <td>
-                                {{ $poi->lon }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.height') }}
-                            </th>
-                            <td>
-                                {{ $poi->height }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.access') }}
-                            </th>
-                            <td>
-                                {{ $poi->access }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.description') }}
-                            </th>
-                            <td>
-                                {{ $poi->description }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>
-                                {{ trans('cruds.poi.fields.biography') }}
-                            </th>
-                            <td>
-                                {{ $poi->biography }}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="form-group">
-                <a href="{{ route('admin.pois.index') }}" class="btn btn-secondary">
-                    {{ trans('global.back') }}
-                </a>
-            </div>
+
+
+
+    <div class="w-full hero">
+      <img class="w-full" @if ($poi->getFirstMediaUrl('poi_photos')) src="{{ $poi->getFirstMediaUrl('poi_photos') }}" alt="" @endif />
+    </div>
+
+
+    <div class="rs bg-white dark:bg-gray-800 dark:text-gray-200 body-font  flex justify-between">
+
+      <x-avatar :user="$poi->owner" show="true"></x-avatar>
+
+    <div class="text-sm">
+      {{__('cruds.report.fields.last_survey')}}: {{ \Carbon\Carbon::parse($poi->last_survey)->format('d/m/Y') }}
+    </div>
+</div>
+
+
+    <div class="rs bg-white dark:bg-gray-800 dark:text-gray-200 body-font prose">
+
+      <x-tags :tags="$poi->tags"></x-tags>
+
+
+      @if ($poi->access)
+      <h2>{{ trans('cruds.report.fields.access') }}</h2>
+      {!!$poi->access!!}
+      @endif
+      @if ($poi->excerpt)
+      <h2>{{ trans('cruds.report.fields.intro') }}</h2>
+      {!!$poi->excerpt!!}
+      @endif
+      @if ($poi->content)
+      <h2>{{ trans('cruds.report.fields.description') }}</h2>
+      {!!$poi->content!!}
+      @endif
+    </div>
+
+
+
+
+
+  </section>
+  <section class="rs bg-transparent">
+    <x-report.gallery :photos="$poi->photos" :date="$poi->created_at->format('Y')" :author="$poi->owner">
+      </x-report.galley>
+  </section>
+
+
+<section>
+  <x-map :latitude="$poi->location['lat']" :longitude="$poi->location['lon']" :pins="[0=>['latitude'=>$poi->location['lat'],'longitude'=>$poi->location['lon'],'popupContent'=>$poi->name]]"></x-map>
+</section>
+
+  <section>
+    <x-maps :tracks="$poi->tracks"></x-maps>
+  </section>
+
         </div>
     </div>
 </x-admin-layout>

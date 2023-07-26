@@ -68,6 +68,10 @@
       </x-report.galley>
   </section>
 
+ 
+<section>
+  <x-map :latitude="$poi->location['lat']" :longitude="$poi->location['lon']" :pins="[0=>['latitude'=>$poi->location['lat'],'longitude'=>$poi->location['lon'],'popupContent'=>$poi->name]]"></x-map>
+</section>
 
   <section>
     <x-maps :tracks="$poi->tracks"></x-maps>

@@ -290,6 +290,12 @@ return [
         "will_expire_in" => "",
         "your_code_is" => ""
     ],
+    "type" => [
+        "ar" => "andata/ritorno",
+        "circular" => "circolare",
+        "crossing" => "traversata",
+        "pcirc" => "parzialmente circolare"
+    ],
     "update" => "Aggiorna",
     "update_profile_success" => "",
     "update_success" => "",

@@ -42,13 +42,11 @@ class LoadMore extends Component
     public function render()
     {
         if (! $this->loadMore) {
-            return view('livewire.frontend.reports.load-more-reports');
+            return view('livewire.frontend.pois.load-more-pois');
         } else {
-            $reports = LoadPois::load($this->page, $this->perPage, $this->category, $this->user_id, $this->tag);
+            $pois = LoadPois::load($this->page, $this->perPage, $this->category, $this->user_id, $this->tag);
 
-            return view('livewire.frontend.reports.index', [
-                'reports' => $reports,
-            ]);
+            return view('livewire.frontend.pois.index',['pois'=>$pois]);
         }
     }
 }

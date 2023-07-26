@@ -290,6 +290,12 @@ return [
         "will_expire_in" => "The code will expire in :minutes minutes.",
         "your_code_is" => "Your two factor code is :code."
     ],
+    "type" => [
+        "ar" => "Round trip",
+        "circular" => "circular",
+        "crossing" => "Crossing",
+        "pcirc" => "partially circular"
+    ],
     "update" => "Update",
     "update_profile_success" => "Profile updated successfully",
     "update_success" => "Your item has been successfully updated.",

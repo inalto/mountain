@@ -294,6 +294,12 @@ return [
         "will_expire_in" => "Le code expirera dans :minutes minutes.",
         "your_code_is" => "Votre code à deux facteurs est :code."
     ],
+    "type" => [
+        "ar" => "Aller-retour",
+        "circular" => "circulaire",
+        "crossing" => "Traversée",
+        "pcirc" => "partiellement circulaire"
+    ],
     "update" => "Mettre à jour",
     "update_profile_success" => "Mise à jour du profil réussie",
     "update_success" => "Votre article a été mis à jour avec succès.",

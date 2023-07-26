@@ -27,6 +27,14 @@ class Edit extends Component
     public function mount(Poi $poi)
     {
         $this->poi = $poi;
+
+        ray($this->poi);
+        $location = [];
+        $location['lat'] = 45.747297;
+        $location['lon'] = 7.655518;
+
+        $this->poi->location = $location;
+
         $this->initListsForFields();
         $this->tags = $this->poi->tags()->pluck('id')->toArray();
     }
@@ -51,6 +59,8 @@ class Edit extends Component
     public function save()
     {
         $this->poi->tags()->sync($this->tags);
+
+
 
         $this->poi->syncFromMediaLibraryRequest($this->photos)->withCustomProperties('title', 'author')->toMediaCollection('poi_photos');
 
@@ -84,7 +94,7 @@ class Edit extends Component
                 'string',
                 'nullable',
             ],
-            'poi.updated_at' => [
+            'poi.last_survey' => [
                 'string',
                 'nullable',
             ],

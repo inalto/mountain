@@ -149,9 +149,9 @@
 
     </div>
     <div class="flex gap-10">
-        
+
         <div class="w-full md:w-1/4 mb-2 form-group">
-            
+
             <x-label class="form-label" for="type">{{ trans('cruds.report.fields.difficulty_class.type') }}
             </x-label>
             <select class="form-control w-full" wire:model="report.category_id" name="category">
@@ -167,6 +167,8 @@
 
         </div>
 
+        <x-input.report-type :report="$report" label="{{__('cruds.report.fields.type')}}" wire:model.defer="report.type"/>
+
         <div class="w-full md:w-1/4 mb-2 form-group">
             <x-label class="form-label">{{ trans('cruds.report.fields.difficulty') }}</x-label>
             <select class="form-control  w-full" wire:model="report.difficulty" name="difficulty">
@@ -175,7 +177,7 @@
                 @foreach ($difficulties as $key => $value)
                 <option value="{{ $key }}" @if ($key==$report->difficulty)selected @endif>{{ $value }}</option>
                 @endforeach
-                
+
             </select>
 
             <div class="help-block">
@@ -265,7 +267,7 @@
 
     <h2 class="block font-medium text-sm text-gray-700 block form-label">Foto</h2>
     <x-media-library-collection name="photos" :model="$report" collection="report_photos" fields-view="livewire.partials.collection.fields" />
-   
+
     <h2 class="block font-medium text-sm text-gray-700 block form-label">Tracciati GPS</h2>
     <x-media-library-collection name="tracks" :model="$report" collection="report_tracks" fields-view="livewire.partials.collection.fields"  />
 

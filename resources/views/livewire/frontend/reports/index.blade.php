@@ -1,11 +1,10 @@
-<section class="py-3 body-font">
-    <div class="px-1 py-1 mx-auto">
+
         <div class="flex flex-wrap">
             @forelse ($reports as $report)
             <div class="w-full p-1 md:w-1/2 lg:w-1/3 xl:w-1/4 ">
                 <div class="flex flex-col h-full overflow-hidden bg-gray-50 dark:bg-gray-850 rounded-lg shadow-lg">
                     <div class="flex-grow-0">
-                        
+
                         @if ($report->getFirstMediaUrl('report_photos'))
                         <a class="block border-b-4 transition duration-500 border-white dark:border-black focus:outline-none hover:border-inalto-400 hover:dark:border-inalto-700 focus:border-inalto-400 dark:focus:border-inalto-700" href="{{ route('report.show', ($report->category?$report->category->translate()->slug:'none').'/'.$report->slug) }}">
                             <img class="object-cover object-center w-full h-48" src="{{ $report->getFirstMediaUrl('report_photos') }}" alt="" /></a>
@@ -100,13 +99,11 @@
             <p>No Report</p>
             @endforelse
             @if($reports->hasMorePages())
-            
+
     <livewire:frontend.load-more-reports :category="$category" :tag="$tag" :user_id="$user_id" :page=$page :perPage=$perPage  key="page-$page" />
-    
+
 @endif
 
-       
-            
+
+
         </div>
-    </div>
-</section>

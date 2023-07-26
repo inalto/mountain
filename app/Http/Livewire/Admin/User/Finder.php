@@ -31,7 +31,7 @@ class Finder extends Component
     public function selectUser($id)
     {
         $u = User::where('id', $id)->select('name', 'first_name', 'last_name')->get()->first();
-        ray($u);
+
         $this->user_id = $id;
         $this->user_full_name = '['.$u->name.']'.$u->first_name.' '.$u->last_name;
         $this->search = null;
